@@ -11,13 +11,20 @@ public class MainWindow extends JFrame {
         setLocationRelativeTo(null);
         setMinimumSize(new Dimension(300, 300));
 
-        JTabbedPane mainWinTabs = new JTabbedPane();
+        mainWinTabs = new JTabbedPane();
         add(mainWinTabs);
-
-        mainWinTabs.addTab("Metrics", new Metrics());
+        makeTabs();
 
         setVisible(true);
     }
 
+    //////////////////////////////////////ADD TABS HERE///////////////////////////////////////
+    public void makeTabs(){
+        
+        mainWinTabs.addTab("Metrics", new Metrics());
+        mainWinTabs.addTab("mass_balance", new MassBalance());
+        mainWinTabs.addTab("ground_reactions", new GroundReactions());
+    }
 
+    JTabbedPane mainWinTabs;
 }

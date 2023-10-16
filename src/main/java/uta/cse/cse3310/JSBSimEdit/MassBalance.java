@@ -1,10 +1,10 @@
 package uta.cse.cse3310.JSBSimEdit;
 
 import javax.swing.*;
-
-public class Metrics extends JPanel{
     
-    Metrics(){
+public class MassBalance extends JPanel{
+    
+    MassBalance(){
         add(new JLabel("Random Text"));
     }
 }
