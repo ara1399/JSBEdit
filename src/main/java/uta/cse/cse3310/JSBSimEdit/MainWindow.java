@@ -24,6 +24,9 @@ public class MainWindow extends JFrame {
         mainWinTabs.addTab("Metrics", new Metrics());
         mainWinTabs.addTab("mass_balance", new MassBalance());
         mainWinTabs.addTab("ground_reactions", new GroundReactions());
+        mainWinTabs.addTab("FileHeader", new FileHeader());
+        mainWinTabs.addTab("Input", new Input());
+        mainWinTabs.addTab("Output", new Output());
     }
 
     JTabbedPane mainWinTabs;
