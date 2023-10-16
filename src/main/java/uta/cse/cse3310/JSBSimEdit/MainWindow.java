@@ -6,7 +6,7 @@ import java.awt.*;
 public class MainWindow extends JFrame {
 
     public MainWindow() {
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("JSBEdit (JE)");
         setLocationRelativeTo(null);
         setMinimumSize(new Dimension(300, 300));
