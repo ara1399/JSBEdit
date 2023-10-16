@@ -40,6 +40,8 @@ public class App {
       //m.setProperty("jaxb.formatted.output", true);
       //m.marshal(cfg, System.out);
 
+      MainWindow mainWin = new MainWindow();
+
     } catch (JAXBException e) {
       e.printStackTrace();
     }
