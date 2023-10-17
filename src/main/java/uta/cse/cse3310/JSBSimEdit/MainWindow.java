@@ -21,12 +21,14 @@ public class MainWindow extends JFrame {
     //////////////////////////////////////ADD TABS HERE///////////////////////////////////////
     public void makeTabs(){
         
-        mainWinTabs.addTab("Metrics", new Metrics());
-        mainWinTabs.addTab("mass_balance", new MassBalance());
-        mainWinTabs.addTab("ground_reactions", new GroundReactions());
         mainWinTabs.addTab("FileHeader", new FileHeader());
+        mainWinTabs.addTab("Metrics", new Metrics());
+        mainWinTabs.addTab("MassBalance", new MassBalance());
+        mainWinTabs.addTab("GroundReactions", new GroundReactions());
+        mainWinTabs.addTab("FlightControl", new FlightControl());
         mainWinTabs.addTab("Input", new Input());
         mainWinTabs.addTab("Output", new Output());
+        
     }
 
     JTabbedPane mainWinTabs;
