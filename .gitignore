@@ -1,5 +1,5 @@
 target/
-src/main/java/generated
+src/main/java/generated/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
