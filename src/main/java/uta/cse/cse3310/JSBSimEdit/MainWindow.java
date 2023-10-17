@@ -26,11 +26,6 @@ public class MainWindow extends JFrame {
         mainWinTabs.addTab("MassBalance", new MassBalance());
         mainWinTabs.addTab("GroundReactions", new GroundReactions());
 <<<<<<< HEAD
-        //external reactions
-        //buoyant forces
-        mainWinTabs.addTab("Propulsion", new Propulsion());
-        //system
-        //autopilot
 =======
         mainWinTabs.addTab("ExternalReactions", new ExternalReactions());
         mainWinTabs.addTab("BouyantForces", new BouyantForces());
