@@ -25,13 +25,10 @@ public class MainWindow extends JFrame {
         mainWinTabs.addTab("Metrics", new Metrics());
         mainWinTabs.addTab("MassBalance", new MassBalance());
         mainWinTabs.addTab("GroundReactions", new GroundReactions());
-<<<<<<< HEAD
-=======
         mainWinTabs.addTab("ExternalReactions", new ExternalReactions());
         mainWinTabs.addTab("BouyantForces", new BouyantForces());
-        mainWinTabs.addTab("System", new System());
+        mainWinTabs.addTab("System", new SystemTab());
         mainWinTabs.addTab("AutoPilot", new AutoPilot());
->>>>>>> 85a6018d8f2df27c87a440947f4d5f453d6b328d
         mainWinTabs.addTab("FlightControl", new FlightControl());
         mainWinTabs.addTab("Aerodynamics", new Aerodynamics());
         mainWinTabs.addTab("Input", new Input());
