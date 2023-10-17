@@ -1,4 +1,4 @@
-package main.java.uta.cse.cse3310.JSBSimEdit;
+package uta.cse.cse3310.JSBSimEdit;
 
 import javax.swing.*;
 
