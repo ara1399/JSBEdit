@@ -1,21 +1,41 @@
 package uta.cse.cse3310.JSBSimEdit;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
+import uta.cse.cse3310.JSBSimEdit.utils.Constants;
+import uta.cse.cse3310.JSBSimEdit.utils.LoadSave;
+
 import java.awt.*;
 
 public class MainWindow extends JFrame {
 
+    //menu bar on top
+    private JMenuBar menuBar = new JMenuBar();
+    //button bar in menu bar
+    private JPanel buttonPanel = new JPanel();
+	private JToolBar buttonBar = new JToolBar();
+	private JButton openButton = new JButton();
+	private JButton saveButton = new JButton();
+    
+    JTabbedPane mainWinTabs;
+    
     public MainWindow() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setTitle("JSBEdit (JE)");
+        setTitle(Constants.APP_NAME);
         setLocationRelativeTo(null);
-        setMinimumSize(new Dimension(300, 300));
+        setMinimumSize(new Dimension(Constants.APP_SIZEX, Constants.APP_SIZEY));
+
+        add(menuBar, BorderLayout.NORTH);
+        makeMenuBar();
 
         mainWinTabs = new JTabbedPane();
         add(mainWinTabs);
         makeTabs();
 
+        pack();
         setVisible(true);
+        getContentPane().requestFocusInWindow();
     }
 
     //////////////////////////////////////ADD TABS HERE///////////////////////////////////////
@@ -37,5 +57,36 @@ public class MainWindow extends JFrame {
         
     }
 
-    JTabbedPane mainWinTabs;
+    public void makeMenuBar() {
+        //======== buttonPanel ========
+        { 
+            buttonPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 5));
+            buttonPanel.setBackground(UIManager.getColor("MenuBar.background"));
+        
+            //======== buttonBar ========
+            {
+                buttonBar.setBackground(UIManager.getColor("MenuBar.background"));
+
+                //---- openButton ----
+                openButton.setIcon(new ImageIcon(LoadSave.getContext().getResource(Constants.OPEN_RES)));
+                openButton.setBorder(new EmptyBorder(5, 10, 5, 10));
+                openButton.setBackground(null);
+                openButton.setToolTipText("Open a XML config to edit");
+                openButton.addActionListener(event -> LoadSave.openFile());
+                //openButton.setActionCommand("MainPanel.prev");
+                buttonBar.add(openButton);
+
+                //---- saveButton ----
+                saveButton.setIcon(new ImageIcon(LoadSave.getContext().getResource(Constants.SAVE_RES)));
+                saveButton.setBackground(null);
+                saveButton.setBorder(new EmptyBorder(5, 10, 5, 10));
+                saveButton.setToolTipText("Save the config to XML");
+                //saveButton.addActionListener(listener);
+                //saveButton.setActionCommand("MainPanel.play");
+                buttonBar.add(saveButton);
+            }
+            buttonPanel.add(buttonBar);
+        }
+        menuBar.add(buttonPanel);
+    }
 }
