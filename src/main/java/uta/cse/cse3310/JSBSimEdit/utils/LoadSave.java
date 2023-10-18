@@ -1,6 +1,7 @@
 package uta.cse.cse3310.JSBSimEdit.utils;
 
 import java.io.File;
+import java.util.Optional;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -24,8 +25,8 @@ public class LoadSave {
     }
 
 
-    public static File openFile() {
-        // Launch file chooser
+    public static Optional<File> openFile() {
+        // Launch file chooser at current working directory
         JFileChooser fileChooser = new JFileChooser(new File("."));
         fileChooser.setDialogTitle("Select a XML file to load");
         fileChooser.setFileFilter(new FileNameExtensionFilter(Constants.EXT_XML_DESC, Constants.EXT_XML));
@@ -35,7 +36,7 @@ public class LoadSave {
         if (!(result == JFileChooser.APPROVE_OPTION)) {
             //GUIController.main_panel.getStatusLabel().setText("Status: No file selected.");
             System.out.println(Constants.ANSI_RED + "No file selected." + Constants.ANSI_RESET);
-            return null;
+            return Optional.empty();
         }
         
         // Check if file is XML
@@ -44,10 +45,10 @@ public class LoadSave {
         if (!extension.equals(Constants.EXT_XML)) {
             //GUIController.main_panel.getStatusLabel().setText("Status: Non XML file selected.");
             System.out.println(Constants.ANSI_RED + "Non XML file selected." + Constants.ANSI_RESET);
-            return null;
+            return Optional.empty();
         }
 
         System.out.println(Constants.ANSI_GREEN + "XML file selected." + Constants.ANSI_RESET);
-        return selectedFile;
+        return Optional.ofNullable(selectedFile);
     }
 }
