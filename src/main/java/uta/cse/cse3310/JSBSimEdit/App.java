@@ -11,7 +11,6 @@ import generated.FdmConfig;
 
 public class App {
   public static void main(String[] args) {
-    System.out.println("Hello World!");
 
     try {
 
@@ -28,12 +27,12 @@ public class App {
       Unmarshaller um = jc.createUnmarshaller();
       FdmConfig cfg = (FdmConfig) um.unmarshal(file);
     
-      System.out.println(cfg);
+      /* System.out.println(cfg);
       System.out.println(cfg.getFileheader().getCopyright());
       System.out.println(cfg.getFileheader().getVersion() );
       System.out.println(cfg.getAerodynamics().getAxis().get(0).getName());
       System.out.println(cfg.getAerodynamics().getAxis().get(0).getFunction());
-      System.out.println(cfg.getAerodynamics().getAxis().get(0).getClass());
+      System.out.println(cfg.getAerodynamics().getAxis().get(0).getClass()); */
 
 
       //Marshaller m = jc.createMarshaller();
