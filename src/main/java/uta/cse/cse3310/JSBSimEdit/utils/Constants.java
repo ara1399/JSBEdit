@@ -22,9 +22,13 @@ public class Constants {
     // RESOURCES ARE NOT PATHS - ALWAYS USE "/" AS SEPARATOR
     // res folders
     public static final String ICONS_RESF = "icons/";
+    public static final String ICONS_ORG_RESF = "icons/original/";
 
     // res ui icons
     // https://www.flaticon.com/search?author_id=1&style_id=153&type=standard&word=
     public static final String OPEN_RES = ICONS_RESF + "open-folder" + EXT_PNG;
     public static final String SAVE_RES = ICONS_RESF + "save-file" + EXT_PNG;
+
+    // res ui original icons 32x32
+    public static final String ACFT_MGR_RES = ICONS_ORG_RESF + "acft_mgr" + EXT_PNG;
 }
