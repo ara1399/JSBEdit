@@ -1,7 +1,5 @@
+# Maven
 target/
-generated/
-.vscode/
-META-INF/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
@@ -12,7 +10,18 @@ buildNumber.properties
 .mvn/timing.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
-.class
+
+# JAXB generated classes
+generated/
+META-INF/
+
+# JFormDesigner files
+.jfd
+.jfdproj
+views/
+
+# VS Code Settings
+.vscode/
 
 # Eclipse m2e generated files
 # Eclipse Core

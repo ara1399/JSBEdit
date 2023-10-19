@@ -13,7 +13,7 @@ public class MassBalance extends JPanel{
     }
 
     void openPointMass(){
-        PointMass pm = new PointMass();
+        new PointMass();
     }
 
     JButton addPM;

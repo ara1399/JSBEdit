@@ -13,7 +13,7 @@ public class GroundReactions extends JPanel{
     }
 
     void openLandingGearSetup(){
-        LandingGearSetup lgs = new LandingGearSetup();
+        new LandingGearSetup();
     }
 
     JButton addGR;
