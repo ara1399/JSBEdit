@@ -221,7 +221,7 @@ public class FileHeader extends JPanel {
 		{
 			organizationScrollPane.setViewportView(organizationTextArea);
 		}
-		add(organizationScrollPane, "cell 1 4 2 2,grow");
+		add(organizationScrollPane, "cell 1 4 2 2,growy");
 
 		//---- descriptionLabel ----
 		descriptionLabel.setText("Description");
