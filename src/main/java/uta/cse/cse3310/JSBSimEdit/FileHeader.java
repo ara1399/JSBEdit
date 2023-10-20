@@ -10,47 +10,73 @@ import net.miginfocom.swing.*;
  * Created by JFormDesigner on Wed Oct 18 21:22:52 CDT 2023
  */
 public class FileHeader extends JPanel {
-	
-	private JLabel aircraftNameLabel;
-	private JTextField aircraftNameText;
-	private JLabel releaseLevelLabel;
-	private JComboBox releaseLevelCombo;
-	private JLabel flightModelVersionLabel;
-	private JTextField flightModelVersionText;
-	private JLabel licenseLabel;
-	private JTextField licenseText;
-	private JLabel licenseURLLabel;
-	private JTextField licenseURLText;
-	private JLabel sensitivityLabel;
-	private JTextField sensitivityText;
-	private JLabel fileDateLabel;
-	private JTextField fileDateText;
-	private JLabel configVersionLabel;
-	private JTextField configVersionText;
-	private JLabel copyrightLabel;
-	private JTextField copyrightText;
-	private JLabel authorLabel;
-	private JTextField authorText;
-	private JLabel emailLabel;
-	private JTextField emailText;
-	private JLabel organizationLabel;
-	private JScrollPane organizationScrollPane;
-	private JTextArea organizationTextArea;
-	private JLabel descriptionLabel;
-	private JScrollPane descriptionScrollPane;
-	private JTextArea descriptionTextArea;
-	private JLabel referencesLabel;
-	private JScrollPane referencesScrollPane;
-	private JTable referencesTable;
-	private JLabel limitationsLabel;
-	private JScrollPane limitationsScrollPane;
-	private JTextArea limitationsTextArea;
-	private JLabel notesLabel;
-	private JScrollPane notesScrollPane;
-	private JTextArea notesTextArea;
 
 	public FileHeader() {
 		initComponents();
+	}
+	
+	public JTextField getAircraftNameText() {
+		return aircraftNameText;
+	}
+
+	public JComboBox getReleaseLevelCombo() {
+		return releaseLevelCombo;
+	}
+
+	public JTextField getFlightModelVersionText() {
+		return flightModelVersionText;
+	}
+
+	public JTextField getLicenseText() {
+		return licenseText;
+	}
+
+	public JTextField getLicenseURLText() {
+		return licenseURLText;
+	}
+
+	public JTextField getSensitivityText() {
+		return sensitivityText;
+	}
+
+	public JTextField getFileDateText() {
+		return fileDateText;
+	}
+
+	public JTextField getConfigVersionText() {
+		return configVersionText;
+	}
+
+	public JTextField getCopyrightText() {
+		return copyrightText;
+	}
+
+	public JTextField getAuthorText() {
+		return authorText;
+	}
+
+	public JTextField getEmailText() {
+		return emailText;
+	}
+
+	public JTextArea getOrganizationTextArea() {
+		return organizationTextArea;
+	}
+
+	public JTextArea getDescriptionTextArea() {
+		return descriptionTextArea;
+	}
+
+	public JTable getReferencesTable() {
+		return referencesTable;
+	}
+
+	public JTextArea getLimitationsTextArea() {
+		return limitationsTextArea;
+	}
+
+	public JTextArea getNotesTextArea() {
+		return notesTextArea;
 	}
 
 	private void initComponents() {
@@ -285,4 +311,42 @@ public class FileHeader extends JPanel {
 		}
 		add(notesScrollPane, "cell 1 9 5 2,growy");
 	}
+
+	private JLabel aircraftNameLabel;
+	private JTextField aircraftNameText;
+	private JLabel releaseLevelLabel;
+	private JComboBox releaseLevelCombo;
+	private JLabel flightModelVersionLabel;
+	private JTextField flightModelVersionText;
+	private JLabel licenseLabel;
+	private JTextField licenseText;
+	private JLabel licenseURLLabel;
+	private JTextField licenseURLText;
+	private JLabel sensitivityLabel;
+	private JTextField sensitivityText;
+	private JLabel fileDateLabel;
+	private JTextField fileDateText;
+	private JLabel configVersionLabel;
+	private JTextField configVersionText;
+	private JLabel copyrightLabel;
+	private JTextField copyrightText;
+	private JLabel authorLabel;
+	private JTextField authorText;
+	private JLabel emailLabel;
+	private JTextField emailText;
+	private JLabel organizationLabel;
+	private JScrollPane organizationScrollPane;
+	private JTextArea organizationTextArea;
+	private JLabel descriptionLabel;
+	private JScrollPane descriptionScrollPane;
+	private JTextArea descriptionTextArea;
+	private JLabel referencesLabel;
+	private JScrollPane referencesScrollPane;
+	private JTable referencesTable;
+	private JLabel limitationsLabel;
+	private JScrollPane limitationsScrollPane;
+	private JTextArea limitationsTextArea;
+	private JLabel notesLabel;
+	private JScrollPane notesScrollPane;
+	private JTextArea notesTextArea;
 }

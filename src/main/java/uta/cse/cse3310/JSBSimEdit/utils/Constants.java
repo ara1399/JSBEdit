@@ -24,7 +24,7 @@ public class Constants {
     public static final String ICONS_RESF = "icons/";
     public static final String ICONS_ORG_RESF = "icons/original/";
 
-    // res ui icons
+    // res ui icons 16x16
     // https://www.flaticon.com/search?author_id=1&style_id=153&type=standard&word=
     public static final String OPEN_RES = ICONS_RESF + "open-folder" + EXT_PNG;
     public static final String SAVE_RES = ICONS_RESF + "save-file" + EXT_PNG;
