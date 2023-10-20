@@ -8,6 +8,7 @@
     <author> Erik Hofman </author>
     <filecreationdate> 2001-12-28 </filecreationdate>
     <version> $Revision: 1.95 $ </version>
+    <!-- ERROR: Schema mismatch. License name and url should be attributes -->
     <license>
       <licenseName>GPL (General Public License)</licenseName>
       <licenseURL>http://www.gnu.org/licenses/gpl.html</licenseURL>
@@ -26,6 +27,7 @@
    warranties, including, but not limitted to the implied warranties of
    merchantability and fitness for a particular purpose are disclaimed.
   </note>
+    <!-- ERROR: Schema mismatch. urls should be URL attribute -->
     <reference refID="ISBN 0-7232-3458-2" author="William Green"
       title="General Dynamics F-16 Dash-1" date="1987" />
     <reference refID="NASA TP-1538" author="" title="wind tunnel data" date="12/1979" />

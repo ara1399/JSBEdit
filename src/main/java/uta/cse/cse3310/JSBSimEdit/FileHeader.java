@@ -4,6 +4,13 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
+
+import java.util.List;
+
+import generated.FdmConfig;
+import generated.Fileheader;
+import generated.Reference;
+import jakarta.xml.bind.JAXBElement;
 import net.miginfocom.swing.*;
 
 /*
@@ -14,69 +21,87 @@ public class FileHeader extends JPanel {
 	public FileHeader() {
 		initComponents();
 	}
-	
-	public JTextField getAircraftNameText() {
-		return aircraftNameText;
-	}
 
-	public JComboBox getReleaseLevelCombo() {
-		return releaseLevelCombo;
-	}
+	public void bindUIwithXML(FdmConfig cfg) {
+		// Example bindings
+        //System.out.println(cfg);
+        //System.out.println(cfg.getFileheader().getCopyright());
+        //System.out.println(cfg.getFileheader().getVersion());
+        //System.out.println(cfg.getAerodynamics().getAxis().get(0).getName());
+        //System.out.println(cfg.getAerodynamics().getAxis().get(0).getFunction());
+        //System.out.println(cfg.getAerodynamics().getAxis().get(0).getClass());
 
-	public JTextField getFlightModelVersionText() {
-		return flightModelVersionText;
-	}
+        aircraftNameText.setText(cfg.getName());
+        aircraftNameText.setCaretPosition(0); //scroll to left
+        releaseLevelCombo.setSelectedItem(cfg.getRelease());
+        flightModelVersionText.setText(cfg.getVersion());
 
-	public JTextField getLicenseText() {
-		return licenseText;
-	}
+        Fileheader fh = cfg.getFileheader();
+        licenseText.setText(fh.getLicense().getLicenseName());
+        licenseText.setCaretPosition(0); //scroll to left
+        licenseURLText.setText(fh.getLicense().getLicenseURL());
+        licenseURLText.setCaretPosition(0); //scroll to left
+        sensitivityText.setText(fh.getSensitivity());
+        fileDateText.setText(fh.getFilecreationdate().toString());
+        configVersionText.setText(fh.getVersion());
+        copyrightText.setText(fh.getCopyright());
+        descriptionTextArea.setText(fh.getDescription());
+        descriptionTextArea.setCaretPosition(0); //scroll to top
 
-	public JTextField getLicenseURLText() {
-		return licenseURLText;
-	}
+        // checking each element for a match is more robust because elements
+        // are not guaranteed to be in the same order in the XML file
+        List<JAXBElement<String>> aeo = fh.getAuthorOrEmailOrOrganization();
+        for (var element : aeo) {
+            String value = element.getValue();
+            if (value != null) {
+                if (element.getName().getLocalPart().equals("author")) {
+                    authorText.setText(value);
+                }
+                else if (element.getName().getLocalPart().equals("email")) {
+                    emailText.setText(value);
+                }
+                else if (element.getName().getLocalPart().equals("organization")) {
+                    organizationTextArea.setText(value);
+                    organizationTextArea.setCaretPosition(0); //scroll to top
+                }
+            }
+        }
 
-	public JTextField getSensitivityText() {
-		return sensitivityText;
-	}
+        /* List<JAXBElement<String>> aeo = fh.getAuthorOrEmailOrOrganization();
+        ListIterator<JAXBElement<String>> aeoITR = aeo.listIterator();
+        if(aeoITR.hasNext()) {
+            fileHeader.getAuthorText().setText(aeoITR.next().getValue());
+        }
+        if(aeoITR.hasNext()) {
+            fileHeader.getEmailText().setText(aeoITR.next().getValue());
+        }
+        if(aeoITR.hasNext()) {
+            fileHeader.getOrganizationTextArea().setText(aeoITR.next().getValue());
+            fileHeader.getOrganizationTextArea().setCaretPosition(0); //scroll to top
+        } */
 
-	public JTextField getFileDateText() {
-		return fileDateText;
-	}
-
-	public JTextField getConfigVersionText() {
-		return configVersionText;
-	}
-
-	public JTextField getCopyrightText() {
-		return copyrightText;
-	}
-
-	public JTextField getAuthorText() {
-		return authorText;
-	}
-
-	public JTextField getEmailText() {
-		return emailText;
-	}
-
-	public JTextArea getOrganizationTextArea() {
-		return organizationTextArea;
-	}
-
-	public JTextArea getDescriptionTextArea() {
-		return descriptionTextArea;
-	}
-
-	public JTable getReferencesTable() {
-		return referencesTable;
-	}
-
-	public JTextArea getLimitationsTextArea() {
-		return limitationsTextArea;
-	}
-
-	public JTextArea getNotesTextArea() {
-		return notesTextArea;
+        List<Object> nlr = fh.getNoteOrLimitationOrReference();
+        for (var element : nlr) {
+            if (element instanceof JAXBElement<?>) {
+                JAXBElement<String> el = (JAXBElement<String>) element;
+                String value = (String) el.getValue();
+                if(el.getName().getLocalPart().equals("limitation")) {
+                    limitationsTextArea.setText(value);
+                    limitationsTextArea.setCaretPosition(0); //scroll to top
+                }
+                else if(el.getName().getLocalPart().equals("note")) {
+                    notesTextArea.setText(value);
+                    notesTextArea.setCaretPosition(0); //scroll to top
+                }
+            }
+            else {
+                Reference ref = (Reference) element;
+                DefaultTableModel model = (DefaultTableModel) referencesTable.getModel();
+                model.addRow(new Object[]{
+					ref.getRefID(), ref.getTitle(), ref.getAuthor(), ref.getDate(), ref.getURL()
+				});
+            }
+        }
 	}
 
 	private void initComponents() {
@@ -160,6 +185,11 @@ public class FileHeader extends JPanel {
 
 		//---- releaseLevelCombo ----
 		releaseLevelCombo.setMaximumRowCount(10);
+		releaseLevelCombo.setModel(new DefaultComboBoxModel<>(new String[] {
+			"ALPHA",
+			"BETA",
+			"PRODUCTION"
+		}));
 		releaseLevelCombo.setPreferredSize(new Dimension(100, 23));
 		add(releaseLevelCombo, "cell 3 0");
 
@@ -270,9 +300,7 @@ public class FileHeader extends JPanel {
 
 			//---- referencesTable ----
 			referencesTable.setModel(new DefaultTableModel(
-				new Object[][] {
-					{null, null, null, null, null},
-				},
+				new Object[][] {},
 				new String[] {
 					"Ref ID", "Title", "Author", "Date", "URL"
 				}
@@ -287,7 +315,7 @@ public class FileHeader extends JPanel {
 			});
 			referencesScrollPane.setViewportView(referencesTable);
 		}
-		add(referencesScrollPane, "cell 1 6 5 1");
+		add(referencesScrollPane, "cell 1 6 5 1,growy");
 
 		//---- limitationsLabel ----
 		limitationsLabel.setText("Limitations");
@@ -315,7 +343,7 @@ public class FileHeader extends JPanel {
 	private JLabel aircraftNameLabel;
 	private JTextField aircraftNameText;
 	private JLabel releaseLevelLabel;
-	private JComboBox releaseLevelCombo;
+	private JComboBox<String> releaseLevelCombo;
 	private JLabel flightModelVersionLabel;
 	private JTextField flightModelVersionText;
 	private JLabel licenseLabel;

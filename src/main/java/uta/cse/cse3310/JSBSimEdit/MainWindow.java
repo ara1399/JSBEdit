@@ -1,10 +1,10 @@
 package uta.cse.cse3310.JSBSimEdit;
 
 import javax.swing.*;
+import javax.swing.ImageIcon;
 import javax.swing.border.EmptyBorder;
 
 import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
 import generated.FdmConfig;
@@ -13,14 +13,10 @@ import uta.cse.cse3310.JSBSimEdit.utils.LoadSave;
 
 import java.awt.*;
 import java.io.File;
-import java.util.List;
-import java.util.ListIterator;
 import java.util.Optional;
 import java.lang.System;
 
 public class MainWindow extends JFrame {
-
-    public static FdmConfig cfg;
     
     //menu bar on top
     private JMenuBar menuBar = new JMenuBar();
@@ -30,8 +26,8 @@ public class MainWindow extends JFrame {
 	private JButton openButton = new JButton();
 	private JButton saveButton = new JButton();
     //tabs
-    private JTabbedPane mainWinTabs;
-    private FileHeader fileHeader;
+    private JTabbedPane mainWinTabs = new JTabbedPane();
+    private FileHeader fileHeader = new FileHeader();
     
     public MainWindow() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -42,7 +38,6 @@ public class MainWindow extends JFrame {
         add(menuBar, BorderLayout.NORTH);
         makeMenuBar();
 
-        mainWinTabs = new JTabbedPane();
         add(mainWinTabs);
         makeTabs();
 
@@ -54,7 +49,7 @@ public class MainWindow extends JFrame {
     //////////////////////////////////////ADD TABS HERE///////////////////////////////////////
     private void makeTabs(){
         
-        mainWinTabs.addTab("FileHeader", fileHeader = new FileHeader());
+        mainWinTabs.addTab("FileHeader", fileHeader);
         mainWinTabs.addTab("Metrics", new Metrics());
         mainWinTabs.addTab("MassBalance", new MassBalance());
         mainWinTabs.addTab("GroundReactions", new GroundReactions());
@@ -91,8 +86,10 @@ public class MainWindow extends JFrame {
                         if(xml.isPresent()) {
                             JAXBContext jc = JAXBContext.newInstance("generated");
                             Unmarshaller um = jc.createUnmarshaller();
-                            cfg = (FdmConfig) um.unmarshal(xml.get());
-                            bindUIwithXML();
+                            FdmConfig cfg = (FdmConfig) um.unmarshal(xml.get());
+                            
+                            // bind tabs with xml
+                            fileHeader.bindUIwithXML(cfg);
                         }
                     } catch (JAXBException e) {
                         System.out.println(Constants.ANSI_RED + "XML parsing Error." + Constants.ANSI_RESET);
@@ -106,48 +103,10 @@ public class MainWindow extends JFrame {
                 saveButton.setBorder(new EmptyBorder(5, 10, 5, 10));
                 saveButton.setToolTipText("Save the config to XML");
                 //saveButton.addActionListener(listener);
-                //saveButton.setActionCommand("MainPanel.play");
                 buttonBar.add(saveButton);
             }
             buttonPanel.add(buttonBar);
         }
         menuBar.add(buttonPanel);
-    }
-
-    private void bindUIwithXML() {
-        //System.out.println(cfg);
-        //System.out.println(cfg.getFileheader().getCopyright());
-        //System.out.println(cfg.getFileheader().getVersion());
-        //System.out.println(cfg.getAerodynamics().getAxis().get(0).getName());
-        //System.out.println(cfg.getAerodynamics().getAxis().get(0).getFunction());
-        //System.out.println(cfg.getAerodynamics().getAxis().get(0).getClass());
-
-        fileHeader.getAircraftNameText().setText(cfg.getName());
-        fileHeader.getReleaseLevelCombo().setSelectedItem(cfg.getRelease());
-        fileHeader.getFlightModelVersionText().setText(cfg.getVersion());
-
-        fileHeader.getLicenseText().setText(cfg.getFileheader().getLicense().getLicenseName());
-        fileHeader.getLicenseURLText().setText(cfg.getFileheader().getLicense().getLicenseURL());
-        fileHeader.getSensitivityText().setText(cfg.getFileheader().getSensitivity());
-        fileHeader.getFileDateText().setText(cfg.getFileheader().getFilecreationdate().toString());
-        fileHeader.getConfigVersionText().setText(cfg.getFileheader().getVersion());
-        fileHeader.getCopyrightText().setText(cfg.getFileheader().getCopyright());
-
-        List<JAXBElement<String>> aeo = cfg.getFileheader().getAuthorOrEmailOrOrganization();
-        ListIterator<JAXBElement<String>> itr = aeo.listIterator();
-        if(itr.hasNext()) {
-            fileHeader.getAuthorText().setText(itr.next().getValue());
-        }
-        if(itr.hasNext()) {
-            fileHeader.getEmailText().setText(itr.next().getValue());
-        }
-        if(itr.hasNext()) {
-            fileHeader.getOrganizationTextArea().setText(itr.next().getValue());
-        }
-        
-        fileHeader.getDescriptionTextArea().setText(cfg.getFileheader().getDescription());
-        //fileHeader.getReferencesTable().setValueAt(cfg.getFileheader().getNoteOrLimitationOrReference().get(2).getClass().getName(), 0, 0);
-        //fileHeader.getLimitationsTextArea().setText(cfg.getFileheader().getNoteOrLimitationOrReference().get(1).getClass().getName());
-        //fileHeader.getNotesTextArea().setText(cfg.getFileheader().getNoteOrLimitationOrReference().get(0).getClass().getName());
     }
 }
