@@ -1,10 +1,18 @@
 package uta.cse.cse3310.JSBSimEdit;
 
-import java.awt.*;
-import javax.swing.*;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.*;
 import javax.swing.table.*;
 
+import java.awt.Dimension;
 import java.util.List;
 
 import generated.FdmConfig;

@@ -1,7 +1,10 @@
 package uta.cse.cse3310.JSBSimEdit;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Dimension;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.WindowConstants;
 
 public class PointMass extends JFrame{
     PointMass(){        

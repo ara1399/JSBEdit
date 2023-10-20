@@ -1,7 +1,14 @@
 package uta.cse.cse3310.JSBSimEdit;
 
-import javax.swing.*;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JMenuBar;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JToolBar;
+import javax.swing.UIManager;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 import jakarta.xml.bind.JAXBContext;
@@ -11,7 +18,9 @@ import generated.FdmConfig;
 import uta.cse.cse3310.JSBSimEdit.utils.Constants;
 import uta.cse.cse3310.JSBSimEdit.utils.LoadSave;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.io.File;
 import java.util.Optional;
 import java.lang.System;
