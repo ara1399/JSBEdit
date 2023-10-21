@@ -91,6 +91,7 @@ public class FileHeader extends JPanel implements TabComponent {
                 Reference ref = (Reference) element;
 				if(ref.getTitle() != null) {
 					DefaultTableModel model = (DefaultTableModel) referencesTable.getModel();
+					model.setRowCount(0);
 					model.addRow(new Object[]{
 						ref.getRefID(), ref.getTitle(), ref.getAuthor(), ref.getDate(), ref.getURL()
 					});
