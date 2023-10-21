@@ -4,7 +4,7 @@ public class Constants {
     
     // app settings
     public static final String APP_NAME = "JSBSimEdit (JE)";
-    public static final int APP_SIZEX = 1250;
+    public static final int APP_SIZEX = 1270;
     public static final int APP_SIZEY = 600;
 
     // file extensions
@@ -24,6 +24,9 @@ public class Constants {
     public static final String ICONS_RESF = "icons/";
     public static final String ICONS_ORG_RESF = "icons/original/";
 
+    // res ui background
+    public static final String BG_RES = ICONS_RESF + "f16-500-238" + EXT_PNG;
+    
     // res ui icons 16x16
     // https://www.flaticon.com/search?author_id=1&style_id=153&type=standard&word=
     public static final String OPEN_RES = ICONS_RESF + "open-folder" + EXT_PNG;

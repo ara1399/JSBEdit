@@ -3,6 +3,7 @@ package uta.cse.cse3310.JSBSimEdit;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -38,6 +39,7 @@ public class MainWindow extends JFrame {
 	private JButton saveButton = new JButton();
     //tabs
     private JTabbedPane mainWinTabs = new JTabbedPane();
+    private JLabel home = new JLabel();
     private FileHeader fileHeader = new FileHeader();
     
     public MainWindow() {
@@ -45,11 +47,17 @@ public class MainWindow extends JFrame {
         setTitle(Constants.APP_NAME);
         setLocationRelativeTo(null);
         setMinimumSize(new Dimension(Constants.APP_SIZEX, Constants.APP_SIZEY));
-
+        
         makeMenuBar();
         add(menuBar, BorderLayout.NORTH);
 
+        home.setText("Open a xml config to begin.");
+        home.setIcon(new ImageIcon(LoadSave.getContext().getResource(Constants.BG_RES)));
+        home.setHorizontalAlignment(JLabel.CENTER); 
+        home.setVerticalAlignment(JLabel.CENTER);
+
         makeTabs();
+        mainWinTabs.setEnabled(false);
         add(mainWinTabs);
 
         pack();
@@ -60,6 +68,7 @@ public class MainWindow extends JFrame {
     //////////////////////////////////////ADD TABS HERE///////////////////////////////////////
     private void makeTabs(){
         
+        mainWinTabs.addTab("Home", home);
         mainWinTabs.addTab("FileHeader", fileHeader);
         mainWinTabs.addTab("Metrics", new Metrics());
         mainWinTabs.addTab("MassBalance", new MassBalance());
@@ -97,7 +106,9 @@ public class MainWindow extends JFrame {
                             JAXBContext jc = JAXBContext.newInstance("generated");
                             Unmarshaller um = jc.createUnmarshaller();
                             cfg = (FdmConfig) um.unmarshal(xml.get());
-
+                            mainWinTabs.setEnabled(true);
+                            mainWinTabs.setSelectedIndex(1);
+                            
                             // bind tabs with xml
                             fileHeader.bindUIwithXML(cfg);
                         }

@@ -17,12 +17,14 @@ import javax.xml.namespace.QName;
 
 import java.awt.Dimension;
 import java.util.List;
+import java.lang.System;
 
 import generated.FdmConfig;
 import generated.Fileheader;
 import generated.Reference;
 import jakarta.xml.bind.JAXBElement;
 import net.miginfocom.swing.*;
+import uta.cse.cse3310.JSBSimEdit.utils.Constants;
 
 /*
  * Created by JFormDesigner on Wed Oct 18 21:22:52 CDT 2023
@@ -106,9 +108,13 @@ public class FileHeader extends JPanel {
 		fh.getLicense().setLicenseURL(licenseURLText.getText());
 		fh.setSensitivity(sensitivityText.getText());
 		try {
-			fh.setFilecreationdate(DatatypeFactory.newInstance().newXMLGregorianCalendar(fileDateText.getText()));
+			if (fileDateText.getText().length() > 0) {
+				fh.setFilecreationdate(DatatypeFactory.newInstance().newXMLGregorianCalendar(fileDateText.getText()));
+			}
+			else
+				fh.setFilecreationdate(null);
 		} catch (DatatypeConfigurationException e) {
-			e.printStackTrace();
+			System.out.println(Constants.ANSI_RED + "Date Error. Try yyyy-mm-dd" + Constants.ANSI_RESET);
 		}
 		fh.setVersion(configVersionText.getText());
 		fh.setCopyright(copyrightText.getText());
