@@ -5,6 +5,8 @@ import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 
+import uta.cse.cse3310.JSBSimEdit.utils.CharUtils;
+
 /**
  * Test specific functions in CharUtils
  */

@@ -6,7 +6,7 @@
 
 JSBSimEdit JE is a Java refactor of the broken and outdated JSBSimCommander program written in C++. 
 
-JSBSimEdit JE assists with the creation and modification of XML flight config files for various aircraft used in the flight simulation software, JSBSim.
+JSBSimEdit JE assists with the modification of XML flight config files for various aircraft used in the flight simulation software, JSBSim.
 
 JSBSim is a data driven software package for aircraft simulation. JSBSim is widely used in
 the Aerospace industry for modeling and simulation. JSBSim is also used as the simulation engine for

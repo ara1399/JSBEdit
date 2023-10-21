@@ -17,6 +17,7 @@ import javax.xml.namespace.QName;
 
 import java.awt.Dimension;
 import java.util.List;
+import java.util.Optional;
 import java.lang.System;
 
 import generated.FdmConfig;
@@ -24,12 +25,13 @@ import generated.Fileheader;
 import generated.Reference;
 import jakarta.xml.bind.JAXBElement;
 import net.miginfocom.swing.*;
+import uta.cse.cse3310.JSBSimEdit.interfaces.TabComponent;
 import uta.cse.cse3310.JSBSimEdit.utils.Constants;
 
 /*
  * Created by JFormDesigner on Wed Oct 18 21:22:52 CDT 2023
  */
-public class FileHeader extends JPanel {
+public class FileHeader extends JPanel implements TabComponent {
 	
 	public FileHeader() {
 		initComponents();
@@ -85,7 +87,7 @@ public class FileHeader extends JPanel {
                     notesTextArea.setCaretPosition(0); //scroll to top
                 }
             }
-            else {
+            else if (element instanceof Reference) {
                 Reference ref = (Reference) element;
 				if(ref.getTitle() != null) {
 					DefaultTableModel model = (DefaultTableModel) referencesTable.getModel();
@@ -93,12 +95,19 @@ public class FileHeader extends JPanel {
 						ref.getRefID(), ref.getTitle(), ref.getAuthor(), ref.getDate(), ref.getURL()
 					});
 				}
+				else {
+					System.out.println("Schema Mismatch: FileHeader: References Title is required");
+				}
             }
         }
 	}
 
-	public FdmConfig saveXMLfromUI(FdmConfig cfg) {
+	public Optional<FdmConfig> saveXMLfromUI(FdmConfig cfg) {
 
+		if(!(aircraftNameText.getText().length() > 0)) {
+			System.out.println("Schema Mismatch: FileHeader: Aircraft Name is required");
+			return Optional.empty();
+		}
 		cfg.setName(aircraftNameText.getText());
 		cfg.setRelease((String) releaseLevelCombo.getSelectedItem());
 		cfg.setVersion(flightModelVersionText.getText());
@@ -139,7 +148,7 @@ public class FileHeader extends JPanel {
 			ref.setURL((String) referencesTable.getValueAt(i, 4));
 			nlr.add(ref);
 		}
-		return cfg;
+		return Optional.ofNullable(cfg);
 	}
 
 	private void initComponents() {
@@ -222,8 +231,9 @@ public class FileHeader extends JPanel {
 		add(releaseLevelLabel, "cell 2 0");
 
 		//---- releaseLevelCombo ----
-		releaseLevelCombo.setMaximumRowCount(10);
+		releaseLevelCombo.setMaximumRowCount(5);
 		releaseLevelCombo.setModel(new DefaultComboBoxModel<>(new String[] {
+			"",
 			"ALPHA",
 			"BETA",
 			"PRODUCTION"

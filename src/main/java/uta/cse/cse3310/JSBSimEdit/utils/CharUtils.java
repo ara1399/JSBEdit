@@ -1,4 +1,4 @@
-package uta.cse.cse3310.JSBSimEdit;
+package uta.cse.cse3310.JSBSimEdit.utils;
 public class CharUtils {
 
     /* The function isUpper returns true if
