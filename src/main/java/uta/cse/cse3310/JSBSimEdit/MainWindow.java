@@ -150,6 +150,9 @@ public class MainWindow extends JFrame {
                         if(tempCFG.isPresent()) {
                             this.cfg = tempCFG.get();
                         }
+                        else {
+                            System.out.println("Schema Mismatch: skipped " + mainWinTabs.getTitleAt(i));
+                        }
                     }
 
                     // save jaxb object to xml file

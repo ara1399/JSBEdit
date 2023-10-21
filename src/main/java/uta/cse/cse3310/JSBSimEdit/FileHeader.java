@@ -29,7 +29,7 @@ import uta.cse.cse3310.JSBSimEdit.interfaces.TabComponent;
 import uta.cse.cse3310.JSBSimEdit.utils.Constants;
 
 /*
- * Created by JFormDesigner on Wed Oct 18 21:22:52 CDT 2023
+ * UI elements created by JFormDesigner on Wed Oct 18 21:22:52 CDT 2023
  */
 public class FileHeader extends JPanel implements TabComponent {
 	
@@ -104,18 +104,54 @@ public class FileHeader extends JPanel implements TabComponent {
 
 	public Optional<FdmConfig> saveXMLfromUI(FdmConfig cfg) {
 
+		// Aircraft Name is required Schema element
 		if(!(aircraftNameText.getText().length() > 0)) {
 			System.out.println("Schema Mismatch: FileHeader: Aircraft Name is required");
 			return Optional.empty();
 		}
-		cfg.setName(aircraftNameText.getText());
-		cfg.setRelease((String) releaseLevelCombo.getSelectedItem());
-		cfg.setVersion(flightModelVersionText.getText());
+		else {
+			cfg.setName(aircraftNameText.getText().trim());
+		}
 
-        Fileheader fh = cfg.getFileheader();
-		fh.getLicense().setLicenseName(licenseText.getText());
-		fh.getLicense().setLicenseURL(licenseURLText.getText());
-		fh.setSensitivity(sensitivityText.getText());
+		// Release Level is optional, keep if empty
+		cfg.setRelease((String) releaseLevelCombo.getSelectedItem());
+
+		// Flight Model Version is required Schema element
+		if(!(flightModelVersionText.getText().length() > 0)) {
+			System.out.println("Schema Mismatch: FileHeader: Flight Model Version is required");
+			return Optional.empty();
+		}
+		else {
+			cfg.setVersion(flightModelVersionText.getText().trim());
+		}
+
+		Fileheader fh = cfg.getFileheader();
+
+        // License Name is optional, remove if empty
+		if(licenseText.getText().length() > 0) {
+			fh.getLicense().setLicenseName(licenseText.getText());
+		}
+		else {
+			fh.getLicense().setLicenseName(null);
+		}
+
+		// License URL is optional, remove if empty
+		if(licenseURLText.getText().length() > 0) {
+			fh.getLicense().setLicenseURL(licenseURLText.getText());
+		}
+		else {
+			fh.getLicense().setLicenseURL(null);
+		}
+
+		// Sensitivity is optional, remove if empty
+		if(sensitivityText.getText().length() > 0) {
+			fh.setSensitivity(sensitivityText.getText());
+		}
+		else {
+			fh.setSensitivity(null);
+		}
+
+		// File Date is optional, remove if empty
 		try {
 			if (fileDateText.getText().length() > 0) {
 				fh.setFilecreationdate(DatatypeFactory.newInstance().newXMLGregorianCalendar(fileDateText.getText()));
@@ -125,29 +161,79 @@ public class FileHeader extends JPanel implements TabComponent {
 		} catch (DatatypeConfigurationException e) {
 			System.out.println(Constants.ANSI_RED + "Date Error. Try yyyy-mm-dd" + Constants.ANSI_RESET);
 		}
-		fh.setVersion(configVersionText.getText());
-		fh.setCopyright(copyrightText.getText());
-		fh.setDescription(descriptionTextArea.getText());
+
+		// Config Version is optional, remove if empty
+		if(configVersionText.getText().length() > 0) {
+			fh.setVersion(configVersionText.getText());
+		}
+		else {
+			fh.setVersion(null);
+		}
+
+		// Copyright is optional, remove if empty
+		if(copyrightText.getText().length() > 0) {
+			fh.setCopyright(copyrightText.getText());
+		}
+		else {
+			fh.setCopyright(null);
+		}
+
+		// Description is optional, remove if empty
+		if(descriptionTextArea.getText().length() > 0) {
+			fh.setDescription(descriptionTextArea.getText());
+		}
+		else {
+			fh.setDescription(null);
+		}
 
         List<JAXBElement<String>> aeo = fh.getAuthorOrEmailOrOrganization();
 		aeo.clear();
-		aeo.add(new JAXBElement<String>(new QName("author"), String.class, authorText.getText()));
-		aeo.add(new JAXBElement<String>(new QName("email"), String.class, emailText.getText()));
-		aeo.add(new JAXBElement<String>(new QName("organization"), String.class, organizationTextArea.getText()));
+
+		// Author is optional, remove if empty
+		if(authorText.getText().length() > 0) {
+			aeo.add(new JAXBElement<String>(new QName("author"), String.class, authorText.getText()));
+		}
+
+		// Email is optional, remove if empty
+		if(emailText.getText().length() > 0) {
+			aeo.add(new JAXBElement<String>(new QName("email"), String.class, emailText.getText()));
+		}
+
+		// Organization is optional, remove if empty
+		if(organizationTextArea.getText().length() > 0) {
+			aeo.add(new JAXBElement<String>(new QName("organization"), String.class, organizationTextArea.getText()));
+		}
 
         List<Object> nlr = fh.getNoteOrLimitationOrReference();
 		nlr.clear();
-		nlr.add(new JAXBElement<String>(new QName("limitation"), String.class, limitationsTextArea.getText()));
-		nlr.add(new JAXBElement<String>(new QName("note"), String.class, notesTextArea.getText()));
+
+		// Limitations is optional, remove if empty
+		if(limitationsTextArea.getText().length() > 0) {
+			nlr.add(new JAXBElement<String>(new QName("limitation"), String.class, limitationsTextArea.getText()));
+		}
+
+		// Notes is optional, remove if empty
+		if(notesTextArea.getText().length() > 0) {
+			nlr.add(new JAXBElement<String>(new QName("note"), String.class, notesTextArea.getText()));
+		}
+
+		// References is optional but Title is required for all references
 		for(int i = 0; i < referencesTable.getRowCount(); i++) {
 			Reference ref = new Reference();
-			ref.setRefID((String) referencesTable.getValueAt(i, 0));
-			ref.setTitle((String) referencesTable.getValueAt(i, 1));
-			ref.setAuthor((String) referencesTable.getValueAt(i, 2));
-			ref.setDate((String) referencesTable.getValueAt(i, 3));
-			ref.setURL((String) referencesTable.getValueAt(i, 4));
-			nlr.add(ref);
+			// required Schema element
+			if(!(referencesTable.getValueAt(i, 1).toString().length() > 0)) {
+				System.out.println("Schema Mismatch: FileHeader: References Title is required");
+			}
+			else {
+				ref.setRefID((String) referencesTable.getValueAt(i, 0));
+				ref.setTitle((String) referencesTable.getValueAt(i, 1));
+				ref.setAuthor((String) referencesTable.getValueAt(i, 2));
+				ref.setDate((String) referencesTable.getValueAt(i, 3));
+				ref.setURL((String) referencesTable.getValueAt(i, 4));
+				nlr.add(ref);
+			}
 		}
+		
 		return Optional.ofNullable(cfg);
 	}
 

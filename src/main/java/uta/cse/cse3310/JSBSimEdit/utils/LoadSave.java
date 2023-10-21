@@ -99,7 +99,7 @@ public class LoadSave {
 
 
     /* 
-    // Note: Good info for future projects, but doesnt work with this legacy code
+    // Note: Good info for future projects, but doesnt work with this legacy jaxb code
     // Given an input string such as "2014-01-07", return a `XMLGregorianCalendar` object
     // representing first moment of the day on that date as seen in UTC. 
     // From StackOverflow - https://shorturl.at/bglrV
