@@ -11,6 +11,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.*;
 import javax.swing.table.*;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.namespace.QName;
 
 import java.awt.Dimension;
 import java.util.List;
@@ -25,7 +28,7 @@ import net.miginfocom.swing.*;
  * Created by JFormDesigner on Wed Oct 18 21:22:52 CDT 2023
  */
 public class FileHeader extends JPanel {
-
+	
 	public FileHeader() {
 		initComponents();
 	}
@@ -61,18 +64,16 @@ public class FileHeader extends JPanel {
         List<JAXBElement<String>> aeo = fh.getAuthorOrEmailOrOrganization();
         for (var element : aeo) {
             String value = element.getValue();
-            if (value != null) {
-                if (element.getName().getLocalPart().equals("author")) {
-                    authorText.setText(value);
-                }
-                else if (element.getName().getLocalPart().equals("email")) {
-                    emailText.setText(value);
-                }
-                else if (element.getName().getLocalPart().equals("organization")) {
-                    organizationTextArea.setText(value);
-                    organizationTextArea.setCaretPosition(0); //scroll to top
-                }
-            }
+			if (element.getName().getLocalPart().equals("author")) {
+				authorText.setText(value);
+			}
+			else if (element.getName().getLocalPart().equals("email")) {
+				emailText.setText(value);
+			}
+			else if (element.getName().getLocalPart().equals("organization")) {
+				organizationTextArea.setText(value);
+				organizationTextArea.setCaretPosition(0); //scroll to top
+			}
         }
 
         /* List<JAXBElement<String>> aeo = fh.getAuthorOrEmailOrOrganization();
@@ -104,12 +105,91 @@ public class FileHeader extends JPanel {
             }
             else {
                 Reference ref = (Reference) element;
-                DefaultTableModel model = (DefaultTableModel) referencesTable.getModel();
-                model.addRow(new Object[]{
-					ref.getRefID(), ref.getTitle(), ref.getAuthor(), ref.getDate(), ref.getURL()
-				});
+				if(ref.getTitle() != null) {
+					DefaultTableModel model = (DefaultTableModel) referencesTable.getModel();
+					model.addRow(new Object[]{
+						ref.getRefID(), ref.getTitle(), ref.getAuthor(), ref.getDate(), ref.getURL()
+					});
+				}
             }
         }
+	}
+
+	public FdmConfig saveXMLfromUI(FdmConfig cfg) {
+
+		cfg.setName(aircraftNameText.getText());
+		cfg.setRelease((String) releaseLevelCombo.getSelectedItem());
+		cfg.setVersion(flightModelVersionText.getText());
+
+        Fileheader fh = cfg.getFileheader();
+		fh.getLicense().setLicenseName(licenseText.getText());
+		fh.getLicense().setLicenseURL(licenseURLText.getText());
+		fh.setSensitivity(sensitivityText.getText());
+		try {
+			fh.setFilecreationdate(DatatypeFactory.newInstance().newXMLGregorianCalendar(fileDateText.getText()));
+		} catch (DatatypeConfigurationException e) {
+			e.printStackTrace();
+		}
+		fh.setVersion(configVersionText.getText());
+		fh.setCopyright(copyrightText.getText());
+		fh.setDescription(descriptionTextArea.getText());
+
+        // update element in list if it exists, otherwise add it
+        List<JAXBElement<String>> aeo = fh.getAuthorOrEmailOrOrganization();
+		boolean updatedAuthor = false;
+		boolean updatedEmail = false;
+		boolean updatedOrganization = false;
+        for (var element : aeo) {
+			if (element.getName().getLocalPart().equals("author")) {
+				element.setValue(authorText.getText());
+				updatedAuthor = true;
+			}
+			else if (element.getName().getLocalPart().equals("email")) {
+				element.setValue(emailText.getText());
+				updatedEmail = true;
+			}
+			else if (element.getName().getLocalPart().equals("organization")) {
+				element.setValue(organizationTextArea.getText());
+				updatedOrganization = true;
+			}
+        }
+		if(!updatedAuthor) {
+			aeo.add(new JAXBElement<String>(new QName("author"), String.class, authorText.getText()));
+		}
+		if(!updatedEmail) {
+			aeo.add(new JAXBElement<String>(new QName("email"), String.class, emailText.getText()));
+		}
+		if(!updatedOrganization) {
+			aeo.add(new JAXBElement<String>(new QName("organization"), String.class, organizationTextArea.getText()));
+		}
+
+       /*  List<Object> nlr = fh.getNoteOrLimitationOrReference();
+        for (var element : nlr) {
+            if (element instanceof JAXBElement<?>) {
+                JAXBElement<String> el = (JAXBElement<String>) element;
+                if(el.getName().getLocalPart().equals("limitation")) {
+                    el.setValue(limitationsTextArea.getText());
+                }
+                else if(el.getName().getLocalPart().equals("note")) {
+					el.setValue(notesTextArea.getText());
+                }
+            }
+            else {
+                Reference ref = (Reference) element;
+				if(ref.getTitle() != null) {
+					DefaultTableModel model = (DefaultTableModel) referencesTable.getModel();
+					model.addRow(new Object[]{
+						ref.getRefID(), ref.getTitle(), ref.getAuthor(), ref.getDate(), ref.getURL()
+					});
+					for(int i = 0; i < model.getRowCount(); i++) {
+						if(model.getDataVector().elementAt(i).elementAt(1) {
+
+						}
+					}
+				}
+            }
+        } */
+		return cfg;
 	}
 
 	private void initComponents() {
@@ -239,11 +319,13 @@ public class FileHeader extends JPanel {
 
 		//---- fileDateLabel ----
 		fileDateLabel.setText("File Date");
+		fileDateLabel.setToolTipText("yyyy-mm-dd");
 		fileDateLabel.setHorizontalAlignment(SwingConstants.TRAILING);
 		add(fileDateLabel, "cell 0 2");
 
 		//---- fileDateText ----
 		fileDateText.setPreferredSize(new Dimension(100, 23));
+		fileDateText.setToolTipText("yyyy-mm-dd");
 		add(fileDateText, "cell 1 2");
 
 		//---- configVersionLabel ----
@@ -310,7 +392,7 @@ public class FileHeader extends JPanel {
 			referencesTable.setModel(new DefaultTableModel(
 				new Object[][] {},
 				new String[] {
-					"Ref ID", "Title", "Author", "Date", "URL"
+					"Ref ID", "Title (required)", "Author", "Date", "URL"
 				}
 			) {
 				Class<?>[] columnTypes = new Class<?>[] {

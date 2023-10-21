@@ -27,6 +27,8 @@ import java.lang.System;
 
 public class MainWindow extends JFrame {
     
+    private FdmConfig cfg;
+    
     //menu bar on top
     private JMenuBar menuBar = new JMenuBar();
     //button bar in menu bar
@@ -44,11 +46,11 @@ public class MainWindow extends JFrame {
         setLocationRelativeTo(null);
         setMinimumSize(new Dimension(Constants.APP_SIZEX, Constants.APP_SIZEY));
 
-        add(menuBar, BorderLayout.NORTH);
         makeMenuBar();
+        add(menuBar, BorderLayout.NORTH);
 
-        add(mainWinTabs);
         makeTabs();
+        add(mainWinTabs);
 
         pack();
         setVisible(true);
@@ -70,8 +72,7 @@ public class MainWindow extends JFrame {
         mainWinTabs.addTab("FlightControl", new FlightControl());
         mainWinTabs.addTab("Aerodynamics", new Aerodynamics());
         mainWinTabs.addTab("Input", new Input());
-        mainWinTabs.addTab("Output", new Output());
-        
+        mainWinTabs.addTab("Output", new Output());  
     }
 
     private void makeMenuBar() {
@@ -95,8 +96,8 @@ public class MainWindow extends JFrame {
                         if(xml.isPresent()) {
                             JAXBContext jc = JAXBContext.newInstance("generated");
                             Unmarshaller um = jc.createUnmarshaller();
-                            FdmConfig cfg = (FdmConfig) um.unmarshal(xml.get());
-                            
+                            cfg = (FdmConfig) um.unmarshal(xml.get());
+
                             // bind tabs with xml
                             fileHeader.bindUIwithXML(cfg);
                         }
@@ -111,7 +112,13 @@ public class MainWindow extends JFrame {
                 saveButton.setBackground(null);
                 saveButton.setBorder(new EmptyBorder(5, 10, 5, 10));
                 saveButton.setToolTipText("Save the config to XML");
-                //saveButton.addActionListener(listener);
+                saveButton.addActionListener(event -> {
+                    
+                    // save tabs to xml
+                    cfg = fileHeader.saveXMLfromUI(cfg);
+
+                    LoadSave.saveFile(cfg);
+                });
                 buttonBar.add(saveButton);
             }
             buttonPanel.add(buttonBar);
