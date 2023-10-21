@@ -114,34 +114,11 @@ public class FileHeader extends JPanel {
 		fh.setCopyright(copyrightText.getText());
 		fh.setDescription(descriptionTextArea.getText());
 
-        // update element in list if it exists, otherwise add it
         List<JAXBElement<String>> aeo = fh.getAuthorOrEmailOrOrganization();
-		boolean updatedAuthor = false;
-		boolean updatedEmail = false;
-		boolean updatedOrganization = false;
-        for (var element : aeo) {
-			if (element.getName().getLocalPart().equals("author")) {
-				element.setValue(authorText.getText());
-				updatedAuthor = true;
-			}
-			else if (element.getName().getLocalPart().equals("email")) {
-				element.setValue(emailText.getText());
-				updatedEmail = true;
-			}
-			else if (element.getName().getLocalPart().equals("organization")) {
-				element.setValue(organizationTextArea.getText());
-				updatedOrganization = true;
-			}
-        }
-		if(!updatedAuthor) {
-			aeo.add(new JAXBElement<String>(new QName("author"), String.class, authorText.getText()));
-		}
-		if(!updatedEmail) {
-			aeo.add(new JAXBElement<String>(new QName("email"), String.class, emailText.getText()));
-		}
-		if(!updatedOrganization) {
-			aeo.add(new JAXBElement<String>(new QName("organization"), String.class, organizationTextArea.getText()));
-		}
+		aeo.clear();
+		aeo.add(new JAXBElement<String>(new QName("author"), String.class, authorText.getText()));
+		aeo.add(new JAXBElement<String>(new QName("email"), String.class, emailText.getText()));
+		aeo.add(new JAXBElement<String>(new QName("organization"), String.class, organizationTextArea.getText()));
 
         List<Object> nlr = fh.getNoteOrLimitationOrReference();
 		nlr.clear();
