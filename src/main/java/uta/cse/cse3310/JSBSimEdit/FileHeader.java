@@ -34,13 +34,6 @@ public class FileHeader extends JPanel {
 	}
 
 	public void bindUIwithXML(FdmConfig cfg) {
-		// Example bindings
-        //System.out.println(cfg);
-        //System.out.println(cfg.getFileheader().getCopyright());
-        //System.out.println(cfg.getFileheader().getVersion());
-        //System.out.println(cfg.getAerodynamics().getAxis().get(0).getName());
-        //System.out.println(cfg.getAerodynamics().getAxis().get(0).getFunction());
-        //System.out.println(cfg.getAerodynamics().getAxis().get(0).getClass());
 
         aircraftNameText.setText(cfg.getName());
         aircraftNameText.setCaretPosition(0); //scroll to left
@@ -75,19 +68,6 @@ public class FileHeader extends JPanel {
 				organizationTextArea.setCaretPosition(0); //scroll to top
 			}
         }
-
-        /* List<JAXBElement<String>> aeo = fh.getAuthorOrEmailOrOrganization();
-        ListIterator<JAXBElement<String>> aeoITR = aeo.listIterator();
-        if(aeoITR.hasNext()) {
-            fileHeader.getAuthorText().setText(aeoITR.next().getValue());
-        }
-        if(aeoITR.hasNext()) {
-            fileHeader.getEmailText().setText(aeoITR.next().getValue());
-        }
-        if(aeoITR.hasNext()) {
-            fileHeader.getOrganizationTextArea().setText(aeoITR.next().getValue());
-            fileHeader.getOrganizationTextArea().setCaretPosition(0); //scroll to top
-        } */
 
         List<Object> nlr = fh.getNoteOrLimitationOrReference();
         for (var element : nlr) {
@@ -163,32 +143,19 @@ public class FileHeader extends JPanel {
 			aeo.add(new JAXBElement<String>(new QName("organization"), String.class, organizationTextArea.getText()));
 		}
 
-       /*  List<Object> nlr = fh.getNoteOrLimitationOrReference();
-        for (var element : nlr) {
-            if (element instanceof JAXBElement<?>) {
-                JAXBElement<String> el = (JAXBElement<String>) element;
-                if(el.getName().getLocalPart().equals("limitation")) {
-                    el.setValue(limitationsTextArea.getText());
-                }
-                else if(el.getName().getLocalPart().equals("note")) {
-					el.setValue(notesTextArea.getText());
-                }
-            }
-            else {
-                Reference ref = (Reference) element;
-				if(ref.getTitle() != null) {
-					DefaultTableModel model = (DefaultTableModel) referencesTable.getModel();
-					model.addRow(new Object[]{
-						ref.getRefID(), ref.getTitle(), ref.getAuthor(), ref.getDate(), ref.getURL()
-					});
-					for(int i = 0; i < model.getRowCount(); i++) {
-						if(model.getDataVector().elementAt(i).elementAt(1) {
-
-						}
-					}
-				}
-            }
-        } */
+        List<Object> nlr = fh.getNoteOrLimitationOrReference();
+		nlr.clear();
+		nlr.add(new JAXBElement<String>(new QName("limitation"), String.class, limitationsTextArea.getText()));
+		nlr.add(new JAXBElement<String>(new QName("note"), String.class, notesTextArea.getText()));
+		for(int i = 0; i < referencesTable.getRowCount(); i++) {
+			Reference ref = new Reference();
+			ref.setRefID((String) referencesTable.getValueAt(i, 0));
+			ref.setTitle((String) referencesTable.getValueAt(i, 1));
+			ref.setAuthor((String) referencesTable.getValueAt(i, 2));
+			ref.setDate((String) referencesTable.getValueAt(i, 3));
+			ref.setURL((String) referencesTable.getValueAt(i, 4));
+			nlr.add(ref);
+		}
 		return cfg;
 	}
 
