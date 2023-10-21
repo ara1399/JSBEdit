@@ -129,7 +129,7 @@ public class FileHeader extends JPanel implements TabComponent {
 
         // License Name is optional, remove if empty
 		if(licenseText.getText().length() > 0) {
-			fh.getLicense().setLicenseName(licenseText.getText());
+			fh.getLicense().setLicenseName(licenseText.getText().trim());
 		}
 		else {
 			fh.getLicense().setLicenseName(null);
@@ -137,7 +137,7 @@ public class FileHeader extends JPanel implements TabComponent {
 
 		// License URL is optional, remove if empty
 		if(licenseURLText.getText().length() > 0) {
-			fh.getLicense().setLicenseURL(licenseURLText.getText());
+			fh.getLicense().setLicenseURL(licenseURLText.getText().trim());
 		}
 		else {
 			fh.getLicense().setLicenseURL(null);
@@ -145,7 +145,7 @@ public class FileHeader extends JPanel implements TabComponent {
 
 		// Sensitivity is optional, remove if empty
 		if(sensitivityText.getText().length() > 0) {
-			fh.setSensitivity(sensitivityText.getText());
+			fh.setSensitivity(sensitivityText.getText().trim());
 		}
 		else {
 			fh.setSensitivity(null);
@@ -154,7 +154,7 @@ public class FileHeader extends JPanel implements TabComponent {
 		// File Date is optional, remove if empty
 		try {
 			if (fileDateText.getText().length() > 0) {
-				fh.setFilecreationdate(DatatypeFactory.newInstance().newXMLGregorianCalendar(fileDateText.getText()));
+				fh.setFilecreationdate(DatatypeFactory.newInstance().newXMLGregorianCalendar(fileDateText.getText().trim()));
 			}
 			else
 				fh.setFilecreationdate(null);
@@ -164,7 +164,7 @@ public class FileHeader extends JPanel implements TabComponent {
 
 		// Config Version is optional, remove if empty
 		if(configVersionText.getText().length() > 0) {
-			fh.setVersion(configVersionText.getText());
+			fh.setVersion(configVersionText.getText().trim());
 		}
 		else {
 			fh.setVersion(null);
@@ -172,7 +172,7 @@ public class FileHeader extends JPanel implements TabComponent {
 
 		// Copyright is optional, remove if empty
 		if(copyrightText.getText().length() > 0) {
-			fh.setCopyright(copyrightText.getText());
+			fh.setCopyright(copyrightText.getText().trim());
 		}
 		else {
 			fh.setCopyright(null);
@@ -180,7 +180,7 @@ public class FileHeader extends JPanel implements TabComponent {
 
 		// Description is optional, remove if empty
 		if(descriptionTextArea.getText().length() > 0) {
-			fh.setDescription(descriptionTextArea.getText());
+			fh.setDescription(descriptionTextArea.getText().trim());
 		}
 		else {
 			fh.setDescription(null);
@@ -191,17 +191,17 @@ public class FileHeader extends JPanel implements TabComponent {
 
 		// Author is optional, remove if empty
 		if(authorText.getText().length() > 0) {
-			aeo.add(new JAXBElement<String>(new QName("author"), String.class, authorText.getText()));
+			aeo.add(new JAXBElement<String>(new QName("author"), String.class, authorText.getText().trim()));
 		}
 
 		// Email is optional, remove if empty
 		if(emailText.getText().length() > 0) {
-			aeo.add(new JAXBElement<String>(new QName("email"), String.class, emailText.getText()));
+			aeo.add(new JAXBElement<String>(new QName("email"), String.class, emailText.getText().trim()));
 		}
 
 		// Organization is optional, remove if empty
 		if(organizationTextArea.getText().length() > 0) {
-			aeo.add(new JAXBElement<String>(new QName("organization"), String.class, organizationTextArea.getText()));
+			aeo.add(new JAXBElement<String>(new QName("organization"), String.class, organizationTextArea.getText().trim()));
 		}
 
         List<Object> nlr = fh.getNoteOrLimitationOrReference();
@@ -209,12 +209,12 @@ public class FileHeader extends JPanel implements TabComponent {
 
 		// Limitations is optional, remove if empty
 		if(limitationsTextArea.getText().length() > 0) {
-			nlr.add(new JAXBElement<String>(new QName("limitation"), String.class, limitationsTextArea.getText()));
+			nlr.add(new JAXBElement<String>(new QName("limitation"), String.class, limitationsTextArea.getText().trim()));
 		}
 
 		// Notes is optional, remove if empty
 		if(notesTextArea.getText().length() > 0) {
-			nlr.add(new JAXBElement<String>(new QName("note"), String.class, notesTextArea.getText()));
+			nlr.add(new JAXBElement<String>(new QName("note"), String.class, notesTextArea.getText().trim()));
 		}
 
 		// References is optional but Title is required for all references
@@ -233,7 +233,7 @@ public class FileHeader extends JPanel implements TabComponent {
 				nlr.add(ref);
 			}
 		}
-		
+
 		return Optional.ofNullable(cfg);
 	}
 
