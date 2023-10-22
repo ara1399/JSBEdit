@@ -1,0 +1,55 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="props" type="propsType">
+    <xs:annotation>
+      <xs:documentation><![CDATA[ 
+  1. Properties extracted from JSBSimCommander
+  2. Converted into xml
+  3. Used online xml validator (passed)
+  
+  <props>
+
+    <source>
+      <name></name>
+      <desc></desc>
+      <unit></unit>
+      <access></access>
+      <comment></comment>
+    </source>
+
+    <destination>
+      <name></name>
+      <desc></desc>
+      <unit></unit>
+      <access></access>
+      <comment></comment>
+    </destination>
+
+  </props>
+]]></xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="sourceType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="name"/>
+      <xs:element type="xs:string" name="desc"/>
+      <xs:element type="xs:string" name="unit"/>
+      <xs:element type="xs:string" name="access"/>
+      <xs:element type="xs:string" name="comment"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="destinationType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="name"/>
+      <xs:element type="xs:string" name="desc"/>
+      <xs:element type="xs:string" name="unit"/>
+      <xs:element type="xs:string" name="access"/>
+      <xs:element type="xs:string" name="comment"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="propsType">
+    <xs:sequence>
+      <xs:element type="sourceType" name="source" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="destinationType" name="destination" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

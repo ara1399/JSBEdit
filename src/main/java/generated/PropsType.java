@@ -12,25 +12,22 @@ import java.util.ArrayList;
 import java.util.List;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlAttribute;
-import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for anonymous complex type.
+ * <p>Java class for propsType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType&gt;
+ * &lt;complexType name="propsType"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element ref="{}property" maxOccurs="unbounded" minOccurs="0"/&gt;
- *         &lt;element ref="{}force" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="source" type="{}sourceType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="destination" type="{}destinationType" maxOccurs="unbounded" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
- *       &lt;attribute name="file" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
@@ -39,98 +36,71 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "property",
-    "force"
+@XmlType(name = "propsType", propOrder = {
+    "source",
+    "destination"
 })
-@XmlRootElement(name = "external_reactions")
-public class ExternalReactions {
+public class PropsType {
 
-    protected List<String> property;
-    protected List<Force> force;
-    @XmlAttribute(name = "file")
-    protected String file;
+    protected List<SourceType> source;
+    protected List<DestinationType> destination;
 
     /**
-     * Gets the value of the property property.
+     * Gets the value of the source property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the Jakarta XML Binding object.
-     * This is why there is not a <CODE>set</CODE> method for the property property.
+     * This is why there is not a <CODE>set</CODE> method for the source property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getProperty().add(newItem);
+     *    getSource().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link String }
+     * {@link SourceType }
      * 
      * 
      */
-    public List<String> getProperty() {
-        if (property == null) {
-            property = new ArrayList<String>();
+    public List<SourceType> getSource() {
+        if (source == null) {
+            source = new ArrayList<SourceType>();
         }
-        return this.property;
+        return this.source;
     }
 
     /**
-     * Gets the value of the force property.
+     * Gets the value of the destination property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the Jakarta XML Binding object.
-     * This is why there is not a <CODE>set</CODE> method for the force property.
+     * This is why there is not a <CODE>set</CODE> method for the destination property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getForce().add(newItem);
+     *    getDestination().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Force }
+     * {@link DestinationType }
      * 
      * 
      */
-    public List<Force> getForce() {
-        if (force == null) {
-            force = new ArrayList<Force>();
+    public List<DestinationType> getDestination() {
+        if (destination == null) {
+            destination = new ArrayList<DestinationType>();
         }
-        return this.force;
-    }
-
-    /**
-     * Gets the value of the file property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getFile() {
-        return file;
-    }
-
-    /**
-     * Sets the value of the file property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setFile(String value) {
-        this.file = value;
+        return this.destination;
     }
 
 }
