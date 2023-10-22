@@ -1,0 +1,2236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  1. Properties extracted from JSBSimCommander
+  2. Converted into xml
+  3. Used online xml validator (passed)
+  
+  <props>
+
+    <source>
+      <name></name>
+      <desc></desc>
+      <unit></unit>
+      <access></access>
+      <comment></comment>
+    </source>
+
+    <destination>
+      <name></name>
+      <desc></desc>
+      <unit></unit>
+      <access></access>
+      <comment></comment>
+    </destination>
+
+  </props>
+-->
+<props>
+  <source>
+    <name>"sim-time-sec"</name>
+    <desc>"time"</desc>
+    <unit>"SEC"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"output_delay"</name>
+    <desc>"go on output after optimize"</desc>
+    <unit>"NORM"</unit>
+    <access>"RO"</access>
+    <comment>"default value is zero"</comment>
+  </source>
+
+  <source>
+    <name>"output_date_rate"</name>
+    <desc>"dat file output rate"</desc>
+    <unit>"NORM"</unit>
+    <access>"RO"</access>
+    <comment>"output a record every X times. default value is 5."</comment>
+  </source>
+
+  <source>
+    <name>"signal/aeroelastic"</name>
+    <desc>"aeroelasticity"</desc>
+    <unit>"NORM"</unit>
+    <access>"R/W"</access>
+    <comment>"aeroelastic enable signal(0-false, 1-true)"</comment>
+  </source>
+
+  <source>
+    <name>"signal/custom1"</name>
+    <desc>"custom signal 1"</desc>
+    <unit>"NORM"</unit>
+    <access>"R/W"</access>
+    <comment>"custom enable signal(0-false, 1-true)"</comment>
+  </source>
+
+  <source>
+    <name>"signal/custom2"</name>
+    <desc>"custom signal 2"</desc>
+    <unit>"NORM"</unit>
+    <access>"R/W"</access>
+    <comment>"custom enable signal(0-false, 1-true)"</comment>
+  </source>
+
+  <source>
+    <name>"signal/custom3"</name>
+    <desc>"custom signal 3"</desc>
+    <unit>"NORM"</unit>
+    <access>"R/W"</access>
+    <comment>"custom enable signal(0-false, 1-true)"</comment>
+  </source>
+
+  <source>
+    <name>"signal/custom4"</name>
+    <desc>"custom signal 4"</desc>
+    <unit>"NORM"</unit>
+    <access>"R/W"</access>
+    <comment>"custom enable signal(0-false, 1-true)"</comment>
+  </source>
+
+  <source>
+    <name>"signal/custom5"</name>
+    <desc>"custom signal 5"</desc>
+    <unit>"NORM"</unit>
+    <access>"R/W"</access>
+    <comment>"custom enable signal(0-false, 1-true)"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/Sw-sqft"</name>
+    <desc>"wing area"</desc>
+    <unit>"SQFT"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"metrics/Sw-sqm"</name>
+    <desc>"wing area"</desc>
+    <unit>"SQM"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"metrics/bw-ft"</name>
+    <desc>"wing span"</desc>
+    <unit>"FT"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"metrics/bw-m"</name>
+    <desc>"wing span"</desc>
+    <unit>"M"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"metrics/cbarw-ft"</name>
+    <desc>"chord bar"</desc>
+    <unit>"FT"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"metrics/cbarw-m"</name>
+    <desc>"chord bar"</desc>
+    <unit>"M"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"metrics/iw-deg"</name>
+    <desc>"wing incidence angle"</desc>
+    <unit>"DEG"</unit>
+    <access>"RO"</access>
+    <comment>"aero/alpha-wing-rad = aero/alpha-rad + metrics/iw-deg * deg2rad"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/Sh-sqft"</name>
+    <desc>"Horizontal Tail Area"</desc>
+    <unit>"SQFT"</unit>
+    <access>"RO"</access>
+    <comment>"deprecated"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/Sh-sqm"</name>
+    <desc>"horizontal tail area"</desc>
+    <unit>"SQM"</unit>
+    <access>"RO"</access>
+    <comment>"deprecated"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/lh-ft"</name>
+    <desc>"horizontal tail arm"</desc>
+    <unit>"FT"</unit>
+    <access>"RO"</access>
+    <comment>"deprecated"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/lh-m"</name>
+    <desc>"horizontal tail arm"</desc>
+    <unit>"M"</unit>
+    <access>"RO"</access>
+    <comment>"deprecated"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/lh-norm"</name>
+    <desc>"horizontal tail arm"</desc>
+    <unit>"norm"</unit>
+    <access>"RO"</access>
+    <comment>"deprecated, HTailArm / cbar"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/vbarh-norm"</name>
+    <desc>"H. Tail Volume"</desc>
+    <unit>"norm"</unit>
+    <access>"RO"</access>
+    <comment>"vbarh = HTailArm*HTailArea / (cbar*WingArea)"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/Sv-sqft"</name>
+    <desc>"vertical tail area"</desc>
+    <unit>"SQFT"</unit>
+    <access>"RO"</access>
+    <comment>"deprecated"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/Sv-sqm"</name>
+    <desc>"vertical tail area"</desc>
+    <unit>"SQM"</unit>
+    <access>"RO"</access>
+    <comment>"deprecated"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/lv-ft"</name>
+    <desc>"vertical tail arm"</desc>
+    <unit>"FT"</unit>
+    <access>"RO"</access>
+    <comment>"deprecated"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/lv-m"</name>
+    <desc>"vertical tail arm"</desc>
+    <unit>"FT"</unit>
+    <access>"RO"</access>
+    <comment>"deprecated"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/lv-norm"</name>
+    <desc>"vertical tail arm"</desc>
+    <unit>"norm"</unit>
+    <access>"RO"</access>
+    <comment>"deprecated, VTailArm / cbar"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/vbarv-norm"</name>
+    <desc>"V. Tail Volume"</desc>
+    <unit>"norm"</unit>
+    <access>"RO"</access>
+    <comment>"vbarv = VTailArm*VTailArea / (cbar*WingArea)"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/aero-rp-x-in"</name>
+    <desc>"X coordinate for ARP"</desc>
+    <unit>"IN"</unit>
+    <access>"RO"</access>
+    <comment>"Aero Referece Point in the structural frame"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/aero-rp-x-m"</name>
+    <desc>"X coordinate for ARP"</desc>
+    <unit>"M"</unit>
+    <access>"RO"</access>
+    <comment>"Aero Referece Point in the structural frame"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/aero-rp-y-in"</name>
+    <desc>"Y coordinate for ARP"</desc>
+    <unit>"IN"</unit>
+    <access>"RO"</access>
+    <comment>"Aero Referece Point in the structural frame"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/aero-rp-y-m"</name>
+    <desc>"Y coordinate for ARP"</desc>
+    <unit>"M"</unit>
+    <access>"RO"</access>
+    <comment>"Aero Referece Point in the structural frame"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/aero-rp-z-in"</name>
+    <desc>"Z coordinate for ARP"</desc>
+    <unit>"IN"</unit>
+    <access>"RO"</access>
+    <comment>"Aero Referece Point in the structural frame"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/aero-rp-z-m"</name>
+    <desc>"Z coordinate for ARP"</desc>
+    <unit>"M"</unit>
+    <access>"RO"</access>
+    <comment>"Aero Referece Point in the structural frame"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/eyepoint-x-in"</name>
+    <desc>"X coordinate for EP"</desc>
+    <unit>"IN"</unit>
+    <access>"RO"</access>
+    <comment>"Eye Point in the structural frame"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/eyepoint-x-m"</name>
+    <desc>"X coordinate for EP"</desc>
+    <unit>"M"</unit>
+    <access>"RO"</access>
+    <comment>"Eye Point in the structural frame"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/eyepoint-y-in"</name>
+    <desc>"Y coordinate for EP"</desc>
+    <unit>"IN"</unit>
+    <access>"RO"</access>
+    <comment>"Eye Point in the structural frame"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/eyepoint-y-m"</name>
+    <desc>"Y coordinate for EP"</desc>
+    <unit>"M"</unit>
+    <access>"RO"</access>
+    <comment>"Eye Point in the structural frame"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/eyepoint-z-in"</name>
+    <desc>"Z coordinate for EP"</desc>
+    <unit>"IN"</unit>
+    <access>"RO"</access>
+    <comment>"Eye Point in the structural frame"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/eyepoint-z-m"</name>
+    <desc>"Z coordinate for EP"</desc>
+    <unit>"M"</unit>
+    <access>"RO"</access>
+    <comment>"Eye Point in the structural frame"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/visualrefpoint-x-in"</name>
+    <desc>"X coordinate for VRP"</desc>
+    <unit>"IN"</unit>
+    <access>"RO"</access>
+    <comment>"Visual Reference Point in the structural frame"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/visualrefpoint-x-m"</name>
+    <desc>"X coordinate for VRP"</desc>
+    <unit>"M"</unit>
+    <access>"RO"</access>
+    <comment>"Visual Reference Point in the structural frame"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/visualrefpoint-y-in"</name>
+    <desc>"Y coordinate for VRP"</desc>
+    <unit>"IN"</unit>
+    <access>"RO"</access>
+    <comment>"Visual Reference Point in the structural frame"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/visualrefpoint-y-m"</name>
+    <desc>"Y coordinate for VRP"</desc>
+    <unit>"M"</unit>
+    <access>"RO"</access>
+    <comment>"Visual Reference Point in the structural frame"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/visualrefpoint-z-in"</name>
+    <desc>"Z coordinate for VRP"</desc>
+    <unit>"IN"</unit>
+    <access>"RO"</access>
+    <comment>"Visual Reference Point in the structural frame"</comment>
+  </source>
+
+  <source>
+    <name>"metrics/visualrefpoint-z-m"</name>
+    <desc>"Z coordinate for VRP"</desc>
+    <unit>"M"</unit>
+    <access>"RO"</access>
+    <comment>"Visual Reference Point in the structural frame"</comment>
+  </source>
+
+  <source>
+    <name>"inertia/mass-slugs"</name>
+    <desc>"mass"</desc>
+    <unit>"SLUGS"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"inertia/mass-kg"</name>
+    <desc>"mass"</desc>
+    <unit>"KG"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"inertia/weight-lbs"</name>
+    <desc>"weight"</desc>
+    <unit>"LBS"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"inertia/weight-n"</name>
+    <desc>"weight"</desc>
+    <unit>"N"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"inertia/cg-x-in"</name>
+    <desc>"CG pos along the X axis"</desc>
+    <unit>"IN"</unit>
+    <access>"RO"</access>
+    <comment>"CG pos in the structural frame"</comment>
+  </source>
+
+  <source>
+    <name>"inertia/cg-x-m"</name>
+    <desc>"CG pos along the X axis"</desc>
+    <unit>"M"</unit>
+    <access>"RO"</access>
+    <comment>"CG pos in the structural frame"</comment>
+  </source>
+
+  <source>
+    <name>"inertia/cg-y-in"</name>
+    <desc>"CG pos along the Y axis"</desc>
+    <unit>"IN"</unit>
+    <access>"RO"</access>
+    <comment>"CG pos in the structural frame"</comment>
+  </source>
+
+  <source>
+    <name>"inertia/cg-y-m"</name>
+    <desc>"CG pos along the Y axis"</desc>
+    <unit>"M"</unit>
+    <access>"RO"</access>
+    <comment>"CG pos in the structural frame"</comment>
+  </source>
+
+  <source>
+    <name>"inertia/cg-z-in"</name>
+    <desc>"CG pos along the Z axis"</desc>
+    <unit>"IN"</unit>
+    <access>"RO"</access>
+    <comment>"CG pos in the structural frame"</comment>
+  </source>
+
+  <source>
+    <name>"inertia/cg-z-m"</name>
+    <desc>"CG pos along the Z axis"</desc>
+    <unit>"M"</unit>
+    <access>"RO"</access>
+    <comment>"CG pos in the structural frame"</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/T-R"</name>
+    <desc>"aero temperature"</desc>
+    <unit>"DEG"</unit>
+    <access>"RO"</access>
+    <comment>"the temperature in degrees Rankine"</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/T-C"</name>
+    <desc>"aero temperature"</desc>
+    <unit>"DEG"</unit>
+    <access>"RO"</access>
+    <comment>"the temperature in degrees Celsius"</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/T-K"</name>
+    <desc>"aero temperature"</desc>
+    <unit>"DEG"</unit>
+    <access>"RO"</access>
+    <comment>"the temperature in degrees Kelvin"</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/T-sl-R"</name>
+    <desc>"temperature at sea level"</desc>
+    <unit>"DEG"</unit>
+    <access>"RO"</access>
+    <comment>"sea level temperature in degrees Rankine"</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/T-sl-C"</name>
+    <desc>"temperature at sea level"</desc>
+    <unit>"DEG"</unit>
+    <access>"RO"</access>
+    <comment>"sea level temperature in degrees Celsius"</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/T-sl-K"</name>
+    <desc>"aero temperature at sea level"</desc>
+    <unit>"DEG"</unit>
+    <access>"RO"</access>
+    <comment>"sea level temperature in degrees Kelvin"</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/theta-norm"</name>
+    <desc>"aero temperature"</desc>
+    <unit>"norm"</unit>
+    <access>"RO"</access>
+    <comment>"the ratio of at-altitude temperature over the sea level value"</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/rho-slugs_ft3"</name>
+    <desc>"aero density"</desc>
+    <unit>"SLUGS/FT^3"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/rho-kg_m3"</name>
+    <desc>"aero density"</desc>
+    <unit>"KG/M^3"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/rho-sl-slugs_ft3"</name>
+    <desc>"aero density at sea level"</desc>
+    <unit>"SLUGS/FT^3"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/rho-sl-kg_m3"</name>
+    <desc>"aero density at sea level"</desc>
+    <unit>"KG/M^3"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/sigma-norm"</name>
+    <desc>"aero density"</desc>
+    <unit>"norm"</unit>
+    <access>"RO"</access>
+    <comment>"the ratio of at-altitude density over the sea level value"</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/P-psf"</name>
+    <desc>"aero pressure"</desc>
+    <unit>"PSF"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/P-pa"</name>
+    <desc>"aero pressure"</desc>
+    <unit>"Pa"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/P-sl-psf"</name>
+    <desc>"aero pressure at sea level"</desc>
+    <unit>"PSF"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/P-sl-pa"</name>
+    <desc>"aero pressure at sea level"</desc>
+    <unit>"Pa"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/delta-norm"</name>
+    <desc>"aero pressure"</desc>
+    <unit>"norm"</unit>
+    <access>"RO"</access>
+    <comment>"the ratio of at-altitude pressure over the sea level value"</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/a-fps"</name>
+    <desc>"sound speed"</desc>
+    <unit>"FT/SEC"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/a-mps"</name>
+    <desc>"sound speed"</desc>
+    <unit>"M/SEC"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/a-sl-fps"</name>
+    <desc>"speed of sound  at sea level"</desc>
+    <unit>"FPS"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/a-sl-mps"</name>
+    <desc>"sound speed at sea level"</desc>
+    <unit>"MPS"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/a-norm"</name>
+    <desc>"sound speed"</desc>
+    <unit>"norm"</unit>
+    <access>"RO"</access>
+    <comment>"the ratio of at-altitude sound speed over the sea level value"</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/psiw-rad"</name>
+    <desc>"wind direction"</desc>
+    <unit>"RAD"</unit>
+    <access>"RO"</access>
+    <comment>"0 &lt;= psiw &lt; 2*pi"</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/density-altitude"</name>
+    <desc>"density altitude in feet"</desc>
+    <unit>"FT"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/density-altitude-m"</name>
+    <desc>"density altitude in meters"</desc>
+    <unit>"M"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/p-turb-rad_sec"</name>
+    <desc>"aero turbulence moment along the X axis"</desc>
+    <unit>"RAD/SEC"</unit>
+    <access>"RW"</access>
+    <comment>"aero turbulence moment in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/q-turb-rad_sec"</name>
+    <desc>"aero turbulence moment along the Y axis"</desc>
+    <unit>"RAD/SEC"</unit>
+    <access>"RW"</access>
+    <comment>"aero turbulence moment in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/r-turb-rad_sec"</name>
+    <desc>"aero turbulence moment along the Z axis"</desc>
+    <unit>"RAD/SEC"</unit>
+    <access>"RW"</access>
+    <comment>"aero turbulence moment in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/n-turb-fps"</name>
+    <desc>"aero turbulence force for the north axis"</desc>
+    <unit>"FT/SEC"</unit>
+    <access>"RW"</access>
+    <comment>"aero turbulence force in the local frame"</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/n-turb-mps"</name>
+    <desc>"aero turbulence force for the north axis"</desc>
+    <unit>"M/SEC"</unit>
+    <access>"RW"</access>
+    <comment>"aero turbulence force in the local frame"</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/e-turb-fps"</name>
+    <desc>"aero turbulence force for the east axis"</desc>
+    <unit>"FT/SEC"</unit>
+    <access>"RW"</access>
+    <comment>"aero turbulence force in the local frame"</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/e-turb-mps"</name>
+    <desc>"aero turbulence force for the east axis"</desc>
+    <unit>"M/SEC"</unit>
+    <access>"RW"</access>
+    <comment>"aero turbulence force in the local frame"</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/d-turb-fps"</name>
+    <desc>"aero turbulence force for the down axis"</desc>
+    <unit>"FT/SEC"</unit>
+    <access>"RW"</access>
+    <comment>"aero turbulence force in the local frame"</comment>
+  </source>
+
+  <source>
+    <name>"atmosphere/d-turb-mps"</name>
+    <desc>"aero turbulence force for the down axis"</desc>
+    <unit>"M/SEC"</unit>
+    <access>"RW"</access>
+    <comment>"aero turbulence force in the local frame"</comment>
+  </source>
+
+  <source>
+    <name>"aero/cl-squared-norm"</name>
+    <desc>"square coefficient of lift"</desc>
+    <unit>"norm"</unit>
+    <access>"RO"</access>
+    <comment>"aerodynamic lift force divided by (qbar * WingArea)"</comment>
+  </source>
+
+  <source>
+    <name>"aero/qbar-area"</name>
+    <desc>"qbar * WingArea"</desc>
+    <unit>"LBS"</unit>
+    <access>"RO"</access>
+    <comment>"qbar multiplied by WingArea"</comment>
+  </source>
+
+  <source>
+    <name>"aero/qbar-area-newton"</name>
+    <desc>"qbar * WingArea"</desc>
+    <unit>"N"</unit>
+    <access>"RO"</access>
+    <comment>"qbar multiplied by WingArea"</comment>
+  </source>
+
+  <source>
+    <name>"aero/alpha-max-deg"</name>
+    <desc>"accessible max alpha angle"</desc>
+    <unit>"DEG"</unit>
+    <access>"R/W"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"aero/alpha-min-deg"</name>
+    <desc>"accessible min alpha angle"</desc>
+    <unit>"DEG"</unit>
+    <access>"R/W"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"aero/bi2vel"</name>
+    <desc>"WingSpan divided by double velocity"</desc>
+    <unit>"SEC"</unit>
+    <access>"RO"</access>
+    <comment>"velocities/p-rad_sec * aero/bi2vel = p-norm"</comment>
+  </source>
+
+  <source>
+    <name>"aero/ci2vel"</name>
+    <desc>"chord divided by double velocity"</desc>
+    <unit>"SEC"</unit>
+    <access>"RO"</access>
+    <comment>"velocities/q-rad_sec * aero/ci2vel = q-norm"</comment>
+  </source>
+
+  <source>
+    <name>"aero/alpha-wing-rad"</name>
+    <desc>"alpha angle for the wing"</desc>
+    <unit>"RAD"</unit>
+    <access>"RO"</access>
+    <comment>"aero/alpha-rad + metrics/iw-deg * deg2rad"</comment>
+  </source>
+
+  <source>
+    <name>"systems/stall-warn-norm"</name>
+    <desc>"stall warn signal"</desc>
+    <unit>"norm"</unit>
+    <access>"RO"</access>
+    <comment>"10*(alpha/alphaclmax - 0.85)"</comment>
+  </source>
+
+  <source>
+    <name>"aero/stall-hyst-norm"</name>
+    <desc>"stall hysteresis flag"</desc>
+    <unit>"norm"</unit>
+    <access>"RO"</access>
+    <comment>"if (alpha > alphahystmax) stall_hyst = 1; else stall_hyst = 0"</comment>
+  </source>
+
+  <source>
+    <name>"aero/alpha-rad"</name>
+    <desc>"alpha angle"</desc>
+    <unit>"RAD"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"aero/alpha-deg"</name>
+    <desc>"alpha angle"</desc>
+    <unit>"DEG"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"aero/beta-rad"</name>
+    <desc>"beta angle"</desc>
+    <unit>"RAD"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"aero/beta-deg"</name>
+    <desc>"beta angle"</desc>
+    <unit>"DEG"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"aero/mag-beta-rad"</name>
+    <desc>"beta angle"</desc>
+    <unit>"RAD"</unit>
+    <access>"RO"</access>
+    <comment>"absolute magnitude of beta angle"</comment>
+  </source>
+
+  <source>
+    <name>"aero/mag-beta-deg"</name>
+    <desc>"beta angle"</desc>
+    <unit>"RAD"</unit>
+    <access>"RO"</access>
+    <comment>"absolute magnitude of beta angle"</comment>
+  </source>
+
+  <source>
+    <name>"aero/qbar-psf"</name>
+    <desc>"Q bar"</desc>
+    <unit>"PSF"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"aero/qbar-pa"</name>
+    <desc>"Q bar"</desc>
+    <unit>"Pa"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"aero/alphadot-rad_sec"</name>
+    <desc>"alpha dot"</desc>
+    <unit>"RAD/SEC"</unit>
+    <access>"RO"</access>
+    <comment>"d(alpha) / dt"</comment>
+  </source>
+
+  <source>
+    <name>"aero/alphadot-deg_sec"</name>
+    <desc>"alpha dot"</desc>
+    <unit>"DEG/SEC"</unit>
+    <access>"RO"</access>
+    <comment>"d(alpha) / dt"</comment>
+  </source>
+
+  <source>
+    <name>"aero/betadot-rad_sec"</name>
+    <desc>"beta dot"</desc>
+    <unit>"RAD/SEC"</unit>
+    <access>"RO"</access>
+    <comment>"d(beta) / dt"</comment>
+  </source>
+
+  <source>
+    <name>"aero/betadot-deg_sec"</name>
+    <desc>"beta dot"</desc>
+    <unit>"DEG/SEC"</unit>
+    <access>"RO"</access>
+    <comment>"d(beta) / dt"</comment>
+  </source>
+
+  <source>
+    <name>"forces/fbx-aero-lbs"</name>
+    <desc>"aerodynamic force along the X axis"</desc>
+    <unit>"LBS"</unit>
+    <access>"RO"</access>
+    <comment>"aerodynamic force only in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"forces/fbx-aero-newton"</name>
+    <desc>"aerodynamic force along the X axis"</desc>
+    <unit>"N"</unit>
+    <access>"RO"</access>
+    <comment>"aerodynamic force only in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"forces/fby-aero-lbs"</name>
+    <desc>"aerodynamic force along the Y axis"</desc>
+    <unit>"LBS"</unit>
+    <access>"RO"</access>
+    <comment>"aerodynamic force only in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"forces/fby-aero-newton"</name>
+    <desc>"aerodynamic force along the Y axis"</desc>
+    <unit>"N"</unit>
+    <access>"RO"</access>
+    <comment>"aerodynamic force only in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"forces/fbz-aero-lbs"</name>
+    <desc>"aerodynamic force along the Z axis"</desc>
+    <unit>"LBS"</unit>
+    <access>"RO"</access>
+    <comment>"aerodynamic force only in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"forces/fbz-aero-newton"</name>
+    <desc>"aerodynamic force along the Z axis"</desc>
+    <unit>"N"</unit>
+    <access>"RO"</access>
+    <comment>"aerodynamic force only in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"forces/fwx-aero-lbs"</name>
+    <desc>"aerodynamic force along the X axis"</desc>
+    <unit>"LBS"</unit>
+    <access>"RO"</access>
+    <comment>"aerodynamic force only in the wind frame"</comment>
+  </source>
+
+  <source>
+    <name>"forces/fwx-aero-newton"</name>
+    <desc>"aerodynamic force along the X axis"</desc>
+    <unit>"N"</unit>
+    <access>"RO"</access>
+    <comment>"aerodynamic force only in the wind frame"</comment>
+  </source>
+
+  <source>
+    <name>"forces/fwy-aero-lbs"</name>
+    <desc>"aerodynamic force along the Y axis"</desc>
+    <unit>"LBS"</unit>
+    <access>"RO"</access>
+    <comment>"aerodynamic force only in the wind frame"</comment>
+  </source>
+
+  <source>
+    <name>"forces/fwy-aero-newton"</name>
+    <desc>"aerodynamic force along the Y axis"</desc>
+    <unit>"N"</unit>
+    <access>"RO"</access>
+    <comment>"aerodynamic force only in the wind frame"</comment>
+  </source>
+
+  <source>
+    <name>"forces/fwz-aero-lbs"</name>
+    <desc>"aerodynamic force along the Z axis"</desc>
+    <unit>"LBS"</unit>
+    <access>"RO"</access>
+    <comment>"aerodynamic force only in the wind frame"</comment>
+  </source>
+
+  <source>
+    <name>"forces/fwz-aero-newton"</name>
+    <desc>"aerodynamic force along the Z axis"</desc>
+    <unit>"N"</unit>
+    <access>"RO"</access>
+    <comment>"aerodynamic force only in the wind frame"</comment>
+  </source>
+
+  <source>
+    <name>"forces/lod-norm"</name>
+    <desc>"aerodynamic force load ratio"</desc>
+    <unit>"norm"</unit>
+    <access>"RO"</access>
+    <comment>"aerodynamic lift force divided by aerodynamic drag force"</comment>
+  </source>
+
+  <source>
+    <name>"forces/nlf-norm"</name>
+    <desc>"longitude force load"</desc>
+    <unit>"norm"</unit>
+    <access>"RO"</access>
+    <comment>"longitude force divided by gravity, it is 1 normally."</comment>
+  </source>
+
+  <source>
+    <name>"forces/mag-nlf-total-norm"</name>
+    <desc>"absolute magnitude of all force load"</desc>
+    <unit>"norm"</unit>
+    <access>"RO"</access>
+    <comment>"total force divided by gravity, it is 1 normally."</comment>
+  </source>
+
+  <source>
+    <name>"forces/fbx-total-lbs"</name>
+    <desc>"total force along the X axis"</desc>
+    <unit>"LBS"</unit>
+    <access>"RO"</access>
+    <comment>"total force in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"forces/fbx-total-n"</name>
+    <desc>"total force along the X axis"</desc>
+    <unit>"N"</unit>
+    <access>"RO"</access>
+    <comment>"total force in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"forces/fby-total-lbs"</name>
+    <desc>"total force along the Y axis"</desc>
+    <unit>"LBS"</unit>
+    <access>"RO"</access>
+    <comment>"total force in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"forces/fby-total-n"</name>
+    <desc>"total force along the Y axis"</desc>
+    <unit>"N"</unit>
+    <access>"RO"</access>
+    <comment>"total force in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"forces/fbz-total-lbs"</name>
+    <desc>"total force along the Z axis"</desc>
+    <unit>"LBS"</unit>
+    <access>"RO"</access>
+    <comment>"total force in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"forces/fbz-total-n"</name>
+    <desc>"total force along the Z axis"</desc>
+    <unit>"N"</unit>
+    <access>"RO"</access>
+    <comment>"total force in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"forces/nbx-total-norm"</name>
+    <desc>"total load along the X axis"</desc>
+    <unit>"G"</unit>
+    <access>"RO"</access>
+    <comment>"total load in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"forces/nby-total-norm"</name>
+    <desc>"total load along the Y axis"</desc>
+    <unit>"G"</unit>
+    <access>"RO"</access>
+    <comment>"total load in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"forces/nbz-total-norm"</name>
+    <desc>"total load along the Z axis"</desc>
+    <unit>"G"</unit>
+    <access>"RO"</access>
+    <comment>"total load in the body frame, it is -1 normally."</comment>
+  </source>
+
+  <source>
+    <name>"moments/l-aero-lbsft"</name>
+    <desc>"aerodynamic moment along the X axis"</desc>
+    <unit>"LBS*FT"</unit>
+    <access>"RO"</access>
+    <comment>"aerodynamic moment in the body frame at ARP"</comment>
+  </source>
+
+  <source>
+    <name>"moments/l-aero-n_m"</name>
+    <desc>"aerodynamic moment along the X axis"</desc>
+    <unit>"N*M"</unit>
+    <access>"RO"</access>
+    <comment>"aerodynamic moment in the body frame at ARP"</comment>
+  </source>
+
+  <source>
+    <name>"moments/m-aero-lbsft"</name>
+    <desc>"aerodynamic moment along the Y axis"</desc>
+    <unit>"LBS*FT"</unit>
+    <access>"RO"</access>
+    <comment>"aerodynamic moment in the body frame at ARP"</comment>
+  </source>
+
+  <source>
+    <name>"moments/m-aero-n_m"</name>
+    <desc>"aerodynamic moment along the Y axis"</desc>
+    <unit>"N*M"</unit>
+    <access>"RO"</access>
+    <comment>"aerodynamic moment in the body frame at ARP"</comment>
+  </source>
+
+  <source>
+    <name>"moments/n-aero-lbsft"</name>
+    <desc>"aerodynamic moment along the Z axis"</desc>
+    <unit>"LBS*FT"</unit>
+    <access>"RO"</access>
+    <comment>"aerodynamic moment in the body frame at ARP"</comment>
+  </source>
+
+  <source>
+    <name>"moments/n-aero-n_m"</name>
+    <desc>"aerodynamic moment along the Z axis"</desc>
+    <unit>"N*M"</unit>
+    <access>"RO"</access>
+    <comment>"aerodynamic moment in the body frame at ARP"</comment>
+  </source>
+
+  <source>
+    <name>"moments/l-total-lbsft"</name>
+    <desc>"total moment along the X axis"</desc>
+    <unit>"LBS*FT"</unit>
+    <access>"RO"</access>
+    <comment>"total moment in the body frame at ARP"</comment>
+  </source>
+
+  <source>
+    <name>"moments/l-total-nm"</name>
+    <desc>"total moment along the X axis"</desc>
+    <unit>"N*M"</unit>
+    <access>"RO"</access>
+    <comment>"total moment in the body frame at ARP"</comment>
+  </source>
+
+  <source>
+    <name>"moments/m-total-lbsft"</name>
+    <desc>"total moment along the Y axis"</desc>
+    <unit>"LBS*FT"</unit>
+    <access>"RO"</access>
+    <comment>"total moment in the body frame at ARP"</comment>
+  </source>
+
+  <source>
+    <name>"moments/m-total-nm"</name>
+    <desc>"total moment along the Y axis"</desc>
+    <unit>"N*M"</unit>
+    <access>"RO"</access>
+    <comment>"total moment in the body frame at ARP"</comment>
+  </source>
+
+  <source>
+    <name>"moments/n-total-lbsft"</name>
+    <desc>"total moment along the Z axis"</desc>
+    <unit>"LBS*FT"</unit>
+    <access>"RO"</access>
+    <comment>"total moment in the body frame at ARP"</comment>
+  </source>
+
+  <source>
+    <name>"moments/n-total-nm"</name>
+    <desc>"total moment along the Z axis"</desc>
+    <unit>"N*M"</unit>
+    <access>"RO"</access>
+    <comment>"total moment in the body frame at ARP"</comment>
+  </source>
+    
+  <source>
+    <name>"accelerations/a-pilot-x-ft_sec2"</name>
+    <desc>"acceleration at pilot along the X axis"</desc>
+    <unit>"FT/SEC^2"</unit>
+    <access>"RO"</access>
+    <comment>"acceleration in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"accelerations/a-pilot-x-m_sec2"</name>
+    <desc>"acceleration at pilot along the X axis"</desc>
+    <unit>"M/SEC^2"</unit>
+    <access>"RO"</access>
+    <comment>"acceleration in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"accelerations/a-pilot-y-ft_sec2"</name>
+    <desc>"acceleration at pilot along the Y axis"</desc>
+    <unit>"FT/SEC^2"</unit>
+    <access>"RO"</access>
+    <comment>"acceleration in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"accelerations/a-pilot-y-m_sec2"</name>
+    <desc>"acceleration at pilot along the Y axis"</desc>
+    <unit>"M/SEC^2"</unit>
+    <access>"RO"</access>
+    <comment>"acceleration in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"accelerations/a-pilot-z-ft_sec2"</name>
+    <desc>"acceleration at pilot along the Z axis"</desc>
+    <unit>"FT/SEC^2"</unit>
+    <access>"RO"</access>
+    <comment>"acceleration in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"accelerations/a-pilot-z-m_sec2"</name>
+    <desc>"acceleration at pilot along the Z axis"</desc>
+    <unit>"M/SEC^2"</unit>
+    <access>"RO"</access>
+    <comment>"acceleration in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"accelerations/n-pilot-x-norm"</name>
+    <desc>"load at pilot along the X axis"</desc>
+    <unit>"norm"</unit>
+    <access>"RO"</access>
+    <comment>"load in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"accelerations/n-pilot-y-norm"</name>
+    <desc>"load at pilot along the Y axis"</desc>
+    <unit>"norm"</unit>
+    <access>"RO"</access>
+    <comment>"load in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"accelerations/n-pilot-z-norm"</name>
+    <desc>"load at pilot along the Z axis"</desc>
+    <unit>"norm"</unit>
+    <access>"RO"</access>
+    <comment>"load in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"accelerations/pdot-deg_sec"</name>
+    <desc>"angular acceleration along the X axis"</desc>
+    <unit>"DEG/SEC^2"</unit>
+    <access>"RO"</access>
+    <comment>"angular acceleration in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"accelerations/pdot-rad_sec"</name>
+    <desc>"angular acceleration along the X axis"</desc>
+    <unit>"RAD/SEC^2"</unit>
+    <access>"RO"</access>
+    <comment>"angular acceleration in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"accelerations/qdot-deg_sec"</name>
+    <desc>"angular acceleration along the Y axis"</desc>
+    <unit>"DEG/SEC^2"</unit>
+    <access>"RO"</access>
+    <comment>"angular acceleration in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"accelerations/qdot-rad_sec"</name>
+    <desc>"angular acceleration along the Y axis"</desc>
+    <unit>"RAD/SEC^2"</unit>
+    <access>"RO"</access>
+    <comment>"angular acceleration in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"accelerations/rdot-deg_sec"</name>
+    <desc>"angular acceleration along the Z axis"</desc>
+    <unit>"DEG/SEC^2"</unit>
+    <access>"RO"</access>
+    <comment>"angular acceleration in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"accelerations/rdot-rad_sec"</name>
+    <desc>"angular acceleration along the Z axis"</desc>
+    <unit>"RAD/SEC^2"</unit>
+    <access>"RO"</access>
+    <comment>"angular acceleration in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"accelerations/udot-fps"</name>
+    <desc>"acceleration along the X axis"</desc>
+    <unit>"FT/SEC^2"</unit>
+    <access>"RO"</access>
+    <comment>"acceleration in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"accelerations/udot-mps"</name>
+    <desc>"acceleration along the X axis"</desc>
+    <unit>"M/SEC^2"</unit>
+    <access>"RO"</access>
+    <comment>"acceleration in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"accelerations/vdot-fps"</name>
+    <desc>"acceleration along the Y axis"</desc>
+    <unit>"FT/SEC^2"</unit>
+    <access>"RO"</access>
+    <comment>"acceleration in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"accelerations/vdot-mps"</name>
+    <desc>"acceleration along the Y axis"</desc>
+    <unit>"M/SEC^2"</unit>
+    <access>"RO"</access>
+    <comment>"acceleration in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"accelerations/wdot-fps"</name>
+    <desc>"acceleration along the Z axis"</desc>
+    <unit>"FT/SEC^2"</unit>
+    <access>"RO"</access>
+    <comment>"acceleration in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"accelerations/wdot-mps"</name>
+    <desc>"acceleration along the Z axis"</desc>
+    <unit>"M/SEC^2"</unit>
+    <access>"RO"</access>
+    <comment>"acceleration in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/vc-fps"</name>
+    <desc>"calibrated speed"</desc>
+    <unit>"FPS"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"velocities/vc-kts"</name>
+    <desc>"calibrated speed"</desc>
+    <unit>"KTS"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"velocities/vc-mps"</name>
+    <desc>"calibrated speed"</desc>
+    <unit>"MPS"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"velocities/ve-fps"</name>
+    <desc>"equivalent speed"</desc>
+    <unit>"FPS"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"velocities/ve-kts"</name>
+    <desc>"equivalent speed"</desc>
+    <unit>"KTS"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"velocities/ve-mps"</name>
+    <desc>"equivalent speed"</desc>
+    <unit>"MPS"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"velocities/tat-r"</name>
+    <desc>"total temperature"</desc>
+    <unit>"DEG"</unit>
+    <access>"RO"</access>
+    <comment>"total temperature in degrees Rankine"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/tat-c"</name>
+    <desc>"total temperature"</desc>
+    <unit>"DEG"</unit>
+    <access>"RO"</access>
+    <comment>"total temperature in degrees Celsius"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/pt-lbs_sqft"</name>
+    <desc>"total pressure"</desc>
+    <unit>"PSF"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"velocities/pt-pa"</name>
+    <desc>"total pressure"</desc>
+    <unit>"Pa"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"velocities/p-aero-deg_sec"</name>
+    <desc>"angular velocity along the X axis"</desc>
+    <unit>"DEG/SEC"</unit>
+    <access>"RO"</access>
+    <comment>"angular velocity in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/p-aero-rad_sec"</name>
+    <desc>"angular velocity along the X axis"</desc>
+    <unit>"RAD/SEC"</unit>
+    <access>"RO"</access>
+    <comment>"angular velocity in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/q-aero-deg_sec"</name>
+    <desc>"angular velocity along the Y axis"</desc>
+    <unit>"DEG/SEC"</unit>
+    <access>"RO"</access>
+    <comment>"angular velocity in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/q-aero-rad_sec"</name>
+    <desc>"angular velocity along the Y axis"</desc>
+    <unit>"RAD/SEC"</unit>
+    <access>"RO"</access>
+    <comment>"angular velocity in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/r-aero-deg_sec"</name>
+    <desc>"angular velocity along the Z axis"</desc>
+    <unit>"DEG/SEC"</unit>
+    <access>"RO"</access>
+    <comment>"angular velocity in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/r-aero-rad_sec"</name>
+    <desc>"angular velocity along the Z axis"</desc>
+    <unit>"RAD/SEC"</unit>
+    <access>"RO"</access>
+    <comment>"angular velocity in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/phidot-deg_sec"</name>
+    <desc>"angular speed for the phi angle"</desc>
+    <unit>"DEG/SEC"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"velocities/phidot-rad_sec"</name>
+    <desc>"angular speed for the phi angle"</desc>
+    <unit>"RAD/SEC"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"velocities/thetadot-deg_sec"</name>
+    <desc>"angular speed for the theta angle"</desc>
+    <unit>"DEG/SEC"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"velocities/thetadot-rad_sec"</name>
+    <desc>"angular speed for the theta angle"</desc>
+    <unit>"RAD/SEC"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"velocities/psidot-deg_sec"</name>
+    <desc>"angular speed for the psi angle"</desc>
+    <unit>"DEG/SEC"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"velocities/psidot-rad_sec"</name>
+    <desc>"angular speed for the psi angle"</desc>
+    <unit>"RAD/SEC"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"velocities/u-aero-fps"</name>
+    <desc>"velocity along the X axis"</desc>
+    <unit>"FPS"</unit>
+    <access>"RO"</access>
+    <comment>"aero velocity in the body frame, the wind is considered"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/u-aero-mps"</name>
+    <desc>"velocity along the X axis"</desc>
+    <unit>"MPS"</unit>
+    <access>"RO"</access>
+    <comment>"aero velocity in the body frame, the wind is considered"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/v-aero-fps"</name>
+    <desc>"velocity along the Y axis"</desc>
+    <unit>"FPS"</unit>
+    <access>"RO"</access>
+    <comment>"aero velocity in the body frame, the wind is considered"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/v-aero-mps"</name>
+    <desc>"velocity along the Y axis"</desc>
+    <unit>"MPS"</unit>
+    <access>"RO"</access>
+    <comment>"aero velocity in the body frame, the wind is considered"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/w-aero-fps"</name>
+    <desc>"velocity along the Z axis"</desc>
+    <unit>"FPS"</unit>
+    <access>"RO"</access>
+    <comment>"aero velocity in the body frame, the wind is considered"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/w-aero-mps"</name>
+    <desc>"velocity along the Z axis"</desc>
+    <unit>"MPS"</unit>
+    <access>"RO"</access>
+    <comment>"aero velocity in the body frame, the wind is considered"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/vt-fps"</name>
+    <desc>"the true aero speed"</desc>
+    <unit>"FPS"</unit>
+    <access>"RO"</access>
+    <comment>"the wind is considered"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/vt-mps"</name>
+    <desc>"the true aero speed"</desc>
+    <unit>"MPS"</unit>
+    <access>"RO"</access>
+    <comment>"the wind is considered"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/mach-norm"</name>
+    <desc>"the mach number"</desc>
+    <unit>"norm"</unit>
+    <access>"RO"</access>
+    <comment>"the wind is considered"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/vg-fps"</name>
+    <desc>"the ground speed"</desc>
+    <unit>"FPS"</unit>
+    <access>"RO"</access>
+    <comment>"refer to the ground"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/vg-mps"</name>
+    <desc>"the ground speed"</desc>
+    <unit>"MPS"</unit>
+    <access>"RO"</access>
+    <comment>"refer to the ground"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/h-dot-fps"</name>
+    <desc>"vertical speed"</desc>
+    <unit>"FPS"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"velocities/h-dot-mps"</name>
+    <desc>"vertical speed"</desc>
+    <unit>"MPS"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"velocities/v-north-fps"</name>
+    <desc>"northward speed"</desc>
+    <unit>"FPS"</unit>
+    <access>"RO"</access>
+    <comment>"speed in the local frame"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/v-north-mps"</name>
+    <desc>"northward speed"</desc>
+    <unit>"MPS"</unit>
+    <access>"RO"</access>
+    <comment>"speed in the local frame"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/v-east-fps"</name>
+    <desc>"eastward speed"</desc>
+    <unit>"FPS"</unit>
+    <access>"RO"</access>
+    <comment>"speed in the local frame"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/v-east-mps"</name>
+    <desc>"eastward speed"</desc>
+    <unit>"MPS"</unit>
+    <access>"RO"</access>
+    <comment>"speed in the local frame"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/v-down-fps"</name>
+    <desc>"downward speed"</desc>
+    <unit>"FPS"</unit>
+    <access>"RO"</access>
+    <comment>"speed in the local frame"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/v-down-mps"</name>
+    <desc>"downward speed"</desc>
+    <unit>"MPS"</unit>
+    <access>"RO"</access>
+    <comment>"speed in the local frame"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/u-fps"</name>
+    <desc>"velocity along the X axis"</desc>
+    <unit>"FPS"</unit>
+    <access>"RO"</access>
+    <comment>"speed in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/u-mps"</name>
+    <desc>"velocity along the X axis"</desc>
+    <unit>"MPS"</unit>
+    <access>"RO"</access>
+    <comment>"speed in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/v-fps"</name>
+    <desc>"velocity along the Y axis"</desc>
+    <unit>"FPS"</unit>
+    <access>"RO"</access>
+    <comment>"speed in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/v-mps"</name>
+    <desc>"velocity along the Y axis"</desc>
+    <unit>"MPS"</unit>
+    <access>"RO"</access>
+    <comment>"speed in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/w-fps"</name>
+    <desc>"velocity along the Z axis"</desc>
+    <unit>"FPS"</unit>
+    <access>"RO"</access>
+    <comment>"speed in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/w-mps"</name>
+    <desc>"velocity along the Z axis"</desc>
+    <unit>"MPS"</unit>
+    <access>"RO"</access>
+    <comment>"speed in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/p-deg_sec"</name>
+    <desc>"angular velocity along the X axis"</desc>
+    <unit>"DEG/SEC"</unit>
+    <access>"RO"</access>
+    <comment>"angular speed in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/p-rad_sec"</name>
+    <desc>"angular velocity along the X axis"</desc>
+    <unit>"RAD/SEC"</unit>
+    <access>"RO"</access>
+    <comment>"angular speed in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/q-deg_sec"</name>
+    <desc>"angular velocity along the Y axis"</desc>
+    <unit>"DEG/SEC"</unit>
+    <access>"RO"</access>
+    <comment>"angular speed in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/q-rad_sec"</name>
+    <desc>"angular velocity along the Y axis"</desc>
+    <unit>"RAD/SEC"</unit>
+    <access>"RO"</access>
+    <comment>"angular speed in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/r-deg_sec"</name>
+    <desc>"angular velocity along the Z axis"</desc>
+    <unit>"DEG/SEC"</unit>
+    <access>"RO"</access>
+    <comment>"angular speed in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"velocities/r-rad_sec"</name>
+    <desc>"angular velocity along the Z axis"</desc>
+    <unit>"RAD/SEC"</unit>
+    <access>"RO"</access>
+    <comment>"angular speed in the body frame"</comment>
+  </source>
+
+  <source>
+    <name>"attitude/phi-deg"</name>
+    <desc>"roll angle"</desc>
+    <unit>"DEG"</unit>
+    <access>"RO"</access>
+    <comment>"the Euler angle"</comment>
+  </source>
+
+  <source>
+    <name>"attitude/phi-rad"</name>
+    <desc>"roll angle"</desc>
+    <unit>"RAD"</unit>
+    <access>"RO"</access>
+    <comment>"the Euler angle"</comment>
+  </source>
+
+  <source>
+    <name>"attitude/roll-deg"</name>
+    <desc>"roll angle"</desc>
+    <unit>"DEG"</unit>
+    <access>"RO"</access>
+    <comment>"the Euler angle"</comment>
+  </source>
+
+  <source>
+    <name>"attitude/roll-rad"</name>
+    <desc>"roll angle"</desc>
+    <unit>"RAD"</unit>
+    <access>"RO"</access>
+    <comment>"the Euler angle"</comment>
+  </source>
+
+  <source>
+    <name>"attitude/theta-deg"</name>
+    <desc>"pitch angle"</desc>
+    <unit>"DEG"</unit>
+    <access>"RO"</access>
+    <comment>"the Euler angle"</comment>
+  </source>
+
+  <source>
+    <name>"attitude/theta-rad"</name>
+    <desc>"pitch angle"</desc>
+    <unit>"RAD"</unit>
+    <access>"RO"</access>
+    <comment>"the Euler angle"</comment>
+  </source>
+
+  <source>
+    <name>"attitude/pitch-deg"</name>
+    <desc>"pitch angle"</desc>
+    <unit>"DEG"</unit>
+    <access>"RO"</access>
+    <comment>"the Euler angle"</comment>
+  </source>
+
+  <source>
+    <name>"attitude/pitch-rad"</name>
+    <desc>"pitch angle"</desc>
+    <unit>"RAD"</unit>
+    <access>"RO"</access>
+    <comment>"the Euler angle"</comment>
+  </source>
+
+  <source>
+    <name>"attitude/psi-deg"</name>
+    <desc>"heading angle"</desc>
+    <unit>"DEG"</unit>
+    <access>"RO"</access>
+    <comment>"the Euler angle"</comment>
+  </source>
+
+  <source>
+    <name>"attitude/psi-rad"</name>
+    <desc>"heading angle"</desc>
+    <unit>"RAD"</unit>
+    <access>"RO"</access>
+    <comment>"the Euler angle"</comment>
+  </source>
+
+  <source>
+    <name>"attitude/heading-true-deg"</name>
+    <desc>"heading angle"</desc>
+    <unit>"DEG"</unit>
+    <access>"RO"</access>
+    <comment>"the Euler angle"</comment>
+  </source>
+
+  <source>
+    <name>"attitude/heading-true-rad"</name>
+    <desc>"heading angle"</desc>
+    <unit>"RAD"</unit>
+    <access>"RO"</access>
+    <comment>"the Euler angle"</comment>
+  </source>
+
+  <source>
+    <name>"position/epa-rad"</name>
+    <desc>"earch position angle"</desc>
+    <unit>"RAD"</unit>
+    <access>"RO"</access>
+    <comment>"earthPosAngle += State->Getdt()*Inertial->omega();"</comment>
+  </source>
+
+  <source>
+    <name>"position/h-sl-ft"</name>
+    <desc>"height from sea level"</desc>
+    <unit>"FT"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"position/h-sl-m"</name>
+    <desc>"height from sea level"</desc>
+    <unit>"M"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"position/lat-gc-rad"</name>
+    <desc>"latitude"</desc>
+    <unit>"RAD"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"position/long-gc-rad"</name>
+    <desc>"longitude"</desc>
+    <unit>"RAD"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"position/h-agl-ft"</name>
+    <desc>"height from runway"</desc>
+    <unit>"FT"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"position/h-agl-m"</name>
+    <desc>"height from runway"</desc>
+    <unit>"M"</unit>
+    <access>"RO"</access>
+    <comment>""</comment>
+  </source>
+
+  <source>
+    <name>"flight-path/gamma-rad"</name>
+    <desc>"gamma angle"</desc>
+    <unit>"RAD"</unit>
+    <access>"RO"</access>
+    <comment>"vertical flight path angle, from -pi/2 ~ pi/2"</comment>
+  </source>
+
+  <source>
+    <name>"flight-path/psi-gt-rad"</name>
+    <desc>"psi angle"</desc>
+    <unit>"RAD"</unit>
+    <access>"RO"</access>
+    <comment>"horizontal flight path angle, from 0 ~ 2pi"</comment>
+  </source>
+
+  <source>
+    <name>"fcs/aileron-cmd-norm"</name>
+    <desc>"aileron command"</desc>
+    <unit>"norm"</unit>
+    <access>"R/W"</access>
+    <comment>"range from 0 to 1"</comment>
+  </source>
+
+  <source>
+    <name>"fcs/elevator-cmd-norm"</name>
+    <desc>"elevator command"</desc>
+    <unit>"norm"</unit>
+    <access>"R/W"</access>
+    <comment>"range from 0 to 1, must appear in FCS modal"</comment>
+  </source>
+
+  <source>
+    <name>"fcs/rudder-cmd-norm"</name>
+    <desc>"rudder command"</desc>
+    <unit>"norm"</unit>
+    <access>"R/W"</access>
+    <comment>"range from 0 to 1, must appear in FCS modal"</comment>
+  </source>
+
+  <source>
+    <name>"fcs/steer-cmd-norm"</name>
+    <desc>"steer command"</desc>
+    <unit>"norm"</unit>
+    <access>"R/W"</access>
+    <comment>"range from 0 to 1"</comment>
+  </source>
+
+  <source>
+    <name>"fcs/flap-cmd-norm"</name>
+    <desc>"flap command"</desc>
+    <unit>"norm"</unit>
+    <access>"R/W"</access>
+    <comment>"range from 0 to 1"</comment>
+  </source>
+
+  <source>
+    <name>"fcs/speedbrake-cmd-norm"</name>
+    <desc>"speedbrake"</desc>
+    <unit>"norm"</unit>
+    <access>"R/W"</access>
+    <comment>"range from 0 to 1"</comment>
+  </source>
+
+  <source>
+    <name>"fcs/spoiler-cmd-norm"</name>
+    <desc>"spoiler command"</desc>
+    <unit>"norm"</unit>
+    <access>"R/W"</access>
+    <comment>"range from 0 to 1"</comment>
+  </source>
+
+  <source>
+    <name>"fcs/pitch-trim-cmd-norm"</name>
+    <desc>"pitch trim command"</desc>
+    <unit>"norm"</unit>
+    <access>"R/W"</access>
+    <comment>"range from 0 to 1, must appear in FCS modal"</comment>
+  </source>
+
+  <source>
+    <name>"fcs/roll-trim-cmd-norm"</name>
+    <desc>"roll trim command"</desc>
+    <unit>"norm"</unit>
+    <access>"R/W"</access>
+    <comment>"range from 0 to 1, must appear in FCS modal"</comment>
+  </source>
+
+  <source>
+    <name>"fcs/yaw-trim-cmd-norm"</name>
+    <desc>"yaw trim command"</desc>
+    <unit>"norm"</unit>
+    <access>"R/W"</access>
+    <comment>"range from 0 to 1, must appear in FCS modal"</comment>
+  </source>
+
+  <source>
+    <name>"gear/gear-cmd-norm"</name>
+    <desc>"gear command"</desc>
+    <unit>"norm"</unit>
+    <access>"R/W"</access>
+    <comment>"range from 0 to 1"</comment>
+  </source>
+
+  <source>
+    <name>"propulsion/active_engine"</name>
+    <desc>"active engine"</desc>
+    <unit>"norm"</unit>
+    <access>"R/W"</access>
+    <comment>"-1 means that all engines are running"</comment>
+  </source>
+
+  <source>
+    <name>"fcs/throttle-cmd-norm"</name>
+    <desc>"throttle command"</desc>
+    <unit>"norm"</unit>
+    <access>"R/W"</access>
+    <comment>"from 0 to 1, it must appear in the FCS modal"</comment>
+  </source>
+
+
+  <destination>
+    <name>"fcs/left-aileron-pos-deg"</name>
+    <desc>"left aileron positon"</desc>
+    <unit>"DEG"</unit>
+    <access>"R/W"</access>
+    <comment>"it must appear in the FCS modal"</comment>
+  </destination>
+
+  <destination>
+    <name>"fcs/left-aileron-pos-rad"</name>
+    <desc>"left aileron positon"</desc>
+    <unit>"RAD"</unit>
+    <access>"R/W"</access>
+    <comment>"it must appear in the FCS modal"</comment>
+  </destination>
+
+  <destination>
+    <name>"fcs/right-aileron-pos-deg"</name>
+    <desc>"right aileron position"</desc>
+    <unit>"DEG"</unit>
+    <access>"R/W"</access>
+    <comment>"it must appear in the FCS modal"</comment>
+  </destination>
+
+  <destination>
+    <name>"fcs/right-aileron-pos-rad"</name>
+    <desc>"right aileron position"</desc>
+    <unit>"RAD"</unit>
+    <access>"R/W"</access>
+    <comment>"it must appear in the FCS modal"</comment>
+  </destination>
+
+  <destination>
+    <name>"fcs/elevator-pos-deg"</name>
+    <desc>"elevator position"</desc>
+    <unit>"DEG"</unit>
+    <access>"R/W"</access>
+    <comment>"it must appear in the FCS modal"</comment>
+  </destination>
+
+  <destination>
+    <name>"fcs/elevator-pos-rad"</name>
+    <desc>"elevator position"</desc>
+    <unit>"RAD"</unit>
+    <access>"R/W"</access>
+    <comment>"it must appear in the FCS modal"</comment>
+  </destination>
+
+  <destination>
+    <name>"fcs/rudder-pos-deg"</name>
+    <desc>"rudder position"</desc>
+    <unit>"DEG"</unit>
+    <access>"R/W"</access>
+    <comment>"it must appear in the FCS modal"</comment>
+  </destination>
+
+  <destination>
+    <name>"fcs/rudder-pos-rad"</name>
+    <desc>"rudder position"</desc>
+    <unit>"RAD"</unit>
+    <access>"R/W"</access>
+    <comment>"it must appear in the FCS modal"</comment>
+  </destination>
+
+  <destination>
+    <name>"fcs/throttle-pos-norm"</name>
+    <desc>"throttle position"</desc>
+    <unit>"norm"</unit>
+    <access>"R/W"</access>
+    <comment>"from 0 to 2, it must appear in the FCS modal"</comment>
+  </destination>
+
+  <destination>
+    <name>"propulsion/pitch-deg"</name>
+    <desc>"throttle attitude"</desc>
+    <unit>"DEG"</unit>
+    <access>"R/W"</access>
+    <comment>"use propulsion/pitch-deg[1] for the second engine"</comment>
+  </destination>
+
+  <destination>
+    <name>"propulsion/yaw-deg"</name>
+    <desc>"throttle attitude"</desc>
+    <unit>"DEG"</unit>
+    <access>"R/W"</access>
+    <comment>"use propulsion/yaw-deg[1] for the second engine"</comment>
+  </destination>
+
+  <destination>
+    <name>"gear/gear-pos-norm"</name>
+    <desc>"gear position"</desc>
+    <unit>"norm"</unit>
+    <access>"R/W"</access>
+    <comment>""</comment>
+  </destination>
+
+  <destination>
+    <name>"fcs/flap-pos-norm"</name>
+    <desc>"flap position norm"</desc>
+    <unit>"norm"</unit>
+    <access>"R/W"</access>
+    <comment>"do not use the other one together"</comment>
+  </destination>
+
+  <destination>
+    <name>"fcs/flap-pos-deg"</name>
+    <desc>"flap position"</desc>
+    <unit>"DEG"</unit>
+    <access>"R/W"</access>
+    <comment>"do not use the other one together"</comment>
+  </destination>
+
+  <destination>
+    <name>"fcs/speedbrake-pos-norm"</name>
+    <desc>"speedbrake position"</desc>
+    <unit>"norm"</unit>
+    <access>"R/W"</access>
+    <comment>"do not use the other one together"</comment>
+  </destination>
+
+  <destination>
+    <name>"fcs/speedbrake-pos-deg"</name>
+    <desc>"speedbrake position"</desc>
+    <unit>"DEG"</unit>
+    <access>"R/W"</access>
+    <comment>"do not use the other one together"</comment>
+  </destination>
+
+  <destination>
+    <name>"fcs/speedbrake-pos-rad"</name>
+    <desc>"speedbrake position"</desc>
+    <unit>"RAD"</unit>
+    <access>"R/W"</access>
+    <comment>"do not use the other one together"</comment>
+  </destination>
+
+  <destination>
+    <name>"fcs/spoiler-pos-norm"</name>
+    <desc>"spoiler position"</desc>
+    <unit>"norm"</unit>
+    <access>"R/W"</access>
+    <comment>"do not use the other one together"</comment>
+  </destination>
+
+  <destination>
+    <name>"fcs/spoiler-pos-deg"</name>
+    <desc>"spoiler position"</desc>
+    <unit>"DEG"</unit>
+    <access>"R/W"</access>
+    <comment>"do not use the other one together"</comment>
+  </destination>
+
+  <destination>
+    <name>"fcs/spoiler-pos-rad"</name>
+    <desc>"spoiler position"</desc>
+    <unit>"RAD"</unit>
+    <access>"R/W"</access>
+    <comment>"do not use the other one together"</comment>
+  </destination>
+</props>
