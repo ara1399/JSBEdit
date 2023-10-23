@@ -39,7 +39,7 @@ public class FileHeader extends JPanel implements TabComponent {
 
 	public void bindUIwithXML(FdmConfig cfg) {
 
-        aircraftNameText.setText(cfg.getName());
+		aircraftNameText.setText(cfg.getName());
         aircraftNameText.setCaretPosition(0); //scroll to left
         releaseLevelCombo.setSelectedItem(cfg.getRelease());
         flightModelVersionText.setText(cfg.getVersion());

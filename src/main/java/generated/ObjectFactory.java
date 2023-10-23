@@ -51,7 +51,6 @@ public class ObjectFactory {
     private final static QName _Sense_QNAME = new QName("", "sense");
     private final static QName _PFactor_QNAME = new QName("", "p_factor");
     private final static QName _Width_QNAME = new QName("", "width");
-    private final static QName _Props_QNAME = new QName("", "props");
     private final static QName _FileheaderAuthor_QNAME = new QName("", "author");
     private final static QName _FileheaderEmail_QNAME = new QName("", "email");
     private final static QName _FileheaderOrganization_QNAME = new QName("", "organization");
@@ -1027,30 +1026,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link PropsType }
-     * 
-     */
-    public PropsType createPropsType() {
-        return new PropsType();
-    }
-
-    /**
-     * Create an instance of {@link SourceType }
-     * 
-     */
-    public SourceType createSourceType() {
-        return new SourceType();
-    }
-
-    /**
-     * Create an instance of {@link DestinationType }
-     * 
-     */
-    public DestinationType createDestinationType() {
-        return new DestinationType();
-    }
-
-    /**
      * Create an instance of {@link Contact.RelaxationVelocity.Rolling }
      * 
      */
@@ -1273,19 +1248,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "", name = "width")
     public JAXBElement<Double> createWidth(Double value) {
         return new JAXBElement<Double>(_Width_QNAME, Double.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link PropsType }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link PropsType }{@code >}
-     */
-    @XmlElementDecl(namespace = "", name = "props")
-    public JAXBElement<PropsType> createProps(PropsType value) {
-        return new JAXBElement<PropsType>(_Props_QNAME, PropsType.class, null, value);
     }
 
     /**

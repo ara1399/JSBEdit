@@ -23,7 +23,7 @@ public class Constants {
     // res folders
     public static final String ICONS_RESF = "icons/";
     public static final String ICONS_ORG_RESF = "icons/original/";
-
+    
     // res ui background
     public static final String BG_RES = ICONS_RESF + "f16-500-238" + EXT_PNG;
     
