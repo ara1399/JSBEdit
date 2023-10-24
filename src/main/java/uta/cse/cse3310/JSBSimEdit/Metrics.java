@@ -10,7 +10,7 @@ import javax.swing.border.*;
 import javax.swing.text.NumberFormatter;
 
 import java.awt.Dimension;
-import java.text.NumberFormat;
+import java.text.DecimalFormat;
 import java.util.Optional;
 
 import generated.AngleType;
@@ -609,14 +609,14 @@ public class Metrics extends JPanel implements TabComponent {
 	}
 
     //ensure text fields only accept doubles
-    NumberFormat doubleFormat = NumberFormat.getNumberInstance();
-    NumberFormatter doubleFormatterPositive = new NumberFormatter(doubleFormat);
+    DecimalFormat df = new DecimalFormat("#.0###");
+    NumberFormatter doubleFormatterPositive = new NumberFormatter(df);
     {
         doubleFormatterPositive.setValueClass(Double.class);
         doubleFormatterPositive.setAllowsInvalid(false);
         doubleFormatterPositive.setMinimum(0.0);
     }
-    NumberFormatter doubleFormatter = new NumberFormatter(doubleFormat);
+    NumberFormatter doubleFormatter = new NumberFormatter(df);
     {
         doubleFormatter.setValueClass(Double.class);
         doubleFormatter.setAllowsInvalid(false);
