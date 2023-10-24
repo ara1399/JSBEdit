@@ -4,7 +4,7 @@ public class Constants {
     
     // app settings
     public static final String APP_NAME = "JSBSimEdit (JE)";
-    public static final int APP_SIZEX = 1270;
+    public static final int APP_SIZEX = 1250;
     public static final int APP_SIZEY = 600;
 
     // file extensions
