@@ -4,13 +4,18 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.JFormattedTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.*;
+import javax.swing.text.NumberFormatter;
 
 import java.awt.Dimension;
+import java.text.NumberFormat;
 import java.util.Optional;
 
+import generated.AngleType;
+import generated.LengthType;
+import generated.AreaType;
 import generated.FdmConfig;
 import net.miginfocom.swing.*;
 import uta.cse.cse3310.JSBSimEdit.interfaces.TabComponent;
@@ -26,66 +31,200 @@ public class Metrics extends JPanel implements TabComponent {
 
 	@Override
     public void bindUIwithXML(FdmConfig cfg) {
-        // TODO
+
+        generated.Metrics m = cfg.getMetrics();
+
+        if(m.getWingarea() != null) {
+            wingAreaText.setText(Double.toString(m.getWingarea().getValue()));
+            wingAreaCombo.setSelectedItem(m.getWingarea().getUnit().value());
+        }
+
+        if(m.getWingspan() != null) {
+            wingSpanText.setText(Double.toString(m.getWingspan().getValue()));
+            wingSpanCombo.setSelectedItem(m.getWingspan().getUnit().value());
+        }
+
+        if(m.getChord() != null) {
+            chordText.setText(Double.toString(m.getChord().getValue()));
+            chordCombo.setSelectedItem(m.getChord().getUnit().value());
+        }
+
+        if(m.getWingIncidence() != null) {
+            wingIncidenceText.setText(Double.toString(m.getWingIncidence().getValue()));
+            wingIncidenceCombo.setSelectedItem(m.getWingIncidence().getUnit().value());
+        }
+
+        if(m.getHtailarea() != null) {
+            hTailAreaText.setText(Double.toString(m.getHtailarea().getValue()));
+            hTailAreaCombo.setSelectedItem(m.getHtailarea().getUnit().value());
+        }
+
+        if(m.getHtailarm() != null) {
+            hTailArmText.setText(Double.toString(m.getHtailarm().getValue()));
+            hTailArmCombo.setSelectedItem(m.getHtailarm().getUnit().value());
+        }
+
+        if(m.getVtailarea() != null) {
+            vTailAreaText.setText(Double.toString(m.getVtailarea().getValue()));
+            vTailAreaCombo.setSelectedItem(m.getVtailarea().getUnit().value());
+        }
+
+        if(m.getVtailarm() != null) {
+            vTailArmText.setText(Double.toString(m.getVtailarm().getValue()));
+            vTailArmCombo.setSelectedItem(m.getVtailarm().getUnit().value());
+        }
     }
 
     @Override
     public Optional<FdmConfig> saveXMLfromUI(FdmConfig cfg) {
-        // TODO
+        
+        generated.Metrics m = cfg.getMetrics();
+        
+        // WingArea is required Schema element
+		if(!(wingAreaText.getText().length() > 0)) {
+			System.out.println("Schema Mismatch: Metrics: WingArea is required");
+			return Optional.empty();
+		}
+		else {
+            if(m.getWingarea() == null)
+                m.setWingarea(new generated.Wingarea());
+			m.getWingarea().setValue(Double.parseDouble(wingAreaText.getText().trim()));
+            m.getWingarea().setUnit(AreaType.fromValue(wingAreaCombo.getSelectedItem().toString()));
+		}
+
+        // WingSpan is required Schema element
+		if(!(wingAreaText.getText().length() > 0)) {
+			System.out.println("Schema Mismatch: Metrics: WingSpan is required");
+			return Optional.empty();
+		}
+		else {
+            if(m.getWingspan() == null)
+                m.setWingspan(new generated.Wingspan());
+            m.getWingspan().setValue(Double.parseDouble(wingSpanText.getText().trim()));
+            m.getWingspan().setUnit(LengthType.fromValue(wingSpanCombo.getSelectedItem().toString()));
+		}
+
+        // Chord is required Schema element
+		if(!(chordText.getText().length() > 0)) {
+			System.out.println("Schema Mismatch: Metrics: Chord is required");
+			return Optional.empty();
+		}
+		else {
+            if(m.getChord() == null)
+                m.setChord(new generated.Chord());
+			m.getChord().setValue(Double.parseDouble(chordText.getText().trim()));
+            m.getChord().setUnit(LengthType.fromValue(chordCombo.getSelectedItem().toString()));
+		}
+
+        // WingIncidence is optional, remove if empty
+		if(wingIncidenceText.getText().length() > 0) {
+			if(m.getWingIncidence() == null)
+                m.setWingIncidence(new generated.WingIncidence());
+            m.getWingIncidence().setValue(Double.parseDouble(wingIncidenceText.getText().trim()));
+            m.getWingIncidence().setUnit(AngleType.fromValue(wingIncidenceCombo.getSelectedItem().toString()));
+		}
+		else {
+			m.setWingIncidence(null);
+		}
+
+        // HTailArea is optional, remove if empty
+        if(hTailAreaText.getText().length() > 0) {
+            if(m.getHtailarea() == null)
+                m.setHtailarea(new generated.Htailarea());
+            m.getHtailarea().setValue(Double.parseDouble(hTailAreaText.getText().trim()));
+            m.getHtailarea().setUnit(AreaType.fromValue(hTailAreaCombo.getSelectedItem().toString()));
+        }
+        else {
+            m.setHtailarea(null);
+        }
+
+        // HTailArm is optional, remove if empty
+        if(hTailArmText.getText().length() > 0) {
+            if(m.getHtailarm() == null)
+                m.setHtailarm(new generated.Htailarm());
+            m.getHtailarm().setValue(Double.parseDouble(hTailArmText.getText().trim()));
+            m.getHtailarm().setUnit(LengthType.fromValue(hTailArmCombo.getSelectedItem().toString()));
+        }
+        else {
+            m.setHtailarm(null);
+        }
+
+        // VTailArea is optional, remove if empty
+        if(vTailAreaText.getText().length() > 0) {
+            if(m.getVtailarea() == null)
+                m.setVtailarea(new generated.Vtailarea());
+            m.getVtailarea().setValue(Double.parseDouble(vTailAreaText.getText().trim()));
+            m.getVtailarea().setUnit(AreaType.fromValue(vTailAreaCombo.getSelectedItem().toString()));
+        }
+        else {
+            m.setVtailarea(null);
+        }
+
+        // VTailArm is optional, remove if empty
+        if(vTailArmText.getText().length() > 0) {
+            if(m.getVtailarm() == null)
+                m.setVtailarm(new generated.Vtailarm());
+            m.getVtailarm().setValue(Double.parseDouble(vTailArmText.getText().trim()));
+            m.getVtailarm().setUnit(LengthType.fromValue(vTailArmCombo.getSelectedItem().toString()));
+        }
+        else {
+            m.setVtailarm(null);
+        }
+
         return Optional.ofNullable(cfg);
     }
     
     private void initComponents() {
 		mainPanel = new JPanel();
 		wingAreaLabel = new JLabel();
-		wingAreaText = new JTextField();
+		wingAreaText = new JFormattedTextField(doubleFormatterPositive);
 		wingAreaCombo = new JComboBox<>();
 		hTailAreaLabel = new JLabel();
-		hTailAreaText = new JTextField();
+		hTailAreaText = new JFormattedTextField(doubleFormatterPositive);
 		hTailAreaCombo = new JComboBox<>();
 		wingSpanLabel = new JLabel();
-		wingSpanText = new JTextField();
+		wingSpanText = new JFormattedTextField(doubleFormatterPositive);
 		wingSpanCombo = new JComboBox<>();
 		hTailArmLabel = new JLabel();
-		hTailArmText = new JTextField();
+		hTailArmText = new JFormattedTextField(doubleFormatterPositive);
 		hTailArmCombo = new JComboBox<>();
 		chordLabel = new JLabel();
-		chordText = new JTextField();
+		chordText = new JFormattedTextField(doubleFormatterPositive);
 		chordCombo = new JComboBox<>();
 		vTailAreaLabel = new JLabel();
-		vTailAreaText = new JTextField();
+		vTailAreaText = new JFormattedTextField(doubleFormatterPositive);
 		vTailAreaCombo = new JComboBox<>();
 		wingIncidenceLabel = new JLabel();
-		wingIncidenceText = new JTextField();
+		wingIncidenceText = new JFormattedTextField(doubleFormatter);
 		wingIncidenceCombo = new JComboBox<>();
 		vTailArmLabel = new JLabel();
-		vTailArmText = new JTextField();
+		vTailArmText = new JFormattedTextField(doubleFormatterPositive);
 		vTailArmCombo = new JComboBox<>();
 		aerodynamicRefPanel = new JPanel();
 		aerodynamicRefXLabel = new JLabel();
-		aerodynamicRefXText = new JTextField();
+		aerodynamicRefXText = new JFormattedTextField(doubleFormatter);
 		aerodynamicRefYLabel = new JLabel();
-		aerodynamicRefYText = new JTextField();
+		aerodynamicRefYText = new JFormattedTextField(doubleFormatter);
 		aerodynamicRefZLabel = new JLabel();
-		aerodynamicRefZText = new JTextField();
+		aerodynamicRefZText = new JFormattedTextField(doubleFormatter);
 		aerodynamicRefUnitLabel = new JLabel();
 		aerodynamicRefUnitCombo = new JComboBox<>();
 		eyePointPanel = new JPanel();
 		eyePointXLabel = new JLabel();
-		eyePointXText = new JTextField();
+		eyePointXText = new JFormattedTextField(doubleFormatter);
 		eyePointYLabel = new JLabel();
-		eyePointYText = new JTextField();
+		eyePointYText = new JFormattedTextField(doubleFormatter);
 		eyePointZLabel = new JLabel();
-		eyePointZText = new JTextField();
+		eyePointZText = new JFormattedTextField(doubleFormatter);
 		eyePointUnitLabel = new JLabel();
 		eyePointUnitCombo = new JComboBox<>();
 		visualRefPanel = new JPanel();
 		visualRefXLabel = new JLabel();
-		visualRefXText = new JTextField();
+		visualRefXText = new JFormattedTextField(doubleFormatter);
 		visualRefYLabel = new JLabel();
-		visualRefYText = new JTextField();
+		visualRefYText = new JFormattedTextField(doubleFormatter);
 		visualRefZLabel = new JLabel();
-		visualRefZText = new JTextField();
+		visualRefZText = new JFormattedTextField(doubleFormatter);
 		visualRefUnitLabel = new JLabel();
 		visualRefUnitCombo = new JComboBox<>();
 
@@ -469,56 +608,70 @@ public class Metrics extends JPanel implements TabComponent {
 		add(visualRefPanel, "cell 0 4 5 1");
 	}
 
-	private JPanel mainPanel;
+    //ensure text fields only accept doubles
+    NumberFormat doubleFormat = NumberFormat.getNumberInstance();
+    NumberFormatter doubleFormatterPositive = new NumberFormatter(doubleFormat);
+    {
+        doubleFormatterPositive.setValueClass(Double.class);
+        doubleFormatterPositive.setAllowsInvalid(false);
+        doubleFormatterPositive.setMinimum(0.0);
+    }
+    NumberFormatter doubleFormatter = new NumberFormatter(doubleFormat);
+    {
+        doubleFormatter.setValueClass(Double.class);
+        doubleFormatter.setAllowsInvalid(false);
+    }
+    
+    private JPanel mainPanel;
 	private JLabel wingAreaLabel;
-	private JTextField wingAreaText;
+	private JFormattedTextField wingAreaText;
 	private JComboBox<String> wingAreaCombo;
 	private JLabel hTailAreaLabel;
-	private JTextField hTailAreaText;
+	private JFormattedTextField hTailAreaText;
 	private JComboBox<String> hTailAreaCombo;
 	private JLabel wingSpanLabel;
-	private JTextField wingSpanText;
+	private JFormattedTextField wingSpanText;
 	private JComboBox<String> wingSpanCombo;
 	private JLabel hTailArmLabel;
-	private JTextField hTailArmText;
+	private JFormattedTextField hTailArmText;
 	private JComboBox<String> hTailArmCombo;
 	private JLabel chordLabel;
-	private JTextField chordText;
+	private JFormattedTextField chordText;
 	private JComboBox<String> chordCombo;
 	private JLabel vTailAreaLabel;
-	private JTextField vTailAreaText;
+	private JFormattedTextField vTailAreaText;
 	private JComboBox<String> vTailAreaCombo;
 	private JLabel wingIncidenceLabel;
-	private JTextField wingIncidenceText;
+	private JFormattedTextField wingIncidenceText;
 	private JComboBox<String> wingIncidenceCombo;
 	private JLabel vTailArmLabel;
-	private JTextField vTailArmText;
+	private JFormattedTextField vTailArmText;
 	private JComboBox<String> vTailArmCombo;
 	private JPanel aerodynamicRefPanel;
 	private JLabel aerodynamicRefXLabel;
-	private JTextField aerodynamicRefXText;
+	private JFormattedTextField aerodynamicRefXText;
 	private JLabel aerodynamicRefYLabel;
-	private JTextField aerodynamicRefYText;
+	private JFormattedTextField aerodynamicRefYText;
 	private JLabel aerodynamicRefZLabel;
-	private JTextField aerodynamicRefZText;
+	private JFormattedTextField aerodynamicRefZText;
 	private JLabel aerodynamicRefUnitLabel;
 	private JComboBox<String> aerodynamicRefUnitCombo;
 	private JPanel eyePointPanel;
 	private JLabel eyePointXLabel;
-	private JTextField eyePointXText;
+	private JFormattedTextField eyePointXText;
 	private JLabel eyePointYLabel;
-	private JTextField eyePointYText;
+	private JFormattedTextField eyePointYText;
 	private JLabel eyePointZLabel;
-	private JTextField eyePointZText;
+	private JFormattedTextField eyePointZText;
 	private JLabel eyePointUnitLabel;
 	private JComboBox<String> eyePointUnitCombo;
 	private JPanel visualRefPanel;
 	private JLabel visualRefXLabel;
-	private JTextField visualRefXText;
+	private JFormattedTextField visualRefXText;
 	private JLabel visualRefYLabel;
-	private JTextField visualRefYText;
+	private JFormattedTextField visualRefYText;
 	private JLabel visualRefZLabel;
-	private JTextField visualRefZText;
+	private JFormattedTextField visualRefZText;
 	private JLabel visualRefUnitLabel;
 	private JComboBox<String> visualRefUnitCombo;
 }

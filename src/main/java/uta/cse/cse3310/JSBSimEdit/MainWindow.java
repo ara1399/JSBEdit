@@ -42,7 +42,6 @@ public class MainWindow extends JFrame {
     //tabs
     private JTabbedPane mainWinTabs = new JTabbedPane();
     private JLabel home = new JLabel();
-    private FileHeader fileHeader = new FileHeader();
     
     public MainWindow() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -71,7 +70,7 @@ public class MainWindow extends JFrame {
     private void makeTabs(){
         
         mainWinTabs.addTab("Home", home);
-        mainWinTabs.addTab("FileHeader", fileHeader);
+        mainWinTabs.addTab("FileHeader", new FileHeader());
         mainWinTabs.addTab("Metrics", new Metrics());
         mainWinTabs.addTab("MassBalance", new MassBalance());
         mainWinTabs.addTab("GroundReactions", new GroundReactions());

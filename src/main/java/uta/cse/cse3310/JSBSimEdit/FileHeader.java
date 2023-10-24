@@ -115,7 +115,7 @@ public class FileHeader extends JPanel implements TabComponent {
 		}
 
 		// Release Level is optional, keep if empty
-		cfg.setRelease((String) releaseLevelCombo.getSelectedItem());
+		cfg.setRelease(releaseLevelCombo.getSelectedItem().toString());
 
 		// Flight Model Version is required Schema element
 		if(!(flightModelVersionText.getText().length() > 0)) {
