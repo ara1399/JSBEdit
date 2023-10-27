@@ -4,6 +4,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.JFormattedTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.*;
@@ -11,10 +12,13 @@ import javax.swing.text.NumberFormatter;
 
 import java.awt.Dimension;
 import java.text.DecimalFormat;
+import java.util.List;
 import java.util.Optional;
 
 import generated.AngleType;
 import generated.LengthType;
+import generated.Location;
+import generated.Reference;
 import generated.AreaType;
 import generated.FdmConfig;
 import net.miginfocom.swing.*;
@@ -29,6 +33,8 @@ public class Metrics extends JPanel implements TabComponent {
 		initComponents();
 	}
 
+	// pull in all data. do not exclude for schema conflicts
+	// schema validation done when saving
 	@Override
     public void bindUIwithXML(FdmConfig cfg) {
 
@@ -73,9 +79,44 @@ public class Metrics extends JPanel implements TabComponent {
             vTailArmText.setText(Double.toString(m.getVtailarm().getValue()));
             vTailArmCombo.setSelectedItem(m.getVtailarm().getUnit().value());
         }
+
+		List<Location> loc = m.getLocation();
+		if(loc.size() > 0) {
+			CompoundBorder cb = (CompoundBorder) aerodynamicRefPanel.getBorder();
+			TitledBorder tb = (TitledBorder) cb.getOutsideBorder();
+			tb.setTitle("Aerodynamic Reference Point*" + "   ( " + loc.get(0).getName() + " )");
+			aerodynamicRefNameText.setText(loc.get(0).getName());
+			aerodynamicRefXText.setText(Double.toString(loc.get(0).getX()));
+			aerodynamicRefYText.setText(Double.toString(loc.get(0).getY()));
+			aerodynamicRefZText.setText(Double.toString(loc.get(0).getZ()));
+			aerodynamicRefUnitCombo.setSelectedItem(loc.get(0).getUnit());
+		}
+		if(loc.size() > 1) {
+			CompoundBorder cb = (CompoundBorder) eyePointPanel.getBorder();
+			TitledBorder tb = (TitledBorder) cb.getOutsideBorder();
+			tb.setTitle("Eye Point" + "   ( " + loc.get(1).getName() + " )");
+			eyePointNameText.setText(loc.get(1).getName());
+			eyePointXText.setText(Double.toString(loc.get(1).getX()));
+			eyePointYText.setText(Double.toString(loc.get(1).getY()));
+			eyePointZText.setText(Double.toString(loc.get(1).getZ()));
+			eyePointUnitCombo.setSelectedItem(loc.get(1).getUnit());
+		}
+		if(loc.size() > 2) {
+			CompoundBorder cb = (CompoundBorder) visualRefPanel.getBorder();
+			TitledBorder tb = (TitledBorder) cb.getOutsideBorder();
+			tb.setTitle("Visual Reference Point" + "   ( " + loc.get(2).getName() + " )");
+			visualRefNameText.setText(loc.get(2).getName());
+			visualRefXText.setText(Double.toString(loc.get(2).getX()));
+			visualRefYText.setText(Double.toString(loc.get(2).getY()));
+			visualRefZText.setText(Double.toString(loc.get(2).getZ()));
+			visualRefUnitCombo.setSelectedItem(loc.get(2).getUnit());
+		}
     }
 
-    @Override
+    // DO NOT SAVE ENTIRE TAB if required element fails schema validation
+	// DO NOT SAVE ELEMENT if optional element fails schema validation
+	// give error messages for each schema mismatch
+	@Override
     public Optional<FdmConfig> saveXMLfromUI(FdmConfig cfg) {
         
         generated.Metrics m = cfg.getMetrics();
@@ -93,7 +134,7 @@ public class Metrics extends JPanel implements TabComponent {
 		}
 
         // WingSpan is required Schema element
-		if(!(wingAreaText.getText().length() > 0)) {
+		if(!(wingSpanText.getText().length() > 0)) {
 			System.out.println("Schema Mismatch: Metrics: WingSpan is required");
 			return Optional.empty();
 		}
@@ -171,6 +212,74 @@ public class Metrics extends JPanel implements TabComponent {
             m.setVtailarm(null);
         }
 
+		List<Location> loc = m.getLocation();
+		loc.clear();
+
+		// 1 Location is required Schema element (optional up to 3 Locations)
+		if(!(aerodynamicRefXText.getText().length() > 0) &&
+			!(eyePointXText.getText().length() > 0) &&
+			!(visualRefXText.getText().length() > 0)) {
+			System.out.println("Schema Mismatch: Metrics: 1 Location is required");
+			return Optional.empty();
+		}
+
+		// Location AerodynamicRef is optional, remove if empty
+		CompoundBorder cb1 = (CompoundBorder) aerodynamicRefPanel.getBorder();
+		TitledBorder tb1 = (TitledBorder) cb1.getOutsideBorder();
+		if(aerodynamicRefXText.getText().length() > 0) {
+			Location l1 = new Location();
+			String name = aerodynamicRefNameText.getText().trim();
+			l1.setName(name);
+			l1.setX(Double.parseDouble(aerodynamicRefXText.getText().trim()));
+			l1.setY(Double.parseDouble(aerodynamicRefYText.getText().trim()));
+			l1.setZ(Double.parseDouble(aerodynamicRefZText.getText().trim()));
+			l1.setUnit(aerodynamicRefUnitCombo.getSelectedItem().toString());
+			loc.add(l1);
+
+			tb1.setTitle("Aerodynamic Reference Point*" + "   ( " + name + " )");
+		}
+		else {
+			tb1.setTitle("Aerodynamic Reference Point*");
+		}
+
+		// Location EyePoint is optional, remove if empty
+		CompoundBorder cb2 = (CompoundBorder) eyePointPanel.getBorder();
+		TitledBorder tb2 = (TitledBorder) cb2.getOutsideBorder();
+		if(eyePointXText.getText().length() > 0) {
+			Location l2 = new Location();
+			String name = eyePointNameText.getText().trim();
+			l2.setName(name);
+			l2.setX(Double.parseDouble(eyePointXText.getText().trim()));
+			l2.setY(Double.parseDouble(eyePointYText.getText().trim()));
+			l2.setZ(Double.parseDouble(eyePointZText.getText().trim()));
+			l2.setUnit(eyePointUnitCombo.getSelectedItem().toString());
+			loc.add(l2);
+
+			tb2.setTitle("Eye Point" + "   ( " + name + " )");
+		}
+		else {
+			tb2.setTitle("Eye Point");
+		}
+
+		// Location VisualRef is optional, remove if empty
+		CompoundBorder cb3 = (CompoundBorder) visualRefPanel.getBorder();
+		TitledBorder tb3 = (TitledBorder) cb3.getOutsideBorder();
+		if(visualRefXText.getText().length() > 0) {
+			Location l3 = new Location();
+			String name = visualRefNameText.getText().trim();
+			l3.setName(name);
+			l3.setX(Double.parseDouble(visualRefXText.getText().trim()));
+			l3.setY(Double.parseDouble(visualRefYText.getText().trim()));
+			l3.setZ(Double.parseDouble(visualRefZText.getText().trim()));
+			l3.setUnit(visualRefUnitCombo.getSelectedItem().toString());
+			loc.add(l3);
+
+			tb3.setTitle("Visual Reference Point" + "   ( " + name + " )");
+		}
+		else {
+			tb3.setTitle("Visual Reference Point");
+		}
+
         return Optional.ofNullable(cfg);
     }
     
@@ -201,6 +310,8 @@ public class Metrics extends JPanel implements TabComponent {
 		vTailArmText = new JFormattedTextField(doubleFormatterPositive);
 		vTailArmCombo = new JComboBox<>();
 		aerodynamicRefPanel = new JPanel();
+		aerodynamicRefNameLabel = new JLabel();
+		aerodynamicRefNameText = new JTextField();
 		aerodynamicRefXLabel = new JLabel();
 		aerodynamicRefXText = new JFormattedTextField(doubleFormatter);
 		aerodynamicRefYLabel = new JLabel();
@@ -210,6 +321,8 @@ public class Metrics extends JPanel implements TabComponent {
 		aerodynamicRefUnitLabel = new JLabel();
 		aerodynamicRefUnitCombo = new JComboBox<>();
 		eyePointPanel = new JPanel();
+		eyePointNameLabel = new JLabel();
+		eyePointNameText = new JTextField();
 		eyePointXLabel = new JLabel();
 		eyePointXText = new JFormattedTextField(doubleFormatter);
 		eyePointYLabel = new JLabel();
@@ -219,6 +332,8 @@ public class Metrics extends JPanel implements TabComponent {
 		eyePointUnitLabel = new JLabel();
 		eyePointUnitCombo = new JComboBox<>();
 		visualRefPanel = new JPanel();
+		visualRefNameLabel = new JLabel();
+		visualRefNameText = new JTextField();
 		visualRefXLabel = new JLabel();
 		visualRefXText = new JFormattedTextField(doubleFormatter);
 		visualRefYLabel = new JLabel();
@@ -433,41 +548,52 @@ public class Metrics extends JPanel implements TabComponent {
 				"[grow,fill]" +
 				"[grow,fill]" +
 				"[grow,fill]" +
+				"[grow,fill]" +
+				"[grow,fill]" +
 				"[fill]",
 				// rows
 				"[]"));
 
+			//---- aerodynamicRefNameLabel ----
+			aerodynamicRefNameLabel.setText("Name:");
+			aerodynamicRefNameLabel.setHorizontalAlignment(SwingConstants.TRAILING);
+			aerodynamicRefPanel.add(aerodynamicRefNameLabel, "cell 0 0");
+			
+			//---- aerodynamicRefNameText ----
+			aerodynamicRefNameText.setPreferredSize(new Dimension(100, 23));
+			aerodynamicRefPanel.add(aerodynamicRefNameText, "cell 1 0");
+
 			//---- aerodynamicRefXLabel ----
 			aerodynamicRefXLabel.setText("x =");
 			aerodynamicRefXLabel.setHorizontalAlignment(SwingConstants.TRAILING);
-			aerodynamicRefPanel.add(aerodynamicRefXLabel, "cell 0 0");
+			aerodynamicRefPanel.add(aerodynamicRefXLabel, "cell 2 0");
 
 			//---- aerodynamicRefXText ----
 			aerodynamicRefXText.setPreferredSize(new Dimension(100, 23));
-			aerodynamicRefPanel.add(aerodynamicRefXText, "cell 1 0");
+			aerodynamicRefPanel.add(aerodynamicRefXText, "cell 3 0");
 
 			//---- aerodynamicRefYLabel ----
 			aerodynamicRefYLabel.setText("y =");
 			aerodynamicRefYLabel.setHorizontalAlignment(SwingConstants.TRAILING);
-			aerodynamicRefPanel.add(aerodynamicRefYLabel, "cell 2 0");
+			aerodynamicRefPanel.add(aerodynamicRefYLabel, "cell 4 0");
 
 			//---- aerodynamicRefYText ----
 			aerodynamicRefYText.setPreferredSize(new Dimension(100, 23));
-			aerodynamicRefPanel.add(aerodynamicRefYText, "cell 3 0");
+			aerodynamicRefPanel.add(aerodynamicRefYText, "cell 5 0");
 
 			//---- aerodynamicRefZLabel ----
 			aerodynamicRefZLabel.setText("z =");
 			aerodynamicRefZLabel.setHorizontalAlignment(SwingConstants.TRAILING);
-			aerodynamicRefPanel.add(aerodynamicRefZLabel, "cell 4 0");
+			aerodynamicRefPanel.add(aerodynamicRefZLabel, "cell 6 0");
 
 			//---- aerodynamicRefZText ----
 			aerodynamicRefZText.setPreferredSize(new Dimension(100, 23));
-			aerodynamicRefPanel.add(aerodynamicRefZText, "cell 5 0");
+			aerodynamicRefPanel.add(aerodynamicRefZText, "cell 7 0");
 
 			//---- aerodynamicRefUnitLabel ----
-			aerodynamicRefUnitLabel.setText("Unit");
+			aerodynamicRefUnitLabel.setText("Unit:");
 			aerodynamicRefUnitLabel.setHorizontalAlignment(SwingConstants.TRAILING);
-			aerodynamicRefPanel.add(aerodynamicRefUnitLabel, "cell 6 0");
+			aerodynamicRefPanel.add(aerodynamicRefUnitLabel, "cell 8 0");
 
 			//---- aerodynamicRefUnitCombo ----
 			aerodynamicRefUnitCombo.setMaximumRowCount(5);
@@ -477,7 +603,7 @@ public class Metrics extends JPanel implements TabComponent {
 				"FT",
 				"M"
 			}));
-			aerodynamicRefPanel.add(aerodynamicRefUnitCombo, "cell 7 0");
+			aerodynamicRefPanel.add(aerodynamicRefUnitCombo, "cell 9 0");
 		}
 		add(aerodynamicRefPanel, "cell 0 2 5 1");
 
@@ -496,41 +622,52 @@ public class Metrics extends JPanel implements TabComponent {
 				"[grow,fill]" +
 				"[grow,fill]" +
 				"[grow,fill]" +
+				"[grow,fill]" +
+				"[grow,fill]" +
 				"[fill]",
 				// rows
 				"[]"));
 
+			//---- eyePointNameLabel ----
+			eyePointNameLabel.setText("Name:");
+			eyePointNameLabel.setHorizontalAlignment(SwingConstants.TRAILING);
+			eyePointPanel.add(eyePointNameLabel, "cell 0 0");
+			
+			//---- eyePointNameText ----
+			eyePointNameText.setPreferredSize(new Dimension(100, 23));
+			eyePointPanel.add(eyePointNameText, "cell 1 0");
+			
 			//---- eyePointXLabel ----
 			eyePointXLabel.setText("x =");
 			eyePointXLabel.setHorizontalAlignment(SwingConstants.TRAILING);
-			eyePointPanel.add(eyePointXLabel, "cell 0 0");
+			eyePointPanel.add(eyePointXLabel, "cell 2 0");
 
 			//---- eyePointXText ----
 			eyePointXText.setPreferredSize(new Dimension(100, 23));
-			eyePointPanel.add(eyePointXText, "cell 1 0");
+			eyePointPanel.add(eyePointXText, "cell 3 0");
 
 			//---- eyePointYLabel ----
 			eyePointYLabel.setText("y =");
 			eyePointYLabel.setHorizontalAlignment(SwingConstants.TRAILING);
-			eyePointPanel.add(eyePointYLabel, "cell 2 0");
+			eyePointPanel.add(eyePointYLabel, "cell 4 0");
 
 			//---- eyePointYText ----
 			eyePointYText.setPreferredSize(new Dimension(100, 23));
-			eyePointPanel.add(eyePointYText, "cell 3 0");
+			eyePointPanel.add(eyePointYText, "cell 5 0");
 
 			//---- eyePointZLabel ----
 			eyePointZLabel.setText("z =");
 			eyePointZLabel.setHorizontalAlignment(SwingConstants.TRAILING);
-			eyePointPanel.add(eyePointZLabel, "cell 4 0");
+			eyePointPanel.add(eyePointZLabel, "cell 6 0");
 
 			//---- eyePointZText ----
 			eyePointZText.setPreferredSize(new Dimension(100, 23));
-			eyePointPanel.add(eyePointZText, "cell 5 0");
+			eyePointPanel.add(eyePointZText, "cell 7 0");
 
 			//---- eyePointUnitLabel ----
 			eyePointUnitLabel.setText("Unit");
 			eyePointUnitLabel.setHorizontalAlignment(SwingConstants.TRAILING);
-			eyePointPanel.add(eyePointUnitLabel, "cell 6 0");
+			eyePointPanel.add(eyePointUnitLabel, "cell 8 0");
 
 			//---- eyePointUnitCombo ----
 			eyePointUnitCombo.setMaximumRowCount(5);
@@ -540,7 +677,7 @@ public class Metrics extends JPanel implements TabComponent {
 				"FT",
 				"M"
 			}));
-			eyePointPanel.add(eyePointUnitCombo, "cell 7 0");
+			eyePointPanel.add(eyePointUnitCombo, "cell 9 0");
 		}
 		add(eyePointPanel, "cell 0 3 5 1");
 
@@ -559,41 +696,52 @@ public class Metrics extends JPanel implements TabComponent {
 				"[grow,fill]" +
 				"[grow,fill]" +
 				"[grow,fill]" +
+				"[grow,fill]" +
+				"[grow,fill]" +
 				"[fill]",
 				// rows
 				"[]"));
 
+			//---- visualRefNameLabel ----
+			visualRefNameLabel.setText("Name:");
+			visualRefNameLabel.setHorizontalAlignment(SwingConstants.TRAILING);
+			visualRefPanel.add(visualRefNameLabel, "cell 0 0");
+			
+			//---- visualRefNameText ----
+			visualRefNameText.setPreferredSize(new Dimension(100, 23));
+			visualRefPanel.add(visualRefNameText, "cell 1 0");
+			
 			//---- visualRefXLabel ----
 			visualRefXLabel.setText("x =");
 			visualRefXLabel.setHorizontalAlignment(SwingConstants.TRAILING);
-			visualRefPanel.add(visualRefXLabel, "cell 0 0");
+			visualRefPanel.add(visualRefXLabel, "cell 2 0");
 
 			//---- visualRefXText ----
 			visualRefXText.setPreferredSize(new Dimension(100, 23));
-			visualRefPanel.add(visualRefXText, "cell 1 0");
+			visualRefPanel.add(visualRefXText, "cell 3 0");
 
 			//---- visualRefYLabel ----
 			visualRefYLabel.setText("y =");
 			visualRefYLabel.setHorizontalAlignment(SwingConstants.TRAILING);
-			visualRefPanel.add(visualRefYLabel, "cell 2 0");
+			visualRefPanel.add(visualRefYLabel, "cell 4 0");
 
 			//---- visualRefYText ----
 			visualRefYText.setPreferredSize(new Dimension(100, 23));
-			visualRefPanel.add(visualRefYText, "cell 3 0");
+			visualRefPanel.add(visualRefYText, "cell 5 0");
 
 			//---- visualRefZLabel ----
 			visualRefZLabel.setText("z =");
 			visualRefZLabel.setHorizontalAlignment(SwingConstants.TRAILING);
-			visualRefPanel.add(visualRefZLabel, "cell 4 0");
+			visualRefPanel.add(visualRefZLabel, "cell 6 0");
 
 			//---- visualRefZText ----
 			visualRefZText.setPreferredSize(new Dimension(100, 23));
-			visualRefPanel.add(visualRefZText, "cell 5 0");
+			visualRefPanel.add(visualRefZText, "cell 7 0");
 
 			//---- visualRefUnitLabel ----
 			visualRefUnitLabel.setText("Unit");
 			visualRefUnitLabel.setHorizontalAlignment(SwingConstants.TRAILING);
-			visualRefPanel.add(visualRefUnitLabel, "cell 6 0");
+			visualRefPanel.add(visualRefUnitLabel, "cell 8 0");
 
 			//---- visualRefUnitCombo ----
 			visualRefUnitCombo.setMaximumRowCount(5);
@@ -603,7 +751,7 @@ public class Metrics extends JPanel implements TabComponent {
 				"FT",
 				"M"
 			}));
-			visualRefPanel.add(visualRefUnitCombo, "cell 7 0");
+			visualRefPanel.add(visualRefUnitCombo, "cell 9 0");
 		}
 		add(visualRefPanel, "cell 0 4 5 1");
 	}
@@ -648,6 +796,8 @@ public class Metrics extends JPanel implements TabComponent {
 	private JFormattedTextField vTailArmText;
 	private JComboBox<String> vTailArmCombo;
 	private JPanel aerodynamicRefPanel;
+	private JLabel aerodynamicRefNameLabel;
+	private JTextField aerodynamicRefNameText;
 	private JLabel aerodynamicRefXLabel;
 	private JFormattedTextField aerodynamicRefXText;
 	private JLabel aerodynamicRefYLabel;
@@ -657,6 +807,8 @@ public class Metrics extends JPanel implements TabComponent {
 	private JLabel aerodynamicRefUnitLabel;
 	private JComboBox<String> aerodynamicRefUnitCombo;
 	private JPanel eyePointPanel;
+	private JLabel eyePointNameLabel;
+	private JTextField eyePointNameText;
 	private JLabel eyePointXLabel;
 	private JFormattedTextField eyePointXText;
 	private JLabel eyePointYLabel;
@@ -666,6 +818,8 @@ public class Metrics extends JPanel implements TabComponent {
 	private JLabel eyePointUnitLabel;
 	private JComboBox<String> eyePointUnitCombo;
 	private JPanel visualRefPanel;
+	private JLabel visualRefNameLabel;
+	private JTextField visualRefNameText;
 	private JLabel visualRefXLabel;
 	private JFormattedTextField visualRefXText;
 	private JLabel visualRefYLabel;

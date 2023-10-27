@@ -37,6 +37,9 @@ public class FileHeader extends JPanel implements TabComponent {
 		initComponents();
 	}
 
+	// pull in all data. do not exclude for schema conflicts
+	// schema validation done when saving
+	@Override
 	public void bindUIwithXML(FdmConfig cfg) {
 
 		aircraftNameText.setText(cfg.getName());
@@ -89,20 +92,19 @@ public class FileHeader extends JPanel implements TabComponent {
             }
             else if (element instanceof Reference) {
                 Reference ref = (Reference) element;
-				if(ref.getTitle() != null) {
-					DefaultTableModel model = (DefaultTableModel) referencesTable.getModel();
-					model.setRowCount(0);
-					model.addRow(new Object[]{
-						ref.getRefID(), ref.getTitle(), ref.getAuthor(), ref.getDate(), ref.getURL()
-					});
-				}
-				else {
-					System.out.println("Schema Mismatch: FileHeader: References Title is required");
-				}
+				DefaultTableModel model = (DefaultTableModel) referencesTable.getModel();
+				model.setRowCount(0);
+				model.addRow(new Object[]{
+					ref.getRefID(), ref.getTitle(), ref.getAuthor(), ref.getDate(), ref.getURL()
+				});
             }
         }
 	}
 
+	// DO NOT SAVE ENTIRE TAB if required element fails schema validation
+	// DO NOT SAVE ELEMENT if optional element fails schema validation
+	// give error messages for each schema mismatch
+	@Override
 	public Optional<FdmConfig> saveXMLfromUI(FdmConfig cfg) {
 
 		// Aircraft Name is required Schema element
