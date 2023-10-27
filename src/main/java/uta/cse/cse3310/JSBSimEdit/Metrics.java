@@ -226,7 +226,10 @@ public class Metrics extends JPanel implements TabComponent {
 		// Location AerodynamicRef is optional, remove if empty
 		CompoundBorder cb1 = (CompoundBorder) aerodynamicRefPanel.getBorder();
 		TitledBorder tb1 = (TitledBorder) cb1.getOutsideBorder();
-		if(aerodynamicRefXText.getText().length() > 0) {
+		if(aerodynamicRefXText.getText().length() > 0 &&
+			aerodynamicRefYText.getText().length() > 0 &&
+			aerodynamicRefZText.getText().length() > 0) {
+				
 			Location l1 = new Location();
 			String name = aerodynamicRefNameText.getText().trim();
 			l1.setName(name);
@@ -245,7 +248,10 @@ public class Metrics extends JPanel implements TabComponent {
 		// Location EyePoint is optional, remove if empty
 		CompoundBorder cb2 = (CompoundBorder) eyePointPanel.getBorder();
 		TitledBorder tb2 = (TitledBorder) cb2.getOutsideBorder();
-		if(eyePointXText.getText().length() > 0) {
+		if(eyePointXText.getText().length() > 0 &&
+			eyePointYText.getText().length() > 0 &&
+			eyePointZText.getText().length() > 0) {
+
 			Location l2 = new Location();
 			String name = eyePointNameText.getText().trim();
 			l2.setName(name);
@@ -264,7 +270,10 @@ public class Metrics extends JPanel implements TabComponent {
 		// Location VisualRef is optional, remove if empty
 		CompoundBorder cb3 = (CompoundBorder) visualRefPanel.getBorder();
 		TitledBorder tb3 = (TitledBorder) cb3.getOutsideBorder();
-		if(visualRefXText.getText().length() > 0) {
+		if(visualRefXText.getText().length() > 0 &&
+			visualRefYText.getText().length() > 0 &&
+			visualRefZText.getText().length() > 0) {
+
 			Location l3 = new Location();
 			String name = visualRefNameText.getText().trim();
 			l3.setName(name);
