@@ -21,6 +21,7 @@ views/
 
 # VS Code Settings
 .vscode/
+.devcontainer/
 
 # Eclipse m2e generated files
 # Eclipse Core
