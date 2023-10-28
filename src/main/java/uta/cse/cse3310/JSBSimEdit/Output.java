@@ -16,7 +16,7 @@ public class Output extends JPanel implements TabComponent {
 
     @Override
     public void bindUIwithXML(FdmConfig cfg) {
-        // TODO
+        // TODO add delete
     }
 
     @Override
