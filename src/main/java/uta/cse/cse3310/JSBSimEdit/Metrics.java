@@ -18,7 +18,6 @@ import java.util.Optional;
 import generated.AngleType;
 import generated.LengthType;
 import generated.Location;
-import generated.Reference;
 import generated.AreaType;
 import generated.FdmConfig;
 import net.miginfocom.swing.*;
@@ -229,7 +228,7 @@ public class Metrics extends JPanel implements TabComponent {
 		if(aerodynamicRefXText.getText().length() > 0 &&
 			aerodynamicRefYText.getText().length() > 0 &&
 			aerodynamicRefZText.getText().length() > 0) {
-				
+
 			Location l1 = new Location();
 			String name = aerodynamicRefNameText.getText().trim();
 			l1.setName(name);
