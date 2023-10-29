@@ -2,9 +2,15 @@ package uta.cse.cse3310.JSBSimEdit;
 
 import java.util.Optional;
 
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.*;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JToolBar;
 import net.miginfocom.swing.*;
 
 import generated.FdmConfig;
