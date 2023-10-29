@@ -17,7 +17,7 @@ import generated.FdmConfig;
 import uta.cse.cse3310.JSBSimEdit.interfaces.TabComponent;
 
 public class Output extends JPanel implements TabComponent {
-    Output() {
+    public Output() {
 		initComponents();
 	}
 
