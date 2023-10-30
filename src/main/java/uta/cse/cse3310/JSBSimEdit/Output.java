@@ -14,6 +14,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import net.miginfocom.swing.*;
 
@@ -38,72 +41,56 @@ public class Output extends JPanel implements TabComponent {
     private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
 		// Generated using JFormDesigner Evaluation license - Arham Riaz Ali
-		panel2 = new JPanel();
-		label6 = new JLabel();
-		textField2 = new JTextField();
-		label5 = new JLabel();
-		textField3 = new JTextField();
-		label3 = new JLabel();
-		textField4 = new JTextField();
-		label4 = new JLabel();
-		comboBox6 = new JComboBox();
-		checkBox1 = new JCheckBox();
-		checkBox3 = new JCheckBox();
-		checkBox4 = new JCheckBox();
-		checkBox5 = new JCheckBox();
-		checkBox6 = new JCheckBox();
-		checkBox7 = new JCheckBox();
-		checkBox8 = new JCheckBox();
-		checkBox9 = new JCheckBox();
-		checkBox10 = new JCheckBox();
-		checkBox11 = new JCheckBox();
-		checkBox12 = new JCheckBox();
-		checkBox13 = new JCheckBox();
-		checkBox14 = new JCheckBox();
-		label7 = new JLabel();
-		scrollPane1 = new JScrollPane();
-		textArea1 = new JTextArea();
-		toolBar1 = new JToolBar();
-		button3 = new JButton();
-		button2 = new JButton();
-		button1 = new JButton();
+		panelOutput = new JPanel();
+		name = new JLabel();
+		nameText = new JTextField();
+		port = new JLabel();
+		portText = new JTextField();
+		rate = new JLabel();
+		rateText = new JTextField();
+		type = new JLabel();
+		typeComboBox = new JComboBox();
+		simulation = new JCheckBox();
+		atmosphere = new JCheckBox();
+		massProps = new JCheckBox();
+		rates = new JCheckBox();
+		velocities = new JCheckBox();
+		forces = new JCheckBox();
+		moments = new JCheckBox();
+		position = new JCheckBox();
+		propulsion = new JCheckBox();
+		aerosurfaces = new JCheckBox();
+		fcs = new JCheckBox();
+		groundReactions = new JCheckBox();
+		coefficients = new JCheckBox();
+		properties = new JLabel();
+		propertiesScrollPane = new JScrollPane();
+		propertiesTextArea = new JTextArea();
+		options = new JToolBar();
+		chooseButton = new JButton();
+		addButton = new JButton();
+		deleteButton = new JButton();
 
-		//======== panel2 ========
+		//======== panelOutput ========
 		{
-			panel2.setPreferredSize(new Dimension(745, 715));
-			panel2.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new
-			javax . swing. border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JFor\u006dDesi\u0067ner \u0045valu\u0061tion" , javax
-			. swing .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder . BOTTOM, new java
-			. awt .Font ( "Dia\u006cog", java .awt . Font. BOLD ,12 ) ,java . awt
-			. Color .red ) ,panel2. getBorder () ) ); panel2. addPropertyChangeListener( new java. beans .
-			PropertyChangeListener ( ){ @Override public void propertyChange (java . beans. PropertyChangeEvent e) { if( "bord\u0065r" .
-			equals ( e. getPropertyName () ) )throw new RuntimeException( ) ;} } );
-			panel2.setLayout(new MigLayout(
-				"hidemode 3,align center center,gap 15 25",
+			panelOutput.setBorder(new CompoundBorder(
+				new EmptyBorder(20, 20, 20, 20),
+				new EmptyBorder(5, 5, 5, 5)));
+			panelOutput.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax . swing. border .
+			EmptyBorder ( 0, 0 ,0 , 0) ,  "JFor\u006dDesi\u0067ner \u0045valu\u0061tion" , javax. swing .border . TitledBorder. CENTER ,javax . swing
+			. border .TitledBorder . BOTTOM, new java. awt .Font ( "Dia\u006cog", java .awt . Font. BOLD ,12 ) ,
+			java . awt. Color .red ) ,panelOutput. getBorder () ) ); panelOutput. addPropertyChangeListener( new java. beans .PropertyChangeListener ( )
+			{ @Override public void propertyChange (java . beans. PropertyChangeEvent e) { if( "bord\u0065r" .equals ( e. getPropertyName () ) )
+			throw new RuntimeException( ) ;} } );
+			panelOutput.setLayout(new MigLayout(
+				"align center center,gap 10 30",
 				// columns
-				"[fill]" +
-				"[71,fill]" +
-				"[fill]" +
-				"[fill]" +
-				"[fill]" +
-				"[fill]" +
-				"[fill]" +
-				"[fill]" +
-				"[fill]" +
-				"[fill]" +
-				"[fill]" +
-				"[fill]" +
-				"[fill]" +
-				"[fill]" +
-				"[fill]" +
-				"[fill]" +
-				"[fill]" +
-				"[fill]" +
-				"[fill]" +
-				"[fill]" +
-				"[fill]" +
-				"[fill]" +
-				"[fill]",
+				"[grow,fill]" +
+				"[grow,fill]" +
+				"[grow,fill]" +
+				"[grow,fill]" +
+				"[grow,fill]" +
+				"[grow,fill]",
 				// rows
 				"[]" +
 				"[]" +
@@ -111,25 +98,7 @@ public class Output extends JPanel implements TabComponent {
 				"[]" +
 				"[]" +
 				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
+				"[30]" +
 				"[]" +
 				"[]" +
 				"[]" +
@@ -137,146 +106,158 @@ public class Output extends JPanel implements TabComponent {
 				"[]" +
 				"[]"));
 
-			//---- label6 ----
-			label6.setText("name");
-			label6.setHorizontalAlignment(SwingConstants.TRAILING);
-			panel2.add(label6, "cell 1 1");
-			panel2.add(textField2, "cell 2 1 3 1");
+			//---- name ----
+			name.setText("Name");
+			name.setHorizontalAlignment(SwingConstants.TRAILING);
+			panelOutput.add(name, "cell 0 0");
 
-			//---- label5 ----
-			label5.setText("port");
-			label5.setHorizontalAlignment(SwingConstants.TRAILING);
-			panel2.add(label5, "cell 1 2");
-			panel2.add(textField3, "cell 2 2 3 1");
+			//---- nameText ----
+			nameText.setPreferredSize(new Dimension(100, 23));
+			panelOutput.add(nameText, "cell 1 0 2 1");
 
-			//---- label3 ----
-			label3.setText("rate");
-			label3.setHorizontalAlignment(SwingConstants.TRAILING);
-			panel2.add(label3, "cell 1 3");
-			panel2.add(textField4, "cell 2 3 3 1");
+			//---- port ----
+			port.setText("Port");
+			port.setHorizontalAlignment(SwingConstants.TRAILING);
+			panelOutput.add(port, "cell 0 1");
 
-			//---- label4 ----
-			label4.setText("type");
-			label4.setHorizontalAlignment(SwingConstants.TRAILING);
-			panel2.add(label4, "cell 1 4");
-			panel2.add(comboBox6, "cell 2 4 3 1");
+			//---- portText ----
+			portText.setPreferredSize(new Dimension(100, 23));
+			panelOutput.add(portText, "cell 1 1 2 1");
 
-			//---- checkBox1 ----
-			checkBox1.setText("simulation");
-			panel2.add(checkBox1, "cell 2 5");
+			//---- rate ----
+			rate.setText("Rate");
+			rate.setHorizontalAlignment(SwingConstants.TRAILING);
+			panelOutput.add(rate, "cell 0 2");
 
-			//---- checkBox3 ----
-			checkBox3.setText("atmosphere");
-			panel2.add(checkBox3, "cell 4 5");
+			//---- rateText ----
+			rateText.setPreferredSize(new Dimension(100, 23));
+			panelOutput.add(rateText, "cell 1 2 2 1");
 
-			//---- checkBox4 ----
-			checkBox4.setText("massprops");
-			panel2.add(checkBox4, "cell 6 5");
+			//---- type ----
+			type.setText("Type");
+			type.setHorizontalAlignment(SwingConstants.TRAILING);
+			panelOutput.add(type, "cell 0 3");
 
-			//---- checkBox5 ----
-			checkBox5.setText("rates");
-			panel2.add(checkBox5, "cell 8 5");
+			//---- typeComboBox ----
+			typeComboBox.setMaximumRowCount(10);
+			typeComboBox.setPreferredSize(new Dimension(100, 23));
+			panelOutput.add(typeComboBox, "cell 1 3 2 1");
 
-			//---- checkBox6 ----
-			checkBox6.setText("velocities");
-			panel2.add(checkBox6, "cell 2 6");
+			//---- simulation ----
+			simulation.setText("Similation");
+			panelOutput.add(simulation, "cell 1 4");
 
-			//---- checkBox7 ----
-			checkBox7.setText("forces");
-			panel2.add(checkBox7, "cell 4 6");
+			//---- atmosphere ----
+			atmosphere.setText("Atmosphere");
+			panelOutput.add(atmosphere, "cell 2 4");
 
-			//---- checkBox8 ----
-			checkBox8.setText("moments");
-			panel2.add(checkBox8, "cell 6 6");
+			//---- massProps ----
+			massProps.setText("Massprops");
+			panelOutput.add(massProps, "cell 3 4");
 
-			//---- checkBox9 ----
-			checkBox9.setText("position");
-			panel2.add(checkBox9, "cell 8 6");
+			//---- rates ----
+			rates.setText("Rates");
+			panelOutput.add(rates, "cell 4 4");
 
-			//---- checkBox10 ----
-			checkBox10.setText("propulsion");
-			panel2.add(checkBox10, "cell 2 7");
+			//---- velocities ----
+			velocities.setText("Velocities");
+			panelOutput.add(velocities, "cell 5 4");
 
-			//---- checkBox11 ----
-			checkBox11.setText("aerosurfaces");
-			panel2.add(checkBox11, "cell 4 7");
+			//---- forces ----
+			forces.setText("Forces");
+			panelOutput.add(forces, "cell 1 5");
 
-			//---- checkBox12 ----
-			checkBox12.setText("fcs");
-			panel2.add(checkBox12, "cell 6 7");
+			//---- moments ----
+			moments.setText("Moments");
+			panelOutput.add(moments, "cell 2 5");
 
-			//---- checkBox13 ----
-			checkBox13.setText("ground reactions");
-			panel2.add(checkBox13, "cell 8 7");
+			//---- position ----
+			position.setText("Position");
+			panelOutput.add(position, "cell 3 5");
 
-			//---- checkBox14 ----
-			checkBox14.setText("coefficients");
-			panel2.add(checkBox14, "cell 2 8");
+			//---- propulsion ----
+			propulsion.setText("Propulsion");
+			panelOutput.add(propulsion, "cell 4 5");
 
-			//---- label7 ----
-			label7.setText("properties");
-			label7.setHorizontalAlignment(SwingConstants.CENTER);
-			panel2.add(label7, "cell 1 10");
+			//---- aerosurfaces ----
+			aerosurfaces.setText("Aerosurfaces");
+			panelOutput.add(aerosurfaces, "cell 1 6");
 
-			//======== scrollPane1 ========
+			//---- fcs ----
+			fcs.setText("FCS");
+			panelOutput.add(fcs, "cell 2 6");
+
+			//---- groundReactions ----
+			groundReactions.setText("Ground Reactions");
+			panelOutput.add(groundReactions, "cell 3 6");
+
+			//---- coefficients ----
+			coefficients.setText("Coeffeients");
+			panelOutput.add(coefficients, "cell 4 6");
+
+			//---- properties ----
+			properties.setText("Properties");
+			properties.setHorizontalAlignment(SwingConstants.TRAILING);
+			panelOutput.add(properties, "cell 0 7");
+
+			//======== propertiesScrollPane ========
 			{
-				scrollPane1.setViewportView(textArea1);
+				propertiesScrollPane.setViewportView(propertiesTextArea);
 			}
-			panel2.add(scrollPane1, "cell 2 10 13 8,growy");
+			panelOutput.add(propertiesScrollPane, "cell 1 7 5 4,growy");
 
-			//======== toolBar1 ========
+			//======== options ========
 			{
-				toolBar1.setBackground(new Color(0x333333));
+				options.setBorder(LineBorder.createBlackLineBorder());
+				options.setBackground(new Color(0x333333));
 
-				//---- button3 ----
-				button3.setText("Choose");
-				button3.setHorizontalAlignment(SwingConstants.TRAILING);
-				toolBar1.add(button3);
+				//---- chooseButton ----
+				chooseButton.setText("Choose");
+				options.add(chooseButton);
 
-				//---- button2 ----
-				button2.setText("Add");
-				toolBar1.add(button2);
+				//---- addButton ----
+				addButton.setText("Add");
+				options.add(addButton);
 
-				//---- button1 ----
-				button1.setText("Delete");
-				button1.setHorizontalAlignment(SwingConstants.TRAILING);
-				toolBar1.add(button1);
+				//---- deleteButton ----
+				deleteButton.setText("Delete");
+				options.add(deleteButton);
 			}
-			panel2.add(toolBar1, "cell 1 20 22 1,growx");
+			panelOutput.add(options, "cell 0 12 6 1");
 		}
-		add(panel2);
+		add(panelOutput);
 	}
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
 	// Generated using JFormDesigner Evaluation license - Arham Riaz Ali
-	private JPanel panel2;
-	private JLabel label6;
-	private JTextField textField2;
-	private JLabel label5;
-	private JTextField textField3;
-	private JLabel label3;
-	private JTextField textField4;
-	private JLabel label4;
-	private JComboBox comboBox6;
-	private JCheckBox checkBox1;
-	private JCheckBox checkBox3;
-	private JCheckBox checkBox4;
-	private JCheckBox checkBox5;
-	private JCheckBox checkBox6;
-	private JCheckBox checkBox7;
-	private JCheckBox checkBox8;
-	private JCheckBox checkBox9;
-	private JCheckBox checkBox10;
-	private JCheckBox checkBox11;
-	private JCheckBox checkBox12;
-	private JCheckBox checkBox13;
-	private JCheckBox checkBox14;
-	private JLabel label7;
-	private JScrollPane scrollPane1;
-	private JTextArea textArea1;
-	private JToolBar toolBar1;
-	private JButton button3;
-	private JButton button2;
-	private JButton button1;
+	private JPanel panelOutput;
+	private JLabel name;
+	private JTextField nameText;
+	private JLabel port;
+	private JTextField portText;
+	private JLabel rate;
+	private JTextField rateText;
+	private JLabel type;
+	private JComboBox typeComboBox;
+	private JCheckBox simulation;
+	private JCheckBox atmosphere;
+	private JCheckBox massProps;
+	private JCheckBox rates;
+	private JCheckBox velocities;
+	private JCheckBox forces;
+	private JCheckBox moments;
+	private JCheckBox position;
+	private JCheckBox propulsion;
+	private JCheckBox aerosurfaces;
+	private JCheckBox fcs;
+	private JCheckBox groundReactions;
+	private JCheckBox coefficients;
+	private JLabel properties;
+	private JScrollPane propertiesScrollPane;
+	private JTextArea propertiesTextArea;
+	private JToolBar options;
+	private JButton chooseButton;
+	private JButton addButton;
+	private JButton deleteButton;
 	// JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }
