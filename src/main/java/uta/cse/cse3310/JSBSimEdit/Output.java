@@ -1,5 +1,7 @@
 package uta.cse.cse3310.JSBSimEdit;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.util.Optional;
 
 import javax.swing.JButton;
@@ -11,6 +13,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
+import javax.swing.SwingConstants;
+
 import net.miginfocom.swing.*;
 
 import generated.FdmConfig;
