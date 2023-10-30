@@ -218,7 +218,7 @@ public class Output extends JPanel implements TabComponent {
 			}
 			panel2.add(toolBar1, "cell 0 15 18 1,growx");
 		}
-		// JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
+		add(panel2);
 	}
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
