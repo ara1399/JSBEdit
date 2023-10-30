@@ -71,17 +71,18 @@ public class Output extends JPanel implements TabComponent {
 		//======== panel2 ========
 		{
 			panel2.setPreferredSize(new Dimension(745, 715));
-			panel2.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border.
-			EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax. swing. border. TitledBorder. CENTER, javax. swing
-			. border. TitledBorder. BOTTOM, new java .awt .Font ("D\u0069alog" ,java .awt .Font .BOLD ,12 ),
-			java. awt. Color. red) ,panel2. getBorder( )) ); panel2. addPropertyChangeListener (new java. beans. PropertyChangeListener( )
-			{ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062order" .equals (e .getPropertyName () ))
-			throw new RuntimeException( ); }} );
+			panel2.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.swing
+			.border.EmptyBorder(0,0,0,0), "JF\u006frmDesi\u0067ner Ev\u0061luatio\u006e",javax.swing.border.TitledBorder
+			.CENTER,javax.swing.border.TitledBorder.BOTTOM,new java.awt.Font("Dialo\u0067",java.
+			awt.Font.BOLD,12),java.awt.Color.red),panel2. getBorder()))
+			;panel2. addPropertyChangeListener(new java.beans.PropertyChangeListener(){@Override public void propertyChange(java.beans.PropertyChangeEvent e
+			){if("borde\u0072".equals(e.getPropertyName()))throw new RuntimeException();}})
+			;
 			panel2.setLayout(new MigLayout(
 				"hidemode 3,align center center,gap 15 25",
 				// columns
 				"[fill]" +
-				"[fill]" +
+				"[71,fill]" +
 				"[fill]" +
 				"[fill]" +
 				"[fill]" +
@@ -121,6 +122,7 @@ public class Output extends JPanel implements TabComponent {
 
 			//---- label6 ----
 			label6.setText("name");
+			label6.setHorizontalAlignment(SwingConstants.CENTER);
 			panel2.add(label6, "cell 1 1");
 			panel2.add(textField2, "cell 2 1");
 
@@ -193,6 +195,7 @@ public class Output extends JPanel implements TabComponent {
 
 			//---- label7 ----
 			label7.setText("properties");
+			label7.setHorizontalAlignment(SwingConstants.CENTER);
 			panel2.add(label7, "cell 1 7");
 
 			//======== scrollPane1 ========
@@ -219,7 +222,7 @@ public class Output extends JPanel implements TabComponent {
 				button1.setHorizontalAlignment(SwingConstants.TRAILING);
 				toolBar1.add(button1);
 			}
-			panel2.add(toolBar1, "cell 0 17 18 1,growx");
+			panel2.add(toolBar1, "cell 1 17 17 1,growx");
 		}
 		add(panel2);
 	}
