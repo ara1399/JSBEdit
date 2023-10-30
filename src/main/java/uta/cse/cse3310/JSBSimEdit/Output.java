@@ -1,6 +1,7 @@
 package uta.cse.cse3310.JSBSimEdit;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.Optional;
 
 import javax.swing.JButton;
