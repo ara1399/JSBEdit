@@ -71,13 +71,12 @@ public class Output extends JPanel implements TabComponent {
 		//======== panel2 ========
 		{
 			panel2.setPreferredSize(new Dimension(745, 715));
-			panel2.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.swing
-			.border.EmptyBorder(0,0,0,0), "JF\u006frmDesi\u0067ner Ev\u0061luatio\u006e",javax.swing.border.TitledBorder
-			.CENTER,javax.swing.border.TitledBorder.BOTTOM,new java.awt.Font("Dialo\u0067",java.
-			awt.Font.BOLD,12),java.awt.Color.red),panel2. getBorder()))
-			;panel2. addPropertyChangeListener(new java.beans.PropertyChangeListener(){@Override public void propertyChange(java.beans.PropertyChangeEvent e
-			){if("borde\u0072".equals(e.getPropertyName()))throw new RuntimeException();}})
-			;
+			panel2.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border
+			. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn", javax. swing. border. TitledBorder. CENTER, javax
+			. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,
+			12 ), java. awt. Color. red) ,panel2. getBorder( )) ); panel2. addPropertyChangeListener (new java. beans
+			. PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062ord\u0065r" .equals (e .
+			getPropertyName () )) throw new RuntimeException( ); }} );
 			panel2.setLayout(new MigLayout(
 				"hidemode 3,align center center,gap 15 25",
 				// columns
@@ -118,91 +117,102 @@ public class Output extends JPanel implements TabComponent {
 				"[]" +
 				"[]" +
 				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
 				"[]"));
 
 			//---- label6 ----
 			label6.setText("name");
-			label6.setHorizontalAlignment(SwingConstants.CENTER);
+			label6.setHorizontalAlignment(SwingConstants.TRAILING);
 			panel2.add(label6, "cell 1 1");
-			panel2.add(textField2, "cell 2 1");
+			panel2.add(textField2, "cell 2 1 3 1");
 
 			//---- label5 ----
 			label5.setText("port");
-			panel2.add(label5, "cell 3 1");
-			panel2.add(textField3, "cell 4 1");
+			label5.setHorizontalAlignment(SwingConstants.TRAILING);
+			panel2.add(label5, "cell 1 2");
+			panel2.add(textField3, "cell 2 2 3 1");
 
 			//---- label3 ----
 			label3.setText("rate");
-			panel2.add(label3, "cell 5 1");
-			panel2.add(textField4, "cell 6 1");
+			label3.setHorizontalAlignment(SwingConstants.TRAILING);
+			panel2.add(label3, "cell 1 3");
+			panel2.add(textField4, "cell 2 3 3 1");
 
 			//---- label4 ----
 			label4.setText("type");
-			panel2.add(label4, "cell 7 1");
-			panel2.add(comboBox6, "cell 8 1");
+			label4.setHorizontalAlignment(SwingConstants.TRAILING);
+			panel2.add(label4, "cell 1 4");
+			panel2.add(comboBox6, "cell 2 4 3 1");
 
 			//---- checkBox1 ----
 			checkBox1.setText("simulation");
-			panel2.add(checkBox1, "cell 2 2");
+			panel2.add(checkBox1, "cell 2 5");
 
 			//---- checkBox3 ----
 			checkBox3.setText("atmosphere");
-			panel2.add(checkBox3, "cell 4 2");
+			panel2.add(checkBox3, "cell 4 5");
 
 			//---- checkBox4 ----
 			checkBox4.setText("massprops");
-			panel2.add(checkBox4, "cell 6 2");
+			panel2.add(checkBox4, "cell 6 5");
 
 			//---- checkBox5 ----
 			checkBox5.setText("rates");
-			panel2.add(checkBox5, "cell 8 2");
+			panel2.add(checkBox5, "cell 8 5");
 
 			//---- checkBox6 ----
 			checkBox6.setText("velocities");
-			panel2.add(checkBox6, "cell 2 3");
+			panel2.add(checkBox6, "cell 2 6");
 
 			//---- checkBox7 ----
 			checkBox7.setText("forces");
-			panel2.add(checkBox7, "cell 4 3");
+			panel2.add(checkBox7, "cell 4 6");
 
 			//---- checkBox8 ----
 			checkBox8.setText("moments");
-			panel2.add(checkBox8, "cell 6 3");
+			panel2.add(checkBox8, "cell 6 6");
 
 			//---- checkBox9 ----
 			checkBox9.setText("position");
-			panel2.add(checkBox9, "cell 8 3");
+			panel2.add(checkBox9, "cell 8 6");
 
 			//---- checkBox10 ----
 			checkBox10.setText("propulsion");
-			panel2.add(checkBox10, "cell 2 4");
+			panel2.add(checkBox10, "cell 2 7");
 
 			//---- checkBox11 ----
 			checkBox11.setText("aerosurfaces");
-			panel2.add(checkBox11, "cell 4 4");
+			panel2.add(checkBox11, "cell 4 7");
 
 			//---- checkBox12 ----
 			checkBox12.setText("fcs");
-			panel2.add(checkBox12, "cell 6 4");
+			panel2.add(checkBox12, "cell 6 7");
 
 			//---- checkBox13 ----
 			checkBox13.setText("ground reactions");
-			panel2.add(checkBox13, "cell 8 4");
+			panel2.add(checkBox13, "cell 8 7");
 
 			//---- checkBox14 ----
 			checkBox14.setText("coefficients");
-			panel2.add(checkBox14, "cell 2 5");
+			panel2.add(checkBox14, "cell 2 8");
 
 			//---- label7 ----
 			label7.setText("properties");
 			label7.setHorizontalAlignment(SwingConstants.CENTER);
-			panel2.add(label7, "cell 1 7");
+			panel2.add(label7, "cell 1 10");
 
 			//======== scrollPane1 ========
 			{
 				scrollPane1.setViewportView(textArea1);
 			}
-			panel2.add(scrollPane1, "cell 2 7 13 8,growy");
+			panel2.add(scrollPane1, "cell 2 10 13 8,growy");
 
 			//======== toolBar1 ========
 			{
@@ -222,7 +232,7 @@ public class Output extends JPanel implements TabComponent {
 				button1.setHorizontalAlignment(SwingConstants.TRAILING);
 				toolBar1.add(button1);
 			}
-			panel2.add(toolBar1, "cell 1 17 17 1,growx");
+			panel2.add(toolBar1, "cell 1 26 17 1,growx");
 		}
 		add(panel2);
 	}
