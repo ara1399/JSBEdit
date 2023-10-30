@@ -39,8 +39,7 @@ public class Output extends JPanel implements TabComponent {
         return Optional.ofNullable(cfg);
     }
     private void initComponents() {
-		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-		// Generated using JFormDesigner Evaluation license - Arham Riaz Ali
+		
 		panelOutput = new JPanel();
 		name = new JLabel();
 		nameText = new JTextField();
@@ -228,8 +227,6 @@ public class Output extends JPanel implements TabComponent {
 		add(panelOutput);
 	}
 
-	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-	// Generated using JFormDesigner Evaluation license - Arham Riaz Ali
 	private JPanel panelOutput;
 	private JLabel name;
 	private JTextField nameText;
@@ -259,5 +256,4 @@ public class Output extends JPanel implements TabComponent {
 	private JButton chooseButton;
 	private JButton addButton;
 	private JButton deleteButton;
-	// JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }
