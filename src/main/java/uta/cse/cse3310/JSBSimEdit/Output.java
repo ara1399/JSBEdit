@@ -1,5 +1,6 @@
 package uta.cse.cse3310.JSBSimEdit;
 
+import java.awt.Color;
 import java.util.Optional;
 
 import javax.swing.JButton;
@@ -11,6 +12,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
+import javax.swing.SwingConstants;
+
 import net.miginfocom.swing.*;
 
 import generated.FdmConfig;
@@ -66,15 +69,21 @@ public class Output extends JPanel implements TabComponent {
 
 		//======== panel2 ========
 		{
-			panel2.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing.
-			border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDesi\u0067ner Ev\u0061luatio\u006e", javax. swing. border. TitledBorder. CENTER
-			, javax. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dialo\u0067" ,java .awt .Font
-			.BOLD ,12 ), java. awt. Color. red) ,panel2. getBorder( )) ); panel2. addPropertyChangeListener (
-			new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("borde\u0072"
-			.equals (e .getPropertyName () )) throw new RuntimeException( ); }} );
+			panel2.setPreferredSize(new Dimension(745, 715));
+			panel2.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax . swing. border .EmptyBorder (
+			0, 0 ,0 , 0) ,  "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn" , javax. swing .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder
+			. BOTTOM, new java. awt .Font ( "Dia\u006cog", java .awt . Font. BOLD ,12 ) ,java . awt. Color .
+			red ) ,panel2. getBorder () ) ); panel2. addPropertyChangeListener( new java. beans .PropertyChangeListener ( ){ @Override public void propertyChange (java .
+			beans. PropertyChangeEvent e) { if( "\u0062ord\u0065r" .equals ( e. getPropertyName () ) )throw new RuntimeException( ) ;} } );
 			panel2.setLayout(new MigLayout(
-				"hidemode 3,gap 15 25",
+				"hidemode 3,align center center,gap 15 25",
 				// columns
+				"[fill]" +
+				"[fill]" +
+				"[fill]" +
+				"[fill]" +
+				"[fill]" +
+				"[fill]" +
 				"[fill]" +
 				"[fill]" +
 				"[fill]" +
@@ -88,6 +97,10 @@ public class Output extends JPanel implements TabComponent {
 				"[fill]" +
 				"[fill]",
 				// rows
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
 				"[]" +
 				"[]" +
 				"[]" +
@@ -176,19 +189,21 @@ public class Output extends JPanel implements TabComponent {
 
 			//---- label7 ----
 			label7.setText("properties");
-			panel2.add(label7, "cell 1 6");
+			panel2.add(label7, "cell 1 7");
 
 			//======== scrollPane1 ========
 			{
 				scrollPane1.setViewportView(textArea1);
 			}
-			panel2.add(scrollPane1, "cell 2 6 7 5,growy");
+			panel2.add(scrollPane1, "cell 2 7 15 8,growy");
 
 			//======== toolBar1 ========
 			{
+				toolBar1.setBackground(new Color(0x333333));
 
 				//---- button3 ----
 				button3.setText("Choose");
+				button3.setHorizontalAlignment(SwingConstants.TRAILING);
 				toolBar1.add(button3);
 
 				//---- button2 ----
@@ -197,13 +212,17 @@ public class Output extends JPanel implements TabComponent {
 
 				//---- button1 ----
 				button1.setText("Delete");
+				button1.setHorizontalAlignment(SwingConstants.TRAILING);
 				toolBar1.add(button1);
 			}
-			panel2.add(toolBar1, "cell 1 11 10 1,alignx right,growx 0");
+			panel2.add(toolBar1, "cell 0 15 18 1,growx");
 		}
-		add(panel2);
-    }
-    private JPanel panel2;
+		// JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
+	}
+
+	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
+	// Generated using JFormDesigner Evaluation license - Arham Riaz Ali
+	private JPanel panel2;
 	private JLabel label6;
 	private JTextField textField2;
 	private JLabel label5;
@@ -232,4 +251,5 @@ public class Output extends JPanel implements TabComponent {
 	private JButton button3;
 	private JButton button2;
 	private JButton button1;
+	// JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }
