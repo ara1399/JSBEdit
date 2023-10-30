@@ -201,6 +201,7 @@ public class Output extends JPanel implements TabComponent {
 			}
 			panel2.add(toolBar1, "cell 1 11 10 1,alignx right,growx 0");
 		}
+		add(panel2);
     }
     private JPanel panel2;
 	private JLabel label6;
