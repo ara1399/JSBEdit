@@ -1,7 +1,6 @@
 package uta.cse.cse3310.JSBSimEdit;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.util.List;
 import java.util.Optional;
@@ -32,8 +31,8 @@ public class Output extends JPanel implements TabComponent {
 
     @Override
     public void bindUIwithXML(FdmConfig cfg) {
-        List<generated.Output> op = cfg.getOutput();
-		nameText.setText(((Component) op).getName());
+        Output op = (Output) cfg.getOutput();
+		nameText.setText(op.getName());
     }
 
     @Override
