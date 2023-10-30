@@ -71,12 +71,13 @@ public class Output extends JPanel implements TabComponent {
 		//======== panel2 ========
 		{
 			panel2.setPreferredSize(new Dimension(745, 715));
-			panel2.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border
-			. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn", javax. swing. border. TitledBorder. CENTER, javax
-			. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,
-			12 ), java. awt. Color. red) ,panel2. getBorder( )) ); panel2. addPropertyChangeListener (new java. beans
-			. PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062ord\u0065r" .equals (e .
-			getPropertyName () )) throw new RuntimeException( ); }} );
+			panel2.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new
+			javax . swing. border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JFor\u006dDesi\u0067ner \u0045valu\u0061tion" , javax
+			. swing .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder . BOTTOM, new java
+			. awt .Font ( "Dia\u006cog", java .awt . Font. BOLD ,12 ) ,java . awt
+			. Color .red ) ,panel2. getBorder () ) ); panel2. addPropertyChangeListener( new java. beans .
+			PropertyChangeListener ( ){ @Override public void propertyChange (java . beans. PropertyChangeEvent e) { if( "bord\u0065r" .
+			equals ( e. getPropertyName () ) )throw new RuntimeException( ) ;} } );
 			panel2.setLayout(new MigLayout(
 				"hidemode 3,align center center,gap 15 25",
 				// columns
@@ -97,8 +98,17 @@ public class Output extends JPanel implements TabComponent {
 				"[fill]" +
 				"[fill]" +
 				"[fill]" +
+				"[fill]" +
+				"[fill]" +
+				"[fill]" +
+				"[fill]" +
+				"[fill]" +
 				"[fill]",
 				// rows
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
 				"[]" +
 				"[]" +
 				"[]" +
@@ -232,7 +242,7 @@ public class Output extends JPanel implements TabComponent {
 				button1.setHorizontalAlignment(SwingConstants.TRAILING);
 				toolBar1.add(button1);
 			}
-			panel2.add(toolBar1, "cell 1 26 17 1,growx");
+			panel2.add(toolBar1, "cell 1 20 22 1,growx");
 		}
 		add(panel2);
 	}
