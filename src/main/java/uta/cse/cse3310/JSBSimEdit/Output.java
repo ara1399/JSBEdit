@@ -62,9 +62,9 @@ public class Output extends JPanel implements TabComponent {
 		fcs = new JCheckBox();
 		groundReactions = new JCheckBox();
 		coefficients = new JCheckBox();
-		properties = new JLabel();
 		propertiesScrollPane = new JScrollPane();
 		propertiesTextArea = new JTextArea();
+		properties = new JLabel();
 		options = new JToolBar();
 		chooseButton = new JButton();
 		addButton = new JButton();
@@ -93,6 +93,11 @@ public class Output extends JPanel implements TabComponent {
 				"[]" +
 				"[]" +
 				"[30]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
 				"[]" +
 				"[]" +
 				"[]" +
@@ -189,16 +194,16 @@ public class Output extends JPanel implements TabComponent {
 			coefficients.setText("Coeffeients");
 			panelOutput.add(coefficients, "cell 4 6");
 
-			//---- properties ----
-			properties.setText("Properties");
-			properties.setHorizontalAlignment(SwingConstants.TRAILING);
-			panelOutput.add(properties, "cell 0 7");
-
 			//======== propertiesScrollPane ========
 			{
 				propertiesScrollPane.setViewportView(propertiesTextArea);
 			}
-			panelOutput.add(propertiesScrollPane, "cell 1 7 5 4,growy");
+			panelOutput.add(propertiesScrollPane, "cell 1 9 5 8,growy");
+
+			//---- properties ----
+			properties.setText("Properties");
+			properties.setHorizontalAlignment(SwingConstants.TRAILING);
+			panelOutput.add(properties, "cell 0 9");
 
 			//======== options ========
 			{
@@ -217,7 +222,7 @@ public class Output extends JPanel implements TabComponent {
 				deleteButton.setText("Delete");
 				options.add(deleteButton);
 			}
-			panelOutput.add(options, "cell 0 12 6 1");
+			panelOutput.add(options, "cell 0 17 6 1,aligny baseline,growy 0");
 		}
 		add(panelOutput);
 	}
@@ -244,9 +249,9 @@ public class Output extends JPanel implements TabComponent {
 	private JCheckBox fcs;
 	private JCheckBox groundReactions;
 	private JCheckBox coefficients;
-	private JLabel properties;
 	private JScrollPane propertiesScrollPane;
 	private JTextArea propertiesTextArea;
+	private JLabel properties;
 	private JToolBar options;
 	private JButton chooseButton;
 	private JButton addButton;
