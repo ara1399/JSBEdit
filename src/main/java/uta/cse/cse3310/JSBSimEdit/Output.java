@@ -30,7 +30,7 @@ public class Output extends JPanel implements TabComponent {
 
     @Override
     public void bindUIwithXML(FdmConfig cfg) {
-        // TODO add delete, hi arham
+        nameText.setText(cfg.getName());
     }
 
     @Override
