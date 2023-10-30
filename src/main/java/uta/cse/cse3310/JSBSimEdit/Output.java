@@ -31,8 +31,8 @@ public class Output extends JPanel implements TabComponent {
 
     @Override
     public void bindUIwithXML(FdmConfig cfg) {
-        Output op = (Output) cfg.getOutput();
-		nameText.setText(op.getName());
+        //Output op = cfg.getOutput().add(Output e);
+		//nameText.setText(op.getName());
     }
 
     @Override
