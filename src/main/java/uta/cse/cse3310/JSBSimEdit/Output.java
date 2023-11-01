@@ -38,6 +38,8 @@ public class Output extends JPanel implements TabComponent {
 		
 		BigInteger portValue = op.getPort();
 		portText.setText(portValue.toString());
+
+		typeComboBox.setToolTipText(op.getType());
     }
 
     @Override
