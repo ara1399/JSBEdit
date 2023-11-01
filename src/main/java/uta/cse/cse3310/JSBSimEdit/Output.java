@@ -2,6 +2,7 @@ package uta.cse.cse3310.JSBSimEdit;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,11 +32,12 @@ public class Output extends JPanel implements TabComponent {
 
     @Override
     public void bindUIwithXML(FdmConfig cfg) {
-        //List<generated.Output> op = cfg.getOutput();
-		//nameText.setText(op.getName());
 		List<generated.Output> opList = cfg.getOutput();
-		generated.Output op = opList.get(0); // Assuming you want the first element
+		generated.Output op = opList.get(0);
         nameText.setText(op.getName());
+		
+		BigInteger portValue = op.getPort();
+		portText.setText(portValue.toString());
     }
 
     @Override
@@ -53,7 +55,7 @@ public class Output extends JPanel implements TabComponent {
 		rate = new JLabel();
 		rateText = new JTextField();
 		type = new JLabel();
-		typeComboBox = new JComboBox();
+		typeComboBox = new JComboBox<>();
 		simulation = new JCheckBox();
 		atmosphere = new JCheckBox();
 		massProps = new JCheckBox();
@@ -240,7 +242,7 @@ public class Output extends JPanel implements TabComponent {
 	private JLabel rate;
 	private JTextField rateText;
 	private JLabel type;
-	private JComboBox typeComboBox;
+	private JComboBox<String> typeComboBox;
 	private JCheckBox simulation;
 	private JCheckBox atmosphere;
 	private JCheckBox massProps;
