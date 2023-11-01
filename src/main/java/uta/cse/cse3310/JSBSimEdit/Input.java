@@ -18,6 +18,8 @@ JTextField portText;
     Input() {
         portLabel = new JLabel("Port");
         portText = new JTextField();
+        add(portLabel);
+        add(portText);
     }
 
     @Override
