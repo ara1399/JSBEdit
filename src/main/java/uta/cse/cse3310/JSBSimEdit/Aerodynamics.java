@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.JTree;
@@ -29,7 +28,9 @@ public class Aerodynamics extends JPanel implements TabComponent {
         generated.Axis ax = (Axis) a.getAxis();
 
         if(a.getAlphalimits() != null){
-            alphalimitsText.setText(Double.toString(a.getAlphalimits().getMin()));
+            alphalimitsMinText.setText(Double.toString(a.getAlphalimits().getMin()));
+            alphalimitsMinText.setText(Double.toString(a.getAlphalimits().getMax()));
+            alphalimitsUnitText.setText(Double.toString(a.getAlphalimits().getUnit()));
         }
 
         if(a.getHysteresisLimits() != null){
@@ -44,12 +45,12 @@ public class Aerodynamics extends JPanel implements TabComponent {
         
         
         //axis gets
-        List<String> axisnames = new ArrayList<String>();
+        public List<axis> getaAxis();
         while(a.getAxis() != null){
             axisnameText.setText(ax.getName());
             axisnames.add(ax.getName());
         }
-        array = axisnames.toArray(new String[0]);
+        String[] arr = axisnames.toArray(new String[0]);
     }
 
     @Override
@@ -67,7 +68,7 @@ public class Aerodynamics extends JPanel implements TabComponent {
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Aerodynamics");
         //create child node
         DefaultMutableTreeNode functions = new DefaultMutableTreeNode("Functions");
-        DefaultMutableTreeNode axis = new DefaultMutableTreeNode(axisnameText);
+        DefaultMutableTreeNode axis = new DefaultMutableTreeNode("axis");
 
         root.add(functions);
         root.add(axis);
@@ -78,11 +79,11 @@ public class Aerodynamics extends JPanel implements TabComponent {
 
     //variables
     private JTree aeroTree;
-
-    private JFormattedTextField alphalimitsText;
+    private JFormattedTextField alphalimitsMinText;
+    private JFormattedTextField alphalimitsMaxText;
+    private JFormattedTextField alphalimitsUnitText;
     private JFormattedTextField hysteresisLimitsText;
     private JFormattedTextField funtionText;
     private JFormattedTextField functiondescText;
     private JFormattedTextField axisnameText;
-    private String[] array;
 }
