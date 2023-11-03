@@ -1,5 +1,7 @@
 package uta.cse.cse3310.JSBSimEdit;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.swing.JComboBox;
@@ -9,6 +11,8 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import generated.FdmConfig;
+import generated.Function;
+import generated.Axis;
 import uta.cse.cse3310.JSBSimEdit.interfaces.TabComponent;
 
 public class Aerodynamics extends JPanel implements TabComponent {
@@ -21,23 +25,31 @@ public class Aerodynamics extends JPanel implements TabComponent {
     public void bindUIwithXML(FdmConfig cfg) {
         // TODO
         generated.Aerodynamics a = cfg.getAerodynamics();
+        generated.Function f = (Function) a.getFunction();
+        generated.Axis ax = (Axis) a.getAxis();
 
         if(a.getAlphalimits() != null){
             alphalimitsText.setText(Double.toString(a.getAlphalimits().getMin()));
-            alphalimitsCombo.setSelectedItem(a.getAlphalimits().getUnit().value());
         }
 
         if(a.getHysteresisLimits() != null){
             hysteresisLimitsText.setText(Double.toString(a.getHysteresisLimits().getMin()));
-            hysteresisLimitsCombo.setSelectedItem(a.getHysteresisLimits().getUnit().value());
         }
-
-        if(a.getFunction() != null){
-
+        //function gets
+        while(a.getFunction() != null){
+            funtionText.setText(f.getName());
+            functiondescText.setText(f.getDescription());
+            System.out.println(funtionText);
         }
-        if(a.getAxis() != null){
-
+        
+        
+        //axis gets
+        List<String> axisnames = new ArrayList<String>();
+        while(a.getAxis() != null){
+            axisnameText.setText(ax.getName());
+            axisnames.add(ax.getName());
         }
+        array = axisnames.toArray(new String[0]);
     }
 
     @Override
@@ -47,7 +59,6 @@ public class Aerodynamics extends JPanel implements TabComponent {
     }
 
     private void initComponents(){
-        mainPanel = new JPanel();
         treeBuild();
     }
 
@@ -56,7 +67,7 @@ public class Aerodynamics extends JPanel implements TabComponent {
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Aerodynamics");
         //create child node
         DefaultMutableTreeNode functions = new DefaultMutableTreeNode("Functions");
-        DefaultMutableTreeNode axis = new DefaultMutableTreeNode("Axis");
+        DefaultMutableTreeNode axis = new DefaultMutableTreeNode(axisnameText);
 
         root.add(functions);
         root.add(axis);
@@ -66,11 +77,12 @@ public class Aerodynamics extends JPanel implements TabComponent {
     
 
     //variables
-    private JPanel mainPanel;
     private JTree aeroTree;
 
     private JFormattedTextField alphalimitsText;
     private JFormattedTextField hysteresisLimitsText;
-    private JComboBox alphalimitsCombo;
-    private JComboBox hysteresisLimitsCombo;
+    private JFormattedTextField funtionText;
+    private JFormattedTextField functiondescText;
+    private JFormattedTextField axisnameText;
+    private String[] array;
 }
