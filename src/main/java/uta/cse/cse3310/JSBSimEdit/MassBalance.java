@@ -92,11 +92,10 @@ public class MassBalance extends JPanel implements TabComponent {
                         pm.getLocation().getZ(),
                         pm.getLocation().getUnit().toString()));
                 }
-                    //add them to the JList pointMassListDisplay
-                    model.addAll(pointMassList); 
+                    //add them to the JList pointMassListDisplay, when the list changes you will need to clear model and readd them all or just only add the new ones
+                    model.addAll(pointMassList);
             }
         }
-        // TODO
     }
 
     @Override
@@ -107,11 +106,22 @@ public class MassBalance extends JPanel implements TabComponent {
 
     private void addPointMass(ActionEvent e) {//create new pointmass and add it to pointMassList
         PointMass pm = new PointMass();
+        pointMassList.add(pm);
+        
+        model.clear();
+        model.addAll(pointMassList);
 	
     }
 
     private void deletePointMass(ActionEvent e) {
-	JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this?", "Confirm", JOptionPane.OK_CANCEL_OPTION);
+	int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this?", "Confirm", JOptionPane.OK_CANCEL_OPTION);
+        if(result == JOptionPane.OK_OPTION){
+            PointMass selectedPM = pointMassListDisplay.getSelectedValue();
+            
+            model.removeElement(selectedPM); //delete it from the model and the arraylist
+            pointMassList.remove(selectedPM);
+            
+        }          
     }
 
 	private void initComponents() {
