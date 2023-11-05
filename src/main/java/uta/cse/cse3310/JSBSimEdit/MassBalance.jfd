@@ -17,7 +17,7 @@ new FormModel {
 				"$rowConstraints": "[19][][]"
 			} ) {
 				name: "massPanel"
-				"border": new javax.swing.border.TitledBorder( "Mass" )
+				"border": new javax.swing.border.TitledBorder( "Mass*" )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "emptyWeightL"
 					"text": "Empty Weight ="
@@ -48,7 +48,7 @@ new FormModel {
 				"$rowConstraints": "[][][]"
 			} ) {
 				name: "locationPanel"
-				"border": new javax.swing.border.TitledBorder( "Location" )
+				"border": new javax.swing.border.TitledBorder( "Location*" )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "xLocL"
 					"text": "x ="
@@ -102,7 +102,7 @@ new FormModel {
 				"$rowConstraints": "[]"
 			} ) {
 				name: "moiPanel"
-				"border": new javax.swing.border.TitledBorder( "Moment of Inertia" )
+				"border": new javax.swing.border.TitledBorder( "Moment of Inertia*" )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 					"$layoutConstraints": "fill,hidemode 3"
 					"$columnConstraints": "[fill][120,fill][fill]"

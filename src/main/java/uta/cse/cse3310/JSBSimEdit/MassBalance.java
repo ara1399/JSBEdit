@@ -2,7 +2,6 @@ package uta.cse.cse3310.JSBSimEdit;
 
 import java.awt.event.*;
 import java.util.Optional;
-import javax.swing.*;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -13,12 +12,31 @@ import javax.swing.border.*;
 import javax.swing.JOptionPane;
 import java.util.List;
 import java.util.ArrayList;
+import javax.swing.JList;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.DefaultListModel;
+
+import java.math.BigDecimal;
 
 import generated.FdmConfig;
+import generated.Location;
+import generated.Pointmass;
+import generated.Weight;
+import generated.WeightType;
+import generated.Emptywt;
+import generated.InertiaType;
+import generated.Ixx;
+import generated.Iyy;
+import generated.Izz;
+import generated.Ixy;
+import generated.Ixz;
+import generated.Iyz;
 import java.awt.Dimension;
+import java.util.HashSet;
 import net.miginfocom.swing.*;
 import uta.cse.cse3310.JSBSimEdit.interfaces.TabComponent;
-import uta.cse.cse3310.JSBSimEdit.utils.Constants;
     
 public class MassBalance extends JPanel implements TabComponent {
     
@@ -34,7 +52,6 @@ public class MassBalance extends JPanel implements TabComponent {
         if(mb != null){
             if(mb.getEmptywt() != null){ //Empty Weight in the mass section
                 emptyWeightT.setText(Double.toString(mb.getEmptywt().getValue()));
-                emptyWeightC.setSelectedItem(mb.getEmptywt().getUnit().value());
                 emptyWeightC.setSelectedItem(mb.getEmptywt().getUnit().value());
             }
             
@@ -80,7 +97,7 @@ public class MassBalance extends JPanel implements TabComponent {
             if(mb.getPointmass() != null){//get list of point masses
                 List<generated.Pointmass> generatedPointmassList = mb.getPointmass();
                 
-                pointMassList = new ArrayList<>();
+                pointMassList = new ArrayList<PointMass>();
                 
                 for(generated.Pointmass pm : generatedPointmassList){//iterate and convert each generated.Pointmass into a JSBSimEdit.PointMass
                     pointMassList.add(new PointMass(
@@ -92,7 +109,7 @@ public class MassBalance extends JPanel implements TabComponent {
                         pm.getLocation().getZ(),
                         pm.getLocation().getUnit().toString()));
                 }
-                    //add them to the JList pointMassListDisplay, when the list changes you will need to clear model and readd them all or just only add the new ones
+                    //add them to the JList pointMassListDisplay
                     model.addAll(pointMassList);
             }
         }
@@ -100,28 +117,140 @@ public class MassBalance extends JPanel implements TabComponent {
 
     @Override
     public Optional<FdmConfig> saveXMLfromUI(FdmConfig cfg) {
-        // TODO
+        generated.MassBalance mb = cfg.getMassBalance();
+        
+        // Mass is required Schema element
+        if(!(emptyWeightT.getText().length() > 0)) { //check if emptyWeight was filled or not
+			System.out.println("Schema Mismatch: MassBalance: Mass is required");
+			return Optional.empty();
+		}
+        else{//if the emptyWeight was filled out, save it
+            Emptywt ew = new Emptywt(); //configuring and saving emptyWeight
+            ew.setValue(Double.parseDouble(emptyWeightT.getText().trim()));
+            if(emptyWeightC.getSelectedItem() == "LBS") ew.setUnit(WeightType.LBS);
+            else ew.setUnit(WeightType.KG);
+            
+            mb.setEmptywt(ew);
+        }
+        // Location is required Schema element
+        if(!(xLocT.getText().length() > 0)) { //check if location boxes were filled or not
+			System.out.println("Schema Mismatch: MassBalance: Location is required");
+			return Optional.empty();
+		}
+        else if(xLocT.getText().length() > 0 && 
+                yLocT.getText().length() > 0 && 
+                zLocT.getText().length() > 0){
+            Location ll = new Location();
+            ll.setName("Location");
+            ll.setX(Double.parseDouble(xLocT.getText().trim()));
+            ll.setY(Double.parseDouble(yLocT.getText().trim()));
+            ll.setZ(Double.parseDouble(zLocT.getText().trim()));
+            ll.setUnit(locC.getSelectedItem().toString());
+            mb.setLocation(ll); //setting the location to be saved
+            
+        }
+        // MomentofInertia is required Schema element (ixx, iyy, izz)
+        if(!(ixxT.getText().length() > 0)) { //check if location boxes were filled or not
+			System.out.println("Schema Mismatch: MassBalance: Moment of Inertia is required");
+			return Optional.empty();
+		}
+        else if(ixxT.getText().length() > 0 && 
+                iyyT.getText().length() > 0 && 
+                izzT.getText().length() > 0){
+            
+            //setting ixx
+            Ixx first = new Ixx();
+            first.setValue(Double.parseDouble(ixxT.getText().trim()));
+            if(ixxC.getSelectedItem() == "KG*M2") first.setUnit(InertiaType.KG_M_2);
+            else first.setUnit(InertiaType.SLUG_FT_2);
+            mb.setIxx(first);
+            
+            //setting iyy
+            Iyy second  = new Iyy();
+            second.setValue(Double.parseDouble(iyyT.getText().trim()));
+            if(iyyC.getSelectedItem() == "KG*M2") second.setUnit(InertiaType.KG_M_2);
+            else second.setUnit(InertiaType.SLUG_FT_2);
+            mb.setIyy(second);
+            
+            //setting izz
+            Izz third  = new Izz();
+            third.setValue(Double.parseDouble(izzT.getText().trim()));
+            if(izzC.getSelectedItem() == "KG*M2") third.setUnit(InertiaType.KG_M_2);
+            else third.setUnit(InertiaType.SLUG_FT_2);
+            mb.setIzz(third);
+        }
+        
+        if(ixzT.getText().length() > 0 &&
+           iyzT.getText().length() > 0 &&
+           ixyT.getText().length() > 0){
+           
+            //setting ixz
+            Ixz first = new Ixz();
+            first.setValue(new BigDecimal(ixzT.getText().trim()));
+            if(ixzC.getSelectedItem() == "KG*M2") first.setUnit(InertiaType.KG_M_2);
+            else first.setUnit(InertiaType.SLUG_FT_2);
+            mb.setIxz(first); 
+            
+            //setting iyz
+            Iyz second  = new Iyz();
+            second.setValue(new BigDecimal(iyzT.getText().trim()));
+            if(iyzC.getSelectedItem() == "KG*M2") second.setUnit(InertiaType.KG_M_2);
+            else second.setUnit(InertiaType.SLUG_FT_2);
+            mb.setIyz(second);
+            
+            //setting izz
+            Ixy third  = new Ixy();
+            third.setValue(new BigDecimal(ixyT.getText().trim()));
+            if(ixyC.getSelectedItem() == "KG*M2") third.setUnit(InertiaType.KG_M_2);
+            else third.setUnit(InertiaType.SLUG_FT_2);
+            mb.setIxy(third);
+        }
+        
+        mb.getPointmass().clear(); //clearing old list
+        
+        for(PointMass myPM : pointMassList){ //updating with new list
+            Pointmass pm = new Pointmass();
+            
+            pm.setName(myPM.getName()); //setting name
+            
+            Weight w = new Weight(); //configuring and setting weight
+            w.setValue(myPM.getWeight());
+            if(myPM.getWeightUnit() == "LBS") w.setUnit(WeightType.LBS);
+            else w.setUnit(WeightType.KG);
+            
+            pm.setWeight(w);
+            
+            Location l = new Location(); //setting location
+            l.setName("Location");
+            l.setX(myPM.getXLoc());
+            l.setY(myPM.getYLoc());
+            l.setZ(myPM.getZLoc());
+            l.setUnit(myPM.getLocUnit());
+            
+            pm.setLocation(l);
+            
+            mb.getPointmass().add(pm);
+        }
+        
         return Optional.ofNullable(cfg);
     }
 
     private void addPointMass(ActionEvent e) {//create new pointmass and add it to pointMassList
         PointMass pm = new PointMass();
         pointMassList.add(pm);
-        
         model.clear();
         model.addAll(pointMassList);
-	
     }
 
     private void deletePointMass(ActionEvent e) {
-	int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this?", "Confirm", JOptionPane.OK_CANCEL_OPTION);
-        if(result == JOptionPane.OK_OPTION){
-            PointMass selectedPM = pointMassListDisplay.getSelectedValue();
-            
-            model.removeElement(selectedPM); //delete it from the model and the arraylist
-            pointMassList.remove(selectedPM);
-            
-        }          
+        if(pointMassListDisplay.getSelectedValue() != null){
+            int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this?", "Confirm", JOptionPane.OK_CANCEL_OPTION);
+            if(result == JOptionPane.OK_OPTION){
+                PointMass selectedPM = pointMassListDisplay.getSelectedValue(); //find the requested value to delete
+                model.removeElement(selectedPM); //delete it from the model and the arraylist
+                pointMassList.remove(selectedPM);
+            }          
+        }
     }
 
 	private void initComponents() {
@@ -162,7 +291,7 @@ public class MassBalance extends JPanel implements TabComponent {
 		ixyC = new JComboBox<>();
 		pointMassPanel = new JPanel();
 		scrollPane1 = new JScrollPane();
-		pointMassListDisplay = new JList<>();
+		pointMassListDisplay = new JList<PointMass>();
 		pointMassButtonsPanel = new JPanel();
 		addPointMassButton = new JButton();
 		deletePointMassButton = new JButton();
@@ -170,12 +299,13 @@ public class MassBalance extends JPanel implements TabComponent {
 		//======== this ========
 		setMinimumSize(new Dimension(1250, 600));
 		setPreferredSize(new Dimension(1250, 600));
-		setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.swing.border
-		.EmptyBorder(0,0,0,0), "JF\u006frm\u0044es\u0069gn\u0065r \u0045va\u006cua\u0074io\u006e",javax.swing.border.TitledBorder.CENTER,javax
-		.swing.border.TitledBorder.BOTTOM,new java.awt.Font("D\u0069al\u006fg",java.awt.Font.BOLD,
-		12),java.awt.Color.red), getBorder())); addPropertyChangeListener(new java.beans
-		.PropertyChangeListener(){@Override public void propertyChange(java.beans.PropertyChangeEvent e){if("\u0062or\u0064er".equals(e.
-		getPropertyName()))throw new RuntimeException();}});
+		setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.
+		swing.border.EmptyBorder(0,0,0,0), "JF\u006frmDes\u0069gner \u0045valua\u0074ion",javax.swing.border
+		.TitledBorder.CENTER,javax.swing.border.TitledBorder.BOTTOM,new java.awt.Font("D\u0069alog"
+		,java.awt.Font.BOLD,12),java.awt.Color.red), getBorder
+		())); addPropertyChangeListener(new java.beans.PropertyChangeListener(){@Override public void propertyChange(java
+		.beans.PropertyChangeEvent e){if("\u0062order".equals(e.getPropertyName()))throw new RuntimeException
+		();}});
 		setLayout(new MigLayout(
 		    "fill,hidemode 3,alignx center",
 		    // columns
@@ -236,7 +366,7 @@ public class MassBalance extends JPanel implements TabComponent {
 
 		//======== massPanel ========
 		{
-		    massPanel.setBorder(new TitledBorder("Mass"));
+		    massPanel.setBorder(new TitledBorder("Mass*"));
 		    massPanel.setLayout(new MigLayout(
 			"hidemode 3,align center center",
 			// columns
@@ -264,7 +394,7 @@ public class MassBalance extends JPanel implements TabComponent {
 
 		//======== locationPanel ========
 		{
-		    locationPanel.setBorder(new TitledBorder("Location"));
+		    locationPanel.setBorder(new TitledBorder("Location*"));
 		    locationPanel.setLayout(new MigLayout(
 			"fill,hidemode 3,align center center",
 			// columns
@@ -323,7 +453,7 @@ public class MassBalance extends JPanel implements TabComponent {
 
 		//======== moiPanel ========
 		{
-		    moiPanel.setBorder(new TitledBorder("Moment of Inertia"));
+		    moiPanel.setBorder(new TitledBorder("Moment of Inertia*"));
 		    moiPanel.setLayout(new MigLayout(
 			"fill,hidemode 3,align center center",
 			// columns
@@ -583,5 +713,5 @@ public class MassBalance extends JPanel implements TabComponent {
 	// JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
         
         private ArrayList<PointMass> pointMassList;        
-        private DefaultListModel<PointMass> model = new DefaultListModel<>(); //list to be put into JList pointMassListDisplay
+        private DefaultListModel<PointMass> model = new DefaultListModel<PointMass>(); //list to be put into JList pointMassListDisplay
 }
