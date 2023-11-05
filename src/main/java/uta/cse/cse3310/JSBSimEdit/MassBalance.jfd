@@ -27,10 +27,15 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JTextField" ) {
 					name: "emptyWeightT"
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 1 1"
+					"value": "cell 1 1,alignx right,growx 0"
 				} )
 				add( new FormComponent( "javax.swing.JComboBox" ) {
 					name: "emptyWeightC"
+					"model": new javax.swing.DefaultComboBoxModel {
+						selectedItem: "KG"
+						addElement( "KG" )
+						addElement( "LBS" )
+					}
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 2 1"
 				} )
@@ -79,6 +84,12 @@ new FormModel {
 				} )
 				add( new FormComponent( "javax.swing.JComboBox" ) {
 					name: "locC"
+					"model": new javax.swing.DefaultComboBoxModel {
+						selectedItem: "IN"
+						addElement( "IN" )
+						addElement( "FT" )
+						addElement( "M" )
+					}
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 22 1"
 				} )
@@ -111,6 +122,11 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JComboBox" ) {
 						name: "ixxC"
+						"model": new javax.swing.DefaultComboBoxModel {
+							selectedItem: "SLUG*FT2"
+							addElement( "SLUG*FT2" )
+							addElement( "KG*M2" )
+						}
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 2 0"
 					} )
@@ -127,6 +143,11 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JComboBox" ) {
 						name: "iyyC"
+						"model": new javax.swing.DefaultComboBoxModel {
+							selectedItem: "SLUG*FT2"
+							addElement( "SLUG*FT2" )
+							addElement( "KG*M2" )
+						}
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 2 1"
 					} )
@@ -143,6 +164,11 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JComboBox" ) {
 						name: "izzC"
+						"model": new javax.swing.DefaultComboBoxModel {
+							selectedItem: "SLUG*FT2"
+							addElement( "SLUG*FT2" )
+							addElement( "KG*M2" )
+						}
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 2 2"
 					} )
@@ -156,50 +182,65 @@ new FormModel {
 				} ) {
 					name: "moiRightPanel"
 					add( new FormComponent( "javax.swing.JLabel" ) {
-						name: "ixxL2"
+						name: "ixzL"
 						"text": "ixz ="
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 0"
 					} )
 					add( new FormComponent( "javax.swing.JTextField" ) {
-						name: "ixxT2"
+						name: "ixzT"
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 1 0"
 					} )
 					add( new FormComponent( "javax.swing.JComboBox" ) {
-						name: "ixxC2"
+						name: "ixzC"
+						"model": new javax.swing.DefaultComboBoxModel {
+							selectedItem: "SLUG*FT2"
+							addElement( "SLUG*FT2" )
+							addElement( "KG*M2" )
+						}
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 2 0"
 					} )
 					add( new FormComponent( "javax.swing.JLabel" ) {
-						name: "iyyL2"
+						name: "iyzL"
 						"text": "iyz ="
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 1"
 					} )
 					add( new FormComponent( "javax.swing.JTextField" ) {
-						name: "iyyT2"
+						name: "iyzT"
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 1 1"
 					} )
 					add( new FormComponent( "javax.swing.JComboBox" ) {
-						name: "iyyC2"
+						name: "iyzC"
+						"model": new javax.swing.DefaultComboBoxModel {
+							selectedItem: "SLUG*FT2"
+							addElement( "SLUG*FT2" )
+							addElement( "KG*M2" )
+						}
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 2 1"
 					} )
 					add( new FormComponent( "javax.swing.JLabel" ) {
-						name: "izzL2"
+						name: "ixyL"
 						"text": "ixy ="
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 2"
 					} )
 					add( new FormComponent( "javax.swing.JTextField" ) {
-						name: "izzT2"
+						name: "ixyT"
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 1 2"
 					} )
 					add( new FormComponent( "javax.swing.JComboBox" ) {
-						name: "izzC2"
+						name: "ixyC"
+						"model": new javax.swing.DefaultComboBoxModel {
+							selectedItem: "SLUG*FT2"
+							addElement( "SLUG*FT2" )
+							addElement( "KG*M2" )
+						}
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 2 2"
 					} )
@@ -230,12 +271,14 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "addPointMassButton"
 						"text": "Add a new Point Mass"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "addPointMass", true ) )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 0"
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "deletePointMassButton"
 						"text": "Delete the selected Point Mass"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "deletePointMass", true ) )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 1 0"
 					} )
