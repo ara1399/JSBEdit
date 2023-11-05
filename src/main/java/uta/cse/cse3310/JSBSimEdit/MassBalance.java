@@ -133,7 +133,8 @@ public class MassBalance extends JPanel implements TabComponent {
 		ixyT = new JTextField();
 		ixyC = new JComboBox<>();
 		pointMassPanel = new JPanel();
-		pointMassTextArea = new JTextField();
+		scrollPane1 = new JScrollPane();
+		list1 = new JList();
 		pointMassButtonsPanel = new JPanel();
 		addPointMassButton = new JButton();
 		deletePointMassButton = new JButton();
@@ -141,13 +142,13 @@ public class MassBalance extends JPanel implements TabComponent {
 		//======== this ========
 		setMinimumSize(new Dimension(1250, 600));
 		setPreferredSize(new Dimension(1250, 600));
-		setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing
-		. border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn", javax. swing. border. TitledBorder
-		. CENTER, javax. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .
-		awt .Font .BOLD ,12 ), java. awt. Color. red) , getBorder( )) )
-		;  addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e
-		) {if ("\u0062ord\u0065r" .equals (e .getPropertyName () )) throw new RuntimeException( ); }} )
-		;
+		setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax.
+		swing. border. EmptyBorder( 0, 0, 0, 0) , "JFor\u006dDesi\u0067ner \u0045valu\u0061tion", javax. swing. border
+		. TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog"
+		,java .awt .Font .BOLD ,12 ), java. awt. Color. red) , getBorder
+		( )) );  addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java
+		.beans .PropertyChangeEvent e) {if ("bord\u0065r" .equals (e .getPropertyName () )) throw new RuntimeException
+		( ); }} );
 		setLayout(new MigLayout(
 		    "fill,hidemode 3,alignx center",
 		    // columns
@@ -474,7 +475,12 @@ public class MassBalance extends JPanel implements TabComponent {
 			"[]" +
 			"[]" +
 			"[]"));
-		    pointMassPanel.add(pointMassTextArea, "cell 0 0 48 9,grow");
+
+		    //======== scrollPane1 ========
+		    {
+			scrollPane1.setViewportView(list1);
+		    }
+		    pointMassPanel.add(scrollPane1, "cell 0 0 48 9,grow");
 
 		    //======== pointMassButtonsPanel ========
 		    {
@@ -538,7 +544,8 @@ public class MassBalance extends JPanel implements TabComponent {
 	private JTextField ixyT;
 	private JComboBox<String> ixyC;
 	private JPanel pointMassPanel;
-	private JTextField pointMassTextArea;
+	private JScrollPane scrollPane1;
+	private JList list1;
 	private JPanel pointMassButtonsPanel;
 	private JButton addPointMassButton;
 	private JButton deletePointMassButton;
