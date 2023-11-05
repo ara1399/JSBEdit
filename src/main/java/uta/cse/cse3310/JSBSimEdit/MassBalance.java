@@ -237,6 +237,7 @@ public class MassBalance extends JPanel implements TabComponent {
 
     private void addPointMass(ActionEvent e) {//create new pointmass and add it to pointMassList
         PointMass pm = new PointMass();
+        if(pm.getName() == null) return;
         pointMassList.add(pm);
         model.clear();
         model.addAll(pointMassList);
@@ -299,13 +300,6 @@ public class MassBalance extends JPanel implements TabComponent {
 		//======== this ========
 		setMinimumSize(new Dimension(1250, 600));
 		setPreferredSize(new Dimension(1250, 600));
-		setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.
-		swing.border.EmptyBorder(0,0,0,0), "JF\u006frmDes\u0069gner \u0045valua\u0074ion",javax.swing.border
-		.TitledBorder.CENTER,javax.swing.border.TitledBorder.BOTTOM,new java.awt.Font("D\u0069alog"
-		,java.awt.Font.BOLD,12),java.awt.Color.red), getBorder
-		())); addPropertyChangeListener(new java.beans.PropertyChangeListener(){@Override public void propertyChange(java
-		.beans.PropertyChangeEvent e){if("\u0062order".equals(e.getPropertyName()))throw new RuntimeException
-		();}});
 		setLayout(new MigLayout(
 		    "fill,hidemode 3,alignx center",
 		    // columns
