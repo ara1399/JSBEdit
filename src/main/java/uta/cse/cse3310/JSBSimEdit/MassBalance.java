@@ -11,7 +11,8 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.border.*;
 import javax.swing.JOptionPane;
-import java.math.BigDecimal;
+import java.util.List;
+import java.util.ArrayList;
 
 import generated.FdmConfig;
 import java.awt.Dimension;
@@ -76,6 +77,24 @@ public class MassBalance extends JPanel implements TabComponent {
                 ixyC.setSelectedItem(mb.getIxy().getUnit().value());
             }
             
+            if(mb.getPointmass() != null){//get list of point masses
+                List<generated.Pointmass> generatedPointmassList = mb.getPointmass();
+                
+                pointMassList = new ArrayList<>();
+                
+                for(generated.Pointmass pm : generatedPointmassList){//iterate and convert each generated.Pointmass into a JSBSimEdit.PointMass
+                    pointMassList.add(new PointMass(
+                        pm.getName(),
+                        pm.getWeight().getValue(),
+                        pm.getWeight().getUnit().toString(),
+                        pm.getLocation().getX(),
+                        pm.getLocation().getY(),
+                        pm.getLocation().getZ(),
+                        pm.getLocation().getUnit().toString()));
+                }
+                    //add them to the JList pointMassListDisplay
+                    model.addAll(pointMassList); 
+            }
         }
         // TODO
     }
@@ -86,15 +105,14 @@ public class MassBalance extends JPanel implements TabComponent {
         return Optional.ofNullable(cfg);
     }
 
-    private void addPointMass(ActionEvent e) {
-	new PointMass();
+    private void addPointMass(ActionEvent e) {//create new pointmass and add it to pointMassList
+        PointMass pm = new PointMass();
+	
     }
 
     private void deletePointMass(ActionEvent e) {
 	JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this?", "Confirm", JOptionPane.OK_CANCEL_OPTION);
     }
-
-    JButton addPM;
 
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
@@ -134,7 +152,7 @@ public class MassBalance extends JPanel implements TabComponent {
 		ixyC = new JComboBox<>();
 		pointMassPanel = new JPanel();
 		scrollPane1 = new JScrollPane();
-		list1 = new JList();
+		pointMassListDisplay = new JList<>();
 		pointMassButtonsPanel = new JPanel();
 		addPointMassButton = new JButton();
 		deletePointMassButton = new JButton();
@@ -142,13 +160,12 @@ public class MassBalance extends JPanel implements TabComponent {
 		//======== this ========
 		setMinimumSize(new Dimension(1250, 600));
 		setPreferredSize(new Dimension(1250, 600));
-		setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax.
-		swing. border. EmptyBorder( 0, 0, 0, 0) , "JFor\u006dDesi\u0067ner \u0045valu\u0061tion", javax. swing. border
-		. TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog"
-		,java .awt .Font .BOLD ,12 ), java. awt. Color. red) , getBorder
-		( )) );  addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java
-		.beans .PropertyChangeEvent e) {if ("bord\u0065r" .equals (e .getPropertyName () )) throw new RuntimeException
-		( ); }} );
+		setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.swing.border
+		.EmptyBorder(0,0,0,0), "JF\u006frm\u0044es\u0069gn\u0065r \u0045va\u006cua\u0074io\u006e",javax.swing.border.TitledBorder.CENTER,javax
+		.swing.border.TitledBorder.BOTTOM,new java.awt.Font("D\u0069al\u006fg",java.awt.Font.BOLD,
+		12),java.awt.Color.red), getBorder())); addPropertyChangeListener(new java.beans
+		.PropertyChangeListener(){@Override public void propertyChange(java.beans.PropertyChangeEvent e){if("\u0062or\u0064er".equals(e.
+		getPropertyName()))throw new RuntimeException();}});
 		setLayout(new MigLayout(
 		    "fill,hidemode 3,alignx center",
 		    // columns
@@ -478,7 +495,11 @@ public class MassBalance extends JPanel implements TabComponent {
 
 		    //======== scrollPane1 ========
 		    {
-			scrollPane1.setViewportView(list1);
+
+			//---- pointMassListDisplay ----
+			pointMassListDisplay.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			pointMassListDisplay.setModel(model);
+			scrollPane1.setViewportView(pointMassListDisplay);
 		    }
 		    pointMassPanel.add(scrollPane1, "cell 0 0 48 9,grow");
 
@@ -545,9 +566,12 @@ public class MassBalance extends JPanel implements TabComponent {
 	private JComboBox<String> ixyC;
 	private JPanel pointMassPanel;
 	private JScrollPane scrollPane1;
-	private JList list1;
+	private JList<PointMass> pointMassListDisplay;
 	private JPanel pointMassButtonsPanel;
 	private JButton addPointMassButton;
 	private JButton deletePointMassButton;
 	// JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
+        
+        private ArrayList<PointMass> pointMassList;        
+        private DefaultListModel<PointMass> model = new DefaultListModel<>(); //list to be put into JList pointMassListDisplay
 }
