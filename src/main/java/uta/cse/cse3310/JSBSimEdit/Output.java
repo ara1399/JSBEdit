@@ -27,7 +27,7 @@ import uta.cse.cse3310.JSBSimEdit.interfaces.TabComponent;
 
 public class Output extends JPanel implements TabComponent {
     public Output() {
-		initComponents();
+		outComponents();
 	}
 
     @Override
@@ -52,7 +52,7 @@ public class Output extends JPanel implements TabComponent {
         // TODO
         return Optional.ofNullable(cfg);
     }
-    private void initComponents() {
+    private void outComponents() {
 		
 		panelOutput = new JPanel();
 		name = new JLabel();

@@ -214,18 +214,18 @@ public class MassBalance extends JPanel implements TabComponent {
             pm.setName(myPM.getName()); //setting name
             
             Weight w = new Weight(); //configuring and setting weight
-            w.setValue(myPM.getWeight());
-            if(myPM.getWeightUnit() == "LBS") w.setUnit(WeightType.LBS);
-            else w.setUnit(WeightType.KG);
+            //w.setValue(myPM.getWeight());
+            //if(myPM.getWeightUnit() == "LBS") w.setUnit(WeightType.LBS);
+            //else w.setUnit(WeightType.KG);
             
             pm.setWeight(w);
             
             Location l = new Location(); //setting location
             l.setName("Location");
-            l.setX(myPM.getXLoc());
-            l.setY(myPM.getYLoc());
-            l.setZ(myPM.getZLoc());
-            l.setUnit(myPM.getLocUnit());
+            //l.setX(myPM.getXLoc());
+            //l.setY(myPM.getYLoc());
+            //l.setZ(myPM.getZLoc());
+            //l.setUnit(myPM.getLocUnit());
             
             pm.setLocation(l);
             

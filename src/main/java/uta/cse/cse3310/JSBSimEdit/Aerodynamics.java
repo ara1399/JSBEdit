@@ -30,7 +30,7 @@ public class Aerodynamics extends JPanel implements TabComponent {
         if(a.getAlphalimits() != null){
             alphalimitsMinText.setText(Double.toString(a.getAlphalimits().getMin()));
             alphalimitsMinText.setText(Double.toString(a.getAlphalimits().getMax()));
-            alphalimitsUnitText.setText(Double.toString(a.getAlphalimits().getUnit()));
+            //alphalimitsUnitText.setText(Double.toString(a.getAlphalimits().getUnit()));
         }
 
         if(a.getHysteresisLimits() != null){
@@ -45,13 +45,13 @@ public class Aerodynamics extends JPanel implements TabComponent {
         
         
         //axis gets
-        public List<axis> getaAxis();
-        while(a.getAxis() != null){
-            axisnameText.setText(ax.getName());
-            axisnames.add(ax.getName());
+        //public List<axis> getaAxis();
+        //while(a.getAxis() != null){
+          //  axisnameText.setText(ax.getName());
+            //axisnames.add(ax.getName());
         }
-        String[] arr = axisnames.toArray(new String[0]);
-    }
+        //String[] arr = axisnames.toArray(new String[0]);
+    //}
 
     @Override
     public Optional<FdmConfig> saveXMLfromUI(FdmConfig cfg) {
