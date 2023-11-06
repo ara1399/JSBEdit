@@ -140,7 +140,6 @@ public class Propulsion extends JPanel implements TabComponent {
 					"Engine"
 				}
 			));
-			engineTable.setShowHorizontalLines(true);
 			engineScrollPane.setViewportView(engineTable);
 		}
 		add(engineScrollPane, "cell 0 1 1 9,growy");
