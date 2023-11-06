@@ -1,5 +1,6 @@
 package uta.cse.cse3310.JSBSimEdit;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +40,12 @@ public class Aerodynamics extends JPanel implements TabComponent {
         //function gets
         while(a.getFunction() != null){
             Function f = fList.get(0);
-            funtionText.setText(f.getName());
+            String functionValue = f.getName();
+		if (functionValue != null) {
+			funtionText.setText(functionValue);
+		} else {
+			return;
+		}
             functiondescText.setText(f.getDescription());
             System.out.println(funtionText);
         }
