@@ -24,8 +24,8 @@ public class Aerodynamics extends JPanel implements TabComponent {
     public void bindUIwithXML(FdmConfig cfg) {
         // TODO
         generated.Aerodynamics a = cfg.getAerodynamics();
-        generated.Function f = (Function) a.getFunction();
-        generated.Axis ax = (Axis) a.getAxis();
+        List<Function> fList = a.getFunction();
+        List<Axis> axList = a.getAxis();
 
         if(a.getAlphalimits() != null){
             alphalimitsMinText.setText(Double.toString(a.getAlphalimits().getMin()));
@@ -38,6 +38,7 @@ public class Aerodynamics extends JPanel implements TabComponent {
         }
         //function gets
         while(a.getFunction() != null){
+            Function f = fList.get(0);
             funtionText.setText(f.getName());
             functiondescText.setText(f.getDescription());
             System.out.println(funtionText);
