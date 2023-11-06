@@ -38,14 +38,25 @@ public class Aerodynamics extends JPanel implements TabComponent {
             hysteresisLimitsText.setText(Double.toString(a.getHysteresisLimits().getMin()));
         }
         //function gets
-        while(a.getFunction() != null){
-            Function f = fList.get(0);
-            String functionValue = f.getName();
-		if (functionValue != null) {
-			funtionText.setText(functionValue);
-		} else {
-			return;
-		}
+        Function f= fList.get(0);
+        while(a.getFunction() != null) {
+            if (!fList.isEmpty()) {
+                
+                if (f != null) {
+                    String functionValue = f.getName();
+                    if (functionValue != null) {
+                        funtionText.setText(functionValue);
+                    } else {
+                        return;
+                    }
+                } else {
+                    return;
+                }
+            } else {
+                return;
+            }
+        }
+        
             functiondescText.setText(f.getDescription());
             System.out.println(funtionText);
         }
@@ -56,7 +67,7 @@ public class Aerodynamics extends JPanel implements TabComponent {
         //while(a.getAxis() != null){
           //  axisnameText.setText(ax.getName());
             //axisnames.add(ax.getName());
-        }
+        //}
         //String[] arr = axisnames.toArray(new String[0]);
     //}
 
