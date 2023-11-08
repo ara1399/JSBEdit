@@ -32,7 +32,7 @@ public class Output extends JPanel implements TabComponent {
 
     @Override
     public void bindUIwithXML(FdmConfig cfg) {
-		List<generated.Output> opList = cfg.getOutput();
+		/*List<generated.Output> opList = cfg.getOutput();
 		generated.Output op = opList.get(0);
         nameText.setText(op.getName());
 		
@@ -44,12 +44,89 @@ public class Output extends JPanel implements TabComponent {
 		}
 		
 
-		typeComboBox.setToolTipText(op.getType());
-    }
+		typeComboBox.setToolTipText(op.getType());*/
+		List<generated.Output> opList = cfg.getOutput();
+        if (!opList.isEmpty()) {
+            generated.Output op = opList.get(0);
+
+            nameText.setText(op.getName());
+
+            BigInteger portValue = op.getPort();
+            if (portValue != null) {
+                portText.setText(portValue.toString());
+            }
+
+            BigInteger rateValue = op.getRate();
+            if (rateValue != null) {
+                rateText.setText(rateValue.toString());
+            }
+
+            String typeValue = op.getType();
+            if (typeValue != null) {
+                typeComboBox.setSelectedItem(typeValue);
+            }
+		}
+
+            /*simulation.setSelected(op.isSimulation());
+            atmosphere.setSelected(op.isAtmosphere());
+            massProps.setSelected(op.isMassprops());
+            rates.setSelected(op.isRates());
+            velocities.setSelected(op.isVelocities());
+            forces.setSelected(op.isForces());
+            moments.setSelected(op.isMoments());
+            position.setSelected(op.isPosition());
+            propulsion.setSelected(op.isPropulsion());
+            aerosurfaces.setSelected(op.isAerosurfaces());
+            fcs.setSelected(op.isFcs());
+            groundReactions.setSelected(op.isGroundReactions());
+            coefficients.setSelected(op.isCoefficients());*/
+
+            // You need to implement parsing the properties text and populating the propertiesTextArea
+            // propertiesTextArea.setText(op.getProperties());
+        }
+
+
 
     @Override
     public Optional<FdmConfig> saveXMLfromUI(FdmConfig cfg) {
-        // TODO
+        List<generated.Output> opList = cfg.getOutput();
+
+        // If there is no Output object in the list, create one
+        generated.Output op;
+        if (opList.isEmpty()) {
+            op = new generated.Output();
+            opList.add(op);
+        } else {
+            op = opList.get(0);
+        }
+
+        op.setName(nameText.getText());
+
+        String portValue = portText.getText();
+        if (!portValue.isEmpty()) {
+            op.setPort(new BigInteger(portValue));
+        }
+
+        String rateValue = rateText.getText();
+        if (!rateValue.isEmpty()) {
+            op.setRate(new BigInteger(rateValue));
+        }
+
+        String selectedType = (String) typeComboBox.getSelectedItem();
+        op.setType(selectedType);
+		/*op.setSimulation(simulation.isSelected());
+        op.setAtmosphere(atmosphere.isSelected());
+        op.setMassprops(massProps.isSelected());
+        op.setRates(rates.isSelected());
+        op.setVelocities(velocities.isSelected());
+        op.setForces(forces.isSelected());
+        op.setMoments(moments.isSelected());
+        op.setPosition(position.isSelected());
+        op.setPropulsion(propulsion.isSelected());
+        op.setAerosurfaces(aerosurfaces.isSelected());
+        op.setFcs(fcs.isSelected());
+        op.setGroundReactions(groundReactions.isSelected());
+        op.setCoefficients(coefficients.isSelected());*/
         return Optional.ofNullable(cfg);
     }
     private void outComponents() {
