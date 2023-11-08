@@ -1,7 +1,6 @@
 package uta.cse.cse3310.JSBSimEdit;
 
 import java.math.BigInteger;
-//import java.math.BigInteger;
 import java.util.Optional;
 
 import javax.swing.JLabel;
@@ -36,7 +35,8 @@ JTextField portText;
         generated.Input in = cfg.getInput();
 
         String contentValue = in.getContent();
-        if (contentLabel != null) {
+        if (in != null) {
+            if (contentLabel != null) {
 			contentText.setText(contentValue);
 		} else {
 			return;
@@ -47,11 +47,23 @@ JTextField portText;
 		} else {
 			return;
 		}
+        }
+        
     }
 
     @Override
     public Optional<FdmConfig> saveXMLfromUI(FdmConfig cfg) {
-        // TODO
+        generated.Input in = cfg.getInput();
+        //get the information from the textfield, and call in.
+        if (in != null) {
+            contentText.setText(in.getContent());
+            BigInteger portValue = in.getPort();
+            if (portValue != null) {
+                portText.setText(portValue.toString());
+            }
+        }
+
+        
         return Optional.ofNullable(cfg);
     }
 }
