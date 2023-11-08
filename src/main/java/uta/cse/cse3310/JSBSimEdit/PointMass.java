@@ -5,7 +5,6 @@ import java.awt.event.*;
 import java.lang.StringBuilder;
 import javax.swing.*;
 import javax.swing.JOptionPane;
-import javax.swing.JFrame;
 import javax.swing.JDialog;
 import javax.swing.border.*;
 import net.miginfocom.swing.*;
@@ -58,6 +57,16 @@ public class PointMass extends JDialog {
     private void cancelBpressed(ActionEvent e) {
 	this.dispose();
     }
+    
+    public String getName() {return this.name;}
+    public Double getWeight() {return this.weight;}
+    public Double getXLoc() {return this.x;}
+    public Double getYLoc() {return this.y;}
+    public Double getZLoc() {return this.z;}
+    public String getWeightUnit() {return this.weightUnit;}
+    public String getLocUnit() {return this.locUnit;}
+    
+    
     
     private String name, weightUnit, locUnit;
     private Double weight, x, y, z; //x, y, and z represent location
@@ -124,13 +133,6 @@ public class PointMass extends JDialog {
 
 		//======== pmNameP ========
 		{
-		    pmNameP.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new
-		    javax. swing. border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn", javax
-		    . swing. border. TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM, new java
-		    .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,12 ), java. awt
-		    . Color. red) ,pmNameP. getBorder( )) ); pmNameP. addPropertyChangeListener (new java. beans.
-		    PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062ord\u0065r" .
-		    equals (e .getPropertyName () )) throw new RuntimeException( ); }} );
 		    pmNameP.setLayout(new MigLayout(
 			"fill,hidemode 3",
 			// columns
