@@ -1,0 +1,378 @@
+JFDML JFormDesigner: "8.2.0.0.331" Java: "17.0.8" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JDialog", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+			"$layoutConstraints": "hidemode 3"
+			"$columnConstraints": "[fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill]"
+			"$rowConstraints": "[][][][][][][][][][][][][][]0[]0"
+		} ) {
+			name: "this"
+			"title": "Landing Gear Setup"
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+				"$layoutConstraints": "hidemode 3,alignx center"
+				"$columnConstraints": "[fill][159,fill][fill][183,fill]"
+				"$rowConstraints": "[]"
+			} ) {
+				name: "topP"
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "nameL"
+					"text": "Name "
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "nameT"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 1 0"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "typeL"
+					"text": "Type"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "typeT"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 3 0"
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 0 19 1,grow"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+				"$layoutConstraints": "hidemode 3,alignx center"
+				"$columnConstraints": "[fill][fill][fill][fill][fill][fill][fill]"
+				"$rowConstraints": "[]"
+			} ) {
+				name: "locP"
+				"border": new javax.swing.border.TitledBorder( "Location" )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "xLocL"
+					"text": "x ="
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "xLocT"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 1 0"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "yLocL"
+					"text": "y ="
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "yLocT"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 3 0"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "zLocL"
+					"text": "z ="
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 4 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "zLocT"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 5 0"
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "locC"
+					"model": new javax.swing.DefaultComboBoxModel {
+						selectedItem: "M"
+						addElement( "M" )
+						addElement( "FT" )
+						addElement( "IN" )
+					}
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 6 0"
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 1 19 1,grow"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+				"$layoutConstraints": "fill,hidemode 3,align center center"
+				"$columnConstraints": "[fill][135,fill][fill]"
+				"$rowConstraints": "[][][][][][][][][][]0"
+			} ) {
+				name: "fricP"
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "statL"
+					"text": "static friction ="
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 0,alignx right,growx 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textField3"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 1 0"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "dynL"
+					"text": "dynamic friction ="
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 1,alignx right,growx 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textField4"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 1 1"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "rollL"
+					"text": "rolling friction ="
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 2,alignx right,growx 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textField5"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 1 2"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "springL"
+					"text": "spring coefficient ="
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 3,alignx right,growx 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textField6"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 1 3"
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "comboBox3"
+					"model": new javax.swing.DefaultComboBoxModel {
+						selectedItem: "LBS/FT"
+						addElement( "LBS/FT" )
+						addElement( "N/M" )
+					}
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 3"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "dampL"
+					"text": "damping coefficient ="
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 4,alignx right,growx 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textField7"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 1 4"
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "comboBox2"
+					"model": new javax.swing.DefaultComboBoxModel {
+						selectedItem: "LBS/FT/SEC"
+						addElement( "LBS/FT/SEC" )
+						addElement( "N/M/SEC" )
+					}
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 4"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "dampRebL"
+					"text": "damping coefficient rebound ="
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 5,alignx right,growx 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "dampRebT"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 1 5"
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "dampRebC"
+					"model": new javax.swing.DefaultComboBoxModel {
+						selectedItem: "LBS/FT/SEC"
+						addElement( "LBS/FT/SEC" )
+						addElement( "N/M/SEC" )
+					}
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 5"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "steerL"
+					"text": "max steer ="
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 6,alignx right,growx 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textField8"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 1 6"
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "comboBox1"
+					"model": new javax.swing.DefaultComboBoxModel {
+						selectedItem: "DEG"
+						addElement( "DEG" )
+						addElement( "RAD" )
+					}
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 6"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label9"
+					"text": "wheel slip filter ="
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 7,alignx right,growx 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textField11"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 1 7"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "brakeL"
+					"text": "brake group ="
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 8,alignx right,growx 0"
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "brakeC"
+					"model": new javax.swing.DefaultComboBoxModel {
+						selectedItem: "NOSE"
+						addElement( "NOSE" )
+						addElement( "RIGHT" )
+						addElement( "CENTER" )
+						addElement( "TAIL" )
+						addElement( "NONE" )
+					}
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 1 8"
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "retractableCh"
+					"text": "retractable"
+					"horizontalAlignment": 4
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 9"
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 2 19 11,grow"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+				"$layoutConstraints": "fill,hidemode 3"
+				"$columnConstraints": "[fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill]"
+				"$rowConstraints": "[][][]"
+			} ) {
+				name: "relaxForceP"
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+					"$layoutConstraints": "fill,hidemode 3,align center center"
+					"$columnConstraints": "[fill][fill][fill]"
+					"$rowConstraints": "[][]"
+				} ) {
+					name: "relaxP"
+					"border": new javax.swing.border.TitledBorder( "Relaxation Velocity" )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "relaxRollL"
+						"text": "rolling ="
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 0 0,alignx right,growx 0"
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "relaxRollT"
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 1 0"
+					} )
+					add( new FormComponent( "javax.swing.JComboBox" ) {
+						name: "relaxRollC"
+						"model": new javax.swing.DefaultComboBoxModel {
+							selectedItem: "FT/SEC"
+							addElement( "FT/SEC" )
+						}
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 2 0"
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "relaxSideL"
+						"text": "side ="
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 0 1,alignx right,growx 0"
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "relaxSideT"
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 1 1"
+					} )
+					add( new FormComponent( "javax.swing.JComboBox" ) {
+						name: "relaxSideC"
+						"model": new javax.swing.DefaultComboBoxModel {
+							selectedItem: "FT/SEC"
+							addElement( "FT/SEC" )
+						}
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 2 1"
+					} )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 0 11 3,alignx center,growx 0"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+					"$layoutConstraints": "fill,hidemode 3"
+					"$columnConstraints": "[fill][fill]"
+					"$rowConstraints": "[][]"
+				} ) {
+					name: "forceP"
+					"border": new javax.swing.border.TitledBorder( "Force Lag Filter" )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "forceRollL"
+						"text": "rolling ="
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 0 0,alignx right,growx 0"
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "forceRollT"
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 1 0"
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "forceSideL"
+						"text": "side ="
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 0 1,alignx right,growx 0"
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "forceSideT"
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 1 1"
+					} )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 0 11 3"
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 13 19 1,alignx center,grow 0 100"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+				"$layoutConstraints": "hidemode 3,alignx center"
+				"$columnConstraints": "[fill][fill]"
+				"$rowConstraints": "[]"
+			} ) {
+				name: "buttonP"
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "okB"
+					"text": "OK"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 0"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "cancelB"
+					"text": "Cancel"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 1 0"
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 14 19 1,growx"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 500, 665 )
+		} )
+	}
+}
