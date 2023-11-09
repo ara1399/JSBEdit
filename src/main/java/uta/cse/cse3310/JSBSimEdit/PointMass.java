@@ -44,12 +44,12 @@ public class PointMass extends JDialog {
     }
 
     private void okBpressed(ActionEvent e) {
-        name = pmNameT.getText();
-        weight = Double.parseDouble(pmWeightT.getText());
+        name = pmNameT.getText().trim();
+        weight = Double.parseDouble(pmWeightT.getText().trim());
         weightUnit = pmWeightC.getSelectedItem().toString();
-        x = Double.parseDouble(xT.getText());
-        y = Double.parseDouble(yT.getText());
-        z = Double.parseDouble(zT.getText());
+        x = Double.parseDouble(xT.getText().trim());
+        y = Double.parseDouble(yT.getText().trim());
+        z = Double.parseDouble(zT.getText().trim());
         locUnit = locC.getSelectedItem().toString();
         this.dispose();
     }

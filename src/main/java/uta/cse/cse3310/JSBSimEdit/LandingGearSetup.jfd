@@ -10,6 +10,9 @@ new FormModel {
 		} ) {
 			name: "this"
 			"title": "Landing Gear Setup"
+			auxiliary() {
+				"JavaCodeGenerator.variableGetter": true
+			}
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "hidemode 3,alignx center"
 				"$columnConstraints": "[fill][159,fill][fill][183,fill]"
@@ -108,7 +111,7 @@ new FormModel {
 					"value": "cell 0 0,alignx right,growx 0"
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "textField3"
+					name: "statT"
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 1 0"
 				} )
@@ -119,7 +122,7 @@ new FormModel {
 					"value": "cell 0 1,alignx right,growx 0"
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "textField4"
+					name: "dynT"
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 1 1"
 				} )
@@ -130,7 +133,7 @@ new FormModel {
 					"value": "cell 0 2,alignx right,growx 0"
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "textField5"
+					name: "rollT"
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 1 2"
 				} )
@@ -141,12 +144,12 @@ new FormModel {
 					"value": "cell 0 3,alignx right,growx 0"
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "textField6"
+					name: "springT"
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 1 3"
 				} )
 				add( new FormComponent( "javax.swing.JComboBox" ) {
-					name: "comboBox3"
+					name: "springC"
 					"model": new javax.swing.DefaultComboBoxModel {
 						selectedItem: "LBS/FT"
 						addElement( "LBS/FT" )
@@ -162,12 +165,12 @@ new FormModel {
 					"value": "cell 0 4,alignx right,growx 0"
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "textField7"
+					name: "dampT"
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 1 4"
 				} )
 				add( new FormComponent( "javax.swing.JComboBox" ) {
-					name: "comboBox2"
+					name: "dampC"
 					"model": new javax.swing.DefaultComboBoxModel {
 						selectedItem: "LBS/FT/SEC"
 						addElement( "LBS/FT/SEC" )
@@ -204,12 +207,12 @@ new FormModel {
 					"value": "cell 0 6,alignx right,growx 0"
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "textField8"
+					name: "steerT"
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 1 6"
 				} )
 				add( new FormComponent( "javax.swing.JComboBox" ) {
-					name: "comboBox1"
+					name: "steerC"
 					"model": new javax.swing.DefaultComboBoxModel {
 						selectedItem: "DEG"
 						addElement( "DEG" )
@@ -219,13 +222,13 @@ new FormModel {
 					"value": "cell 2 6"
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
-					name: "label9"
+					name: "wheelL"
 					"text": "wheel slip filter ="
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 0 7,alignx right,growx 0"
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "textField11"
+					name: "wheelT"
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 1 7"
 				} )
@@ -241,6 +244,7 @@ new FormModel {
 						selectedItem: "NOSE"
 						addElement( "NOSE" )
 						addElement( "RIGHT" )
+						addElement( "LEFT" )
 						addElement( "CENTER" )
 						addElement( "TAIL" )
 						addElement( "NONE" )
@@ -358,12 +362,14 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "okB"
 					"text": "OK"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "okBPressed", true ) )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 0 0"
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "cancelB"
 					"text": "Cancel"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "cancelBPressed", true ) )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 1 0"
 				} )
@@ -372,7 +378,7 @@ new FormModel {
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 500, 665 )
+			"size": new java.awt.Dimension( 500, 640 )
 		} )
 	}
 }

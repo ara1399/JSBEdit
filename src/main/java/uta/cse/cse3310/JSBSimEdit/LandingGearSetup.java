@@ -2,11 +2,13 @@ package uta.cse.cse3310.JSBSimEdit;
 
 import java.awt.*;
 import java.awt.Dimension;
+import java.awt.event.*;
 import javax.swing.*;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.WindowConstants;
+import java.lang.StringBuilder;
 import javax.swing.border.*;
 import net.miginfocom.swing.*;
 
@@ -14,6 +16,71 @@ public class LandingGearSetup extends JDialog{
     LandingGearSetup(){
         initComponents();
         retractableCh.setHorizontalAlignment(SwingConstants.RIGHT);
+    }
+
+    private void cancelBPressed(ActionEvent e) { //just get rid of the object if the user cancels
+	this.dispose();
+    }
+
+    private void okBPressed(ActionEvent e) { //save all the information into variables so the toString
+        name = nameT.getText().trim();       //can display them in the Jlist on GroundReactions tab
+        type = typeT.getText().trim();
+        locUnit = locC.getSelectedItem().toString();
+        springCoUnit = springC.getSelectedItem().toString();
+        dampCoUnit = dampC.getSelectedItem().toString();
+        dampCoReUnit = dampRebC.getSelectedItem().toString();
+        steerUnit = steerC.getSelectedItem().toString();
+        brakeGroup = brakeC.getSelectedItem().toString();
+        relaxRollUnit = relaxRollC.getSelectedItem().toString();
+        relaxSideUnit = relaxSideC.getSelectedItem().toString();
+        
+        staticFric = Double.parseDouble(statT.getText().trim());
+        dynamicFric = Double.parseDouble(dynT.getText().trim());
+        rollingFric = Double.parseDouble(rollT.getText().trim());
+        springCo = Double.parseDouble(springT.getText().trim());
+        dampCo = Double.parseDouble(dampT.getText().trim());
+        dampCoRe = Double.parseDouble(dampRebT.getText().trim());
+        steer = Double.parseDouble(steerT.getText().trim());
+        wheel = Double.parseDouble(wheelT.getText().trim());
+        xLoc = Double.parseDouble(xLocT.getText().trim());
+        yLoc = Double.parseDouble(yLocT.getText().trim());
+        zLoc = Double.parseDouble(zLocT.getText().trim());
+        relaxRoll = Double.parseDouble(relaxRollT.getText().trim());
+        relaxSide = Double.parseDouble(relaxSideT.getText().trim());
+        forceRoll = Double.parseDouble(forceRollT.getText().trim());
+        forceSide = Double.parseDouble(forceSideT.getText().trim());
+    }
+    
+    public String getName() {return name;}
+    public String getTypeLGS() {return type;}
+    public String getLocUnit() {return locUnit;}
+    public String getSpringCoUnit() {return springCoUnit;}
+    public String getDampCoUnit() {return dampCoUnit;}
+    public String getDampCoReUnit() {return dampCoReUnit;}
+    public String getSteerUnit() {return steerUnit;}
+    public String getBrakeGroup() {return brakeGroup;}
+    public String getRelaxRollUnit() {return relaxRollUnit;}
+    public String getRelaxSideUnit() {return relaxSideUnit;}
+    
+    public Double getStaticFric() {return staticFric;}
+    public Double getDynamicFric() {return dynamicFric;}
+    public Double getRollingFric() {return rollingFric;}
+    public Double getSpringCo() {return springCo;}
+    public Double getDampCo() {return dampCo;}
+    public Double getDampCoRe() {return dampCoRe;}
+    public Double getSteer() {return steer;}
+    public Double getWheel() {return wheel;}
+    public Double getXLoc() {return xLoc;}
+    public Double getYLoc() {return yLoc;}
+    public Double getZLoc() {return zLoc;}
+    public Double getRelaxRoll() {return relaxRoll;}
+    public Double getRelaxSide() {return relaxSide;}
+    public Double getForceRoll() {return forceRoll;}
+    public Double getForceSide() {return forceSide;}
+    
+    @Override
+    public String toString(){
+        return "nothing yet";
     }
 
 	private void initComponents() {
@@ -34,25 +101,25 @@ public class LandingGearSetup extends JDialog{
 		locC = new JComboBox<>();
 		fricP = new JPanel();
 		statL = new JLabel();
-		textField3 = new JTextField();
+		statT = new JTextField();
 		dynL = new JLabel();
-		textField4 = new JTextField();
+		dynT = new JTextField();
 		rollL = new JLabel();
-		textField5 = new JTextField();
+		rollT = new JTextField();
 		springL = new JLabel();
-		textField6 = new JTextField();
-		comboBox3 = new JComboBox<>();
+		springT = new JTextField();
+		springC = new JComboBox<>();
 		dampL = new JLabel();
-		textField7 = new JTextField();
-		comboBox2 = new JComboBox<>();
+		dampT = new JTextField();
+		dampC = new JComboBox<>();
 		dampRebL = new JLabel();
 		dampRebT = new JTextField();
 		dampRebC = new JComboBox<>();
 		steerL = new JLabel();
-		textField8 = new JTextField();
-		comboBox1 = new JComboBox<>();
-		label9 = new JLabel();
-		textField11 = new JTextField();
+		steerT = new JTextField();
+		steerC = new JComboBox<>();
+		wheelL = new JLabel();
+		wheelT = new JTextField();
 		brakeL = new JLabel();
 		brakeC = new JComboBox<>();
 		retractableCh = new JCheckBox();
@@ -117,13 +184,12 @@ public class LandingGearSetup extends JDialog{
 
 		//======== topP ========
 		{
-		    topP.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing
-		    . border. EmptyBorder( 0, 0, 0, 0) , "JFor\u006dDesi\u0067ner \u0045valu\u0061tion", javax. swing. border. TitledBorder
-		    . CENTER, javax. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .
-		    awt .Font .BOLD ,12 ), java. awt. Color. red) ,topP. getBorder( )) )
-		    ; topP. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e
-		    ) {if ("bord\u0065r" .equals (e .getPropertyName () )) throw new RuntimeException( ); }} )
-		    ;
+		    topP.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border
+		    . EmptyBorder( 0, 0, 0, 0) , "JFor\u006dDesi\u0067ner \u0045valu\u0061tion", javax. swing. border. TitledBorder. CENTER, javax
+		    . swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,
+		    12 ), java. awt. Color. red) ,topP. getBorder( )) ); topP. addPropertyChangeListener (new java. beans
+		    . PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("bord\u0065r" .equals (e .
+		    getPropertyName () )) throw new RuntimeException( ); }} );
 		    topP.setLayout(new MigLayout(
 			"hidemode 3,alignx center",
 			// columns
@@ -210,41 +276,41 @@ public class LandingGearSetup extends JDialog{
 		    //---- statL ----
 		    statL.setText("static friction =");
 		    fricP.add(statL, "cell 0 0,alignx right,growx 0");
-		    fricP.add(textField3, "cell 1 0");
+		    fricP.add(statT, "cell 1 0");
 
 		    //---- dynL ----
 		    dynL.setText("dynamic friction =");
 		    fricP.add(dynL, "cell 0 1,alignx right,growx 0");
-		    fricP.add(textField4, "cell 1 1");
+		    fricP.add(dynT, "cell 1 1");
 
 		    //---- rollL ----
 		    rollL.setText("rolling friction =");
 		    fricP.add(rollL, "cell 0 2,alignx right,growx 0");
-		    fricP.add(textField5, "cell 1 2");
+		    fricP.add(rollT, "cell 1 2");
 
 		    //---- springL ----
 		    springL.setText("spring coefficient =");
 		    fricP.add(springL, "cell 0 3,alignx right,growx 0");
-		    fricP.add(textField6, "cell 1 3");
+		    fricP.add(springT, "cell 1 3");
 
-		    //---- comboBox3 ----
-		    comboBox3.setModel(new DefaultComboBoxModel<>(new String[] {
+		    //---- springC ----
+		    springC.setModel(new DefaultComboBoxModel<>(new String[] {
 			"LBS/FT",
 			"N/M"
 		    }));
-		    fricP.add(comboBox3, "cell 2 3");
+		    fricP.add(springC, "cell 2 3");
 
 		    //---- dampL ----
 		    dampL.setText("damping coefficient =");
 		    fricP.add(dampL, "cell 0 4,alignx right,growx 0");
-		    fricP.add(textField7, "cell 1 4");
+		    fricP.add(dampT, "cell 1 4");
 
-		    //---- comboBox2 ----
-		    comboBox2.setModel(new DefaultComboBoxModel<>(new String[] {
+		    //---- dampC ----
+		    dampC.setModel(new DefaultComboBoxModel<>(new String[] {
 			"LBS/FT/SEC",
 			"N/M/SEC"
 		    }));
-		    fricP.add(comboBox2, "cell 2 4");
+		    fricP.add(dampC, "cell 2 4");
 
 		    //---- dampRebL ----
 		    dampRebL.setText("damping coefficient rebound =");
@@ -261,19 +327,19 @@ public class LandingGearSetup extends JDialog{
 		    //---- steerL ----
 		    steerL.setText("max steer =");
 		    fricP.add(steerL, "cell 0 6,alignx right,growx 0");
-		    fricP.add(textField8, "cell 1 6");
+		    fricP.add(steerT, "cell 1 6");
 
-		    //---- comboBox1 ----
-		    comboBox1.setModel(new DefaultComboBoxModel<>(new String[] {
+		    //---- steerC ----
+		    steerC.setModel(new DefaultComboBoxModel<>(new String[] {
 			"DEG",
 			"RAD"
 		    }));
-		    fricP.add(comboBox1, "cell 2 6");
+		    fricP.add(steerC, "cell 2 6");
 
-		    //---- label9 ----
-		    label9.setText("wheel slip filter =");
-		    fricP.add(label9, "cell 0 7,alignx right,growx 0");
-		    fricP.add(textField11, "cell 1 7");
+		    //---- wheelL ----
+		    wheelL.setText("wheel slip filter =");
+		    fricP.add(wheelL, "cell 0 7,alignx right,growx 0");
+		    fricP.add(wheelT, "cell 1 7");
 
 		    //---- brakeL ----
 		    brakeL.setText("brake group =");
@@ -283,6 +349,7 @@ public class LandingGearSetup extends JDialog{
 		    brakeC.setModel(new DefaultComboBoxModel<>(new String[] {
 			"NOSE",
 			"RIGHT",
+			"LEFT",
 			"CENTER",
 			"TAIL",
 			"NONE"
@@ -392,10 +459,12 @@ public class LandingGearSetup extends JDialog{
 
 		    //---- okB ----
 		    okB.setText("OK");
+		    okB.addActionListener(e -> okBPressed(e));
 		    buttonP.add(okB, "cell 0 0");
 
 		    //---- cancelB ----
 		    cancelB.setText("Cancel");
+		    cancelB.addActionListener(e -> cancelBPressed(e));
 		    buttonP.add(cancelB, "cell 1 0");
 		}
 		contentPane.add(buttonP, "cell 0 14 19 1,growx");
@@ -421,25 +490,25 @@ public class LandingGearSetup extends JDialog{
     private JComboBox<String> locC;
     private JPanel fricP;
     private JLabel statL;
-    private JTextField textField3;
+    private JTextField statT;
     private JLabel dynL;
-    private JTextField textField4;
+    private JTextField dynT;
     private JLabel rollL;
-    private JTextField textField5;
+    private JTextField rollT;
     private JLabel springL;
-    private JTextField textField6;
-    private JComboBox<String> comboBox3;
+    private JTextField springT;
+    private JComboBox<String> springC;
     private JLabel dampL;
-    private JTextField textField7;
-    private JComboBox<String> comboBox2;
+    private JTextField dampT;
+    private JComboBox<String> dampC;
     private JLabel dampRebL;
     private JTextField dampRebT;
     private JComboBox<String> dampRebC;
     private JLabel steerL;
-    private JTextField textField8;
-    private JComboBox<String> comboBox1;
-    private JLabel label9;
-    private JTextField textField11;
+    private JTextField steerT;
+    private JComboBox<String> steerC;
+    private JLabel wheelL;
+    private JTextField wheelT;
     private JLabel brakeL;
     private JComboBox<String> brakeC;
     private JCheckBox retractableCh;
@@ -460,4 +529,12 @@ public class LandingGearSetup extends JDialog{
     private JButton okB;
     private JButton cancelB;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
+    
+    private Double staticFric, dynamicFric, rollingFric, springCo, dampCo, dampCoRe, 
+                   steer, wheel, xLoc, yLoc, zLoc, relaxRoll, relaxSide, forceRoll, forceSide; 
+    
+    private String name, type, locUnit, springCoUnit, dampCoUnit, dampCoReUnit, 
+                   steerUnit, brakeGroup, relaxRollUnit, relaxSideUnit;
 }
+//will still need constructor for if the user pressed detail
+//  this new constructor will use the given information to fill out already known information in the dialog
