@@ -10,6 +10,8 @@ new FormModel {
 		} ) {
 			name: "this"
 			"title": "Landing Gear Setup"
+			"alwaysOnTop": true
+			"modal": true
 			auxiliary() {
 				"JavaCodeGenerator.variableGetter": true
 			}

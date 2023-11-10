@@ -239,7 +239,7 @@ public class MassBalance extends JPanel implements TabComponent {
         PointMass pm = new PointMass();
         if(pm.getName() == null) return;
         pointMassList.add(pm);
-        model.clear();
+        model.clear(); //refreshing the model to Display on the pointMassListDisplay
         model.addAll(pointMassList);
     }
 

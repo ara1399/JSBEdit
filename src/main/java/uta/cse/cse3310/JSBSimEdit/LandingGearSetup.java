@@ -13,13 +13,21 @@ import javax.swing.border.*;
 import net.miginfocom.swing.*;
 
 public class LandingGearSetup extends JDialog{
-    LandingGearSetup(){
+    public LandingGearSetup(){
         initComponents();
         retractableCh.setHorizontalAlignment(SwingConstants.RIGHT);
+        setSomeText();
+        setVisible(true);
+    }
+    
+    public LandingGearSetup(LandingGearSetup other){ //filling all fields that are known for detail
+        initComponents();
+        setDetails(other);
+        setVisible(true);
     }
 
     private void cancelBPressed(ActionEvent e) { //just get rid of the object if the user cancels
-	this.dispose();
+	this.dispose();                          //the object's getters and values will just return null
     }
 
     private void okBPressed(ActionEvent e) { //save all the information into variables so the toString
@@ -49,6 +57,7 @@ public class LandingGearSetup extends JDialog{
         relaxSide = Double.parseDouble(relaxSideT.getText().trim());
         forceRoll = Double.parseDouble(forceRollT.getText().trim());
         forceSide = Double.parseDouble(forceSideT.getText().trim());
+        this.dispose();
     }
     
     public String getName() {return name;}
@@ -80,7 +89,60 @@ public class LandingGearSetup extends JDialog{
     
     @Override
     public String toString(){
-        return "nothing yet";
+        StringBuilder sb = new StringBuilder();
+        sb.append(name + " at point [" + xLoc + ", " + yLoc + ", " + zLoc + "] in "
+        + locUnit + " (in " + brakeGroup + " brake group)");
+        return sb.toString();
+    }
+    
+    private void setDetails(LandingGearSetup other){
+        nameT.setText(other.getName());
+        typeT.setText(other.getTypeLGS());
+        locC.setSelectedItem(other.getLocUnit());
+        springC.setSelectedItem(other.getSpringCoUnit());
+        dampC.setSelectedItem(other.getDampCoUnit());
+        dampRebC.setSelectedItem(other.getDampCoReUnit());
+        steerC.setSelectedItem(other.getSteerUnit());
+        brakeC.setSelectedItem(other.getBrakeGroup());
+        relaxRollC.setSelectedItem(other.getRelaxRollUnit());
+        relaxSideC.setSelectedItem(other.getRelaxSideUnit());
+        
+        statT.setText(Double.toString(other.getStaticFric()));
+        dynT.setText(Double.toString(other.getDynamicFric()));
+        rollT.setText(Double.toString(other.getRollingFric()));
+        springT.setText(Double.toString(other.getSpringCo()));
+        dampT.setText(Double.toString(other.getDampCo()));
+        dampRebT.setText(Double.toString(other.getDampCoRe()));
+        steerT.setText(Double.toString(other.getSteer()));
+        wheelT.setText(Double.toString(other.getWheel()));
+        xLocT.setText(Double.toString(other.getXLoc()));
+        yLocT.setText(Double.toString(other.getYLoc()));
+        zLocT.setText(Double.toString(other.getZLoc()));
+        relaxRollT.setText(Double.toString(other.getRelaxRoll()));
+        relaxSideT.setText(Double.toString(other.getRelaxSide()));
+        forceRollT.setText(Double.toString(other.getForceRoll()));
+        forceSideT.setText(Double.toString(other.getForceSide()));
+    }
+    
+    private void setSomeText(){
+        nameT.setText("INTAKE");
+        typeT.setText("type");
+        
+        statT.setText("0.0");
+        dynT.setText("0.0");
+        rollT.setText("0.0");
+        springT.setText("0.0");
+        dampT.setText("0.0");
+        dampRebT.setText("0.0");
+        steerT.setText("0.0");
+        wheelT.setText("0.0");
+        xLocT.setText("0.0");
+        yLocT.setText("0.0");
+        zLocT.setText("0.0");
+        relaxRollT.setText("0.0");
+        relaxSideT.setText("0.0");
+        forceRollT.setText("0.0");
+        forceSideT.setText("0.0");
     }
 
 	private void initComponents() {
@@ -142,6 +204,8 @@ public class LandingGearSetup extends JDialog{
 
 		//======== this ========
 		setTitle("Landing Gear Setup");
+		setAlwaysOnTop(true);
+		setModal(true);
 		var contentPane = getContentPane();
 		contentPane.setLayout(new MigLayout(
 		    "hidemode 3",
@@ -184,12 +248,11 @@ public class LandingGearSetup extends JDialog{
 
 		//======== topP ========
 		{
-		    topP.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border
-		    . EmptyBorder( 0, 0, 0, 0) , "JFor\u006dDesi\u0067ner \u0045valu\u0061tion", javax. swing. border. TitledBorder. CENTER, javax
-		    . swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,
-		    12 ), java. awt. Color. red) ,topP. getBorder( )) ); topP. addPropertyChangeListener (new java. beans
-		    . PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("bord\u0065r" .equals (e .
-		    getPropertyName () )) throw new RuntimeException( ); }} );
+		    topP.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border. EmptyBorder(
+		    0, 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn", javax. swing. border. TitledBorder. CENTER, javax. swing. border. TitledBorder
+		    . BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,12 ), java. awt. Color.
+		    red) ,topP. getBorder( )) ); topP. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .
+		    beans .PropertyChangeEvent e) {if ("\u0062ord\u0065r" .equals (e .getPropertyName () )) throw new RuntimeException( ); }} );
 		    topP.setLayout(new MigLayout(
 			"hidemode 3,alignx center",
 			// columns
