@@ -98,6 +98,9 @@ public class Output extends JPanel implements TabComponent {
             opList.add(op);
         } else {
             op = opList.get(0);
+			for (int i = 0; i <opList.size(); i++) {
+				System.out.println(opList.get(i));
+			}
         }
 
         op.setName(nameText.getText());
