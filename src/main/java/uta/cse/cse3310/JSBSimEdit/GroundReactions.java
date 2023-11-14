@@ -11,6 +11,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JOptionPane;
 
+import generated.Contact;
+
 import generated.FdmConfig;
 import java.util.ArrayList;
 import net.miginfocom.swing.*;
@@ -21,12 +23,133 @@ public class GroundReactions extends JPanel implements TabComponent {
     GroundReactions(){
           initComponents();
           listLGS = new ArrayList<LandingGearSetup>();
-
     }
 
     @Override
     public void bindUIwithXML(FdmConfig cfg) {
-        // TODO
+        // contacts are the same as GR or LGS
+        ArrayList<generated.Contact> contacts = new ArrayList<>();
+        if(cfg.getGroundReactions().getContent() != null){
+            
+            for(Object o : cfg.getGroundReactions().getContent()){ //converting the list of objects
+                if(o instanceof generated.Contact){                //to contact
+                    generated.Contact c = (generated.Contact) o;
+                    contacts.add(c);
+                }
+            }
+        
+        
+            for(generated.Contact c : contacts){
+                if(c.getLocation() != null && c.getName() != null && c.getType() != null){
+                    
+                    //check the getters that have getters inside them
+                    //and put them into variables
+                    //if it returns null put a placeholder
+                    //already checked location/name/type so skipping those
+                    
+                    String springCoUnit,  dampCoUnit, 
+                           dampCoReUnit,  steerUnit,  
+                           relaxRollUnit, relaxSideUnit;
+                    Double springCo, dampCo, dampCoRe, steer;
+                    Float relaxRoll, relaxSide, forceRoll, forceSide;
+                    
+                                        
+                    if(c.getSpringCoeff() != null){ //springCo
+                        springCoUnit = c.getSpringCoeff().getUnit().toString();
+                        springCo = c.getSpringCoeff().getValue();
+                    }
+                    else{
+                        springCoUnit = null;
+                        springCo = null;
+                    }
+                    
+                    if(c.getDampingCoeff() != null){ //dampCo
+                        dampCoUnit = c.getDampingCoeff().getUnit().toString();
+                        dampCo = c.getDampingCoeff().getValue();
+                    }
+                    else{
+                        dampCoUnit = null;
+                        dampCo = null;
+                    }
+                    
+                    if(c.getDampingCoeffRebound() != null){ //dampCoRe
+                        dampCoReUnit = c.getDampingCoeffRebound().getUnit().toString();
+                        dampCoRe = c.getDampingCoeffRebound().getValue();
+                    }
+                    else{
+                        dampCoReUnit = null;
+                        dampCoRe = null;
+                    }
+                    
+                    if(c.getMaxSteer() != null){ //steer
+                        steerUnit = c.getMaxSteer().getUnit().toString();
+                        steer = c.getMaxSteer().getValue();
+                    }
+                    else{
+                        steerUnit = null;
+                        steer = null;
+                    }
+                    
+                    if(c.getRelaxationVelocity() != null){ //relax
+                        relaxRollUnit = c.getRelaxationVelocity().getRolling().getUnit().toString();
+                        relaxRoll = c.getRelaxationVelocity().getRolling().getValue();
+                        
+                        relaxSideUnit = c.getRelaxationVelocity().getSide().getUnit().toString();
+                        relaxSide = c.getRelaxationVelocity().getSide().getValue();
+                    }
+                    else{
+                        relaxRollUnit = null;
+                        relaxRoll = null;
+                        
+                        relaxSideUnit = null;
+                        relaxSide = null;
+                    }
+                    
+                    if(c.getForceLagFilter() != null){ //force lag filter
+                        forceRoll = c.getForceLagFilter().getRolling();
+                        forceSide = c.getForceLagFilter().getSide();
+                    }
+                    else{
+                        forceRoll = null;
+                        forceSide = null;
+                    }
+                    
+                    LandingGearSetup lgs = new LandingGearSetup(//calling the constructor for loading
+                        //strings
+                        c.getName(),
+                        c.getType(),
+                        c.getLocation().getUnit(),
+                        springCoUnit,
+                        dampCoUnit,
+                        dampCoReUnit,
+                        steerUnit,
+                        c.getBrakeGroup(),
+                        relaxRollUnit,
+                        relaxSideUnit,
+                        //doubles
+                        c.getLocation().getX(),
+                        c.getLocation().getY(),
+                        c.getLocation().getZ(),
+                        c.getStaticFriction(),
+                        c.getDynamicFriction(),
+                        c.getRollingFriction(),
+                        springCo,
+                        dampCo,
+                        dampCoRe,
+                        steer,
+                        c.getWheelSlipFilter(),
+                        relaxRoll,
+                        relaxSide,
+                        forceRoll,
+                        forceSide
+                    );
+                    
+                    listLGS.add(lgs);
+                }
+            }
+            model.addAll(listLGS);
+        }
+            
     }
 
     @Override
@@ -44,7 +167,7 @@ public class GroundReactions extends JPanel implements TabComponent {
     }
 
     private void deleteGroundReaction(ActionEvent e) {//removing a GR/LGS from the displayed list
-//        if(listLGSDisplay.getSelectedValue() == null) return;
+        if(listLGSDisplay.getSelectedValue() == null) return;
 	int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this?", "Confirm", JOptionPane.OK_CANCEL_OPTION);
         if(result == JOptionPane.OK_OPTION){
             LandingGearSetup lgs = listLGSDisplay.getSelectedValue();
@@ -59,7 +182,7 @@ public class GroundReactions extends JPanel implements TabComponent {
         if(listLGSDisplay.getSelectedValue() != null){
             LandingGearSetup oldLGS = listLGSDisplay.getSelectedValue();
             LandingGearSetup newLGS = new LandingGearSetup(oldLGS);
-            if(newLGS == null) return; //if the user cancelled, do nothing
+            if(newLGS.getName() == null) return; //if the user cancelled, do nothing
             else if(newLGS.getName() == null) return;
             else{ //if the user presses ok, remove the old LGS and then add the new LGS
                 listLGS.remove(listLGSDisplay.getSelectedValue());

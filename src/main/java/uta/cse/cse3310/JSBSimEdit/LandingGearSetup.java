@@ -15,7 +15,6 @@ import net.miginfocom.swing.*;
 public class LandingGearSetup extends JDialog{
     public LandingGearSetup(){
         initComponents();
-        retractableCh.setHorizontalAlignment(SwingConstants.RIGHT);
         setSomeText();
         setVisible(true);
     }
@@ -24,6 +23,57 @@ public class LandingGearSetup extends JDialog{
         initComponents();
         setDetails(other);
         setVisible(true);
+    }
+    
+    public LandingGearSetup(String name, String type, String locUnit, //constructor for Loading in list of LGS
+                            String springCoUnit, String dampCoUnit,
+                            String dampCoReUnit, String steerUnit,
+                            String brakeGroup, String relaxRollUnit, 
+                            String relaxSideUnit,
+                            Double x, Double y, Double z,
+                            Double staticFric,
+                            Double dynamicFric, Double rollingFric,
+                            Double springCo, Double dampCo,
+                            Double dampCoRe, Double steer,
+                            Float wheel, Float relaxRoll,
+                            Float relaxSide, Float forceRoll,
+                            Float forceSide){ 
+        this.name = name;
+        this.type = type;
+        this.locUnit = locUnit;
+        this.springCoUnit = springCoUnit;
+        this.dampCoUnit = dampCoUnit;
+        this.dampCoReUnit = dampCoReUnit;
+        this.steerUnit = steerUnit;
+        if(brakeGroup != null) this.brakeGroup = brakeGroup;
+        else this.brakeGroup = "NONE";
+        this.relaxRollUnit = relaxRollUnit;
+        this.relaxSideUnit = relaxSideUnit;
+        
+        this.xLoc = x;
+        this.yLoc = y;
+        this.zLoc = z;
+        this.staticFric = staticFric;
+        this.dynamicFric = dynamicFric;
+        this.rollingFric = rollingFric;
+        if(springCo!= null) this.springCo = springCo;
+        else this.springCo = 0.0;
+        if(dampCo!= null) this.dampCo = dampCo;
+        else this.dampCo = 0.0;
+        if(dampCoRe!= null) this.dampCoRe = dampCoRe;
+        else this.dampCoRe = 0.0;
+        if(steer != null) this.steer = steer;
+        else this.steer = 0.0;
+        if(wheel != null) this.wheel = (double) wheel;
+        else this.wheel = 0.0;
+        if(relaxRoll != null) this.relaxRoll = (double) relaxRoll;
+        else this.relaxRoll = 0.0;
+        if(relaxSide != null) this.relaxSide = (double) relaxSide;
+        else this.relaxSide = 0.0;
+        if(forceRoll != null) this.forceRoll = (double) forceRoll;
+        else this.forceRoll = 0.0;
+        if(forceSide != null) this.forceSide = (double) forceSide;
+        else this.forceSide = 0.0;
     }
 
     private void cancelBPressed(ActionEvent e) { //just get rid of the object if the user cancels
@@ -91,7 +141,7 @@ public class LandingGearSetup extends JDialog{
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append(name + " at point [" + xLoc + ", " + yLoc + ", " + zLoc + "] in "
-        + locUnit + " (in " + brakeGroup + " brake group)");
+                  + locUnit + " (in " + brakeGroup + " brake group)");
         return sb.toString();
     }
     
@@ -103,7 +153,8 @@ public class LandingGearSetup extends JDialog{
         dampC.setSelectedItem(other.getDampCoUnit());
         dampRebC.setSelectedItem(other.getDampCoReUnit());
         steerC.setSelectedItem(other.getSteerUnit());
-        brakeC.setSelectedItem(other.getBrakeGroup());
+        if(other.getBrakeGroup() != null) brakeC.setSelectedItem(other.getBrakeGroup());
+        else brakeC.setSelectedItem("NONE");
         relaxRollC.setSelectedItem(other.getRelaxRollUnit());
         relaxSideC.setSelectedItem(other.getRelaxSideUnit());
         
