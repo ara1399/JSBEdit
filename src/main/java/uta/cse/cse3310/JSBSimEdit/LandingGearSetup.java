@@ -12,6 +12,8 @@ import java.lang.StringBuilder;
 import javax.swing.border.*;
 import net.miginfocom.swing.*;
 
+import java.math.BigInteger;
+
 public class LandingGearSetup extends JDialog{
     public LandingGearSetup(){
         initComponents();
@@ -37,7 +39,8 @@ public class LandingGearSetup extends JDialog{
                             Double dampCoRe, Double steer,
                             Float wheel, Float relaxRoll,
                             Float relaxSide, Float forceRoll,
-                            Float forceSide){ 
+                            Float forceSide,
+                            int retractable){ 
         this.name = name;
         this.type = type;
         this.locUnit = locUnit;
@@ -74,6 +77,9 @@ public class LandingGearSetup extends JDialog{
         else this.forceRoll = 0.0;
         if(forceSide != null) this.forceSide = (double) forceSide;
         else this.forceSide = 0.0;
+        if(retractable == 0) this.retractable = 0;
+        else this.retractable = 1;
+        
     }
 
     private void cancelBPressed(ActionEvent e) { //just get rid of the object if the user cancels
@@ -137,6 +143,8 @@ public class LandingGearSetup extends JDialog{
     public Double getForceRoll() {return forceRoll;}
     public Double getForceSide() {return forceSide;}
     
+    public int getRetract() {return retractable;}
+    
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
@@ -173,6 +181,8 @@ public class LandingGearSetup extends JDialog{
         relaxSideT.setText(Double.toString(other.getRelaxSide()));
         forceRollT.setText(Double.toString(other.getForceRoll()));
         forceSideT.setText(Double.toString(other.getForceSide()));
+        
+        if(other.getRetract() == 1) retractableCh.setSelected(true);
     }
     
     private void setSomeText(){
@@ -194,6 +204,11 @@ public class LandingGearSetup extends JDialog{
         relaxSideT.setText("0.0");
         forceRollT.setText("0.0");
         forceSideT.setText("0.0");
+    }
+
+    private void retractableChanged(ItemEvent e) {
+        if(e.getStateChange() == ItemEvent.SELECTED) this.retractable = 1;
+        else this.retractable = 0;
     }
 
 	private void initComponents() {
@@ -299,11 +314,11 @@ public class LandingGearSetup extends JDialog{
 
 		//======== topP ========
 		{
-		    topP.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border. EmptyBorder(
-		    0, 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn", javax. swing. border. TitledBorder. CENTER, javax. swing. border. TitledBorder
-		    . BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,12 ), java. awt. Color.
-		    red) ,topP. getBorder( )) ); topP. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .
-		    beans .PropertyChangeEvent e) {if ("\u0062ord\u0065r" .equals (e .getPropertyName () )) throw new RuntimeException( ); }} );
+		    topP.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0
+		    ,0,0,0), "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn",javax.swing.border.TitledBorder.CENTER,javax.swing.border.TitledBorder.BOTTOM
+		    ,new java.awt.Font("Dia\u006cog",java.awt.Font.BOLD,12),java.awt.Color.red),
+		    topP. getBorder()));topP. addPropertyChangeListener(new java.beans.PropertyChangeListener(){@Override public void propertyChange(java.beans.PropertyChangeEvent e
+		    ){if("\u0062ord\u0065r".equals(e.getPropertyName()))throw new RuntimeException();}});
 		    topP.setLayout(new MigLayout(
 			"hidemode 3,alignx center",
 			// columns
@@ -473,6 +488,7 @@ public class LandingGearSetup extends JDialog{
 		    //---- retractableCh ----
 		    retractableCh.setText("retractable");
 		    retractableCh.setHorizontalAlignment(SwingConstants.RIGHT);
+		    retractableCh.addItemListener(e -> retractableChanged(e));
 		    fricP.add(retractableCh, "cell 0 9");
 		}
 		contentPane.add(fricP, "cell 0 2 19 11,grow");
@@ -649,6 +665,8 @@ public class LandingGearSetup extends JDialog{
     
     private String name, type, locUnit, springCoUnit, dampCoUnit, dampCoReUnit, 
                    steerUnit, brakeGroup, relaxRollUnit, relaxSideUnit;
+    
+    private int retractable;
 }
 //will still need constructor for if the user pressed detail
 //  this new constructor will use the given information to fill out already known information in the dialog
