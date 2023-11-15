@@ -14,7 +14,9 @@ import javax.swing.JOptionPane;
 import generated.Contact;
 
 import generated.FdmConfig;
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashSet;
 import net.miginfocom.swing.*;
 import uta.cse.cse3310.JSBSimEdit.interfaces.TabComponent;
 
@@ -26,7 +28,7 @@ public class GroundReactions extends JPanel implements TabComponent {
     }
 
     @Override
-    public void bindUIwithXML(FdmConfig cfg) {
+    public void bindUIwithXML(FdmConfig cfg) { 
         // contacts are the same as GR or LGS
         ArrayList<generated.Contact> contacts = new ArrayList<>();
         if(cfg.getGroundReactions().getContent() != null){
@@ -39,19 +41,20 @@ public class GroundReactions extends JPanel implements TabComponent {
             }
         
         
-            for(generated.Contact c : contacts){
+            for(generated.Contact c : contacts){ //conversion of generated.Contact to LandingGearSetup
                 if(c.getLocation() != null && c.getName() != null && c.getType() != null){
                     
                     //check the getters that have getters inside them
                     //and put them into variables
                     //if it returns null put a placeholder
-                    //already checked location/name/type so skipping those
+                    //already checked location/name/type so skip those
                     
                     String springCoUnit,  dampCoUnit, 
                            dampCoReUnit,  steerUnit,  
                            relaxRollUnit, relaxSideUnit;
                     Double springCo, dampCo, dampCoRe, steer;
                     Float relaxRoll, relaxSide, forceRoll, forceSide;
+                    int retract = 0;
                     
                                         
                     if(c.getSpringCoeff() != null){ //springCo
@@ -114,6 +117,10 @@ public class GroundReactions extends JPanel implements TabComponent {
                         forceSide = null;
                     }
                     
+                    if(c.getRetractable() != null){
+                        retract = 1;
+                    }
+                    
                     LandingGearSetup lgs = new LandingGearSetup(//calling the constructor for loading
                         //strings
                         c.getName(),
@@ -141,7 +148,8 @@ public class GroundReactions extends JPanel implements TabComponent {
                         relaxRoll,
                         relaxSide,
                         forceRoll,
-                        forceSide
+                        forceSide,
+                        retract
                     );
                     
                     listLGS.add(lgs);
@@ -154,7 +162,79 @@ public class GroundReactions extends JPanel implements TabComponent {
 
     @Override
     public Optional<FdmConfig> saveXMLfromUI(FdmConfig cfg) {
-        // TODO
+        //clear old list and readd everything so it will include deletions and additions
+        
+        // clear old list
+        
+        cfg.getGroundReactions().getContent().clear();
+        
+        //update old list with the edited list
+        
+        for(LandingGearSetup lgs : listLGS){ //must convert all lgs to generated.Contact and add them to cfg.getGroundReactions().getContent()
+            generated.Contact c = new generated.Contact();
+            
+            generated.Location l = new generated.Location(); //location
+            l.setX(lgs.getXLoc());
+            l.setY(lgs.getYLoc());
+            l.setZ(lgs.getZLoc());
+            c.setLocation(l);
+            
+            c.setStaticFriction(lgs.getStaticFric()); //staticFric
+            c.setDynamicFriction(lgs.getDynamicFric()); //dynamicFric
+            
+            Contact.SpringCoeff sc = new Contact.SpringCoeff(); //springCo
+            sc.setValue(lgs.getSpringCo());
+            if(lgs.getSpringCoUnit() == "LBS/FT") sc.setUnit(generated.SpringCoeffType.LBS_FT);
+            else sc.setUnit(generated.SpringCoeffType.N_M);
+            c.setSpringCoeff(sc);
+            
+            Contact.DampingCoeff dc = new Contact.DampingCoeff(); //dampCo
+            dc.setValue(lgs.getDampCo());
+            if(lgs.getDampCoUnit() == "LBS/FT/SEC") dc.setUnit(generated.DampingCoeffType.LBS_FT_SEC);
+            else dc.setUnit(generated.DampingCoeffType.N_M_SEC);
+            c.setDampingCoeff(dc);
+            
+            Contact.DampingCoeffRebound dcr = new Contact.DampingCoeffRebound(); //dampCoRe
+            dcr.setValue(lgs.getDampCoRe());
+            if(lgs.getDampCoUnit() == "LBS/FT/SEC") dcr.setUnit(generated.DampingCoeffType.LBS_FT_SEC);
+            else dcr.setUnit(generated.DampingCoeffType.N_M_SEC);
+            c.setDampingCoeffRebound(dcr);
+            
+            c.setRollingFriction(lgs.getRollingFric()); //rollingFric
+            
+            Contact.MaxSteer ms = new Contact.MaxSteer(); //steer
+            ms.setValue(lgs.getSteer());
+            if(lgs.getSteerUnit() == "DEG") ms.setUnit(generated.AngleType.DEG);
+            else ms.setUnit(generated.AngleType.RAD);
+            
+            c.setBrakeGroup(lgs.getBrakeGroup()); //brakeGroup
+
+            if(lgs.getRetract() == 0) c.setRetractable(null); //retractable 
+            else c.setRetractable(BigInteger.ONE); //not exactly sure how this is supposed to work
+                                                        //im going for something like true/false just like in C
+            
+            Contact.RelaxationVelocity rv = new Contact.RelaxationVelocity(); //relaxation velocity
+            Contact.RelaxationVelocity.Rolling rl = new Contact.RelaxationVelocity.Rolling();//relaxRoll
+            rl.setValue(lgs.getRelaxRoll().floatValue()); 
+            rl.setUnit("FT/SEC");
+            rv.setRolling(rl);
+            Contact.RelaxationVelocity.Side sd = new Contact.RelaxationVelocity.Side(); //relaxSide
+            sd.setValue(lgs.getRelaxSide().floatValue());
+            sd.setUnit("FT/SEC");
+            rv.setSide(sd);
+            c.setRelaxationVelocity(rv);
+            
+            generated.ForceLagFilter flf = new generated.ForceLagFilter(); //force lag filter
+            flf.setRolling(lgs.getForceRoll().floatValue());
+            flf.setSide(lgs.getForceSide().floatValue());            
+            c.setForceLagFilter(flf);
+            
+            c.setWheelSlipFilter(lgs.getWheel().floatValue());//wheel slip filter
+            
+            //add new Contact into the list
+            cfg.getGroundReactions().getContent().add(c);
+        }                                      
+           
         return Optional.ofNullable(cfg);
     }
 
