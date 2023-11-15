@@ -14,7 +14,9 @@ import javax.swing.JOptionPane;
 import generated.Contact;
 
 import generated.FdmConfig;
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashSet;
 import net.miginfocom.swing.*;
 import uta.cse.cse3310.JSBSimEdit.interfaces.TabComponent;
 
@@ -177,8 +179,8 @@ public class GroundReactions extends JPanel implements TabComponent {
             l.setZ(lgs.getZLoc());
             c.setLocation(l);
             
-            c.setStaticFriction(lgs.getStaticFric());
-            c.setDynamicFriction(lgs.getDynamicFric());
+            c.setStaticFriction(lgs.getStaticFric()); //staticFric
+            c.setDynamicFriction(lgs.getDynamicFric()); //dynamicFric
             
             Contact.SpringCoeff sc = new Contact.SpringCoeff(); //springCo
             sc.setValue(lgs.getSpringCo());
@@ -205,19 +207,34 @@ public class GroundReactions extends JPanel implements TabComponent {
             if(lgs.getSteerUnit() == "DEG") ms.setUnit(generated.AngleType.DEG);
             else ms.setUnit(generated.AngleType.RAD);
             
-            //brakeGroup
+            c.setBrakeGroup(lgs.getBrakeGroup()); //brakeGroup
+
+            if(lgs.getRetract() == 0) c.setRetractable(null); //retractable 
+            else c.setRetractable(BigInteger.ONE); //not exactly sure how this is supposed to work
+                                                        //im going for something like true/false just like in C
             
-            //retractable
+            Contact.RelaxationVelocity rv = new Contact.RelaxationVelocity(); //relaxation velocity
+            Contact.RelaxationVelocity.Rolling rl = new Contact.RelaxationVelocity.Rolling();//relaxRoll
+            rl.setValue(lgs.getRelaxRoll().floatValue()); 
+            rl.setUnit("FT/SEC");
+            rv.setRolling(rl);
+            Contact.RelaxationVelocity.Side sd = new Contact.RelaxationVelocity.Side(); //relaxSide
+            sd.setValue(lgs.getRelaxSide().floatValue());
+            sd.setUnit("FT/SEC");
+            rv.setSide(sd);
+            c.setRelaxationVelocity(rv);
             
-            //relaxation velocity
+            generated.ForceLagFilter flf = new generated.ForceLagFilter(); //force lag filter
+            flf.setRolling(lgs.getForceRoll().floatValue());
+            flf.setSide(lgs.getForceSide().floatValue());            
+            c.setForceLagFilter(flf);
             
-            //force lag filter
+            c.setWheelSlipFilter(lgs.getWheel().floatValue());//wheel slip filter
             
-            //wheel slip filter
-            
+            //add new Contact into the list
+            cfg.getGroundReactions().getContent().add(c);
         }                                      
-            
-        
+           
         return Optional.ofNullable(cfg);
     }
 
