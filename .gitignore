@@ -15,9 +15,7 @@ buildNumber.properties
 META-INF/
 
 # JFormDesigner files
-.jfd
 .jfdproj
-views/
 
 # VS Code Settings
 .vscode/

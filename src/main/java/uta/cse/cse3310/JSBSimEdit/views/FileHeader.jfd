@@ -1,0 +1,272 @@
+JFDML JFormDesigner: "8.2.0.0.331" Java: "19.0.2" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+			"$layoutConstraints": "align center center,gap 10 30"
+			"$columnConstraints": "[grow,fill][grow,fill][grow,fill][grow,fill][grow,fill][grow,fill]"
+			"$rowConstraints": "[][][][][][][150][][][][]"
+		} ) {
+			name: "this"
+			"border": new javax.swing.border.CompoundBorder( new javax.swing.border.EmptyBorder( 20, 20, 20, 20 ), new javax.swing.border.EmptyBorder( 5, 5, 5, 5 ) )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "aircraftNameLabel"
+				"text": "Aircraft Name"
+				"horizontalAlignment": 11
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 0"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "aircraftNameText"
+				"preferredSize": new java.awt.Dimension( 100, 23 )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 1 0"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "releaseLevelLabel"
+				"text": "Release Label"
+				"horizontalAlignment": 11
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 2 0"
+			} )
+			add( new FormComponent( "javax.swing.JComboBox" ) {
+				name: "releaseLevelCombo"
+				"maximumRowCount": 10
+				"preferredSize": new java.awt.Dimension( 100, 23 )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 3 0"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "flightModelVersionLabel"
+				"text": "Flight Model Version"
+				"horizontalAlignment": 11
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 4 0"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "flightModelVersionText"
+				"preferredSize": new java.awt.Dimension( 100, 23 )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 5 0"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "licenseLabel"
+				"text": "License"
+				"horizontalAlignment": 11
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 1"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "licenseText"
+				"preferredSize": new java.awt.Dimension( 100, 23 )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 1 1"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "licenseURLLabel"
+				"text": "License URL"
+				"horizontalAlignment": 11
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 2 1"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "licenseURLText"
+				"preferredSize": new java.awt.Dimension( 100, 23 )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 3 1"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "sensitivityLabel"
+				"text": "Sensitivity"
+				"horizontalAlignment": 11
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 4 1"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "sensitivityText"
+				"preferredSize": new java.awt.Dimension( 100, 23 )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 5 1"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "fileDateLabel"
+				"text": "File Date"
+				"horizontalAlignment": 11
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 2"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "fileDateText"
+				"preferredSize": new java.awt.Dimension( 100, 23 )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 1 2"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "configVersionLabel"
+				"text": "Config Version"
+				"horizontalAlignment": 11
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 2 2"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "configVersionText"
+				"preferredSize": new java.awt.Dimension( 100, 23 )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 3 2"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "copyrightLabel"
+				"text": "Copyright"
+				"horizontalAlignment": 11
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 4 2"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "copyrightText"
+				"preferredSize": new java.awt.Dimension( 100, 23 )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 5 2"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "authorLabel"
+				"text": "Author"
+				"horizontalAlignment": 11
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 3"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "authorText"
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 1 3 2 1"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "emailLabel"
+				"text": "Email"
+				"horizontalAlignment": 11
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 3 3"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "emailText"
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 4 3 2 1"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "organizationLabel"
+				"text": "Organization"
+				"horizontalAlignment": 11
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 4"
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "organizationScrollPane"
+				add( new FormComponent( "javax.swing.JTextArea" ) {
+					name: "organizationTextArea"
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 1 4 2 2,growy"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "descriptionLabel"
+				"text": "Description"
+				"horizontalAlignment": 11
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 3 4"
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "descriptionScrollPane"
+				add( new FormComponent( "javax.swing.JTextArea" ) {
+					name: "descriptionTextArea"
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 4 4 2 2,growy"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "referencesLabel"
+				"text": "References"
+				"horizontalAlignment": 11
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 6"
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "referencesScrollPane"
+				add( new FormComponent( "javax.swing.JTable" ) {
+					name: "referencesTable"
+					"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector {
+						add( new java.util.Vector {
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+							add( null )
+						} )
+					}, new java.util.Vector {
+						add( "Ref ID" )
+						add( "Title" )
+						add( "Author" )
+						add( "Date" )
+						add( "URL" )
+					}, new java.util.Vector {
+						add( class java.lang.String )
+						add( class java.lang.String )
+						add( class java.lang.String )
+						add( class java.lang.String )
+						add( class java.lang.String )
+					}, new java.util.Vector {
+						add( null )
+						add( null )
+						add( null )
+						add( null )
+						add( null )
+					}, new java.util.Vector {
+						add( null )
+						add( null )
+						add( null )
+						add( null )
+						add( null )
+					} )
+					"showHorizontalLines": true
+					auxiliary() {
+						"JavaCodeGenerator.variableGetter": true
+					}
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 1 6 5 1,growy"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "limitationsLabel"
+				"text": "Limitations"
+				"horizontalAlignment": 11
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 7"
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "limitationsScrollPane"
+				add( new FormComponent( "javax.swing.JTextArea" ) {
+					name: "limitationsTextArea"
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 1 7 5 2,growy"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "notesLabel"
+				"text": "Notes"
+				"horizontalAlignment": 11
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 9"
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "notesScrollPane"
+				add( new FormComponent( "javax.swing.JTextArea" ) {
+					name: "notesTextArea"
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 1 9 5 2,growy"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 855, 780 )
+		} )
+	}
+}

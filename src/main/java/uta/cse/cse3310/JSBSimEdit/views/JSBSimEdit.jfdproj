@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <entry key="sourcefolders1" value="../../../../../../resources/icons/original" />
+  <node name="designer">
+    <node name="binding">
+      <entry key="_javaSettingsEnabled" value="true" />
+      <entry key="usebindinginitmethod" value="true" />
+    </node>
+  </node>
+  <node name="javacodegenerator">
+    <entry key="_generalSettingsEnabled" value="true" />
+    <entry key="_templatesSettingsEnabled" value="true" />
+    <entry key="sourcecompatibility" value="11" />
+    <node name="templates">
+      <entry key="_class.template" value="${modifiers}class ${class_name} ${extends_declaration} {\n\t\n\t${constructor_modifiers}${class_name}() {\n\t\tinitComponents();\n\t}\n\n\t${component_initialization}\n\n\t${variables_declaration}\n}\n" />
+    </node>
+  </node>
+</project>
+
