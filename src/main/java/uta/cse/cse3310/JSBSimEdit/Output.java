@@ -70,7 +70,7 @@ public class Output extends JPanel implements TabComponent {
             op = new generated.Output();
             opList.add(op);
         } else {
-            op = opList.get(0)
+            op = opList.get(0);
 			for (int i = 0; i <opList.size(); i++) {
 				System.out.println(opList.get(i));
 			}
