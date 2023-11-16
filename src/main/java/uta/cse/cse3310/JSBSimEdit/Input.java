@@ -27,14 +27,15 @@ JTextField portText;
     @Override
     public void bindUIwithXML(FdmConfig cfg) {
         generated.Input in = cfg.getInput();
-
-        BigInteger portValue = in.getPort();
+        if (in != null) {
+            BigInteger portValue = in.getPort();
 		if (portValue != null) {
 			portText.setText(portValue.toString());
 		} 
         else {
 			return;
-		}   
+		}  
+        } 
     }
 
     @Override
