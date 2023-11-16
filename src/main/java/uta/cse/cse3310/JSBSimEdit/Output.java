@@ -34,30 +34,22 @@ public class Output extends JPanel implements TabComponent {
     public void bindUIwithXML(FdmConfig cfg) {
 		List<generated.Output> opList = cfg.getOutput();
 		generated.Output op = opList.get(0);
-        		
-        if (!opList.isEmpty()) {
-
-            nameText.setText(op.getName());
-
-            BigInteger portValue = op.getPort();
-            if (portValue != null) {
-                portText.setText(portValue.toString());
-            }
-
-            BigInteger rateValue = op.getRate();
-            if (rateValue != null) {
-                rateText.setText(rateValue.toString());
-            }
-
-            String typeValue = op.getType();
-            if (typeValue != null) {
-                typeComboBox.setSelectedItem(typeValue);
-            }
-		}
-
-           
+		nameText.setText(op.getName());
+		BigInteger portValue = op.getPort();
+		if (portValue != null) {
+             portText.setText(portValue.toString());
+        }
+          
+        BigInteger rateValue = op.getRate();
+        if (rateValue != null) {
+            rateText.setText(rateValue.toString());
         }
 
+        String typeValue = op.getType();
+        if (typeValue != null) {
+            typeComboBox.setSelectedItem(typeValue);
+        }     	   
+    }
 
 
     @Override
@@ -71,9 +63,6 @@ public class Output extends JPanel implements TabComponent {
             opList.add(op);
         } else {
             op = opList.get(0);
-			for (int i = 0; i <opList.size(); i++) {
-				System.out.println(opList.get(i));
-			}
         }
 
         op.setName(nameText.getText());
