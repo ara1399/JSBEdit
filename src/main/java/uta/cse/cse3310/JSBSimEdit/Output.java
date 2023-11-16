@@ -32,22 +32,10 @@ public class Output extends JPanel implements TabComponent {
 
     @Override
     public void bindUIwithXML(FdmConfig cfg) {
-		/*List<generated.Output> opList = cfg.getOutput();
-		generated.Output op = opList.get(0);
-        nameText.setText(op.getName());
-		
-		BigInteger portValue = op.getPort();
-		if (portValue != null) {
-			portText.setText(portValue.toString());
-		} else {
-			return;
-		}
-		
-
-		typeComboBox.setToolTipText(op.getType());*/
 		List<generated.Output> opList = cfg.getOutput();
+		generated.Output op = opList.get(0);
+        		
         if (!opList.isEmpty()) {
-            generated.Output op = opList.get(0);
 
             nameText.setText(op.getName());
 
@@ -67,22 +55,7 @@ public class Output extends JPanel implements TabComponent {
             }
 		}
 
-            /*simulation.setSelected(op.isSimulation());
-            atmosphere.setSelected(op.isAtmosphere());
-            massProps.setSelected(op.isMassprops());
-            rates.setSelected(op.isRates());
-            velocities.setSelected(op.isVelocities());
-            forces.setSelected(op.isForces());
-            moments.setSelected(op.isMoments());
-            position.setSelected(op.isPosition());
-            propulsion.setSelected(op.isPropulsion());
-            aerosurfaces.setSelected(op.isAerosurfaces());
-            fcs.setSelected(op.isFcs());
-            groundReactions.setSelected(op.isGroundReactions());
-            coefficients.setSelected(op.isCoefficients());*/
-
-            // You need to implement parsing the properties text and populating the propertiesTextArea
-            // propertiesTextArea.setText(op.getProperties());
+           
         }
 
 
@@ -97,7 +70,7 @@ public class Output extends JPanel implements TabComponent {
             op = new generated.Output();
             opList.add(op);
         } else {
-            op = opList.get(0);
+            op = opList.get(0)
 			for (int i = 0; i <opList.size(); i++) {
 				System.out.println(opList.get(i));
 			}
@@ -117,19 +90,7 @@ public class Output extends JPanel implements TabComponent {
 
         String selectedType = (String) typeComboBox.getSelectedItem();
         op.setType(selectedType);
-		/*op.setSimulation(simulation.isSelected());
-        op.setAtmosphere(atmosphere.isSelected());
-        op.setMassprops(massProps.isSelected());
-        op.setRates(rates.isSelected());
-        op.setVelocities(velocities.isSelected());
-        op.setForces(forces.isSelected());
-        op.setMoments(moments.isSelected());
-        op.setPosition(position.isSelected());
-        op.setPropulsion(propulsion.isSelected());
-        op.setAerosurfaces(aerosurfaces.isSelected());
-        op.setFcs(fcs.isSelected());
-        op.setGroundReactions(groundReactions.isSelected());
-        op.setCoefficients(coefficients.isSelected());*/
+		
         return Optional.ofNullable(cfg);
     }
     private void outComponents() {
