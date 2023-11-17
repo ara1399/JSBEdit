@@ -7,12 +7,12 @@ import java.util.Optional;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 
 import generated.FdmConfig;
 import net.miginfocom.swing.MigLayout;
@@ -46,23 +46,28 @@ public class Propulsion extends JPanel implements TabComponent {
 		model.addAll(listTS);
     }
 
-    public JTable getEngineTable() {
-		return engineTable;
-	}
-
-	private void propComponents() {
-		enginesLabel = new JLabel();
-		thrustersLabel = new JLabel();
-		subEnginesLabel = new JLabel();
-		tanksLabel = new JLabel();
+    private void propComponents() {
+		
+		Propulsion = new JPanel();
+		availableEngines = new JLabel();
+		availableThrusters = new JLabel();
+		subscribedEngines = new JLabel();
+		tanks = new JLabel();
+		engine = new JLabel();
+		thruster = new JLabel();
+		eng = new JLabel();
+		th = new JLabel();
+		tank = new JLabel();
 		engineScrollPane = new JScrollPane();
-		engineTable = new JTable();
+		engineList = new JList();
 		thrusterScrollPane = new JScrollPane();
-		thrusterTAble = new JTable();
-		engThScrollPane = new JScrollPane();
-		engThTable = new JTable();
+		thrusterList = new JList();
+		engScrollPane = new JScrollPane();
+		engList = new JList();
+		thScrollPane = new JScrollPane();
+		thList = new JList();
 		tankScrollPane = new JScrollPane();
-		tankTable = new JTable();
+		tankList = new JList();
 		buttonPanel = new JPanel();
 		newP = new JButton();
 		newT = new JButton();
@@ -71,267 +76,189 @@ public class Propulsion extends JPanel implements TabComponent {
 		detailP = new JButton();
 		detailT = new JButton();
 
-		//======== panel ========
-		setBorder(new CompoundBorder(
-			new EmptyBorder(20, 20, 20, 20),
-			new EmptyBorder(5, 5, 5, 5)));
-		
-		setLayout(new MigLayout(
-			"align center center,gap 10 30",
-			// columns
-			"[grow,fill]" +
-			"[grow,fill]" +
-			"[fill]" +
-			"[fill]" +
-			"[grow,fill]" +
-			"[grow,fill]" +
-			"[grow,fill]" +
-			"[grow,fill]",
-			// rows
-			"[]" +
-			"[]" +
-			"[]" +
-			"[]" +
-			"[]" +
-			"[]" +
-			"[150]" +
-			"[]" +
-			"[]" +
-			"[]" +
-			"[]"));
-
-		//---- enginesLabel ----
-		enginesLabel.setText("Available Engines");
-		add(enginesLabel, "cell 0 0,alignx center,growx 0");
-
-		//---- thrustersLabel ----
-		thrustersLabel.setText("Available Thrusters");
-		add(thrustersLabel, "cell 1 0,alignx center,growx 0");
-
-		//---- subEnginesLabel ----
-		subEnginesLabel.setText("Subscribed Engine(s)(*)");
-		add(subEnginesLabel, "cell 2 0,alignx center,growx 0");
-
-		//---- tanksLabel ----
-		tanksLabel.setText("Tanks");
-		add(tanksLabel, "cell 3 0,alignx center,growx 0");
-
-		//======== engineScrollPane ========
+		//======== Propulsion ========
 		{
-
-			//---- engineTable ----
-			engineTable.setModel(new DefaultTableModel(
-				new Object[][] {
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-				},
-				new String[] {
-					"Engine"
-				}
-			));
-			engineScrollPane.setViewportView(engineTable);
-		}
-		add(engineScrollPane, "cell 0 1 1 9,growy");
-
-		//======== thrusterScrollPane ========
-		{
-
-			//---- thrusterTAble ----
-			thrusterTAble.setModel(new DefaultTableModel(
-				new Object[][] {
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-				},
-				new String[] {
-					"Thruster"
-				}
-			));
-			thrusterScrollPane.setViewportView(thrusterTAble);
-		}
-		add(thrusterScrollPane, "cell 1 1 1 9,growy");
-
-		//======== engThScrollPane ========
-		{
-
-			//---- engThTable ----
-			engThTable.setModel(new DefaultTableModel(
-				new Object[][] {
-					{null, null},
-					{null, null},
-					{null, null},
-					{null, null},
-					{null, null},
-					{null, null},
-					{null, null},
-					{null, null},
-					{null, null},
-					{null, null},
-					{null, null},
-					{null, null},
-					{null, null},
-					{null, null},
-					{null, null},
-					{null, null},
-					{null, null},
-					{null, null},
-					{null, null},
-					{null, null},
-					{null, null},
-					{null, null},
-					{null, null},
-					{null, null},
-					{null, null},
-				},
-				new String[] {
-					"Engine", "Thruster"
-				}
-			));
-			engThScrollPane.setViewportView(engThTable);
-		}
-		add(engThScrollPane, "cell 2 1 1 9,growy");
-
-		//======== tankScrollPane ========
-		{
-
-			//---- tankTable ----
-			tankTable.setModel(new DefaultTableModel(
-				new Object[][] {
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-					{null},
-				},
-				new String[] {
-					"Tank"
-				}
-			));
-			tankScrollPane.setViewportView(tankTable);
-		}
-		add(tankScrollPane, "cell 3 1 1 9,growy");
-
-		//======== buttonPanel ========
-		{
-			buttonPanel.setLayout(new MigLayout(
-				"fill,hidemode 3",
+			setBorder(new CompoundBorder(
+				new EmptyBorder(20, 20, 20, 20),
+				new EmptyBorder(5, 0, 5, 50)));
+			Propulsion.setLayout(new MigLayout(
+				"align center center,gap 5 20",
 				// columns
 				"[fill]" +
 				"[fill]" +
-				"[fill]" +
-				"[fill]" +
+				"[fill]0" +
 				"[fill]" +
 				"[fill]",
 				// rows
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]" +
 				"[]"));
 
-			//---- newP ----
-			newP.setText("New Pair");
-    		newP.addActionListener(e -> addPair(e));
-			buttonPanel.add(newP, "cell 0 0");
+			//---- availableEngines ----
+			availableEngines.setText("Available Engines");
+			availableEngines.setHorizontalAlignment(SwingConstants.CENTER);
+			Propulsion.add(availableEngines, "cell 0 0");
 
-			//---- newT ----
-			newT.setText("New Tank");
-			buttonPanel.add(newT, "cell 1 0");
+			//---- availableThrusters ----
+			availableThrusters.setText("Available Thrusters");
+			availableThrusters.setHorizontalAlignment(SwingConstants.CENTER);
+			Propulsion.add(availableThrusters, "cell 1 0");
 
-			//---- deleteP ----
-			deleteP.setText("Delete Pair");
-			buttonPanel.add(deleteP, "cell 2 0");
+			//---- subscribedEngines ----
+			subscribedEngines.setText("Subscribed Engines");
+			subscribedEngines.setHorizontalAlignment(SwingConstants.CENTER);
+			Propulsion.add(subscribedEngines, "cell 2 0 2 1");
 
-			//---- deleteT ----
-			deleteT.setText("Delete Tank");
-			buttonPanel.add(deleteT, "cell 3 0");
+			//---- tanks ----
+			tanks.setText("Tanks");
+			tanks.setHorizontalAlignment(SwingConstants.CENTER);
+			Propulsion.add(tanks, "cell 4 0");
 
-			//---- detailP ----
-			detailP.setText("Detail Pair");
-			buttonPanel.add(detailP, "cell 4 0");
+			//---- engine ----
+			engine.setText("Engine");
+			Propulsion.add(engine, "cell 0 2");
 
-			//---- detailT ----
-			detailT.setText("Detail Tank");
-			buttonPanel.add(detailT, "cell 5 0");
+			//---- thruster ----
+			thruster.setText("Thruster");
+			Propulsion.add(thruster, "cell 1 2");
+
+			//---- eng ----
+			eng.setText("Engine");
+			Propulsion.add(eng, "cell 2 2");
+
+			//---- th ----
+			th.setText("Thruster");
+			Propulsion.add(th, "cell 3 2");
+
+			//---- tank ----
+			tank.setText("Tank");
+			Propulsion.add(tank, "cell 4 2");
+
+			//======== engineScrollPane ========
+			{
+				engineScrollPane.setViewportView(engineList);
+			}
+			Propulsion.add(engineScrollPane, "cell 0 3 1 29,growy");
+
+			//======== thrusterScrollPane ========
+			{
+				thrusterScrollPane.setViewportView(thrusterList);
+			}
+			Propulsion.add(thrusterScrollPane, "cell 1 3 1 29,growy");
+
+			//======== engScrollPane ========
+			{
+				engScrollPane.setViewportView(engList);
+			}
+			Propulsion.add(engScrollPane, "cell 2 3 1 29,growy");
+
+			//======== thScrollPane ========
+			{
+				thScrollPane.setViewportView(thList);
+			}
+			Propulsion.add(thScrollPane, "cell 3 3 1 29,growy");
+
+			//======== tankScrollPane ========
+			{
+				tankScrollPane.setViewportView(tankList);
+			}
+			Propulsion.add(tankScrollPane, "cell 4 3 1 29,growy");
+
+			//======== buttonPanel ========
+			{
+				buttonPanel.setLayout(new MigLayout(
+					"fillx,hidemode 3",
+					// columns
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]",
+					// rows
+					"[]" +
+					"[]"));
+
+				//---- newP ----
+				newP.setText("New Pair");
+				buttonPanel.add(newP, "cell 0 0");
+
+				//---- newT ----
+				newT.setText("New Tank");
+				buttonPanel.add(newT, "cell 1 0");
+
+				//---- deleteP ----
+				deleteP.setText("Delete Pair");
+				buttonPanel.add(deleteP, "cell 2 0");
+
+				//---- deleteT ----
+				deleteT.setText("Delete Tank");
+				buttonPanel.add(deleteT, "cell 3 0");
+
+				//---- detailP ----
+				detailP.setText("Detail Pair");
+				buttonPanel.add(detailP, "cell 4 0");
+
+				//---- detailT ----
+				detailT.setText("Detail Tank");
+				buttonPanel.add(detailT, "cell 5 0");
+			}
+			Propulsion.add(buttonPanel, "cell 0 32 6 1");
 		}
-		add(buttonPanel, "cell 0 10 4 1");
-		// JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
+		add(Propulsion);
 	}
 
 	
-	private JLabel enginesLabel;
-	private JLabel thrustersLabel;
-	private JLabel subEnginesLabel;
-	private JLabel tanksLabel;
+	private JPanel Propulsion;
+	private JLabel availableEngines;
+	private JLabel availableThrusters;
+	private JLabel subscribedEngines;
+	private JLabel tanks;
+	private JLabel engine;
+	private JLabel thruster;
+	private JLabel eng;
+	private JLabel th;
+	private JLabel tank;
 	private JScrollPane engineScrollPane;
-	private JTable engineTable;
+	private JList engineList;
 	private JScrollPane thrusterScrollPane;
-	private JTable thrusterTAble;
-	private JScrollPane engThScrollPane;
-	private JTable engThTable;
+	private JList thrusterList;
+	private JScrollPane engScrollPane;
+	private JList engList;
+	private JScrollPane thScrollPane;
+	private JList thList;
 	private JScrollPane tankScrollPane;
-	private JTable tankTable;
+	private JList tankList;
 	private JPanel buttonPanel;
 	private JButton newP;
 	private JButton newT;
@@ -339,7 +266,7 @@ public class Propulsion extends JPanel implements TabComponent {
 	private JButton deleteT;
 	private JButton detailP;
 	private JButton detailT;
-
+	
 	private DefaultListModel<EngineThrusterSetup> model = new DefaultListModel<EngineThrusterSetup>();
     private ArrayList<EngineThrusterSetup> listTS;
 }

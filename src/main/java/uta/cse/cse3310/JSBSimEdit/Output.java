@@ -116,12 +116,9 @@ public class Output extends JPanel implements TabComponent {
 
 		//======== panelOutput ========
 		{
-			panelOutput.setBorder(new CompoundBorder(
-				new EmptyBorder(20, 20, 20, 20),
-				new EmptyBorder(5, 5, 5, 5)));
 			
 			panelOutput.setLayout(new MigLayout(
-				"align center center,gap 10 30",
+				"align center center,gap 5 20",
 				// columns
 				"[grow,fill]" +
 				"[grow,fill]" +
