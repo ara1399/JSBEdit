@@ -109,7 +109,7 @@ public class Output extends JPanel implements TabComponent {
 		propertiesScrollPane = new JScrollPane();
 		propertiesTextArea = new JTextArea();
 		properties = new JLabel();
-		options = new JToolBar();
+		buttonPanel = new JPanel();
 		chooseButton = new JButton();
 		addButton = new JButton();
 		deleteButton = new JButton();
@@ -249,24 +249,31 @@ public class Output extends JPanel implements TabComponent {
 			properties.setHorizontalAlignment(SwingConstants.TRAILING);
 			panelOutput.add(properties, "cell 0 9");
 
-			//======== options ========
-			{
-				options.setBorder(LineBorder.createBlackLineBorder());
-				options.setBackground(new Color(0x333333));
+			//======== buttonPanel ========
+		{
+			buttonPanel.setLayout(new MigLayout(
+				"fill,hidemode 3",
+				// columns
+				"[fill]" +
+				"[fill]" +
+				"[fill]",
+				// rows
+				"[]"));
 
-				//---- chooseButton ----
-				chooseButton.setText("Choose");
-				options.add(chooseButton);
+			//---- choose ----
+			chooseButton.setText("Choose");
+			buttonPanel.add(chooseButton, "cell 0 0");
 
-				//---- addButton ----
-				addButton.setText("Add");
-				options.add(addButton);
+			//---- add ----
+			addButton.setText("Add");
+			buttonPanel.add(addButton, "cell 1 0");
 
-				//---- deleteButton ----
-				deleteButton.setText("Delete");
-				options.add(deleteButton);
-			}
-			panelOutput.add(options, "cell 0 17 6 1,aligny baseline,growy 0");
+			//---- delete ----
+			deleteButton.setText("Delete");
+			buttonPanel.add(deleteButton, "cell 2 0");
+
+		}
+		panelOutput.add(buttonPanel, "cell 0 17 6 1");
 		}
 		add(panelOutput);
 	}
@@ -296,7 +303,7 @@ public class Output extends JPanel implements TabComponent {
 	private JScrollPane propertiesScrollPane;
 	private JTextArea propertiesTextArea;
 	private JLabel properties;
-	private JToolBar options;
+	private JPanel buttonPanel;
 	private JButton chooseButton;
 	private JButton addButton;
 	private JButton deleteButton;
