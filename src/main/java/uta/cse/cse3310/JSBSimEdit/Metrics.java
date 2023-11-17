@@ -32,6 +32,34 @@ public class Metrics extends JPanel implements TabComponent {
 		initComponents();
 	}
 
+	public JFormattedTextField getWingAreaText() {
+		return wingAreaText;
+	}
+
+	public JFormattedTextField getWingSpanText() {
+		return wingSpanText;
+	}
+
+	public JFormattedTextField getChordText() {
+		return chordText;
+	}
+	
+	public JFormattedTextField gethTailAreaText() {
+		return hTailAreaText;
+	}
+
+	public JFormattedTextField gethTailArmText() {
+		return hTailArmText;
+	}
+
+	public JFormattedTextField getvTailAreaText() {
+		return vTailAreaText;
+	}
+
+	public JFormattedTextField getvTailArmText() {
+		return vTailArmText;
+	}
+
 	// pull in all data. do not exclude for schema conflicts
 	// schema validation done when saving
 	@Override

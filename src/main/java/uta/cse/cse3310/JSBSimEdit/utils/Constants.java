@@ -33,5 +33,14 @@ public class Constants {
     public static final String SAVE_RES = ICONS_RESF + "save-file" + EXT_PNG;
 
     // res ui original icons 32x32
-    public static final String ACFT_MGR_RES = ICONS_ORG_RESF + "acft_mgr" + EXT_PNG;
+    public static final String SOURCE_RES = ICONS_ORG_RESF + "source" + EXT_PNG;
+    public static final String DESTINATION_RES = ICONS_ORG_RESF + "destination" + EXT_PNG;
+    public static final String SUMMER_RES = ICONS_ORG_RESF + "summer" + EXT_PNG;
+    public static final String PID_RES = ICONS_ORG_RESF + "pid" + EXT_PNG;
+    public static final String GAIN_RES = ICONS_ORG_RESF + "gain" + EXT_PNG;
+    public static final String FILTER_RES = ICONS_ORG_RESF + "filter" + EXT_PNG;
+    public static final String DEADBAND_RES = ICONS_ORG_RESF + "deadband" + EXT_PNG;
+    public static final String SWITCH_RES = ICONS_ORG_RESF + "switch" + EXT_PNG;
+    public static final String KINEMAT_RES = ICONS_ORG_RESF + "kinemat" + EXT_PNG;
+    public static final String FUNC_RES = ICONS_ORG_RESF + "func" + EXT_PNG;
 }

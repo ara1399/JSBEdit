@@ -100,6 +100,13 @@ public class Aerodynamics extends JPanel implements TabComponent {
         }else{
             alphalimitsMinText.setText(Double.toString(-20));
             alphalimitsMaxText.setText(Double.toString(90));
+        List<Function> fList = a.getFunction();
+        List<Axis> axList = a.getAxis();
+
+        if(a.getAlphalimits() != null){
+            alphalimitsMinText.setText(Double.toString(a.getAlphalimits().getMin()));
+            alphalimitsMinText.setText(Double.toString(a.getAlphalimits().getMax()));
+            //alphalimitsUnitText.setText(Double.toString(a.getAlphalimits().getUnit()));
         }
 
         if(a.getHysteresisLimits() != null){

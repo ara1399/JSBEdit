@@ -27,32 +27,62 @@ import uta.cse.cse3310.JSBSimEdit.interfaces.TabComponent;
 
 public class Output extends JPanel implements TabComponent {
     public Output() {
-		initComponents();
+		outComponents();
 	}
 
     @Override
     public void bindUIwithXML(FdmConfig cfg) {
 		List<generated.Output> opList = cfg.getOutput();
 		generated.Output op = opList.get(0);
-        nameText.setText(op.getName());
-		
+		nameText.setText(op.getName());
 		BigInteger portValue = op.getPort();
 		if (portValue != null) {
-			portText.setText(portValue.toString());
-		} else {
-			return;
-		}
-		
+             portText.setText(portValue.toString());
+        }
+          
+        BigInteger rateValue = op.getRate();
+        if (rateValue != null) {
+            rateText.setText(rateValue.toString());
+        }
 
-		typeComboBox.setToolTipText(op.getType());
+        String typeValue = op.getType();
+        if (typeValue != null) {
+            typeComboBox.setSelectedItem(typeValue);
+        }     	   
     }
+
 
     @Override
     public Optional<FdmConfig> saveXMLfromUI(FdmConfig cfg) {
-        // TODO
+        List<generated.Output> opList = cfg.getOutput();
+
+        // If there is no Output object in the list, create one
+        generated.Output op;
+        if (opList.isEmpty()) {
+            op = new generated.Output();
+            opList.add(op);
+        } else {
+            op = opList.get(0);
+        }
+
+        op.setName(nameText.getText());
+
+        String portValue = portText.getText();
+        if (!portValue.isEmpty()) {
+            op.setPort(new BigInteger(portValue));
+        }
+
+        String rateValue = rateText.getText();
+        if (!rateValue.isEmpty()) {
+            op.setRate(new BigInteger(rateValue));
+        }
+
+        String selectedType = (String) typeComboBox.getSelectedItem();
+        op.setType(selectedType);
+		
         return Optional.ofNullable(cfg);
     }
-    private void initComponents() {
+    private void outComponents() {
 		
 		panelOutput = new JPanel();
 		name = new JLabel();

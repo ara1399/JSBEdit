@@ -1,0 +1,406 @@
+JFDML JFormDesigner: "8.2.0.0.331" Java: "19.0.2" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+			"$layoutConstraints": "align center center,gap 10 30"
+			"$columnConstraints": "[grow,fill][grow,fill][fill][grow,fill][grow,fill]"
+			"$rowConstraints": "[][][][][]"
+		} ) {
+			name: "this"
+			"border": new javax.swing.border.CompoundBorder( new javax.swing.border.EmptyBorder( 20, 20, 20, 20 ), new javax.swing.border.EmptyBorder( 5, 5, 5, 5 ) )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+				"$layoutConstraints": "align center center,gap 10 30"
+				"$columnConstraints": "[fill][fill][fill][100,fill][fill][fill][fill]"
+				"$rowConstraints": "[][][][]"
+			} ) {
+				name: "mainPanel"
+				"border": new javax.swing.border.CompoundBorder( new javax.swing.border.TitledBorder( "" ), new javax.swing.border.EmptyBorder( 20, 20, 20, 20 ) )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "wingAreaLabel"
+					"text": "WingArea* ="
+					"horizontalAlignment": 11
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "wingAreaText"
+					"preferredSize": &Dimension0 new java.awt.Dimension( 100, 23 )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 1 0"
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "wingAreaCombo"
+					"maximumRowCount": 5
+					"preferredSize": &Dimension1 new java.awt.Dimension( 40, 23 )
+					"model": &DefaultComboBoxModel0 new javax.swing.DefaultComboBoxModel {
+						selectedItem: "FT2"
+						addElement( "FT2" )
+						addElement( "M2" )
+					}
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 0"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "hTailAreaLabel"
+					"text": "HTailArea ="
+					"horizontalAlignment": 11
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 4 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "hTailAreaText"
+					"preferredSize": #Dimension0
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 5 0"
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "hTailAreaCombo"
+					"maximumRowCount": 5
+					"preferredSize": #Dimension1
+					"model": #DefaultComboBoxModel0
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 6 0"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "wingSpanLabel"
+					"text": "WingSpan* ="
+					"horizontalAlignment": 11
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 1"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "wingSpanText"
+					"preferredSize": #Dimension0
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 1 1"
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "wingSpanCombo"
+					"maximumRowCount": 5
+					"preferredSize": #Dimension1
+					"model": &DefaultComboBoxModel1 new javax.swing.DefaultComboBoxModel {
+						selectedItem: "FT"
+						addElement( "FT" )
+						addElement( "M" )
+						addElement( "IN" )
+					}
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 1"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "hTailArmLabel"
+					"text": "HTailArm ="
+					"horizontalAlignment": 11
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 4 1"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "hTailArmText"
+					"preferredSize": #Dimension0
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 5 1"
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "hTailArmCombo"
+					"maximumRowCount": 5
+					"preferredSize": #Dimension1
+					"model": #DefaultComboBoxModel1
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 6 1"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "chordLabel"
+					"text": "Chord* ="
+					"horizontalAlignment": 11
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 2"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "chordText"
+					"preferredSize": #Dimension0
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 1 2"
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "chordCombo"
+					"maximumRowCount": 5
+					"preferredSize": #Dimension1
+					"model": #DefaultComboBoxModel1
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 2"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "vTailAreaLabel"
+					"text": "VTailArea ="
+					"horizontalAlignment": 11
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 4 2"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "vTailAreaText"
+					"preferredSize": #Dimension0
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 5 2"
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "vTailAreaCombo"
+					"maximumRowCount": 5
+					"preferredSize": #Dimension1
+					"model": #DefaultComboBoxModel0
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 6 2"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "wingIncidenceLabel"
+					"text": "WingIncidence ="
+					"horizontalAlignment": 11
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 3"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "wingIncidenceText"
+					"preferredSize": #Dimension0
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 1 3"
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "wingIncidenceCombo"
+					"maximumRowCount": 5
+					"preferredSize": #Dimension1
+					"model": new javax.swing.DefaultComboBoxModel {
+						selectedItem: "DEG"
+						addElement( "DEG" )
+						addElement( "RAD" )
+					}
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 3"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "vTailArmLabel"
+					"text": "VTailArm ="
+					"horizontalAlignment": 11
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 4 3"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "vTailArmText"
+					"preferredSize": #Dimension0
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 5 3"
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "vTailArmCombo"
+					"maximumRowCount": 5
+					"preferredSize": #Dimension1
+					"model": #DefaultComboBoxModel1
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 6 3"
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 0 5 1"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+				"$layoutConstraints": "align center center,gap 10 30"
+				"$columnConstraints": "[grow,fill][grow,fill][grow,fill][grow,fill][grow,fill][grow,fill][grow,fill][fill]"
+				"$rowConstraints": "[]"
+			} ) {
+				name: "aerodynamicRefPanel"
+				"border": new javax.swing.border.CompoundBorder( new javax.swing.border.TitledBorder( "Aerodynamic Reference Point*" ), new javax.swing.border.EmptyBorder( 20, 20, 20, 20 ) )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "aerodynamicRefXLabel"
+					"text": "x ="
+					"horizontalAlignment": 11
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "aerodynamicRefXText"
+					"preferredSize": #Dimension0
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 1 0"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "aerodynamicRefYLabel"
+					"text": "y ="
+					"horizontalAlignment": 11
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "aerodynamicRefYText"
+					"preferredSize": #Dimension0
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 3 0"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "aerodynamicRefZLabel"
+					"text": "z ="
+					"horizontalAlignment": 11
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 4 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "aerodynamicRefZText"
+					"preferredSize": #Dimension0
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 5 0"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "aerodynamicRefUnitLabel"
+					"text": "Unit"
+					"horizontalAlignment": 11
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 6 0"
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "aerodynamicRefUnitCombo"
+					"maximumRowCount": 5
+					"preferredSize": #Dimension1
+					"model": &DefaultComboBoxModel2 new javax.swing.DefaultComboBoxModel {
+						selectedItem: "IN"
+						addElement( "IN" )
+						addElement( "FT" )
+						addElement( "M" )
+					}
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 7 0"
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 2 5 1"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+				"$layoutConstraints": "align center center,gap 10 30"
+				"$columnConstraints": "[grow,fill][grow,fill][grow,fill][grow,fill][grow,fill][grow,fill][grow,fill][fill]"
+				"$rowConstraints": "[]"
+			} ) {
+				name: "eyePointPanel"
+				"border": new javax.swing.border.CompoundBorder( new javax.swing.border.TitledBorder( "Eye Point" ), new javax.swing.border.EmptyBorder( 20, 20, 20, 20 ) )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "eyePointXLabel"
+					"text": "x ="
+					"horizontalAlignment": 11
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "eyePointXText"
+					"preferredSize": #Dimension0
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 1 0"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "eyePointYLabel"
+					"text": "y ="
+					"horizontalAlignment": 11
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "eyePointYText"
+					"preferredSize": #Dimension0
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 3 0"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "eyePointZLabel"
+					"text": "z ="
+					"horizontalAlignment": 11
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 4 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "eyePointZText"
+					"preferredSize": #Dimension0
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 5 0"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "eyePointUnitLabel"
+					"text": "Unit"
+					"horizontalAlignment": 11
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 6 0"
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "eyePointUnitCombo"
+					"maximumRowCount": 5
+					"preferredSize": #Dimension1
+					"model": #DefaultComboBoxModel2
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 7 0"
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 3 5 1"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+				"$layoutConstraints": "align center center,gap 10 30"
+				"$columnConstraints": "[grow,fill][grow,fill][grow,fill][grow,fill][grow,fill][grow,fill][grow,fill][fill]"
+				"$rowConstraints": "[]"
+			} ) {
+				name: "visualRefPanel"
+				"border": new javax.swing.border.CompoundBorder( new javax.swing.border.TitledBorder( "Visual Reference Point" ), new javax.swing.border.EmptyBorder( 20, 20, 20, 20 ) )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "visualRefXLabel"
+					"text": "x ="
+					"horizontalAlignment": 11
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "visualRefXText"
+					"preferredSize": #Dimension0
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 1 0"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "visualRefYLabel"
+					"text": "y ="
+					"horizontalAlignment": 11
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "visualRefYText"
+					"preferredSize": #Dimension0
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 3 0"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "visualRefZLabel"
+					"text": "z ="
+					"horizontalAlignment": 11
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 4 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "visualRefZText"
+					"preferredSize": #Dimension0
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 5 0"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "visualRefUnitLabel"
+					"text": "Unit"
+					"horizontalAlignment": 11
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 6 0"
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "visualRefUnitCombo"
+					"maximumRowCount": 5
+					"preferredSize": #Dimension1
+					"model": #DefaultComboBoxModel2
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 7 0"
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 4 5 1"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 10, 0 )
+			"size": new java.awt.Dimension( 880, 815 )
+		} )
+	}
+}
