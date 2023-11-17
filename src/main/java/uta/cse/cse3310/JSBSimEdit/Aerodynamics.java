@@ -5,13 +5,13 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Optional;
 import javax.swing.*;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 
 import java.util.List;
-import javax.swing.JFormattedTextField;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTree;
+
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
 
 import generated.FdmConfig;
@@ -20,13 +20,24 @@ import generated.IndependentVar;
 import generated.Axis;
 import generated.Product;
 import generated.Table;
+
 import jakarta.xml.bind.JAXBElement;
+
 import uta.cse.cse3310.JSBSimEdit.interfaces.TabComponent;
+import uta.cse.cse3310.JSBSimEdit.utils.Constants;
+import uta.cse.cse3310.JSBSimEdit.utils.LoadSave;
 
 public class Aerodynamics extends JPanel implements TabComponent {
     
+    private AerodynamicsPropertiesPopup propertiesPopup;
+
+
     public Aerodynamics(){
         initComponents();
+        propertiesPopup = new AerodynamicsPropertiesPopup((Frame)SwingUtilities.getWindowAncestor(this));
+        SwingUtilities.invokeLater(()->{
+            new CustomTreeCellRenderer().setVisible(true);
+        });
     }
 
     @Override
@@ -42,28 +53,22 @@ public class Aerodynamics extends JPanel implements TabComponent {
             alphalimitsMaxText.setText(Double.toString(90));
         }
 
-        if(a.getAlphalimits() != null){
-            alphalimitsMinText.setText(Double.toString(a.getAlphalimits().getMin()));
-            alphalimitsMinText.setText(Double.toString(a.getAlphalimits().getMax()));
-            //alphalimitsUnitText.setText(Double.toString(a.getAlphalimits().getUnit()));
-        }
-
         if(a.getHysteresisLimits() != null){
             hysteresisLimitsMinText.setText(Double.toString(a.getHysteresisLimits().getMin()));
             hysteresisLimitsMaxText.setText(Double.toString(a.getHysteresisLimits().getMax()));
             hysteresisLimitsUnitText.setText((a.getHysteresisLimits().getUnit().value()));
         }else{
-            alphalimitsMinText.setText(Double.toString(30));
-            alphalimitsMaxText.setText(Double.toString(30));
+            hysteresisLimitsMinText.setText(Double.toString(30));
+            hysteresisLimitsMaxText.setText(Double.toString(30));
         }
 
         ScrollPane = new JScrollPane();
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Aerodynamics");
+        CustomTreeNode root = new CustomTreeNode("Aerodynamics",NodeType.AERODYNAMICS);
         List<Function> func = a.getFunction();
-        //get funrions under root node
+        //get functions under root node
         for (Function f : func){
-            DefaultMutableTreeNode func_node = new DefaultMutableTreeNode(f.getName() + "("+ f.getDescription() + ")");
-            DefaultMutableTreeNode Productnode = new DefaultMutableTreeNode("Product");
+            CustomTreeNode func_node = new CustomTreeNode(f.getName() + "("+ f.getDescription() + ")",NodeType.FUNCTION);
+            CustomTreeNode Productnode = new CustomTreeNode("Product",NodeType.PRODUCT);
 
             Table T = f.getTable();
             if(T != null){
@@ -84,7 +89,7 @@ public class Aerodynamics extends JPanel implements TabComponent {
                     Tname = "T(" + Tname + ")";
                 }
 
-                DefaultMutableTreeNode Tnode = new DefaultMutableTreeNode(Tname);
+                CustomTreeNode Tnode = new CustomTreeNode(Tname,NodeType.TABLE);
                 Productnode.add(Tnode);
                 //System.out.println("\t\t\t" + Tnode);
             }
@@ -97,15 +102,15 @@ public class Aerodynamics extends JPanel implements TabComponent {
         axis = a.getAxis();
         //get all axis->functions->products->(properties/tables/values) under each axis node
         for(Axis ax : axis){
-            DefaultMutableTreeNode axisNode = new DefaultMutableTreeNode(ax.getName());
+            CustomTreeNode axisNode = new CustomTreeNode(ax.getName(),NodeType.AXIS);
 
             List<Function> axis_func = ax.getFunction();
             for (Function ax_f : axis_func){
-                DefaultMutableTreeNode func_node = new DefaultMutableTreeNode(ax_f.getName() + "("+ ax_f.getDescription() + ")");
+                CustomTreeNode func_node = new CustomTreeNode(ax_f.getName() + "("+ ax_f.getDescription() + ")",NodeType.FUNCTION);
 
                 Product P = ax_f.getProduct();
                 if(P != null){
-                    DefaultMutableTreeNode Productnode = new DefaultMutableTreeNode("Product");
+                    CustomTreeNode Productnode = new CustomTreeNode("Product",NodeType.PRODUCT);
 
                     //get table or property
                     List<Object> Product_List = P.getTableOrProductOrDifference();
@@ -130,7 +135,7 @@ public class Aerodynamics extends JPanel implements TabComponent {
                                     Tname = "T("+Tname+")";
                                 }
 
-                                DefaultMutableTreeNode Tnode = new DefaultMutableTreeNode(Tname);
+                                CustomTreeNode Tnode = new CustomTreeNode(Tname,NodeType.TABLE);
                                 Productnode.add(Tnode);
                                 //System.out.println("\t\t\t\t"+Tnode);
                             }
@@ -142,12 +147,12 @@ public class Aerodynamics extends JPanel implements TabComponent {
                                 // Check if it is a property or a value
                                 if (element.getName().getLocalPart().equals("property")) {
                                     // Process the property name
-                                    DefaultMutableTreeNode PropNode = new DefaultMutableTreeNode(propertyOrValue);
+                                    CustomTreeNode PropNode = new CustomTreeNode(propertyOrValue,NodeType.PROPERTY);
                                     Productnode.add(PropNode);
                                     //System.out.println("\t\t\t\t" + PropNode);
                                 }
                             } else {
-                                    DefaultMutableTreeNode ValueNode = new DefaultMutableTreeNode(value);
+                                    CustomTreeNode ValueNode = new CustomTreeNode(value,NodeType.VALUE);
                                     Productnode.add(ValueNode);
                                     //System.out.println("\t\t\t\t" + ValueNode);
                                 }
@@ -165,37 +170,195 @@ public class Aerodynamics extends JPanel implements TabComponent {
 
         aeroTree = new JTree(root);
         //System.out.println(root);
-    /* 
-        //add mouse listener
-        aeroTree.addMouseListener(new MouseAdapter() {
-            //TODO
-            public void mouseClickedTwice(MouseEvent two){
-                if (two.getClickCount() == 2){
-                    TreePath path = aeroTree.getPathForLocation(two.getX(), two.getY());
-                    if(path != null){
-                        DefaultMutableTreeNode selectTreeNode = (DefaultMutableTreeNode)path.getLastPathComponent();
-                        showPopup(selectTreeNode, two.getXOnScreen(), two.getYOnScreen());
-                    }
-                }
-            }
-        });
-    */
+            
+        aeroTree.setCellRenderer(new CustomTreeCellRenderer());
         aeroTree.setShowsRootHandles(true);
 
         ScrollPane = new JScrollPane(aeroTree);
         this.setLayout(new BorderLayout());
-        this.add(ScrollPane, BorderLayout.CENTER);
+        this.add(ScrollPane, BorderLayout.CENTER); 
         
+        aeroTree.addTreeSelectionListener(new TreeSelectionListener() {
+        @Override
+        public void valueChanged(TreeSelectionEvent e) {
+        // This will be triggered when a node is selected, handle the event if needed
+        }
+        });
+
+        aeroTree.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (SwingUtilities.isLeftMouseButton(e) && e.getClickCount() == 2) {
+                    TreePath path = aeroTree.getPathForLocation(e.getX(), e.getY());
+                    if (path != null) {
+                        DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) path.getLastPathComponent();
+                        if (selectedNode.toString().equals("Aerodynamics")) {
+                            showAerodynamicsPropertiesPopup();
+                        } else {
+                            showPopup(selectedNode, e.getXOnScreen(), e.getYOnScreen());
+                        }
+                    }
+                }
+            }
+        });
+    }
+    //set custom nodes to represent node type
+    public class CustomTreeNode extends DefaultMutableTreeNode {
+        private NodeType nodeType;
+        public CustomTreeNode(Object userObject, NodeType nodeType) {
+            super(userObject);
+            this.nodeType = nodeType;
+        }
+        public NodeType getNodeType() {
+            return nodeType;
+        }
     }
 
-/* 
+    //class to give correct icons to each node
+    private static class CustomTreeCellRenderer extends DefaultTreeCellRenderer{
+        
+        private Icon aeroIcon = new ImageIcon(LoadSave.getContext().getResource(Constants.AERO_RES));
+        private Icon axisIcon = new ImageIcon(LoadSave.getContext().getResource(Constants.AXIS_RES));
+        private Icon funcIcon = new ImageIcon(LoadSave.getContext().getResource(Constants.FUNCTION_RES));
+        private Icon productIcon = new ImageIcon(LoadSave.getContext().getResource(Constants.PRODUCT_RES));
+        private Icon propIcon = new ImageIcon(LoadSave.getContext().getResource(Constants.PROPERTY_RES));
+        private Icon tableIcon = new ImageIcon(LoadSave.getContext().getResource(Constants.TABLE_RES));
+        private Icon valueIcon = new ImageIcon(LoadSave.getContext().getResource(Constants.VALUE_RES));
+
+        public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus){
+            super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
+
+            if (value instanceof CustomTreeNode) {
+                CustomTreeNode node = (CustomTreeNode) value;
+                NodeType nodeType = node.getNodeType();
+    
+                switch (nodeType) {
+                    case AERODYNAMICS:
+                        setIcon(aeroIcon);
+                        break;
+                    case FUNCTION:
+                        setIcon(funcIcon);
+                        break;
+                    case AXIS:
+                        setIcon(axisIcon);
+                        break;
+                    case PRODUCT:
+                        setIcon(productIcon);
+                        break;
+                    case PROPERTY:
+                        setIcon(propIcon);
+                        break;
+                    case TABLE:
+                        setIcon(tableIcon);
+                        break;
+                    case VALUE:
+                        setIcon(valueIcon);
+                        break;
+                    // Add more cases as needed
+                }
+            }
+            return this;
+        }
+    }
+
+
+    private void showAerodynamicsPropertiesPopup() {
+        // Create and show the Aerodynamics Properties Popup
+        AerodynamicsPropertiesPopup popup = new AerodynamicsPropertiesPopup(null);
+        popup.setVisible(true);
+    }
+
+    private class AerodynamicsPropertiesPopup extends JDialog {
+
+        private JCheckBox alphaLimitsCheckBox;
+        private JCheckBox hysteresisLimitsCheckBox;
+        private JButton okButton;
+        private JButton cancelButton;
+
+        public AerodynamicsPropertiesPopup(Frame parent) {
+            super(parent, "Aerodynamics Properties", true);
+            initializeComponents();
+        }
+
+        private void initializeComponents() {
+            // Set layout
+            setLayout(new GridLayout(0,2,5,5));
+
+            alphaLimitsCheckBox = new JCheckBox("Enable Alpha Limits");
+            configureEnabledState(alphalimitsMinText, alphalimitsMaxText, alphaLimitsCheckBox);
+            
+            hysteresisLimitsCheckBox = new JCheckBox("Enable Hysteresis Limits");
+            configureEnabledState(hysteresisLimitsMinText, hysteresisLimitsMaxText, hysteresisLimitsCheckBox);
+
+            okButton = new JButton("OK");
+            cancelButton = new JButton("Cancel");
+            // Add action listener to OK button
+            
+            add(alphaLimitsCheckBox);
+            add((new JPanel()));
+            add(new JLabel("Min Alpha:"));
+            add(alphalimitsMinText);
+            add(new JLabel("Max Alpha:"));
+            add(alphalimitsMaxText);
+
+            add(hysteresisLimitsCheckBox);
+            add((new JPanel()));
+            add(new JLabel("Min Hysteresis:"));
+            add(hysteresisLimitsMinText);
+            add(new JLabel("Max Hysteresis:"));
+            add(hysteresisLimitsMaxText);
+
+            add(okButton);
+            add(cancelButton);
+            
+            okButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Handle OK button click (save values, close the window, etc.)
+                    dispose(); // Close the popup
+                }
+            });
+
+            // Add action listener to Cancel button
+            cancelButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Handle Cancel button click (close the window without saving)
+                    dispose(); // Close the popup
+                }
+            });
+
+            alphaLimitsCheckBox.addItemListener(new ItemListener() {
+                public void itemStateChanged(ItemEvent e){
+                    configureEnabledState(alphalimitsMinText, alphalimitsMaxText, alphaLimitsCheckBox);
+                }
+            });
+
+            hysteresisLimitsCheckBox.addItemListener(new ItemListener() {
+                public void itemStateChanged(ItemEvent e){
+                    configureEnabledState(hysteresisLimitsMinText, hysteresisLimitsMaxText, hysteresisLimitsCheckBox);
+                }
+            });
+
+            setSize(300,200);
+            setLocationRelativeTo(getParent());
+        }
+        private void configureEnabledState(JTextField minField, JTextField maxField, JCheckBox checkBox) {
+            boolean isEnabled = checkBox.isSelected();
+            minField.setEnabled(isEnabled);
+            maxField.setEnabled(isEnabled);
+        }
+    }
+ 
     private void showPopup(DefaultMutableTreeNode node, int x, int y){
-        //TODO
         String nodeName = node.toString();
-        JOptionPane.showMessageDialog(this, "Detail for Node: " + nodeName, "Node Deatails",JOptionPane.INFORMATION_MESSAGE);
-    }
-*/
+        
+        if (nodeName.equals("Aerodynamics")) {
+            propertiesPopup.setVisible(true);
+        } else {
+            }
+        }
 
+    
     @Override
     public Optional<FdmConfig> saveXMLfromUI(FdmConfig cfg) {
         // TODO
@@ -203,14 +366,24 @@ public class Aerodynamics extends JPanel implements TabComponent {
     }
 
     private void initComponents(){
-        alphalimitsMinText = new JFormattedTextField();
-        alphalimitsMaxText = new JFormattedTextField();
-        alphalimitsUnitText = new JFormattedTextField();
+        alphalimitsMinText = new JTextField();
+        alphalimitsMaxText = new JTextField();
+        alphalimitsUnitText = new JTextField();
 
-        hysteresisLimitsMinText = new JFormattedTextField();
-        hysteresisLimitsMaxText = new JFormattedTextField();
-        hysteresisLimitsUnitText = new JFormattedTextField();
-    
+        hysteresisLimitsMinText = new JTextField();
+        hysteresisLimitsMaxText = new JTextField();
+        hysteresisLimitsUnitText = new JTextField();
+
+    }
+
+    public enum NodeType {
+        AERODYNAMICS,
+        FUNCTION,
+        AXIS,
+        PRODUCT,
+        PROPERTY,
+        TABLE,
+        VALUE
     }
 
     //variables
@@ -221,13 +394,14 @@ public class Aerodynamics extends JPanel implements TabComponent {
     List<Function> funcs;
     List<Axis> axis;
 
-    private JFormattedTextField alphalimitsMinText;
-    private JFormattedTextField alphalimitsMaxText;
-    private JFormattedTextField alphalimitsUnitText;
-    private JFormattedTextField hysteresisLimitsMinText;
-    private JFormattedTextField hysteresisLimitsMaxText;
-    private JFormattedTextField hysteresisLimitsUnitText;
+    private JTextField alphalimitsMinText;
+    private JTextField alphalimitsMaxText;
+    private JTextField alphalimitsUnitText;
+    private JTextField hysteresisLimitsMinText;
+    private JTextField hysteresisLimitsMaxText;
+    private JTextField hysteresisLimitsUnitText;
     //private JFormattedTextField funtionText;
     //private JFormattedTextField functiondescText;
     //private JFormattedTextField axisnameText;
 }
+

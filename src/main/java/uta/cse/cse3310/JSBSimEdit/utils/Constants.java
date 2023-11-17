@@ -43,4 +43,11 @@ public class Constants {
     public static final String SWITCH_RES = ICONS_ORG_RESF + "switch" + EXT_PNG;
     public static final String KINEMAT_RES = ICONS_ORG_RESF + "kinemat" + EXT_PNG;
     public static final String FUNC_RES = ICONS_ORG_RESF + "func" + EXT_PNG;
+    public static final String TABLE_RES = ICONS_ORG_RESF + "table_icon" + EXT_PNG;
+    public static final String VALUE_RES = ICONS_ORG_RESF + "value_icon" + EXT_PNG;
+    public static final String PROPERTY_RES = ICONS_ORG_RESF + "property_icon" + EXT_PNG;
+    public static final String PRODUCT_RES = ICONS_ORG_RESF + "operator_product" + EXT_PNG;
+    public static final String FUNCTION_RES = ICONS_ORG_RESF + "operator_func" + EXT_PNG;
+    public static final String AXIS_RES = ICONS_ORG_RESF + "axis" + EXT_PNG;
+    public static final String AERO_RES = ICONS_ORG_RESF + "fileheader_icon" +EXT_PNG;
 }
