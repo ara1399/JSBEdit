@@ -21,11 +21,38 @@ public class Aerodynamics extends JPanel implements TabComponent {
     
     public Aerodynamics(){
         initComponents();
-        
-        
+    }
+
+    @Override
+    public void bindUIwithXML(FdmConfig cfg) {
+        generated.Aerodynamics a = cfg.getAerodynamics();
+       
+        if(a.getAlphalimits() != null){
+            alphalimitsMinText.setText(Double.toString(a.getAlphalimits().getMin()));
+            alphalimitsMaxText.setText(Double.toString(a.getAlphalimits().getMax()));
+            alphalimitsUnitText.setText((a.getAlphalimits().getUnit().value()));
+        }else{
+            alphalimitsMinText.setText(Double.toString(-20));
+            alphalimitsMaxText.setText(Double.toString(90));
+        }
+
+        if(a.getAlphalimits() != null){
+            alphalimitsMinText.setText(Double.toString(a.getAlphalimits().getMin()));
+            alphalimitsMinText.setText(Double.toString(a.getAlphalimits().getMax()));
+            //alphalimitsUnitText.setText(Double.toString(a.getAlphalimits().getUnit()));
+        }
+
+        if(a.getHysteresisLimits() != null){
+            hysteresisLimitsMinText.setText(Double.toString(a.getHysteresisLimits().getMin()));
+            hysteresisLimitsMaxText.setText(Double.toString(a.getHysteresisLimits().getMax()));
+            hysteresisLimitsUnitText.setText((a.getHysteresisLimits().getUnit().value()));
+        }else{
+            alphalimitsMinText.setText(Double.toString(30));
+            alphalimitsMaxText.setText(Double.toString(30));
+        }
+
         ScrollPane = new JScrollPane();
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Aerodynamics");
-        generated.Aerodynamics a = cfg.getAerodynamics();
         funcs = a.getFunction();
         for (Function F : funcs){
             //Create function node
@@ -87,36 +114,7 @@ public class Aerodynamics extends JPanel implements TabComponent {
         //aeroTree.setShowsRootHandles(true);
 
         ScrollPane.setViewportView(aeroTree);
-    }
 
-    @Override
-    public void bindUIwithXML(FdmConfig cfg) {
-        generated.Aerodynamics a = cfg.getAerodynamics();
-       
-        if(a.getAlphalimits() != null){
-            alphalimitsMinText.setText(Double.toString(a.getAlphalimits().getMin()));
-            alphalimitsMaxText.setText(Double.toString(a.getAlphalimits().getMax()));
-            alphalimitsUnitText.setText((a.getAlphalimits().getUnit().value()));
-        }else{
-            alphalimitsMinText.setText(Double.toString(-20));
-            alphalimitsMaxText.setText(Double.toString(90));
-        List<Function> fList = a.getFunction();
-        List<Axis> axList = a.getAxis();
-
-        if(a.getAlphalimits() != null){
-            alphalimitsMinText.setText(Double.toString(a.getAlphalimits().getMin()));
-            alphalimitsMinText.setText(Double.toString(a.getAlphalimits().getMax()));
-            //alphalimitsUnitText.setText(Double.toString(a.getAlphalimits().getUnit()));
-        }
-
-        if(a.getHysteresisLimits() != null){
-            hysteresisLimitsMinText.setText(Double.toString(a.getHysteresisLimits().getMin()));
-            hysteresisLimitsMaxText.setText(Double.toString(a.getHysteresisLimits().getMax()));
-            hysteresisLimitsUnitText.setText((a.getHysteresisLimits().getUnit().value()));
-        }else{
-            alphalimitsMinText.setText(Double.toString(30));
-            alphalimitsMaxText.setText(Double.toString(30));
-        }
     }
 
     @Override
