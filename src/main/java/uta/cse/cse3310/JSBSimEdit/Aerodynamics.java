@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
 
 import generated.FdmConfig;
 import generated.Function;
@@ -59,6 +60,7 @@ public class Aerodynamics extends JPanel implements TabComponent {
         ScrollPane = new JScrollPane();
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Aerodynamics");
         List<Function> func = a.getFunction();
+        //get funrions under root node
         for (Function f : func){
             DefaultMutableTreeNode func_node = new DefaultMutableTreeNode(f.getName() + "("+ f.getDescription() + ")");
             DefaultMutableTreeNode Productnode = new DefaultMutableTreeNode("Product");
@@ -93,6 +95,7 @@ public class Aerodynamics extends JPanel implements TabComponent {
         }
         
         axis = a.getAxis();
+        //get all axis->functions->products->(properties/tables/values) under each axis node
         for(Axis ax : axis){
             DefaultMutableTreeNode axisNode = new DefaultMutableTreeNode(ax.getName());
 
@@ -131,19 +134,24 @@ public class Aerodynamics extends JPanel implements TabComponent {
                                 Productnode.add(Tnode);
                                 //System.out.println("\t\t\t\t"+Tnode);
                             }
-                        }
-                        if (o instanceof JAXBElement){
+                        }else if (o instanceof JAXBElement){
                             JAXBElement<?> element = (JAXBElement<?>) o;
                             Object value = element.getValue();
-                            String propertyName = new String();
-                            if(value instanceof String && element.getName().getLocalPart().equals("property")){
-                                propertyName = (String) value;
-                            }
-                            DefaultMutableTreeNode PropNode = new DefaultMutableTreeNode(propertyName);
-                            Productnode.add(PropNode);
-                            //System.out.println("\t\t\t\t"+PropNode);
+                            if (value instanceof String) {
+                                String propertyOrValue = (String) value;
+                                // Check if it is a property or a value
+                                if (element.getName().getLocalPart().equals("property")) {
+                                    // Process the property name
+                                    DefaultMutableTreeNode PropNode = new DefaultMutableTreeNode(propertyOrValue);
+                                    Productnode.add(PropNode);
+                                    //System.out.println("\t\t\t\t" + PropNode);
+                                }
+                            } else {
+                                    DefaultMutableTreeNode ValueNode = new DefaultMutableTreeNode(value);
+                                    Productnode.add(ValueNode);
+                                    //System.out.println("\t\t\t\t" + ValueNode);
+                                }
                         }
-
                     }
                     func_node.add(Productnode);
                     //System.out.println("\t\t\t"+Productnode);
@@ -157,6 +165,21 @@ public class Aerodynamics extends JPanel implements TabComponent {
 
         aeroTree = new JTree(root);
         //System.out.println(root);
+    /* 
+        //add mouse listener
+        aeroTree.addMouseListener(new MouseAdapter() {
+            //TODO
+            public void mouseClickedTwice(MouseEvent two){
+                if (two.getClickCount() == 2){
+                    TreePath path = aeroTree.getPathForLocation(two.getX(), two.getY());
+                    if(path != null){
+                        DefaultMutableTreeNode selectTreeNode = (DefaultMutableTreeNode)path.getLastPathComponent();
+                        showPopup(selectTreeNode, two.getXOnScreen(), two.getYOnScreen());
+                    }
+                }
+            }
+        });
+    */
         aeroTree.setShowsRootHandles(true);
 
         ScrollPane = new JScrollPane(aeroTree);
@@ -164,6 +187,14 @@ public class Aerodynamics extends JPanel implements TabComponent {
         this.add(ScrollPane, BorderLayout.CENTER);
         
     }
+
+/* 
+    private void showPopup(DefaultMutableTreeNode node, int x, int y){
+        //TODO
+        String nodeName = node.toString();
+        JOptionPane.showMessageDialog(this, "Detail for Node: " + nodeName, "Node Deatails",JOptionPane.INFORMATION_MESSAGE);
+    }
+*/
 
     @Override
     public Optional<FdmConfig> saveXMLfromUI(FdmConfig cfg) {
@@ -179,8 +210,8 @@ public class Aerodynamics extends JPanel implements TabComponent {
         hysteresisLimitsMinText = new JFormattedTextField();
         hysteresisLimitsMaxText = new JFormattedTextField();
         hysteresisLimitsUnitText = new JFormattedTextField();
+    
     }
-
 
     //variables
     private JScrollPane ScrollPane;
