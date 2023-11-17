@@ -13,11 +13,11 @@ import net.miginfocom.swing.MigLayout;
 
 public class EngineThrusterSetup extends JDialog { //should be jframe if its a window
     EngineThrusterSetup() {
-        tankComponents();
+        engineThrusterComponents();
     }
-    private void tankComponents() {
+    private void engineThrusterComponents() {
 		
-		Tank = new JPanel();
+		EngThr = new JPanel();
 		EnginePanel = new JPanel();
 		EngineNamePanel = new JPanel();
 		EngineName = new JLabel();
@@ -66,11 +66,11 @@ public class EngineThrusterSetup extends JDialog { //should be jframe if its a w
 
 		//======== Tank ========
 		{
-			Tank.setBorder(new CompoundBorder(
+			EngThr.setBorder(new CompoundBorder(
 				new EmptyBorder(20, 20, 20, 20),
 				new EmptyBorder(5, 5, 5, 5)));
-			Tank.setName("Engine/Thruster Setup");
-			Tank.setLayout(new MigLayout(
+			EngThr.setName("Engine/Thruster Setup");
+			EngThr.setLayout(new MigLayout(
 				"align center center,gap 10 30",
 				// columns
 				"[grow,fill]" +
@@ -207,7 +207,7 @@ public class EngineThrusterSetup extends JDialog { //should be jframe if its a w
 				}
 				EnginePanel.add(EOrientPanel, "cell 0 3 2 1");
 			}
-			Tank.add(EnginePanel, "cell 0 1 8 4");
+			EngThr.add(EnginePanel, "cell 0 1 8 4");
 
 			//======== FeedPanel ========
 			{
@@ -220,7 +220,7 @@ public class EngineThrusterSetup extends JDialog { //should be jframe if its a w
 					"[]"));
 				FeedPanel.add(textField9, "cell 0 0");
 			}
-			Tank.add(FeedPanel, "cell 0 5 8 1");
+			EngThr.add(FeedPanel, "cell 0 5 8 1");
 
 			//======== ThrusterPanel ========
 			{
@@ -322,7 +322,7 @@ public class EngineThrusterSetup extends JDialog { //should be jframe if its a w
 				}
 				ThrusterPanel.add(TOrientPanel, "cell 0 3 2 1");
 			}
-			Tank.add(ThrusterPanel, "cell 0 6 8 5");
+			EngThr.add(ThrusterPanel, "cell 0 6 8 5");
 
 			//======== OptionsPanel ========
 			{
@@ -343,14 +343,11 @@ public class EngineThrusterSetup extends JDialog { //should be jframe if its a w
 				CancelButton.setText("Cancel");
 				OptionsPanel.add(CancelButton, "cell 1 0");
 			}
-			Tank.add(OptionsPanel, "cell 0 12 8 1");
+			EngThr.add(OptionsPanel, "cell 0 12 8 1");
 		}
-		// JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
 	}
 
-	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-	// Generated using JFormDesigner Evaluation license - Arham Riaz Ali
-	private JPanel Tank;
+	private JPanel EngThr;
 	private JPanel EnginePanel;
 	private JPanel EngineNamePanel;
 	private JLabel EngineName;
@@ -396,5 +393,4 @@ public class EngineThrusterSetup extends JDialog { //should be jframe if its a w
 	private JPanel OptionsPanel;
 	private JButton OkButton;
 	private JButton CancelButton;
-	// JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }
