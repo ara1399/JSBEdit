@@ -1,8 +1,10 @@
 package uta.cse.cse3310.JSBSimEdit;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.Optional;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,6 +24,7 @@ public class Propulsion extends JPanel implements TabComponent {
     
     Propulsion() {
         propComponents();
+		listTS = new ArrayList<TankSetup>();
     }
 
     @Override
@@ -327,4 +330,7 @@ public class Propulsion extends JPanel implements TabComponent {
 	private JButton delT;
 	private JButton detailP;
 	private JButton detailT;
+
+	private DefaultListModel<TankSetup> model = new DefaultListModel<TankSetup>();
+    private ArrayList<TankSetup> listTS;
 }
