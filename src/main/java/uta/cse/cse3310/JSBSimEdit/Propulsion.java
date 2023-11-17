@@ -1,13 +1,16 @@
 package uta.cse.cse3310.JSBSimEdit;
 
 import java.awt.event.ActionEvent;
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
@@ -15,6 +18,9 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
 import generated.FdmConfig;
+import generated.Thruster;
+import generated.Propulsion.Property;
+import generated.Tank;
 import net.miginfocom.swing.MigLayout;
 import uta.cse.cse3310.JSBSimEdit.interfaces.TabComponent;
 
@@ -23,11 +29,38 @@ public class Propulsion extends JPanel implements TabComponent {
     Propulsion() {
         propComponents();
 		listTS = new ArrayList<EngineThrusterSetup>();
+		List<Thruster> thrusters;
+		List<Tank> tanks;
+
+		
     }
 
     @Override
     public void bindUIwithXML(FdmConfig cfg) {
-        // TODO
+        		
+		ArrayList<generated.Propulsion> pp = new ArrayList<>();
+        if(cfg.getPropulsion().getEngineOrTank() != null){
+            
+            for(Object o : cfg.getPropulsion().getEngineOrTank()){ 
+                if(o instanceof generated.Propulsion){               
+                    generated.Propulsion p = (generated.Propulsion) o;
+                    pp.add(p);
+                }
+            }
+			for(generated.Propulsion p : pp){ 
+                if(p.getEngineOrTank() != null && p.getProperty() != null){
+                    
+					List<Object> engine;
+					              
+                    if(p.getEngineOrTank() != null){ 
+                        engine = p.getEngineOrTank();
+                    }
+                    else{
+                        engine = null;
+					}
+				}
+			}
+		}
     }
 
     @Override
@@ -37,14 +70,16 @@ public class Propulsion extends JPanel implements TabComponent {
     }
 
 	private void addPair(ActionEvent e) {
-        EngineThrusterSetup tankSetup = new EngineThrusterSetup();
-		if (tankSetup.getName() == null) {
+        EngineThrusterSetup engThSetup = new EngineThrusterSetup();
+		if (engThSetup.getName() == null) {
 			return;
 		}
-		listTS.add(tankSetup);
+		listTS.add(engThSetup);
 		model.clear();
 		model.addAll(listTS);
     }
+	
+	
 
     private void propComponents() {
 		
@@ -59,15 +94,15 @@ public class Propulsion extends JPanel implements TabComponent {
 		th = new JLabel();
 		tank = new JLabel();
 		engineScrollPane = new JScrollPane();
-		engineList = new JList();
+		engineList = new JList<>();
 		thrusterScrollPane = new JScrollPane();
-		thrusterList = new JList();
+		thrusterList = new JList<>();
 		engScrollPane = new JScrollPane();
-		engList = new JList();
+		engList = new JList<>();
 		thScrollPane = new JScrollPane();
-		thList = new JList();
+		thList = new JList<>();
 		tankScrollPane = new JScrollPane();
-		tankList = new JList();
+		tankList = new JList<>();
 		buttonPanel = new JPanel();
 		newP = new JButton();
 		newT = new JButton();
@@ -211,6 +246,7 @@ public class Propulsion extends JPanel implements TabComponent {
 
 				//---- newP ----
 				newP.setText("New Pair");
+				newP.addActionListener(e -> addPair(e));
 				buttonPanel.add(newP, "cell 0 0");
 
 				//---- newT ----
@@ -250,15 +286,15 @@ public class Propulsion extends JPanel implements TabComponent {
 	private JLabel th;
 	private JLabel tank;
 	private JScrollPane engineScrollPane;
-	private JList engineList;
+	private JList<Engine> engineList;
 	private JScrollPane thrusterScrollPane;
-	private JList thrusterList;
+	private JList<String> thrusterList;
 	private JScrollPane engScrollPane;
-	private JList engList;
+	private JList<String> engList;
 	private JScrollPane thScrollPane;
-	private JList thList;
+	private JList<String> thList;
 	private JScrollPane tankScrollPane;
-	private JList tankList;
+	private JList<String> tankList;
 	private JPanel buttonPanel;
 	private JButton newP;
 	private JButton newT;

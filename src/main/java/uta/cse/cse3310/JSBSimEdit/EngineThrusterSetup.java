@@ -345,6 +345,7 @@ public class EngineThrusterSetup extends JDialog { //should be jframe if its a w
 			}
 			EngThr.add(OptionsPanel, "cell 0 12 8 1");
 		}
+		add(EngThr);
 	}
 
 	private JPanel EngThr;
