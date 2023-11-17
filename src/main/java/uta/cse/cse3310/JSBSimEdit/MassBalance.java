@@ -34,7 +34,6 @@ import generated.Ixy;
 import generated.Ixz;
 import generated.Iyz;
 import java.awt.Dimension;
-import java.util.HashSet;
 import net.miginfocom.swing.*;
 import uta.cse.cse3310.JSBSimEdit.interfaces.TabComponent;
     

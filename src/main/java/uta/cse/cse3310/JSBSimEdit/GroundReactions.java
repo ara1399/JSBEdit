@@ -8,7 +8,6 @@ import javax.swing.*;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JOptionPane;
 
 import generated.Contact;
@@ -16,7 +15,6 @@ import generated.Contact;
 import generated.FdmConfig;
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.HashSet;
 import net.miginfocom.swing.*;
 import uta.cse.cse3310.JSBSimEdit.interfaces.TabComponent;
 

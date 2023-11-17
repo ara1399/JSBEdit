@@ -29,7 +29,7 @@ public class EngineThrusterSetup extends JDialog { //should be jframe if its a w
 		EYLocText = new JTextField();
 		EZLoc = new JLabel();
 		EZLocText = new JTextField();
-		EUnitComboBox = new JComboBox();
+		EUnitComboBox = new JComboBox<>();
 		EOrientPanel = new JPanel();
 		ERoll = new JLabel();
 		ERollText = new JTextField();
@@ -37,7 +37,7 @@ public class EngineThrusterSetup extends JDialog { //should be jframe if its a w
 		EPitchText = new JTextField();
 		EYaw = new JLabel();
 		EYawText = new JTextField();
-		ETUnitComboBox = new JComboBox();
+		ETUnitComboBox = new JComboBox<>();
 		FeedPanel = new JPanel();
 		textField9 = new JTextField();
 		ThrusterPanel = new JPanel();
@@ -51,7 +51,7 @@ public class EngineThrusterSetup extends JDialog { //should be jframe if its a w
 		TYLocText = new JTextField();
 		TZLoc = new JLabel();
 		TZLocText = new JTextField();
-		TUnitComboBox = new JComboBox();
+		TUnitComboBox = new JComboBox<>();
 		TOrientPanel = new JPanel();
 		TRoll = new JLabel();
 		TRollText = new JTextField();
@@ -59,7 +59,7 @@ public class EngineThrusterSetup extends JDialog { //should be jframe if its a w
 		TPitchText = new JTextField();
 		TYaw = new JLabel();
 		TYawText = new JTextField();
-		TTUnitComboBox = new JComboBox();
+		TTUnitComboBox = new JComboBox<>();
 		OptionsPanel = new JPanel();
 		OkButton = new JButton();
 		CancelButton = new JButton();
@@ -362,7 +362,7 @@ public class EngineThrusterSetup extends JDialog { //should be jframe if its a w
 	private JTextField EYLocText;
 	private JLabel EZLoc;
 	private JTextField EZLocText;
-	private JComboBox EUnitComboBox;
+	private JComboBox<String> EUnitComboBox;
 	private JPanel EOrientPanel;
 	private JLabel ERoll;
 	private JTextField ERollText;
@@ -370,7 +370,7 @@ public class EngineThrusterSetup extends JDialog { //should be jframe if its a w
 	private JTextField EPitchText;
 	private JLabel EYaw;
 	private JTextField EYawText;
-	private JComboBox ETUnitComboBox;
+	private JComboBox<String> ETUnitComboBox;
 	private JPanel FeedPanel;
 	private JTextField textField9;
 	private JPanel ThrusterPanel;
@@ -384,7 +384,7 @@ public class EngineThrusterSetup extends JDialog { //should be jframe if its a w
 	private JTextField TYLocText;
 	private JLabel TZLoc;
 	private JTextField TZLocText;
-	private JComboBox TUnitComboBox;
+	private JComboBox<String> TUnitComboBox;
 	private JPanel TOrientPanel;
 	private JLabel TRoll;
 	private JTextField TRollText;
@@ -392,7 +392,7 @@ public class EngineThrusterSetup extends JDialog { //should be jframe if its a w
 	private JTextField TPitchText;
 	private JLabel TYaw;
 	private JTextField TYawText;
-	private JComboBox TTUnitComboBox;
+	private JComboBox<String> TTUnitComboBox;
 	private JPanel OptionsPanel;
 	private JButton OkButton;
 	private JButton CancelButton;

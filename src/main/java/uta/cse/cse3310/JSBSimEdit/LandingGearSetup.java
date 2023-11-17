@@ -1,18 +1,13 @@
 package uta.cse.cse3310.JSBSimEdit;
 
-import java.awt.*;
-import java.awt.Dimension;
 import java.awt.event.*;
 import javax.swing.*;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.WindowConstants;
 import java.lang.StringBuilder;
 import javax.swing.border.*;
 import net.miginfocom.swing.*;
-
-import java.math.BigInteger;
 
 public class LandingGearSetup extends JDialog{
     public LandingGearSetup(){
