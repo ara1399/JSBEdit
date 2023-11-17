@@ -46,7 +46,6 @@ public class MainWindow extends JFrame {
     public MainWindow() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle(Constants.APP_NAME);
-        setLocationRelativeTo(null);
         setMinimumSize(new Dimension(Constants.APP_SIZEX, Constants.APP_SIZEY));
         
         makeMenuBar();
@@ -62,6 +61,7 @@ public class MainWindow extends JFrame {
         add(mainWinTabs);
 
         pack();
+        setLocationRelativeTo(null);
         setVisible(true);
         getContentPane().requestFocusInWindow();
     }

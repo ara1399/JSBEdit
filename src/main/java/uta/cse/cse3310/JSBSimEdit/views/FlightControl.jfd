@@ -68,7 +68,7 @@ new FormModel {
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "alignx trailing,gap 10 10"
 				"$columnConstraints": "[fill]"
-				"$rowConstraints": "[][][]"
+				"$rowConstraints": "[][][][]"
 			} ) {
 				name: "panel3"
 				"background": &Color0 new java.awt.Color( 51, 51, 51, 255 )
@@ -241,6 +241,28 @@ new FormModel {
 					} )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 0 2"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+					"$layoutConstraints": "align center center,gap 10 30"
+					"$columnConstraints": "[fill][fill]"
+					"$rowConstraints": "[]"
+				} ) {
+					name: "panel2"
+					"background": new java.awt.Color( 51, 51, 51, 255 )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "button11"
+						"text": "Add"
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 0 0"
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "button12"
+						"text": "Remove"
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 1 0"
+					} )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 3"
 				} )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "east"
