@@ -1,6 +1,6 @@
 package uta.cse.cse3310.JSBSimEdit;
 
-import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -10,10 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JToolBar;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import generated.FdmConfig;
@@ -24,7 +22,7 @@ public class Propulsion extends JPanel implements TabComponent {
     
     Propulsion() {
         propComponents();
-		listTS = new ArrayList<TankSetup>();
+		listTS = new ArrayList<EngineThrusterSetup>();
     }
 
     @Override
@@ -37,6 +35,17 @@ public class Propulsion extends JPanel implements TabComponent {
         // TODO
         return Optional.ofNullable(cfg);
     }
+
+	private void addPair(ActionEvent e) {
+        EngineThrusterSetup tankSetup = new EngineThrusterSetup();
+		if (tankSetup.getName() == null) {
+			return;
+		}
+		listTS.add(tankSetup);
+		model.clear();
+		model.addAll(listTS);
+    }
+
     public JTable getEngineTable() {
 		return engineTable;
 	}
@@ -54,11 +63,11 @@ public class Propulsion extends JPanel implements TabComponent {
 		engThTable = new JTable();
 		tankScrollPane = new JScrollPane();
 		tankTable = new JTable();
-		optionsBar = new JToolBar();
+		buttonPanel = new JPanel();
 		newP = new JButton();
 		newT = new JButton();
-		delP = new JButton();
-		delT = new JButton();
+		deleteP = new JButton();
+		deleteT = new JButton();
 		detailP = new JButton();
 		detailT = new JButton();
 
@@ -267,48 +276,48 @@ public class Propulsion extends JPanel implements TabComponent {
 		}
 		add(tankScrollPane, "cell 3 1 1 9,growy");
 
-		//======== optionsBar ========
+		//======== buttonPanel ========
 		{
+			buttonPanel.setLayout(new MigLayout(
+				"fill,hidemode 3",
+				// columns
+				"[fill]" +
+				"[fill]" +
+				"[fill]" +
+				"[fill]" +
+				"[fill]" +
+				"[fill]",
+				// rows
+				"[]"));
 
 			//---- newP ----
 			newP.setText("New Pair");
-			newP.setBorder(LineBorder.createBlackLineBorder());
-			newP.setMaximumSize(new Dimension(100, 32767));
-			optionsBar.add(newP);
+    		newP.addActionListener(e -> addPair(e));
+			buttonPanel.add(newP, "cell 0 0");
 
 			//---- newT ----
 			newT.setText("New Tank");
-			newT.setBorder(LineBorder.createBlackLineBorder());
-			newT.setMaximumSize(new Dimension(100, 32767));
-			optionsBar.add(newT);
+			buttonPanel.add(newT, "cell 1 0");
 
-			//---- delP ----
-			delP.setText("Delete Pair");
-			delP.setBorder(LineBorder.createBlackLineBorder());
-			delP.setMaximumSize(new Dimension(100, 32767));
-			optionsBar.add(delP);
+			//---- deleteP ----
+			deleteP.setText("Delete Pair");
+			buttonPanel.add(deleteP, "cell 2 0");
 
-			//---- delT ----
-			delT.setText("Delete Tank");
-			delT.setBorder(LineBorder.createBlackLineBorder());
-			delT.setMaximumSize(new Dimension(100, 32767));
-			optionsBar.add(delT);
+			//---- deleteT ----
+			deleteT.setText("Delete Tank");
+			buttonPanel.add(deleteT, "cell 3 0");
 
 			//---- detailP ----
 			detailP.setText("Detail Pair");
-			detailP.setBorder(LineBorder.createBlackLineBorder());
-			detailP.setMaximumSize(new Dimension(100, 32767));
-			optionsBar.add(detailP);
+			buttonPanel.add(detailP, "cell 4 0");
 
 			//---- detailT ----
 			detailT.setText("Detail Tank");
-			detailT.setBorder(LineBorder.createBlackLineBorder());
-			detailT.setMaximumSize(new Dimension(100, 32767));
-			optionsBar.add(detailT);
+			buttonPanel.add(detailT, "cell 5 0");
 		}
-		add(optionsBar, "cell 0 10 4 1,growx");
-    
-    }
+		add(buttonPanel, "cell 0 10 4 1");
+		// JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
+	}
 
 	
 	private JLabel enginesLabel;
@@ -323,14 +332,14 @@ public class Propulsion extends JPanel implements TabComponent {
 	private JTable engThTable;
 	private JScrollPane tankScrollPane;
 	private JTable tankTable;
-	private JToolBar optionsBar;
+	private JPanel buttonPanel;
 	private JButton newP;
 	private JButton newT;
-	private JButton delP;
-	private JButton delT;
+	private JButton deleteP;
+	private JButton deleteT;
 	private JButton detailP;
 	private JButton detailT;
 
-	private DefaultListModel<TankSetup> model = new DefaultListModel<TankSetup>();
-    private ArrayList<TankSetup> listTS;
+	private DefaultListModel<EngineThrusterSetup> model = new DefaultListModel<EngineThrusterSetup>();
+    private ArrayList<EngineThrusterSetup> listTS;
 }

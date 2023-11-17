@@ -11,8 +11,8 @@ import javax.swing.border.EmptyBorder;
 
 import net.miginfocom.swing.MigLayout;
 
-public class TankSetup extends JDialog { //should be jframe if its a window
-    TankSetup() {
+public class EngineThrusterSetup extends JDialog { //should be jframe if its a window
+    EngineThrusterSetup() {
         tankComponents();
     }
     private void tankComponents() {
@@ -69,7 +69,7 @@ public class TankSetup extends JDialog { //should be jframe if its a window
 			Tank.setBorder(new CompoundBorder(
 				new EmptyBorder(20, 20, 20, 20),
 				new EmptyBorder(5, 5, 5, 5)));
-			Tank.setName("Tank Setup");
+			Tank.setName("Engine/Thruster Setup");
 			Tank.setLayout(new MigLayout(
 				"align center center,gap 10 30",
 				// columns
