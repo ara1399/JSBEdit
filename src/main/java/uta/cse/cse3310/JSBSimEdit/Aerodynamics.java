@@ -29,15 +29,18 @@ import uta.cse.cse3310.JSBSimEdit.utils.LoadSave;
 
 public class Aerodynamics extends JPanel implements TabComponent {
     
-    private AerodynamicsPropertiesPopup propertiesPopup;
+    private AerodynamicsPropertiesPopup apropertiesPopup;
+    private FunctionOrProductPopUp ForPPopUp;
 
 
     public Aerodynamics(){
         initComponents();
-        propertiesPopup = new AerodynamicsPropertiesPopup((Frame)SwingUtilities.getWindowAncestor(this));
+        apropertiesPopup = new AerodynamicsPropertiesPopup((Frame) SwingUtilities.getWindowAncestor(this));
+        ForPPopUp = new FunctionOrProductPopUp((Frame) SwingUtilities.getWindowAncestor(this));
         SwingUtilities.invokeLater(()->{
             new CustomTreeCellRenderer().setVisible(true);
         });
+
     }
 
     @Override
@@ -170,31 +173,33 @@ public class Aerodynamics extends JPanel implements TabComponent {
 
         aeroTree = new JTree(root);
         //System.out.println(root);
-            
-        aeroTree.setCellRenderer(new CustomTreeCellRenderer());
-        aeroTree.setShowsRootHandles(true);
+        aeroTree.setToggleClickCount(0);    //disable double click expand and collapse
+        aeroTree.setCellRenderer(new CustomTreeCellRenderer()); //allows icons for each node
+        aeroTree.setShowsRootHandles(true);         //displays the root node, and allows to collapse to see only root node
 
-        ScrollPane = new JScrollPane(aeroTree);
+        ScrollPane = new JScrollPane(aeroTree);         //allows scrolling when the tree is expanded fully
         this.setLayout(new BorderLayout());
         this.add(ScrollPane, BorderLayout.CENTER); 
         
         aeroTree.addTreeSelectionListener(new TreeSelectionListener() {
-        @Override
-        public void valueChanged(TreeSelectionEvent e) {
-        // This will be triggered when a node is selected, handle the event if needed
-        }
+            @Override
+            public void valueChanged(TreeSelectionEvent e) {
+            // This will be triggered when a node is selected, handle the event if needed
+            }
         });
 
+    //mouse listener for double click
         aeroTree.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (SwingUtilities.isLeftMouseButton(e) && e.getClickCount() == 2) {
+                                        
                     TreePath path = aeroTree.getPathForLocation(e.getX(), e.getY());
                     if (path != null) {
                         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) path.getLastPathComponent();
                         if (selectedNode.toString().equals("Aerodynamics")) {
                             showAerodynamicsPropertiesPopup();
                         } else {
-                            showPopup(selectedNode, e.getXOnScreen(), e.getYOnScreen());
+                            showPopup(selectedNode);
                         }
                     }
                 }
@@ -349,16 +354,85 @@ public class Aerodynamics extends JPanel implements TabComponent {
         }
     }
  
-    private void showPopup(DefaultMutableTreeNode node, int x, int y){
-        String nodeName = node.toString();
-        
-        if (nodeName.equals("Aerodynamics")) {
-            propertiesPopup.setVisible(true);
+    private void showFunctionorProductPopUp(String nodeName) {
+        if(!nodeName.equals("Product")){
+            String[] parts = nodeName.split("\\(");
+            funtionText.setText(parts[0].trim());
+            System.out.println(parts[0]);
+            functiondescText.setText(parts[1].replace("\\)", "").trim());
+            System.out.println(parts[1]);
+            functionoroperatortype.setText("function");
         } else {
-            }
+            funtionText.setText("");
+            functiondescText.setText("");
+            functionoroperatortype.setText("Product");
+        }
+        FunctionOrProductPopUp fPopup = new FunctionOrProductPopUp(null);
+        fPopup.setVisible(true);
+    }
+
+    private class FunctionOrProductPopUp extends JDialog{
+        private JButton okButton;
+        private JButton cancelButton;
+
+        public FunctionOrProductPopUp(Frame parent){
+            //super((Frame)SwingUtilities.getWindowAncestor(null),"Function or Operator", true);
+            super(parent, "Fuction or Operator", true);
+            initializeComponents();
         }
 
-    
+        private void initializeComponents(){
+
+            setLayout(new GridLayout(0,2,5,5));
+
+            okButton = new JButton("OK");
+            cancelButton = new JButton("Cancel");
+            // Add action listener to OK button
+            
+            add(new JLabel("Type"));add(functionoroperatortype);
+            add(new JLabel("Name"));add(funtionText);
+            add(new JLabel("Description"));add(functiondescText);
+
+            add(okButton);
+            add(cancelButton);
+
+            okButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Handle OK button click (save values, close the window, etc.)
+                    dispose(); // Close the popup
+                }
+            });
+            // Add action listener to Cancel button
+            cancelButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Handle Cancel button click (close the window without saving)
+                    dispose(); // Close the popup
+                }
+            });
+            setSize(300,200);
+            setLocationRelativeTo(getParent());
+        }
+    }
+
+    private void showPopup(DefaultMutableTreeNode node){
+        String nodeName = node.toString();
+        if (nodeName.equals("Aerodynamics")) {
+            apropertiesPopup.setVisible(true);
+        } else {
+            NodeType nodeType = ((CustomTreeNode) node).getNodeType();
+            switch(nodeType) {
+                case PRODUCT:
+                    showFunctionorProductPopUp(nodeName);
+                    break;
+                case FUNCTION:
+                    showFunctionorProductPopUp(nodeName);
+                    break;
+            }
+        }
+    }
+
     @Override
     public Optional<FdmConfig> saveXMLfromUI(FdmConfig cfg) {
         // TODO
@@ -374,6 +448,9 @@ public class Aerodynamics extends JPanel implements TabComponent {
         hysteresisLimitsMaxText = new JTextField();
         hysteresisLimitsUnitText = new JTextField();
 
+        funtionText = new JTextField();
+        functiondescText = new JTextField();
+        functionoroperatortype = new JLabel();
     }
 
     public enum NodeType {
@@ -400,8 +477,9 @@ public class Aerodynamics extends JPanel implements TabComponent {
     private JTextField hysteresisLimitsMinText;
     private JTextField hysteresisLimitsMaxText;
     private JTextField hysteresisLimitsUnitText;
-    //private JFormattedTextField funtionText;
-    //private JFormattedTextField functiondescText;
+    private JTextField funtionText;
+    private JTextField functiondescText;
+    private JLabel functionoroperatortype;
     //private JFormattedTextField axisnameText;
 }
 
