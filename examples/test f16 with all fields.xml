@@ -1934,7 +1934,10 @@
     </axis>
   </aerodynamics>
 
-  <output name="f16_datalog.csv" type="CSV" rate="1">
+  <input port="1025">
+  </input>
+
+  <output name="f16_datalog.csv" type="CSV" port="1025" rate="1">
     <property> aero/qbar-psf </property>
     <property> attitude/phi-rad </property>
     <property> position/h-sl-ft </property>
