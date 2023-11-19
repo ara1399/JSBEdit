@@ -13,6 +13,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -39,28 +40,56 @@ public class Propulsion extends JPanel implements TabComponent {
     @Override
     public void bindUIwithXML(FdmConfig cfg) {
         		
-		ArrayList<generated.Propulsion> pp = new ArrayList<>();
+		ArrayList<generated.Tank> tank = new ArrayList<>();
         if(cfg.getPropulsion().getEngineOrTank() != null){
             
             for(Object o : cfg.getPropulsion().getEngineOrTank()){ 
-                if(o instanceof generated.Propulsion){               
-                    generated.Propulsion p = (generated.Propulsion) o;
-                    pp.add(p);
+                if(o instanceof generated.Tank){               
+                    generated.Tank t = (generated.Tank) o;
+                    tank.add(t);
                 }
             }
-			for(generated.Propulsion p : pp){ 
-                if(p.getEngineOrTank() != null && p.getProperty() != null){
-                    
-					List<Object> engine;
-					              
-                    if(p.getEngineOrTank() != null){ 
-                        engine = p.getEngineOrTank();
+			for(generated.Tank t : tank){ 
+                if(t.getLocation() != null && t.getType() != null ) {
+
+					String capUnit, contUnit;
+					Double contents, capacity;
+
+					if(t.getCapacity() != null){ //springCo
+                        capUnit = t.getCapacity().getUnit().toString();
+                        capacity = t.getCapacity().getValue();
                     }
                     else{
-                        engine = null;
-					}
+                        capUnit = null;
+                        capacity = null;
+                    }
+                    
+                    if(t.getContents() != null){ //dampCo
+                        contUnit = t.getContents().getUnit().toString();
+                        contents = t.getContents().getValue();
+                    }
+                    else{
+                        contUnit = null;
+                        contents = null;
+                    }
+                    
+                    TankSetup ts = new TankSetup(//calling the constructor for loading
+                        //strings
+                        t.getType(),
+                        t.getLocation().getUnit(),
+						t.getCapacity().getUnit(),
+						t.getContents().getUnit(),
+                        //doubles
+                        t.getLocation().getX(),
+                        t.getLocation().getY(),
+                        t.getLocation().getZ(),
+						capacity,
+						contents                      
+					);
+					listTS.add(ts);
 				}
 			}
+			modelTS.addAll(listTS);
 		}
     }
 
@@ -88,7 +117,19 @@ public class Propulsion extends JPanel implements TabComponent {
 		listTS.add(tankSetup);
 		modelTS.clear();
 		modelTS.addAll(listTS);
-    }	
+    }
+	
+	private void deleteTank(ActionEvent e) {//removing a GR/LGS from the displayed list
+        if(tankList.getSelectedValue() == null) {
+			return;
+		}
+		int result = JOptionPane.showConfirmDialog(this, "Do you really want to delete the tank?", "Confirm", JOptionPane.YES_NO_OPTION);
+        if(result == JOptionPane.YES_OPTION){
+            TankSetup tankSetup = tankList.getSelectedValue();
+            modelTS.removeElement(tankSetup);
+            listTS.remove(tankSetup);
+        }
+    }
 
     private void propComponents() {
 		
@@ -212,31 +253,33 @@ public class Propulsion extends JPanel implements TabComponent {
 			{
 				engineScrollPane.setViewportView(engineList);
 			}
-			Propulsion.add(engineScrollPane, "cell 0 3 1 29,growy");
+			Propulsion.add(engineScrollPane, "cell 0 3 1 29,growy,wmax 250,hmax 900");
 
 			//======== thrusterScrollPane ========
 			{
 				thrusterScrollPane.setViewportView(thrusterList);
 			}
-			Propulsion.add(thrusterScrollPane, "cell 1 3 1 29,growy");
+			Propulsion.add(thrusterScrollPane, "cell 1 3 1 29,growy,wmax 250,hmax 900");
 
 			//======== engScrollPane ========
 			{
 				engScrollPane.setViewportView(engList);
 			}
-			Propulsion.add(engScrollPane, "cell 2 3 1 29,growy");
+			Propulsion.add(engScrollPane, "cell 2 3 1 29,growy,wmax 150,hmax 900");
 
 			//======== thScrollPane ========
 			{
 				thScrollPane.setViewportView(thList);
 			}
-			Propulsion.add(thScrollPane, "cell 3 3 1 29,growy");
+			Propulsion.add(thScrollPane, "cell 3 3 1 29,growy,wmax 150,hmax 900");
 
 			//======== tankScrollPane ========
 			{
+				tankList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		    	tankList.setModel(modelTS);
 				tankScrollPane.setViewportView(tankList);
 			}
-			Propulsion.add(tankScrollPane, "cell 4 3 1 29,growy");
+			Propulsion.add(tankScrollPane, "cell 4 3 1 29,growy,wmax 275,hmax 900");
 
 			//======== buttonPanel ========
 			{
@@ -269,6 +312,7 @@ public class Propulsion extends JPanel implements TabComponent {
 
 				//---- deleteT ----
 				deleteT.setText("Delete Tank");
+				deleteT.addActionListener(e -> deleteTank(e));
 				buttonPanel.add(deleteT, "cell 3 0");
 
 				//---- detailP ----
@@ -304,7 +348,7 @@ public class Propulsion extends JPanel implements TabComponent {
 	private JScrollPane thScrollPane;
 	private JList<String> thList;
 	private JScrollPane tankScrollPane;
-	private JList<String> tankList;
+	private JList<TankSetup> tankList;
 	private JPanel buttonPanel;
 	private JButton newP;
 	private JButton newT;
