@@ -27,6 +27,10 @@ public class GroundReactions extends JPanel implements TabComponent {
 
     @Override
     public void bindUIwithXML(FdmConfig cfg) { 
+        
+        //reset model, and listLGS if anything was in it from a previous load
+        model.clear();
+        if(listLGS != null) listLGS.clear();
         // contacts are the same as GR or LGS
         ArrayList<generated.Contact> contacts = new ArrayList<>();
         if(cfg.getGroundReactions().getContent() != null){
