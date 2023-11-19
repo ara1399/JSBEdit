@@ -28,11 +28,12 @@ public class Propulsion extends JPanel implements TabComponent {
     
     Propulsion() {
         propComponents();
-		listTS = new ArrayList<EngineThrusterSetup>();
+		listETS = new ArrayList<EngineThrusterSetup>();
 		List<Thruster> thrusters;
 		List<Tank> tanks;
 
-		
+		listTS = new ArrayList<TankSetup>();
+			
     }
 
     @Override
@@ -74,12 +75,20 @@ public class Propulsion extends JPanel implements TabComponent {
 		if (engThSetup.getName() == null) {
 			return;
 		}
-		listTS.add(engThSetup);
-		model.clear();
-		model.addAll(listTS);
+		listETS.add(engThSetup);
+		modelETS.clear();
+		modelETS.addAll(listETS);
     }
-	
-	
+
+	private void addTank(ActionEvent e) {
+        TankSetup tankSetup = new TankSetup();
+		if (tankSetup.getName() == null) {
+			return;
+		}
+		listTS.add(tankSetup);
+		modelTS.clear();
+		modelTS.addAll(listTS);
+    }	
 
     private void propComponents() {
 		
@@ -251,6 +260,7 @@ public class Propulsion extends JPanel implements TabComponent {
 
 				//---- newT ----
 				newT.setText("New Tank");
+				newT.addActionListener(e -> addTank(e));
 				buttonPanel.add(newT, "cell 1 0");
 
 				//---- deleteP ----
@@ -286,7 +296,7 @@ public class Propulsion extends JPanel implements TabComponent {
 	private JLabel th;
 	private JLabel tank;
 	private JScrollPane engineScrollPane;
-	private JList<Engine> engineList;
+	private JList<EngineThrusterSetup> engineList;
 	private JScrollPane thrusterScrollPane;
 	private JList<String> thrusterList;
 	private JScrollPane engScrollPane;
@@ -303,6 +313,9 @@ public class Propulsion extends JPanel implements TabComponent {
 	private JButton detailP;
 	private JButton detailT;
 	
-	private DefaultListModel<EngineThrusterSetup> model = new DefaultListModel<EngineThrusterSetup>();
-    private ArrayList<EngineThrusterSetup> listTS;
+	private DefaultListModel<EngineThrusterSetup> modelETS = new DefaultListModel<EngineThrusterSetup>();
+    private ArrayList<EngineThrusterSetup> listETS;
+
+	private DefaultListModel<TankSetup> modelTS = new DefaultListModel<TankSetup>();
+    private ArrayList<TankSetup> listTS;
 }

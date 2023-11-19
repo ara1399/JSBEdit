@@ -34,7 +34,9 @@ public class Output extends JPanel implements TabComponent {
     public void bindUIwithXML(FdmConfig cfg) {
 		List<generated.Output> opList = cfg.getOutput();
 		generated.Output op = opList.get(0);
-		nameText.setText(op.getName());
+		if (op.getName() != null) {
+			nameText.setText(op.getName());
+		}
 		BigInteger portValue = op.getPort();
 		if (portValue != null) {
              portText.setText(portValue.toString());
@@ -48,8 +50,9 @@ public class Output extends JPanel implements TabComponent {
         String typeValue = op.getType();
         if (typeValue != null) {
             typeComboBox.setSelectedItem(typeValue);
-        }     	   
+        }
     }
+	
 
 
     @Override
