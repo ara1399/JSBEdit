@@ -46,6 +46,10 @@ public class MassBalance extends JPanel implements TabComponent {
     @Override
     public void bindUIwithXML(FdmConfig cfg) {
         
+        //reset model, and pointMassList if anything was in it from a previous load
+        model.clear();
+        if(pointMassList != null) pointMassList.clear();
+        
         generated.MassBalance mb = cfg.getMassBalance();
         
         if(mb != null){
