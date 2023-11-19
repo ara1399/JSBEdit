@@ -30,16 +30,13 @@ public class Propulsion extends JPanel implements TabComponent {
     Propulsion() {
         propComponents();
 		listETS = new ArrayList<EngineThrusterSetup>();
-		List<Thruster> thrusters;
-		List<Tank> tanks;
-
 		listTS = new ArrayList<TankSetup>();
 			
     }
 
     @Override
     public void bindUIwithXML(FdmConfig cfg) {
-        		
+		
 		ArrayList<generated.Tank> tank = new ArrayList<>();
         if(cfg.getPropulsion().getEngineOrTank() != null){
             
