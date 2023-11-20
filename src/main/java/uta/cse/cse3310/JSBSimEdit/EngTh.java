@@ -1,6 +1,6 @@
 package uta.cse.cse3310.JSBSimEdit;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class EngTh {
