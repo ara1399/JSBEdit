@@ -19,9 +19,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
 import generated.FdmConfig;
-import generated.Thruster;
-import generated.Propulsion.Property;
-import generated.Tank;
+
 import net.miginfocom.swing.MigLayout;
 import uta.cse.cse3310.JSBSimEdit.interfaces.TabComponent;
 
@@ -36,6 +34,76 @@ public class Propulsion extends JPanel implements TabComponent {
 
     @Override
     public void bindUIwithXML(FdmConfig cfg) {
+
+		ArrayList<generated.Engine> engine = new ArrayList<>();
+        if(cfg.getPropulsion().getEngineOrTank() != null){
+            
+            for(Object o : cfg.getPropulsion().getEngineOrTank()){ 
+                if(o instanceof generated.Engine){               
+                    generated.Engine e = (generated.Engine) o;
+                    engine.add(e);
+                }
+            }
+			for(generated.Engine e : engine){ 
+                if(e.getFeed() != null && e.getDescription() != null  && e.getFile() != null) {
+
+					Double thrusterRoll, thrusterPitch, thrusterYaw,
+					thrusterX, thrusterY, thrusterZ;
+					int feed = 0;
+					String thrusName, thrusterLocUnit, thrusterOrientUnit;
+
+
+					if(e.getThruster() != null){ //springCo
+                        thrusName = e.getThruster().getFile();
+                        thrusterLocUnit = e.getThruster().getLocation().getUnit();
+						thrusterOrientUnit = e.getThruster().getOrient().getUnit();
+
+						thrusterRoll = e.getThruster().getOrient().getRoll();
+						thrusterPitch = e.getThruster().getOrient().getPitch();
+						thrusterYaw = e.getThruster().getOrient().getYaw();
+
+						thrusterX = e.getThruster().getLocation().getX();
+						thrusterY = e.getThruster().getLocation().getY();
+						thrusterZ = e.getThruster().getLocation().getZ();
+                    }
+                    else{
+                        thrusName = null;
+                        thrusterLocUnit = null;
+						thrusterOrientUnit = null;
+
+						thrusterRoll = null;
+						thrusterPitch = null;
+						thrusterYaw = null;
+
+						thrusterX = null;
+						thrusterY = null;
+						thrusterZ = null;
+                    }
+	
+					if (e.getFeed() != null) {
+						feed = 1;
+					}
+                    
+                    EngineThrusterSetup ets = new EngineThrusterSetup(//calling the constructor for loading
+                        //strings
+                        e.getFile(),
+						feed,
+                        thrusName,
+						thrusterLocUnit,
+						thrusterOrientUnit,
+                        //doubles
+                        thrusterX,
+						thrusterY,
+						thrusterZ,
+						thrusterRoll,
+						thrusterPitch,
+						thrusterYaw                   
+					);
+					listETS.add(ets);
+				}
+			}
+			modelETS.addAll(listETS);
+		}
 		
 		ArrayList<generated.Tank> tank = new ArrayList<>();
         if(cfg.getPropulsion().getEngineOrTank() != null){
@@ -248,6 +316,8 @@ public class Propulsion extends JPanel implements TabComponent {
 
 			//======== engineScrollPane ========
 			{
+				engineList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		    	engineList.setModel(modelETS);
 				engineScrollPane.setViewportView(engineList);
 			}
 			Propulsion.add(engineScrollPane, "cell 0 3 1 29,growy,wmax 250,hmax 900");

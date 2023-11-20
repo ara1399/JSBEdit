@@ -3,6 +3,7 @@ package uta.cse.cse3310.JSBSimEdit;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import java.math.BigInteger;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -27,99 +28,13 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 		setVisible(true);
 	}
 
-	public EngineThrusterSetup(String engineName, String thrusterName,
-			String engineLocationUnit, String thrusterLocationUnit,
-			String engineOrientUnit, String thrusterOrientUnit,
-			Double engineX, Double engineY, Double engineZ,
-			Double engineRoll, Double enginePitch, Double engineYaw,
+	public EngineThrusterSetup(String engineName, int engineFeed,
+			String thrusterName, String thrusterLocationUnit, String thrusterOrientUnit,
 			Double thrusterX, Double thrusterY, Double thrusterZ,
 			Double thrusterRoll, Double thrusterPitch, Double thrusterYaw) {
 		this.engName = engineName;
-		this.thrusName = thrusterName;
-		this.engineLocUnit = engineLocationUnit;
-		this.thrusterLocUnit = thrusterLocationUnit;
-		this.engineOrientUnit = engineOrientUnit;
-		this.thrusterOrientUnit = thrusterOrientUnit;
+		this.engineFeed = engineFeed;
 
-		this.engineXLoc = engineX;
-		this.engineYLoc = engineY;
-		this.engineZLoc = engineZ;
-
-		this.engineRoll = engineRoll;
-		this.enginePitch = enginePitch;
-		this.engineYaw = engineYaw;
-
-		this.thrusterXLoc = thrusterX;
-		this.thrusterYLoc = thrusterY;
-		this.thrusterZLoc = thrusterZ;
-
-		this.thrusterRoll = thrusterRoll;
-		this.thrusterPitch = thrusterPitch;
-		this.thrusterYaw = thrusterYaw;
-
-		if (engineRoll != null)
-			this.engineRoll = (double) engineRoll;
-		else
-			this.engineRoll = 0.0;
-		if (enginePitch != null)
-			this.enginePitch = (double) enginePitch;
-		else
-			this.enginePitch = 0.0;
-		if (engineYaw != null)
-			this.engineYaw = (double) engineYaw;
-		else
-			this.engineYaw = 0.0;
-		if (thrusterRoll != null)
-			this.thrusterRoll = (double) thrusterRoll;
-		else
-			this.thrusterRoll = 0.0;
-		if (thrusterPitch != null)
-			this.thrusterPitch = (double) thrusterPitch;
-		else
-			this.thrusterPitch = 0.0;
-		if (thrusterYaw != null)
-			this.thrusterYaw = (double) thrusterYaw;
-		else
-			this.thrusterYaw = 0.0;
-	}
-
-	public EngineThrusterSetup(String engineName,
-			String engineLocationUnit,
-			String engineOrientUnit,
-			Double engineX, Double engineY, Double engineZ,
-			Double engineRoll, Double enginePitch, Double engineYaw) {
-		this.engName = engineName;
-		this.engineLocUnit = engineLocationUnit;
-		this.engineOrientUnit = engineOrientUnit;
-
-		this.engineXLoc = engineX;
-		this.engineYLoc = engineY;
-		this.engineZLoc = engineZ;
-
-		this.engineRoll = engineRoll;
-		this.enginePitch = enginePitch;
-		this.engineYaw = engineYaw;
-
-		if (engineRoll != null)
-			this.engineRoll = (double) engineRoll;
-		else
-			this.engineRoll = 0.0;
-		if (enginePitch != null)
-			this.enginePitch = (double) enginePitch;
-		else
-			this.enginePitch = 0.0;
-		if (engineYaw != null)
-			this.engineYaw = (double) engineYaw;
-		else
-			this.engineYaw = 0.0;
-	}
-
-	public EngineThrusterSetup(
-			Double thrusterX, Double thrusterY, Double thrusterZ,
-			Double thrusterRoll, Double thrusterPitch, Double thrusterYaw,
-			String thrusterName,
-			String thrusterLocationUnit,
-			String thrusterOrientUnit) {
 		this.thrusName = thrusterName;
 		this.thrusterLocUnit = thrusterLocationUnit;
 		this.thrusterOrientUnit = thrusterOrientUnit;
@@ -153,20 +68,11 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 	private void okBPressed(ActionEvent e) { //save all the information into variables so the toString
          //can display them in the Jlist on GroundReactions tab
         engName = engineNameText.getText().trim();
+		
 		thrusName = thrusterNameText.getText().trim();
-        engineLocUnit = eUnitComboBox.getSelectedItem().toString();
         thrusterLocUnit = tUnitComboBox.getSelectedItem().toString();
-        engineOrientUnit = eTUnitComboBox.getSelectedItem().toString();
         thrusterOrientUnit = tTUnitComboBox.getSelectedItem().toString();
         
-        engineXLoc = Double.parseDouble(eXLocText.getText().trim());
-        engineYLoc = Double.parseDouble(eYLocText.getText().trim());
-        engineZLoc = Double.parseDouble(eZLocText.getText().trim());
-
-        engineRoll = Double.parseDouble(eRollText.getText().trim());
-        enginePitch = Double.parseDouble(ePitchText.getText().trim());
-		engineYaw = Double.parseDouble(eYawText.getText().trim());
-
 		thrusterXLoc = Double.parseDouble(tXLocText.getText().trim());
         thrusterYLoc = Double.parseDouble(tYLocText.getText().trim());
         thrusterZLoc = Double.parseDouble(tZLocText.getText().trim());
@@ -187,7 +93,7 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 	}
 
 	public String getEngineLocationUnitETS() {
-		return engineLocUnit;
+		return thrusterLocUnit;
 	}
 
 	public String getThrusterLocationUnitETS() {
@@ -195,7 +101,7 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 	}
 
 	public String getEngineOrientUnitETS() {
-		return engineOrientUnit;
+		return thrusterLocUnit;
 	}
 
 	public String getThrusterOrientUnitETS() {
@@ -203,27 +109,27 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 	}
 
 	public Double getEngineXLocETS() {
-		return engineXLoc;
+		return thrusterXLoc;
 	}
 
 	public Double getEngineYLocETS() {
-		return engineYLoc;
+		return thrusterYLoc;
 	}
 
 	public Double getEngineZLocETS() {
-		return engineZLoc;
+		return thrusterZLoc;
 	}
 
 	public Double getEngineRollETS() {
-		return engineRoll;
+		return thrusterRoll;
 	}
 
 	public Double getEnginePitchETS() {
-		return enginePitch;
+		return thrusterPitch;
 	}
 
 	public Double getEngineYawETS() {
-		return engineYaw;
+		return thrusterYaw;
 	}
 
 	public Double getThrusterXLocETS() {
@@ -253,14 +159,7 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(engName + " at point [" + engineXLoc + ", " + engineYLoc + ", " + engineZLoc + "] in "
-				+ engineLocUnit + " (in " + engineRoll + " engineRoll)"
-				+ " (in " + enginePitch + " enginePitch)"
-				+ " (in " + engineYaw + " engineYaw)"
-				+ thrusName + " at point [" + thrusterXLoc + ", " + thrusterYLoc + ", " + thrusterZLoc + "] in "
-				+ thrusterLocUnit + " (in " + thrusterRoll + " thrusterRoll)"
-				+ " (in " + thrusterPitch + " thrusterPitch)"
-				+ " (in " + thrusterYaw + " thrusterYaw)");
+		sb.append(engName + "\t" + thrusName);
 		return sb.toString();
 	}
 
@@ -710,10 +609,9 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 	private JButton okButton;
 	private JButton cancelButton;
 
-	private Double engineXLoc, engineYLoc, engineZLoc,
-			engineRoll, enginePitch, engineYaw,
-			thrusterXLoc, thrusterYLoc, thrusterZLoc,
+	private Double thrusterXLoc, thrusterYLoc, thrusterZLoc,
 			thrusterRoll, thrusterPitch, thrusterYaw;
-	private String engName, thrusName, engineLocUnit, thrusterLocUnit,
-			engineOrientUnit, thrusterOrientUnit;
+	private String engName, thrusName, thrusterLocUnit,
+			thrusterOrientUnit;
+	private int engineFeed;
 }
