@@ -1,10 +1,12 @@
 package uta.cse.cse3310.JSBSimEdit;
 
+import java.awt.Component;
 import java.awt.Window;
 import javax.swing.JDialog;
+import javax.swing.SwingUtilities;
 import net.miginfocom.swing.*;
 
-public class PropertiesWin extends JDialog { // this can be called from anywhere, 'PropertiesWin.showProperties()'
+public class PropertiesWin extends JDialog { // this can be called from anywhere, 'PropertiesWin.showProperties(this)'
 
     public PropertiesWin(Window parent) {
 	super(parent); //calling the JDialog constructor
@@ -12,7 +14,8 @@ public class PropertiesWin extends JDialog { // this can be called from anywhere
         System.out.println("PropertiesWin loaded.");
     }
     
-    public static void showProperties(Window parent){ //I believe parent will be the window/frame/dialog that calls this function
+    public static void showProperties(Component component){ //I believe parent will be the window/frame/dialog that calls this function
+        Window parent = SwingUtilities.getWindowAncestor(component); //user component to find the parent
         if(instance == null)instance = new PropertiesWin(parent); //create a new properties window if it doesnt already exist 
         instance.setVisible(true);
     }
