@@ -1,13 +1,19 @@
 package uta.cse.cse3310.JSBSimEdit;
 
 import java.awt.event.*;
-import javax.swing.*;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import java.lang.StringBuilder;
 import javax.swing.border.*;
 import net.miginfocom.swing.*;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JCheckBox;
+import javax.swing.JButton;
+import javax.swing.SwingConstants;
 
 public class LandingGearSetup extends JDialog{
     public LandingGearSetup(){
@@ -657,6 +663,8 @@ public class LandingGearSetup extends JDialog{
                    steerUnit, brakeGroup, relaxRollUnit, relaxSideUnit;
     
     private int retractable;
+    private static final String FORM_FILE = "path/to/your/formfile.jfd";
+
 }
 //will still need constructor for if the user pressed detail
 //  this new constructor will use the given information to fill out already known information in the dialog
