@@ -29,7 +29,6 @@ public class Propulsion extends JPanel implements TabComponent {
         propComponents();
 		listETS = new ArrayList<EngineThrusterSetup>();
 		listTS = new ArrayList<TankSetup>();
-		list = new ArrayList<EngTh>();
 			
     }
 
@@ -315,8 +314,6 @@ public class Propulsion extends JPanel implements TabComponent {
 
 			//======== engineScrollPane ========
 			{
-				engineList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		    	engineList.setModel(model);
 				engineScrollPane.setViewportView(engineList);
 			}
 			Propulsion.add(engineScrollPane, "cell 0 3 1 29,growy,wmax 250,hmax 900");
@@ -402,7 +399,7 @@ public class Propulsion extends JPanel implements TabComponent {
 	private JLabel th;
 	private JLabel tank;
 	private JScrollPane engineScrollPane;
-	private JList<EngTh> engineList;
+	private JList<String> engineList;
 	private JScrollPane thrusterScrollPane;
 	private JList<String> thrusterList;
 	private JScrollPane engScrollPane;
@@ -422,8 +419,5 @@ public class Propulsion extends JPanel implements TabComponent {
 
 	private DefaultListModel<TankSetup> modelTS = new DefaultListModel<TankSetup>();
     private ArrayList<TankSetup> listTS;
-
-	private DefaultListModel<EngTh> model = new DefaultListModel<EngTh>();
-    private ArrayList<EngTh> list;
 
 }
