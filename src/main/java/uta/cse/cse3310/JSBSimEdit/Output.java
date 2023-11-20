@@ -6,6 +6,7 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -184,6 +185,10 @@ public class Output extends JPanel implements TabComponent {
 			//---- typeComboBox ----
 			typeComboBox.setMaximumRowCount(10);
 			typeComboBox.setPreferredSize(new Dimension(100, 23));
+			typeComboBox.setModel(new DefaultComboBoxModel<>(new String[] {
+				"CSV",
+				"TABULAR"
+			}));
 			panelOutput.add(typeComboBox, "cell 1 3 2 1");
 
 			//---- simulation ----

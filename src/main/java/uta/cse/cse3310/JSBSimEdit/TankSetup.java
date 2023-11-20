@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -82,9 +83,8 @@ public class TankSetup extends JDialog { //if this is its own window, should be 
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append(type + " at point [" + xLoc + ", " + yLoc + ", " + zLoc + "] in "
-                  + locUnit + " (in " + contents + " contents)"  + 
-                  " (in " + capacity + " capacity)");
+        sb.append(type + " weighs " + contents + " " + contUnit + " at [" + xLoc + " , " + yLoc + " , " + zLoc + "] in "
+                  + locUnit);
         return sb.toString();
     }
     
@@ -178,6 +178,10 @@ public class TankSetup extends JDialog { //if this is its own window, should be 
                     //---- typeLabel ----
                     typeLabel.setText("Type:");
                     typePanel.add(typeLabel, "cell 0 0");
+                    typeComboBox.setModel(new DefaultComboBoxModel<>(new String[] {
+				        "FUEL",
+				        "OXIDIZER"
+			        }));
                     typePanel.add(typeComboBox, "cell 1 0");
                 }
                 tankSetup.add(typePanel, "cell 0 0 7 1");
@@ -200,12 +204,22 @@ public class TankSetup extends JDialog { //if this is its own window, should be 
                     capacityLabel.setText("Capacity:");
                     capPanel.add(capacityLabel, "cell 0 0");
                     capPanel.add(capacityTextBox, "cell 1 0");
+
+                    capacityUnit.setModel(new DefaultComboBoxModel<>(new String[] {
+                        "KG",
+                        "LBS"
+                    }));
                     capPanel.add(capacityUnit, "cell 2 0");
     
                     //---- contentsLabel ----
                     contentsLabel.setText("Contents:");
                     capPanel.add(contentsLabel, "cell 3 0");
                     capPanel.add(contentsTextBox, "cell 4 0");
+
+                    contentsUnit.setModel(new DefaultComboBoxModel<>(new String[] {
+                        "KG",
+                        "LBS"
+                    }));
                     capPanel.add(contentsUnit, "cell 5 0");
                 }
                 tankSetup.add(capPanel, "cell 0 1 7 2");
@@ -239,6 +253,12 @@ public class TankSetup extends JDialog { //if this is its own window, should be 
                     zLabel.setText("z:");
                     locationPanel.add(zLabel, "cell 4 0");
                     locationPanel.add(zText, "cell 5 0");
+
+                    locationUnit.setModel(new DefaultComboBoxModel<>(new String[] {
+                        "M",
+                        "FT",
+                        "IN"
+                    }));
                     locationPanel.add(locationUnit, "cell 6 0");
                 }
                 tankSetup.add(locationPanel, "cell 0 3 7 1");
