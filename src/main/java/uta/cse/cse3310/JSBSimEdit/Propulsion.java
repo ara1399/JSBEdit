@@ -214,8 +214,6 @@ public class Propulsion extends JPanel implements TabComponent {
 		thrusterList = new JList<>();
 		engScrollPane = new JScrollPane();
 		engList = new JList<>();
-		thScrollPane = new JScrollPane();
-		thList = new JList<>();
 		tankScrollPane = new JScrollPane();
 		tankList = new JList<>();
 		buttonPanel = new JPanel();
@@ -330,15 +328,11 @@ public class Propulsion extends JPanel implements TabComponent {
 
 			//======== engScrollPane ========
 			{
+				engList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		    	engList.setModel(modelETS);
 				engScrollPane.setViewportView(engList);
 			}
-			Propulsion.add(engScrollPane, "cell 2 3 1 29,growy,wmax 150,hmax 900");
-
-			//======== thScrollPane ========
-			{
-				thScrollPane.setViewportView(thList);
-			}
-			Propulsion.add(thScrollPane, "cell 3 3 1 29,growy,wmax 150,hmax 900");
+			Propulsion.add(engScrollPane, "cell 2 3 2 29,growy,wmax 300,hmax 900");
 
 			//======== tankScrollPane ========
 			{
@@ -411,9 +405,7 @@ public class Propulsion extends JPanel implements TabComponent {
 	private JScrollPane thrusterScrollPane;
 	private JList<String> thrusterList;
 	private JScrollPane engScrollPane;
-	private JList<String> engList;
-	private JScrollPane thScrollPane;
-	private JList<String> thList;
+	private JList<EngineThrusterSetup> engList;
 	private JScrollPane tankScrollPane;
 	private JList<TankSetup> tankList;
 	private JPanel buttonPanel;
@@ -429,4 +421,5 @@ public class Propulsion extends JPanel implements TabComponent {
 
 	private DefaultListModel<TankSetup> modelTS = new DefaultListModel<TankSetup>();
     private ArrayList<TankSetup> listTS;
+
 }

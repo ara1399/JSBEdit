@@ -1,0 +1,265 @@
+ <AJ26-33A>
+    <type>rocket_engine</type>
+    <name>AJ26-33A</name>
+    <description>NO INFO</description>
+</AJ26-33A>
+<AJ26-33_nozzle>
+    <type>nozzle</type>
+    <name>AJ26-33_nozzle</name>
+    <description>NO INFO</description>
+</AJ26-33_nozzle>
+<CF6-80C2>
+    <type>turbine_engine</type>
+    <name>CF6-80C2</name>
+    <description>NO INFO</description>
+</CF6-80C2>
+<CFM56>
+    <type>turbine_engine</type>
+    <name>CFM56</name>
+    <description>NO INFO</description>
+</CFM56>
+<CFM56_5>
+    <type>turbine_engine</type>
+    <name>CFM56_5</name>
+    <description>NO INFO</description>
+</CFM56_5>
+<direct>
+    <type>direct</type>
+    <name>direct</name>
+    <description>NO INFO</description>
+</direct>
+<electric_1mw>
+    <type>electric_engine</type>
+    <name>electric_1mw</name>
+    <description>NO INFO</description>
+</electric_1mw>
+<engIO360C>
+    <type>piston_engine</type>
+    <name>engIO360C</name>
+    <description>NO INFO</description>
+</engIO360C>
+<engIO470D>
+    <type>piston_engine</type>
+    <name>engIO470D</name>
+    <description>NO INFO</description>
+</engIO470D>
+<engIO540AB1A5>
+    <type>piston_engine</type>
+    <name>engIO540AB1A5</name>
+    <description>NO INFO</description>
+</engIO540AB1A5>
+<engRRMerlin61>
+    <type>piston_engine</type>
+    <name>engRRMerlin61</name>
+    <description>NO INFO</description>
+</engRRMerlin61>
+<engRRMerlinXII>
+    <type>piston_engine</type>
+    <name>engRRMerlinXII</name>
+    <description>NO INFO</description>
+</engRRMerlinXII>
+<engtm601>
+    <type>turboprop_engine</type>
+    <name>engtm601</name>
+    <description>NO INFO</description>
+</engtm601>
+<eng_io320>
+    <type>piston_engine</type>
+    <name>eng_io320</name>
+    <description>NO INFO</description>
+</eng_io320>
+<F100-PW-229>
+    <type>turbine_engine</type>
+    <name>F100-PW-229</name>
+    <description>NO INFO</description>
+</F100-PW-229>
+<F119-PW1>
+    <type>turbine_engine</type>
+    <name>F119-PW1</name>
+    <description>NO INFO</description>
+</F119-PW1>
+<GE-CF6-80C2-B1F>
+    <type>turbine_engine</type>
+    <name>GE-CF6-80C2-B1F</name>
+    <description>NO INFO</description>
+</GE-CF6-80C2-B1F>
+<HamiltonStd6243A-3>
+    <type>propeller</type>
+    <name>HamiltonStd6243A-3</name>
+    <description>NO INFO</description>
+</HamiltonStd6243A-3>
+<J33-A-35>
+    <type>turbine_engine</type>
+    <name>J33-A-35</name>
+    <description>NO INFO</description>
+</J33-A-35>
+<J52>
+    <type>turbine_engine</type>
+    <name>J52</name>
+    <description>NO INFO</description>
+</J52>
+<J69-T25>
+    <type>turbine_engine</type>
+    <name>J69-T25</name>
+    <description>NO INFO</description>
+</J69-T25>
+<J79-GE-11A>
+    <type>turbine_engine</type>
+    <name>J79-GE-11A</name>
+    <description>NO INFO</description>
+</J79-GE-11A>
+<J85-GE-5>
+    <type>turbine_engine</type>
+    <name>J85-GE-5</name>
+    <description>NO INFO</description>
+</J85-GE-5>
+<JT9D-3>
+    <type>turbine_engine</type>
+    <name>JT9D-3</name>
+    <description>NO INFO</description>
+</JT9D-3>
+<LMdescent>
+    <type>FG_ROCKET</type>
+    <name>LMdescent</name>
+    <description>NO INFO</description>
+</LMdescent>
+<LM_descent_nozzle>
+    <type>FG_NOZZLE</type>
+    <name>LM_descent_nozzle</name>
+    <description>NO INFO</description>
+</LM_descent_nozzle>
+<MerlinV1650>
+    <type>piston_engine</type>
+    <name>MerlinV1650</name>
+    <description>NO INFO</description>
+</MerlinV1650>
+<Olympus593Mrk610>
+    <type>turbine_engine</type>
+    <name>Olympus593Mrk610</name>
+    <description>NO INFO</description>
+</Olympus593Mrk610>
+<P51prop>
+    <type>propeller</type>
+    <name>P51prop</name>
+    <description>NO INFO</description>
+</P51prop>
+<prop30FP2B>
+    <type>propeller</type>
+    <name>prop30FP2B</name>
+    <description>NO INFO</description>
+</prop30FP2B>
+<propC10v>
+    <type>propeller</type>
+    <name>propC10v</name>
+    <description>NO INFO</description>
+</propC10v>
+<propC6v>
+    <type>propeller</type>
+    <name>propC6v</name>
+    <description>NO INFO</description>
+</propC6v>
+<propC8v>
+    <type>propeller</type>
+    <name>propC8v</name>
+    <description>NO INFO</description>
+</propC8v>
+<propDA-R352_6-123-F_2>
+    <type>propeller</type>
+    <name>propDA-R352_6-123-F_2</name>
+    <description>NO INFO</description>
+</propDA-R352_6-123-F_2>
+<prop_75in2f>
+    <type>propeller</type>
+    <name>prop_75in2f</name>
+    <description>NO INFO</description>
+</prop_75in2f>
+<prop_81in2v>
+    <type>propeller</type>
+    <name>prop_81in2v</name>
+    <description>NO INFO</description>
+</prop_81in2v>
+<prop_Clark_Y7570>
+    <type>propeller</type>
+    <name>prop_Clark_Y7570</name>
+    <description>NO INFO</description>
+</prop_Clark_Y7570>
+<prop_generic2f>
+    <type>propeller</type>
+    <name>prop_generic2f</name>
+    <description>NO INFO</description>
+</prop_generic2f>
+<prop_PT6>
+    <type>propeller</type>
+    <name>prop_PT6</name>
+    <description>NO INFO</description>
+</prop_PT6>
+<PT6A-27>
+    <type>turbine_engine</type>
+    <name>PT6A-27</name>
+    <description>NO INFO</description>
+</PT6A-27>
+<PT6A-68>
+    <type>turbine_engine</type>
+    <name>PT6A-68</name>
+    <description>NO INFO</description>
+</PT6A-68>
+<PW125B>
+    <type>turbine_engine</type>
+    <name>PW125B</name>
+    <description>NO INFO</description>
+</PW125B>
+<RB211-524>
+    <type>turbine_engine</type>
+    <name>RB211-524</name>
+    <description>NO INFO</description>
+</RB211-524>
+<RollsRoyce>
+    <type>turbine_engine</type>
+    <name>RollsRoyce</name>
+    <description>NO INFO</description>
+</RollsRoyce>
+<t56>
+    <type>turbine_engine</type>
+    <name>t56</name>
+    <description>NO INFO</description>
+</t56>
+<t56_prop>
+    <type>propeller</type>
+    <name>t56_prop</name>
+    <description>NO INFO</description>
+</t56_prop>
+<T76>
+    <type>turbine_engine</type>
+    <name>T76</name>
+    <description>NO INFO</description>
+</T76>
+<Tay-651>
+    <type>turbine_engine</type>
+    <name>Tay-651</name>
+    <description>NO INFO</description>
+</Tay-651>
+<TRENT-900>
+    <type>turbine_engine</type>
+    <name>TRENT-900</name>
+    <description>NO INFO</description>
+</TRENT-900>
+<vrtule2>
+    <type>propeller</type>
+    <name>vrtule2</name>
+    <description>NO INFO</description>
+</vrtule2>
+<XLR99>
+    <type>rocket_engine</type>
+    <name>XLR99</name>
+    <description>NO INFO</description>
+</XLR99>
+<xlr99_nozzle>
+    <type>nozzle</type>
+    <name>xlr99_nozzle</name>
+    <description>NO INFO</description>
+</xlr99_nozzle>
+<Zenoah_G-26A>
+    <type>electric_engine</type>
+    <name>Zenoah_G-26A</name>
+    <description>NO INFO</description>
+</Zenoah_G-26A>
