@@ -4,14 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -324,7 +323,7 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 		eYLocText = new JTextField();
 		eZLoc = new JLabel();
 		eZLocText = new JTextField();
-		eUnitComboBox = new JComboBox();
+		eUnitComboBox = new JComboBox<>();
 		eOrientPanel = new JPanel();
 		eRoll = new JLabel();
 		eRollText = new JTextField();
@@ -332,7 +331,7 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 		ePitchText = new JTextField();
 		eYaw = new JLabel();
 		eYawText = new JTextField();
-		eTUnitComboBox = new JComboBox();
+		eTUnitComboBox = new JComboBox<>();
 		feedPanel = new JPanel();
 		feedText = new JTextField();
 		thrusterPanel = new JPanel();
@@ -346,7 +345,7 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 		tYLocText = new JTextField();
 		tZLoc = new JLabel();
 		tZLocText = new JTextField();
-		tUnitComboBox = new JComboBox();
+		tUnitComboBox = new JComboBox<>();
 		tOrientPanel = new JPanel();
 		tRoll = new JLabel();
 		tRollText = new JTextField();
@@ -354,7 +353,7 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 		tPitchText = new JTextField();
 		tYaw = new JLabel();
 		tYawText = new JTextField();
-		tTUnitComboBox = new JComboBox();
+		tTUnitComboBox = new JComboBox<>();
 		optionsPanel = new JPanel();
 		okButton = new JButton();
 		cancelButton = new JButton();
@@ -454,6 +453,12 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 							eZLoc.setText("Z:");
 							eLocationPanel.add(eZLoc, "cell 4 0");
 							eLocationPanel.add(eZLocText, "cell 5 0");
+
+							eUnitComboBox.setModel(new DefaultComboBoxModel<>(new String[] {
+								"M",
+								"FT",
+								"IN"
+						}));
 							eLocationPanel.add(eUnitComboBox, "cell 6 0");
 						}
 						enginePanel.add(eLocationPanel, "cell 0 1 2 2");
@@ -487,6 +492,11 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 							eYaw.setText("Yaw:");
 							eOrientPanel.add(eYaw, "cell 4 0");
 							eOrientPanel.add(eYawText, "cell 5 0");
+
+							eTUnitComboBox.setModel(new DefaultComboBoxModel<>(new String[] {
+								"DEG",
+								"RAD"
+							}));
 							eOrientPanel.add(eTUnitComboBox, "cell 6 0");
 						}
 						enginePanel.add(eOrientPanel, "cell 0 3 2 1");
@@ -569,6 +579,12 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 							tZLoc.setText("Z:");
 							tLocationPanel.add(tZLoc, "cell 4 0");
 							tLocationPanel.add(tZLocText, "cell 5 0");
+
+							tUnitComboBox.setModel(new DefaultComboBoxModel<>(new String[] {
+								"M",
+								"FT",
+								"IN"
+							}));
 							tLocationPanel.add(tUnitComboBox, "cell 6 0");
 						}
 						thrusterPanel.add(tLocationPanel, "cell 0 1 2 2");
@@ -602,6 +618,11 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 							tYaw.setText("Yaw:");
 							tOrientPanel.add(tYaw, "cell 4 0");
 							tOrientPanel.add(tYawText, "cell 5 0");
+
+							tTUnitComboBox.setModel(new DefaultComboBoxModel<>(new String[] {
+								"DEG",
+								"RAD"
+							}));
 							tOrientPanel.add(tTUnitComboBox, "cell 6 0");
 						}
 						thrusterPanel.add(tOrientPanel, "cell 0 3 2 1");
@@ -621,10 +642,12 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 
 						// ---- okButton ----
 						okButton.setText("Ok");
+						okButton.addActionListener(e -> okBPressed(e));
 						optionsPanel.add(okButton, "cell 0 0");
 
 						// ---- cancelButton ----
 						cancelButton.setText("Cancel");
+						cancelButton.addActionListener(e -> cancelBPressed(e));
 						optionsPanel.add(cancelButton, "cell 1 0");
 					}
 					engineThruster.add(optionsPanel, "cell 0 10 10 1");
@@ -652,7 +675,7 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 	private JTextField eYLocText;
 	private JLabel eZLoc;
 	private JTextField eZLocText;
-	private JComboBox eUnitComboBox;
+	private JComboBox<String> eUnitComboBox;
 	private JPanel eOrientPanel;
 	private JLabel eRoll;
 	private JTextField eRollText;
@@ -660,7 +683,7 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 	private JTextField ePitchText;
 	private JLabel eYaw;
 	private JTextField eYawText;
-	private JComboBox eTUnitComboBox;
+	private JComboBox<String> eTUnitComboBox;
 	private JPanel feedPanel;
 	private JTextField feedText;
 	private JPanel thrusterPanel;
@@ -674,7 +697,7 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 	private JTextField tYLocText;
 	private JLabel tZLoc;
 	private JTextField tZLocText;
-	private JComboBox tUnitComboBox;
+	private JComboBox<String> tUnitComboBox;
 	private JPanel tOrientPanel;
 	private JLabel tRoll;
 	private JTextField tRollText;
@@ -682,7 +705,7 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 	private JTextField tPitchText;
 	private JLabel tYaw;
 	private JTextField tYawText;
-	private JComboBox tTUnitComboBox;
+	private JComboBox<String> tTUnitComboBox;
 	private JPanel optionsPanel;
 	private JButton okButton;
 	private JButton cancelButton;
