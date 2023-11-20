@@ -359,9 +359,9 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 		cancelButton = new JButton();
 
 		// ======== this ========
-		setTitle("engine/Thruster Setup");
-		setPreferredSize(new Dimension(1000, 600));
-		setMinimumSize(new Dimension(1000, 600));
+		setTitle("Engine/Thruster Setup");
+		setPreferredSize(new Dimension(1000, 530));
+		setMinimumSize(new Dimension(1000, 530));
 		var contentPane = getContentPane();
 		contentPane.setLayout(new BorderLayout());
 
