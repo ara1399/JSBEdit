@@ -159,7 +159,7 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(engName + "\t" + thrusName);
+		sb.append(engName + " \t " + thrusName);
 		return sb.toString();
 	}
 

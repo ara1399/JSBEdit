@@ -81,7 +81,7 @@ public class Propulsion extends JPanel implements TabComponent {
                     }
 	
 					if (e.getFeed() != null) {
-						feed = 1;
+						feed = e.getFeed().get(0).intValue();
 					}
                     
                     EngineThrusterSetup ets = new EngineThrusterSetup(//calling the constructor for loading
