@@ -291,7 +291,7 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 	}
 
 	private void setSomeText() {
-		engineNameText.setText("ENGINE INTAKE");
+		engineNameText.setText("ENGINE");
 		eXLocText.setText("0.0");
 		eYLocText.setText("0.0");
 		eZLocText.setText("0.0");
@@ -299,7 +299,7 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 		ePitchText.setText("0.0");
 		eYawText.setText("0.0");
 
-		thrusterNameText.setText("THRUSTER INTAKE");
+		thrusterNameText.setText("THRUSTER");
 		tXLocText.setText("0.0");
 		tYLocText.setText("0.0");
 		tZLocText.setText("0.0");
