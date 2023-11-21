@@ -16,6 +16,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.SpinnerListModel;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -348,6 +349,7 @@ public class FlightControl extends JPanel implements TabComponent {
 
 				//---- button11 ----
 				button11.setText("Add");
+				button11.addActionListener(e -> new Properties(SwingUtilities.getWindowAncestor(this)));
 				panel2.add(button11, "cell 0 0");
 
 				//---- button12 ----
