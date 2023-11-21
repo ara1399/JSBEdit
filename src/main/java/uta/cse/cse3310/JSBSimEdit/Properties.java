@@ -9,10 +9,7 @@ import jakarta.xml.bind.Unmarshaller;
 
 import java.awt.BorderLayout;
 import java.awt.Window;
-import java.io.File;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Optional;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;

@@ -2,11 +2,13 @@ package uta.cse.cse3310.JSBSimEdit;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Dialog.ModalityType;
 import java.util.Optional;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -349,7 +351,12 @@ public class FlightControl extends JPanel implements TabComponent {
 
 				//---- button11 ----
 				button11.setText("Add");
-				button11.addActionListener(e -> new Properties(SwingUtilities.getWindowAncestor(this)));
+				button11.addActionListener(e -> {
+					Properties props = new Properties(SwingUtilities.getWindowAncestor(this));
+					props.setModalityType(ModalityType.APPLICATION_MODAL);
+					props.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					props.setVisible(true);
+				});
 				panel2.add(button11, "cell 0 0");
 
 				//---- button12 ----
