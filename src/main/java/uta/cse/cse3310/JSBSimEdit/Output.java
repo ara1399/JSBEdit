@@ -2,6 +2,7 @@ package uta.cse.cse3310.JSBSimEdit;
 
 import java.awt.Dimension;
 import java.math.BigInteger;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,19 +16,21 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 import net.miginfocom.swing.*;
 
 import generated.FdmConfig;
+import jakarta.xml.bind.JAXBElement;
 import uta.cse.cse3310.JSBSimEdit.interfaces.TabComponent;
 
 public class Output extends JPanel implements TabComponent {
-    public Output() {
+	public Output() {
 		outComponents();
 	}
 
-    @Override
-    public void bindUIwithXML(FdmConfig cfg) {
+	@Override
+	public void bindUIwithXML(FdmConfig cfg) {
 		List<generated.Output> opList = cfg.getOutput();
 		generated.Output op = opList.get(0);
 		if (op.getName() != null) {
@@ -35,56 +38,91 @@ public class Output extends JPanel implements TabComponent {
 		}
 		BigInteger portValue = op.getPort();
 		if (portValue != null) {
-             portText.setText(portValue.toString());
-        }
-          
-        BigInteger rateValue = op.getRate();
-        if (rateValue != null) {
-            rateText.setText(rateValue.toString());
-        }
+			portText.setText(portValue.toString());
+		}
 
-        String typeValue = op.getType();
-        if (typeValue != null) {
-            typeComboBox.setSelectedItem(typeValue);
-        }
-    }
-	
+		BigInteger rateValue = op.getRate();
+		if (rateValue != null) {
+			rateText.setText(rateValue.toString());
+		}
 
+		String typeValue = op.getType();
+		if (typeValue != null) {
+			typeComboBox.setSelectedItem(typeValue);
+		}
 
-    @Override
-    public Optional<FdmConfig> saveXMLfromUI(FdmConfig cfg) {
-        List<generated.Output> opList = cfg.getOutput();
+		List<JCheckBox> checkBoxes = Arrays.asList(simulation, atmosphere, massProps, rates, velocities, forces,
+				moments, position, propulsion, aerosurfaces, fcs, groundReactions, coefficients);
 
-        // If there is no Output object in the list, create one
-        generated.Output op;
-        if (opList.isEmpty()) {
-            op = new generated.Output();
-            opList.add(op);
-        } else {
-            op = opList.get(0);
-        }
+		for (JCheckBox checkBox : checkBoxes) {
+			String checkBoxName = checkBox.getText();
+			String checkBoxStatus = ""; // Initialize to empty string
+			for (var element : op.getPropertyOrSimulationAndAtmosphere()) {
+				if (element.getName().getLocalPart().equals(checkBoxName.toLowerCase())) {
+					checkBoxStatus = element.getValue().toString();
+					break;
+				}
+			}
+			if (checkBoxStatus.equals(" ON ")) {
+				checkBox.setSelected(true);
+			} else {
+				checkBox.setSelected(false);
+			}
+		}
+
+	}
+
+	@Override
+	public Optional<FdmConfig> saveXMLfromUI(FdmConfig cfg) {
+		List<generated.Output> opList = cfg.getOutput();
+
+		// If there is no Output object in the list, create one
+		generated.Output op;
+		if (opList.isEmpty()) {
+			op = new generated.Output();
+			opList.add(op);
+		} else {
+			op = opList.get(0);
+		}
 
 		if (nameText.getText() != null) {
 			op.setName(nameText.getText());
 		}
-        
-        String portValue = portText.getText();
-        if (!portValue.isEmpty()) {
-            op.setPort(new BigInteger(portValue));
-        }
 
-        String rateValue = rateText.getText();
-        if (!rateValue.isEmpty()) {
-            op.setRate(new BigInteger(rateValue));
-        }
+		String portValue = portText.getText();
+		if (!portValue.isEmpty()) {
+			op.setPort(new BigInteger(portValue));
+		}
 
-        String selectedType = (String) typeComboBox.getSelectedItem();
-        op.setType(selectedType);
-		
-        return Optional.ofNullable(cfg);
-    }
-    private void outComponents() {
-		
+		String rateValue = rateText.getText();
+		if (!rateValue.isEmpty()) {
+			op.setRate(new BigInteger(rateValue));
+		}
+
+		String selectedType = (String) typeComboBox.getSelectedItem();
+		op.setType(selectedType);
+
+		List<JCheckBox> checkBoxes = Arrays.asList(simulation, atmosphere, massProps, rates, velocities, forces,
+				moments, position, propulsion, aerosurfaces, fcs, groundReactions, coefficients);
+
+		for (JCheckBox checkBox : checkBoxes) {
+			String checkBoxName = checkBox.getText();
+			boolean checkBoxStatus = checkBox.isSelected();
+
+			for (var element : op.getPropertyOrSimulationAndAtmosphere()) {
+				if (element.getName().getLocalPart().equals(checkBoxName.toLowerCase())) {
+					JAXBElement<String> stringElement = (JAXBElement<String>) element;
+					stringElement.setValue(checkBoxStatus ? " ON " : " OFF ");
+					break;
+				}
+			}
+		}
+
+		return Optional.ofNullable(cfg);
+	}
+
+	private void outComponents() {
+
 		panelOutput = new JPanel();
 		name = new JLabel();
 		nameText = new JTextField();
@@ -115,167 +153,167 @@ public class Output extends JPanel implements TabComponent {
 		addButton = new JButton();
 		deleteButton = new JButton();
 
-		//======== panelOutput ========
+		// ======== panelOutput ========
 		{
-			
-			panelOutput.setLayout(new MigLayout(
-				"align center center,gap 5 20",
-				// columns
-				"[grow,fill]" +
-				"[grow,fill]" +
-				"[grow,fill]" +
-				"[grow,fill]" +
-				"[grow,fill]" +
-				"[grow,fill]",
-				// rows
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[30]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]"));
 
-			//---- name ----
+			panelOutput.setLayout(new MigLayout(
+					"align center center,gap 5 20",
+					// columns
+					"[grow,fill]" +
+							"[grow,fill]" +
+							"[grow,fill]" +
+							"[grow,fill]" +
+							"[grow,fill]" +
+							"[grow,fill]",
+					// rows
+					"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[30]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]"));
+
+			// ---- name ----
 			name.setText("Name");
 			name.setHorizontalAlignment(SwingConstants.TRAILING);
 			panelOutput.add(name, "cell 0 0");
 
-			//---- nameText ----
+			// ---- nameText ----
 			nameText.setPreferredSize(new Dimension(100, 23));
 			panelOutput.add(nameText, "cell 1 0 2 1");
 
-			//---- port ----
+			// ---- port ----
 			port.setText("Port");
 			port.setHorizontalAlignment(SwingConstants.TRAILING);
 			panelOutput.add(port, "cell 0 1");
 
-			//---- portText ----
+			// ---- portText ----
 			portText.setPreferredSize(new Dimension(100, 23));
 			panelOutput.add(portText, "cell 1 1 2 1");
 
-			//---- rate ----
+			// ---- rate ----
 			rate.setText("Rate");
 			rate.setHorizontalAlignment(SwingConstants.TRAILING);
 			panelOutput.add(rate, "cell 0 2");
 
-			//---- rateText ----
+			// ---- rateText ----
 			rateText.setPreferredSize(new Dimension(100, 23));
 			panelOutput.add(rateText, "cell 1 2 2 1");
 
-			//---- type ----
+			// ---- type ----
 			type.setText("Type");
 			type.setHorizontalAlignment(SwingConstants.TRAILING);
 			panelOutput.add(type, "cell 0 3");
 
-			//---- typeComboBox ----
+			// ---- typeComboBox ----
 			typeComboBox.setMaximumRowCount(10);
 			typeComboBox.setPreferredSize(new Dimension(100, 23));
 			typeComboBox.setModel(new DefaultComboBoxModel<>(new String[] {
-				"CSV",
-				"TABULAR"
+					"CSV",
+					"TABULAR"
 			}));
 			panelOutput.add(typeComboBox, "cell 1 3 2 1");
 
-			//---- simulation ----
+			// ---- simulation ----
 			simulation.setText("Similation");
 			panelOutput.add(simulation, "cell 1 4");
 
-			//---- atmosphere ----
+			// ---- atmosphere ----
 			atmosphere.setText("Atmosphere");
 			panelOutput.add(atmosphere, "cell 2 4");
 
-			//---- massProps ----
+			// ---- massProps ----
 			massProps.setText("Massprops");
 			panelOutput.add(massProps, "cell 3 4");
 
-			//---- rates ----
+			// ---- rates ----
 			rates.setText("Rates");
 			panelOutput.add(rates, "cell 4 4");
 
-			//---- velocities ----
+			// ---- velocities ----
 			velocities.setText("Velocities");
 			panelOutput.add(velocities, "cell 5 4");
 
-			//---- forces ----
+			// ---- forces ----
 			forces.setText("Forces");
 			panelOutput.add(forces, "cell 1 5");
 
-			//---- moments ----
+			// ---- moments ----
 			moments.setText("Moments");
 			panelOutput.add(moments, "cell 2 5");
 
-			//---- position ----
+			// ---- position ----
 			position.setText("Position");
 			panelOutput.add(position, "cell 3 5");
 
-			//---- propulsion ----
+			// ---- propulsion ----
 			propulsion.setText("Propulsion");
 			panelOutput.add(propulsion, "cell 4 5");
 
-			//---- aerosurfaces ----
+			// ---- aerosurfaces ----
 			aerosurfaces.setText("Aerosurfaces");
 			panelOutput.add(aerosurfaces, "cell 1 6");
 
-			//---- fcs ----
+			// ---- fcs ----
 			fcs.setText("FCS");
 			panelOutput.add(fcs, "cell 2 6");
 
-			//---- groundReactions ----
+			// ---- groundReactions ----
 			groundReactions.setText("Ground Reactions");
 			panelOutput.add(groundReactions, "cell 3 6");
 
-			//---- coefficients ----
+			// ---- coefficients ----
 			coefficients.setText("Coeffeients");
 			panelOutput.add(coefficients, "cell 4 6");
 
-			//======== propertiesScrollPane ========
+			// ======== propertiesScrollPane ========
 			{
 				propertiesScrollPane.setViewportView(propertiesTextArea);
 			}
 			panelOutput.add(propertiesScrollPane, "cell 1 9 5 8,growy");
 
-			//---- properties ----
+			// ---- properties ----
 			properties.setText("Properties");
 			properties.setHorizontalAlignment(SwingConstants.TRAILING);
 			panelOutput.add(properties, "cell 0 9");
 
-			//======== buttonPanel ========
-		{
-			buttonPanel.setLayout(new MigLayout(
-				"fill,hidemode 3",
-				// columns
-				"[fill]" +
-				"[fill]" +
-				"[fill]",
-				// rows
-				"[]"));
+			// ======== buttonPanel ========
+			{
+				buttonPanel.setLayout(new MigLayout(
+						"fill,hidemode 3",
+						// columns
+						"[fill]" +
+								"[fill]" +
+								"[fill]",
+						// rows
+						"[]"));
 
-			//---- choose ----
-			chooseButton.setText("Choose");
-			buttonPanel.add(chooseButton, "cell 0 0");
+				// ---- choose ----
+				chooseButton.setText("Choose");
+				buttonPanel.add(chooseButton, "cell 0 0");
 
-			//---- add ----
-			addButton.setText("Add");
-			buttonPanel.add(addButton, "cell 1 0");
+				// ---- add ----
+				addButton.setText("Add");
+				buttonPanel.add(addButton, "cell 1 0");
 
-			//---- delete ----
-			deleteButton.setText("Delete");
-			buttonPanel.add(deleteButton, "cell 2 0");
+				// ---- delete ----
+				deleteButton.setText("Delete");
+				buttonPanel.add(deleteButton, "cell 2 0");
 
-		}
-		panelOutput.add(buttonPanel, "cell 0 17 6 1");
+			}
+			panelOutput.add(buttonPanel, "cell 0 17 6 1");
 		}
 		add(panelOutput);
 	}
