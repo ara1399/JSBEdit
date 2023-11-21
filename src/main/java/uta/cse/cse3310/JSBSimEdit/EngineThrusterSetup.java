@@ -28,48 +28,47 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 	}
 
 	public EngineThrusterSetup(String engineName, int engineFeed,
-        String thrusterName, String thrusterLocationUnit, String thrusterOrientUnit,
-        Double thrusterX, Double thrusterY, Double thrusterZ,
-        Double thrusterRoll, Double thrusterPitch, Double thrusterYaw) {
-    this.engName = (engineName != null) ? engineName : "";
-    this.engineFeed = engineFeed;
+			String thrusterName, String thrusterLocationUnit, String thrusterOrientUnit,
+			Double thrusterX, Double thrusterY, Double thrusterZ,
+			Double thrusterRoll, Double thrusterPitch, Double thrusterYaw) {
+		this.engName = (engineName != null) ? engineName : "";
+		this.engineFeed = engineFeed;
 
-    this.thrusName = (thrusterName != null) ? thrusterName : "";
-    this.thrusterLocUnit = (thrusterLocationUnit != null) ? thrusterLocationUnit : "";
-    this.thrusterOrientUnit = (thrusterOrientUnit != null) ? thrusterOrientUnit : "";
+		this.thrusName = (thrusterName != null) ? thrusterName : "";
+		this.thrusterLocUnit = (thrusterLocationUnit != null) ? thrusterLocationUnit : "";
+		this.thrusterOrientUnit = (thrusterOrientUnit != null) ? thrusterOrientUnit : "";
 
-    this.thrusterXLoc = (thrusterX != null) ? thrusterX : 0.0;
-    this.thrusterYLoc = (thrusterY != null) ? thrusterY : 0.0;
-    this.thrusterZLoc = (thrusterZ != null) ? thrusterZ : 0.0;
+		this.thrusterXLoc = (thrusterX != null) ? thrusterX : 0.0;
+		this.thrusterYLoc = (thrusterY != null) ? thrusterY : 0.0;
+		this.thrusterZLoc = (thrusterZ != null) ? thrusterZ : 0.0;
 
-    this.thrusterRoll = (thrusterRoll != null) ? thrusterRoll : 0.0;
-    this.thrusterPitch = (thrusterPitch != null) ? thrusterPitch : 0.0;
-    this.thrusterYaw = (thrusterYaw != null) ? thrusterYaw : 0.0;
-}
-
+		this.thrusterRoll = (thrusterRoll != null) ? thrusterRoll : 0.0;
+		this.thrusterPitch = (thrusterPitch != null) ? thrusterPitch : 0.0;
+		this.thrusterYaw = (thrusterYaw != null) ? thrusterYaw : 0.0;
+	}
 
 	private void cancelBPressed(ActionEvent e) { // just get rid of the object if the user cancels
 		this.dispose(); // the object's getters and values will just return null
 	}
 
-	private void okBPressed(ActionEvent e) { //save all the information into variables so the toString
-         //can display them in the Jlist on GroundReactions tab
-        engName = engineNameText.getText().trim();
-		
+	private void okBPressed(ActionEvent e) { // save all the information into variables so the toString
+		// can display them in the Jlist on GroundReactions tab
+		engName = engineNameText.getText().trim();
+
 		thrusName = thrusterNameText.getText().trim();
-        thrusterLocUnit = tUnitComboBox.getSelectedItem().toString();
-        thrusterOrientUnit = tTUnitComboBox.getSelectedItem().toString();
-        
+		thrusterLocUnit = tUnitComboBox.getSelectedItem().toString();
+		thrusterOrientUnit = tTUnitComboBox.getSelectedItem().toString();
+
 		thrusterXLoc = Double.parseDouble(tXLocText.getText().trim());
-        thrusterYLoc = Double.parseDouble(tYLocText.getText().trim());
-        thrusterZLoc = Double.parseDouble(tZLocText.getText().trim());
+		thrusterYLoc = Double.parseDouble(tYLocText.getText().trim());
+		thrusterZLoc = Double.parseDouble(tZLocText.getText().trim());
 
 		thrusterRoll = Double.parseDouble(tRollText.getText().trim());
-        thrusterPitch = Double.parseDouble(tPitchText.getText().trim());
+		thrusterPitch = Double.parseDouble(tPitchText.getText().trim());
 		thrusterYaw = Double.parseDouble(tYawText.getText().trim());
-        
-        this.dispose();
-    }
+
+		this.dispose();
+	}
 
 	public String getEngineNameETS() {
 		return engName;
@@ -155,30 +154,34 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 	}
 
 	private void setDetails(EngineThrusterSetup other) {
-		engineNameText.setText(other.getEngineNameETS());
-		feedText.setText(Integer.toString(other.getEngineFeedETS()));
-		thrusterNameText.setText(other.getThrusterNameETS());
+		if (other != null) {
 
-		eUnitComboBox.setSelectedItem(other.getEngineLocationUnitETS());
-		tUnitComboBox.setSelectedItem(other.getThrusterLocationUnitETS());
-		eTUnitComboBox.setSelectedItem(other.getEngineOrientUnitETS());
-		tTUnitComboBox.setSelectedItem(other.getThrusterOrientUnitETS());
+			engineNameText.setText(other.getEngineNameETS());
+			feedText.setText(Integer.toString(other.getEngineFeedETS()));
+			thrusterNameText.setText(other.getThrusterNameETS());
 
-		eXLocText.setText(Double.toString(other.getEngineXLocETS()));
-		eYLocText.setText(Double.toString(other.getEngineYLocETS()));
-		eZLocText.setText(Double.toString(other.getEngineZLocETS()));
+			eUnitComboBox.setSelectedItem(other.getEngineLocationUnitETS());
+			tUnitComboBox.setSelectedItem(other.getThrusterLocationUnitETS());
+			eTUnitComboBox.setSelectedItem(other.getEngineOrientUnitETS());
+			tTUnitComboBox.setSelectedItem(other.getThrusterOrientUnitETS());
 
-		eRollText.setText(Double.toString(other.getEngineRollETS()));
-		ePitchText.setText(Double.toString(other.getEnginePitchETS()));
-		eYawText.setText(Double.toString(other.getEngineYawETS()));
+			eXLocText.setText(Double.toString(other.getEngineXLocETS()));
+			eYLocText.setText(Double.toString(other.getEngineYLocETS()));
+			eZLocText.setText(Double.toString(other.getEngineZLocETS()));
 
-		tXLocText.setText(Double.toString(other.getThrusterXLocETS()));
-		tYLocText.setText(Double.toString(other.getThrusterYLocETS()));
-		tZLocText.setText(Double.toString(other.getThrusterZLocETS()));
+			eRollText.setText(Double.toString(other.getEngineRollETS()));
+			ePitchText.setText(Double.toString(other.getEnginePitchETS()));
+			eYawText.setText(Double.toString(other.getEngineYawETS()));
 
-		tRollText.setText(Double.toString(other.getThrusterRollETS()));
-		tPitchText.setText(Double.toString(other.getThrusterPitchETS()));
-		tYawText.setText(Double.toString(other.getThrusterYawETS()));
+			tXLocText.setText(Double.toString(other.getThrusterXLocETS()));
+			tYLocText.setText(Double.toString(other.getThrusterYLocETS()));
+			tZLocText.setText(Double.toString(other.getThrusterZLocETS()));
+
+			tRollText.setText(Double.toString(other.getThrusterRollETS()));
+			tPitchText.setText(Double.toString(other.getThrusterPitchETS()));
+			tYawText.setText(Double.toString(other.getThrusterYawETS()));
+		}
+
 	}
 
 	private void setSomeText() {
@@ -346,10 +349,10 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 							eLocationPanel.add(eZLocText, "cell 5 0");
 
 							eUnitComboBox.setModel(new DefaultComboBoxModel<>(new String[] {
-								"M",
-								"FT",
-								"IN"
-						}));
+									"M",
+									"FT",
+									"IN"
+							}));
 							eLocationPanel.add(eUnitComboBox, "cell 6 0");
 						}
 						enginePanel.add(eLocationPanel, "cell 0 1 2 2");
@@ -385,8 +388,8 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 							eOrientPanel.add(eYawText, "cell 5 0");
 
 							eTUnitComboBox.setModel(new DefaultComboBoxModel<>(new String[] {
-								"DEG",
-								"RAD"
+									"DEG",
+									"RAD"
 							}));
 							eOrientPanel.add(eTUnitComboBox, "cell 6 0");
 						}
@@ -472,9 +475,9 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 							tLocationPanel.add(tZLocText, "cell 5 0");
 
 							tUnitComboBox.setModel(new DefaultComboBoxModel<>(new String[] {
-								"M",
-								"FT",
-								"IN"
+									"M",
+									"FT",
+									"IN"
 							}));
 							tLocationPanel.add(tUnitComboBox, "cell 6 0");
 						}
@@ -511,8 +514,8 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 							tOrientPanel.add(tYawText, "cell 5 0");
 
 							tTUnitComboBox.setModel(new DefaultComboBoxModel<>(new String[] {
-								"DEG",
-								"RAD"
+									"DEG",
+									"RAD"
 							}));
 							tOrientPanel.add(tTUnitComboBox, "cell 6 0");
 						}

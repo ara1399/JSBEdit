@@ -295,17 +295,22 @@ public class Propulsion extends JPanel implements TabComponent {
 			// Check if the user canceled (name is null in your case)
 			if (newPair.getName() == null) {
 				return;
-			} else {
-				// If the user pressed OK, remove the old pair and add the new pair
-				listETS.remove(oldPair);
-				listETS.add(newPair);
-				modelETS.clear(); // Refreshing the model to display on the engList
-				modelETS.addAll(listETS);
 			}
 		}
 	}
 	
-		
+	private void deletePair(ActionEvent e) {// removing a GR/LGS from the displayed list
+		if (engList.getSelectedValue() == null) {
+			return;
+		}
+		int result = JOptionPane.showConfirmDialog(this, "Do you really want to delete the pair?", "Confirm",
+				JOptionPane.YES_NO_OPTION);
+		if (result == JOptionPane.YES_OPTION) {
+			EngineThrusterSetup engTh = engList.getSelectedValue();
+			modelETS.removeElement(engTh);
+			listETS.remove(engTh);
+		}
+	}
 
 	private void addTank(ActionEvent e) {
 		TankSetup tankSetup = new TankSetup();
@@ -524,6 +529,7 @@ public class Propulsion extends JPanel implements TabComponent {
 
 				// ---- deleteP ----
 				deleteP.setText("Delete Pair");
+				deleteP.addActionListener(e -> deletePair(e));
 				buttonPanel.add(deleteP, "cell 2 0");
 
 				// ---- deleteT ----
