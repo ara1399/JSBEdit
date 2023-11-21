@@ -1,9 +1,7 @@
 package uta.cse.cse3310.JSBSimEdit;
 
 import java.awt.event.ActionEvent;
-import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import javax.swing.DefaultListModel;
@@ -19,43 +17,42 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
 import generated.FdmConfig;
-
 import net.miginfocom.swing.MigLayout;
 import uta.cse.cse3310.JSBSimEdit.interfaces.TabComponent;
 
 public class Propulsion extends JPanel implements TabComponent {
-    
-    Propulsion() {
-        propComponents();
+
+	Propulsion() {
+		propComponents();
 		listETS = new ArrayList<EngineThrusterSetup>();
 		listTS = new ArrayList<TankSetup>();
-			
-    }
+		list = new ArrayList<EngineList>();
+		listTH = new ArrayList<ThrusterList>();
+	}
 
-    @Override
-    public void bindUIwithXML(FdmConfig cfg) {
+	@Override
+	public void bindUIwithXML(FdmConfig cfg) {
 
 		ArrayList<generated.Engine> engine = new ArrayList<>();
-        if(cfg.getPropulsion().getEngineOrTank() != null){
-            
-            for(Object o : cfg.getPropulsion().getEngineOrTank()){ 
-                if(o instanceof generated.Engine){               
-                    generated.Engine e = (generated.Engine) o;
-                    engine.add(e);
-                }
-            }
-			for(generated.Engine e : engine){ 
-                if(e.getFeed() != null && e.getDescription() != null  && e.getFile() != null) {
+		if (cfg.getPropulsion().getEngineOrTank() != null) {
+
+			for (Object o : cfg.getPropulsion().getEngineOrTank()) {
+				if (o instanceof generated.Engine) {
+					generated.Engine e = (generated.Engine) o;
+					engine.add(e);
+				}
+			}
+			for (generated.Engine e : engine) {
+				if (e.getFeed() != null && e.getDescription() != null && e.getFile() != null) {
 
 					Double thrusterRoll, thrusterPitch, thrusterYaw,
-					thrusterX, thrusterY, thrusterZ;
+							thrusterX, thrusterY, thrusterZ;
 					int feed = 0;
 					String thrusName, thrusterLocUnit, thrusterOrientUnit;
 
-
-					if(e.getThruster() != null){ //springCo
-                        thrusName = e.getThruster().getFile();
-                        thrusterLocUnit = e.getThruster().getLocation().getUnit();
+					if (e.getThruster() != null) { // springCo
+						thrusName = e.getThruster().getFile();
+						thrusterLocUnit = e.getThruster().getLocation().getUnit();
 						thrusterOrientUnit = e.getThruster().getOrient().getUnit();
 
 						thrusterRoll = e.getThruster().getOrient().getRoll();
@@ -65,10 +62,9 @@ public class Propulsion extends JPanel implements TabComponent {
 						thrusterX = e.getThruster().getLocation().getX();
 						thrusterY = e.getThruster().getLocation().getY();
 						thrusterZ = e.getThruster().getLocation().getZ();
-                    }
-                    else{
-                        thrusName = null;
-                        thrusterLocUnit = null;
+					} else {
+						thrusName = null;
+						thrusterLocUnit = null;
 						thrusterOrientUnit = null;
 
 						thrusterRoll = null;
@@ -78,126 +74,178 @@ public class Propulsion extends JPanel implements TabComponent {
 						thrusterX = null;
 						thrusterY = null;
 						thrusterZ = null;
-                    }
-	
+					}
+
 					if (e.getFeed() != null) {
 						feed = e.getFeed().get(0).intValue();
 					}
-                    
-                    EngineThrusterSetup ets = new EngineThrusterSetup(//calling the constructor for loading
-                        //strings
-                        e.getFile(),
-						feed,
-                        thrusName,
-						thrusterLocUnit,
-						thrusterOrientUnit,
-                        //doubles
-                        thrusterX,
-						thrusterY,
-						thrusterZ,
-						thrusterRoll,
-						thrusterPitch,
-						thrusterYaw                   
-					);
+
+					EngineThrusterSetup ets = new EngineThrusterSetup(// calling the constructor for loading
+							// strings
+							e.getFile(),
+							feed,
+							thrusName,
+							thrusterLocUnit,
+							thrusterOrientUnit,
+							// doubles
+							thrusterX,
+							thrusterY,
+							thrusterZ,
+							thrusterRoll,
+							thrusterPitch,
+							thrusterYaw);
 					listETS.add(ets);
 				}
 			}
 			modelETS.addAll(listETS);
+
+			model.addElement(new EngineList("AJ26-33A", "rocket_engine", "NO INFO"));
+			model.addElement(new EngineList("CF6-80C2", "turbine_engine", "NO INFO"));
+			model.addElement(new EngineList("CFM56", "turbine_engine", "NO INFO"));
+			model.addElement(new EngineList("CFM56_5", "turbine_engine", "NO INFO"));
+			model.addElement(new EngineList("electric_1mw", "electric_engine", "NO INFO"));
+			model.addElement(new EngineList("engIO360C", "piston_engine", "NO INFO"));
+			model.addElement(new EngineList("engIO470D", "piston_engine", "NO INFO"));
+			model.addElement(new EngineList("engIO540AB1A5", "piston_engine", "NO INFO"));
+			model.addElement(new EngineList("engRRMerlin61", "piston_engine", "NO INFO"));
+			model.addElement(new EngineList("engRRMerlinXII", "piston_engine", "NO INFO"));
+			model.addElement(new EngineList("engtm601", "turboprop_engine", "NO INFO"));
+			model.addElement(new EngineList("eng_io320", "piston_engine", "NO INFO"));
+			model.addElement(new EngineList("F100-PW-229", "turbine_engine", "NO INFO"));
+			model.addElement(new EngineList("F119-PW1", "turbine_engine", "NO INFO"));
+			model.addElement(new EngineList("GE-CF6-80C2-B1F", "turbine_engine", "NO INFO"));
+			model.addElement(new EngineList("J33-A-35", "turbine_engine", "NO INFO"));
+			model.addElement(new EngineList("J52", "turbine_engine", "NO INFO"));
+			model.addElement(new EngineList("J69-T25", "turbine_engine", "NO INFO"));
+			model.addElement(new EngineList("J79-GE-11A", "turbine_engine", "NO INFO"));
+			model.addElement(new EngineList("J85-GE-5", "turbine_engine", "NO INFO"));
+			model.addElement(new EngineList("JT9D-3", "turbine_engine", "NO INFO"));
+			model.addElement(new EngineList("PT6A-27", "turbine_engine", "NO INFO"));
+			model.addElement(new EngineList("PT6A-68", "turbine_engine", "NO INFO"));
+			model.addElement(new EngineList("PW125B", "turbine_engine", "NO INFO"));
+			model.addElement(new EngineList("RB211-524", "turbine_engine", "NO INFO"));
+			model.addElement(new EngineList("RollsRoyce", "turbine_engine", "NO INFO"));
+			model.addElement(new EngineList("t56", "turbine_engine", "NO INFO"));
+			model.addElement(new EngineList("T76", "turbine_engine", "NO INFO"));
+			model.addElement(new EngineList("Tay-651", "turbine_engine", "NO INFO"));
+			model.addElement(new EngineList("TRENT-900", "turbine_engine", "NO INFO"));
+			model.addElement(new EngineList("XLR99", "rocket_engine", "NO INFO"));
+			model.addElement(new EngineList("Zenoah_G-26A", "electric_engine", "NO INFO"));
+
+			modelTH.addElement(new ThrusterList("AJ26-33_nozzle", "nozzle", "NO INFO"));
+			modelTH.addElement(new ThrusterList("direct", "direct", "NO INFO"));
+			modelTH.addElement(new ThrusterList("HamiltonStd6243A-3", "propeller", "NO INFO"));
+			modelTH.addElement(new ThrusterList("LMdescent", "FG_ROCKET", "NO INFO"));
+			modelTH.addElement(new ThrusterList("LM_descent_nozzle", "FG_NOZZLE", "NO INFO"));
+			modelTH.addElement(new ThrusterList("MerlinV1650", "piston_engine", "NO INFO"));
+			modelTH.addElement(new ThrusterList("Olympus593Mrk610", "turbine_engine", "NO INFO"));
+			modelTH.addElement(new ThrusterList("P51prop", "propeller", "NO INFO"));
+			modelTH.addElement(new ThrusterList("prop30FP2B", "propeller", "NO INFO"));
+			modelTH.addElement(new ThrusterList("propC10v", "propeller", "NO INFO"));
+			modelTH.addElement(new ThrusterList("propC6v", "propeller", "NO INFO"));
+			modelTH.addElement(new ThrusterList("propC8v", "propeller", "NO INFO"));
+			modelTH.addElement(new ThrusterList("propDA-R352_6-123-F_2", "propeller", "NO INFO"));
+			modelTH.addElement(new ThrusterList("prop_75in2f", "propeller", "NO INFO"));
+			modelTH.addElement(new ThrusterList("prop_81in2v", "propeller", "NO INFO"));
+			modelTH.addElement(new ThrusterList("prop_Clark_Y7570", "propeller", "NO INFO"));
+			modelTH.addElement(new ThrusterList("prop_generic2f", "propeller", "NO INFO"));
+			modelTH.addElement(new ThrusterList("prop_PT6", "propeller", "NO INFO"));
+			modelTH.addElement(new ThrusterList("t56_prop", "propeller", "NO INFO"));
+			modelTH.addElement(new ThrusterList("vrtule2", "propeller", "NO INFO"));
+
 		}
-		
+
 		ArrayList<generated.Tank> tank = new ArrayList<>();
-        if(cfg.getPropulsion().getEngineOrTank() != null){
-            
-            for(Object o : cfg.getPropulsion().getEngineOrTank()){ 
-                if(o instanceof generated.Tank){               
-                    generated.Tank t = (generated.Tank) o;
-                    tank.add(t);
-                }
-            }
-			for(generated.Tank t : tank){ 
-                if(t.getLocation() != null && t.getType() != null ) {
+		if (cfg.getPropulsion().getEngineOrTank() != null) {
+
+			for (Object o : cfg.getPropulsion().getEngineOrTank()) {
+				if (o instanceof generated.Tank) {
+					generated.Tank t = (generated.Tank) o;
+					tank.add(t);
+				}
+			}
+			for (generated.Tank t : tank) {
+				if (t.getLocation() != null && t.getType() != null) {
 
 					String capUnit, contUnit;
 					Double contents, capacity;
 
-					if(t.getCapacity() != null){ //springCo
-                        capUnit = t.getCapacity().getUnit().toString();
-                        capacity = t.getCapacity().getValue();
-                    }
-                    else{
-                        capUnit = null;
-                        capacity = null;
-                    }
-                    
-                    if(t.getContents() != null){ //dampCo
-                        contUnit = t.getContents().getUnit().toString();
-                        contents = t.getContents().getValue();
-                    }
-                    else{
-                        contUnit = null;
-                        contents = null;
-                    }
-                    
-                    TankSetup ts = new TankSetup(//calling the constructor for loading
-                        //strings
-                        t.getType(),
-                        t.getLocation().getUnit(),
-						t.getCapacity().getUnit(),
-						t.getContents().getUnit(),
-                        //doubles
-                        t.getLocation().getX(),
-                        t.getLocation().getY(),
-                        t.getLocation().getZ(),
-						capacity,
-						contents                      
-					);
+					if (t.getCapacity() != null) { // springCo
+						capUnit = t.getCapacity().getUnit().toString();
+						capacity = t.getCapacity().getValue();
+					} else {
+						capUnit = null;
+						capacity = null;
+					}
+
+					if (t.getContents() != null) { // dampCo
+						contUnit = t.getContents().getUnit().toString();
+						contents = t.getContents().getValue();
+					} else {
+						contUnit = null;
+						contents = null;
+					}
+
+					TankSetup ts = new TankSetup(// calling the constructor for loading
+							// strings
+							t.getType(),
+							t.getLocation().getUnit(),
+							t.getCapacity().getUnit(),
+							t.getContents().getUnit(),
+							// doubles
+							t.getLocation().getX(),
+							t.getLocation().getY(),
+							t.getLocation().getZ(),
+							capacity,
+							contents);
 					listTS.add(ts);
 				}
 			}
 			modelTS.addAll(listTS);
 		}
-    }
+	}
 
-    @Override
-    public Optional<FdmConfig> saveXMLfromUI(FdmConfig cfg) {
-        // TODO
-        return Optional.ofNullable(cfg);
-    }
+	@Override
+	public Optional<FdmConfig> saveXMLfromUI(FdmConfig cfg) {
+		// TODO
+		return Optional.ofNullable(cfg);
+	}
 
 	private void addPair(ActionEvent e) {
-        EngineThrusterSetup engThSetup = new EngineThrusterSetup();
+		EngineThrusterSetup engThSetup = new EngineThrusterSetup();
 		if (engThSetup.getName() == null) {
 			return;
 		}
 		listETS.add(engThSetup);
 		modelETS.clear();
 		modelETS.addAll(listETS);
-    }
+	}
 
 	private void addTank(ActionEvent e) {
-        TankSetup tankSetup = new TankSetup();
+		TankSetup tankSetup = new TankSetup();
 		if (tankSetup.getName() == null) {
 			return;
 		}
 		listTS.add(tankSetup);
 		modelTS.clear();
 		modelTS.addAll(listTS);
-    }
-	
-	private void deleteTank(ActionEvent e) {//removing a GR/LGS from the displayed list
-        if(tankList.getSelectedValue() == null) {
+	}
+
+	private void deleteTank(ActionEvent e) {// removing a GR/LGS from the displayed list
+		if (tankList.getSelectedValue() == null) {
 			return;
 		}
-		int result = JOptionPane.showConfirmDialog(this, "Do you really want to delete the tank?", "Confirm", JOptionPane.YES_NO_OPTION);
-        if(result == JOptionPane.YES_OPTION){
-            TankSetup tankSetup = tankList.getSelectedValue();
-            modelTS.removeElement(tankSetup);
-            listTS.remove(tankSetup);
-        }
-    }
+		int result = JOptionPane.showConfirmDialog(this, "Do you really want to delete the tank?", "Confirm",
+				JOptionPane.YES_NO_OPTION);
+		if (result == JOptionPane.YES_OPTION) {
+			TankSetup tankSetup = tankList.getSelectedValue();
+			modelTS.removeElement(tankSetup);
+			listTS.remove(tankSetup);
+		}
+	}
 
-    private void propComponents() {
-		
+	private void propComponents() {
+
 		Propulsion = new JPanel();
 		availableEngines = new JLabel();
 		availableThrusters = new JLabel();
@@ -224,161 +272,165 @@ public class Propulsion extends JPanel implements TabComponent {
 		detailP = new JButton();
 		detailT = new JButton();
 
-		//======== Propulsion ========
+		// ======== Propulsion ========
 		{
 			setBorder(new CompoundBorder(
-				new EmptyBorder(20, 20, 20, 20),
-				new EmptyBorder(5, 0, 5, 50)));
+					new EmptyBorder(20, 20, 20, 20),
+					new EmptyBorder(5, 0, 5, 50)));
 			Propulsion.setLayout(new MigLayout(
-				"align center center,gap 5 20",
-				// columns
-				"[fill]" +
-				"[fill]" +
-				"[fill]0" +
-				"[fill]" +
-				"[fill]",
-				// rows
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]" +
-				"[]"));
+					"align center center,gap 5 20",
+					// columns
+					"[fill]" +
+							"[fill]" +
+							"[fill]0" +
+							"[fill]" +
+							"[fill]",
+					// rows
+					"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]" +
+							"[]"));
 
-			//---- availableEngines ----
+			// ---- availableEngines ----
 			availableEngines.setText("Available Engines");
 			availableEngines.setHorizontalAlignment(SwingConstants.CENTER);
 			Propulsion.add(availableEngines, "cell 0 0");
 
-			//---- availableThrusters ----
+			// ---- availableThrusters ----
 			availableThrusters.setText("Available Thrusters");
 			availableThrusters.setHorizontalAlignment(SwingConstants.CENTER);
 			Propulsion.add(availableThrusters, "cell 1 0");
 
-			//---- subscribedEngines ----
+			// ---- subscribedEngines ----
 			subscribedEngines.setText("Subscribed Engines");
 			subscribedEngines.setHorizontalAlignment(SwingConstants.CENTER);
 			Propulsion.add(subscribedEngines, "cell 2 0 2 1");
 
-			//---- tanks ----
+			// ---- tanks ----
 			tanks.setText("Tanks");
 			tanks.setHorizontalAlignment(SwingConstants.CENTER);
 			Propulsion.add(tanks, "cell 4 0");
 
-			//---- engine ----
+			// ---- engine ----
 			engine.setText("Engine");
 			Propulsion.add(engine, "cell 0 2");
 
-			//---- thruster ----
+			// ---- thruster ----
 			thruster.setText("Thruster");
 			Propulsion.add(thruster, "cell 1 2");
 
-			//---- eng ----
+			// ---- eng ----
 			eng.setText("Engine");
 			Propulsion.add(eng, "cell 2 2");
 
-			//---- th ----
+			// ---- th ----
 			th.setText("Thruster");
 			Propulsion.add(th, "cell 3 2");
 
-			//---- tank ----
+			// ---- tank ----
 			tank.setText("Tank");
 			Propulsion.add(tank, "cell 4 2");
 
-			//======== engineScrollPane ========
+			// ======== engineScrollPane ========
 			{
+				engineList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				engineList.setModel(model);
 				engineScrollPane.setViewportView(engineList);
 			}
-			Propulsion.add(engineScrollPane, "cell 0 3 1 29,growy,wmax 250,hmax 900");
+			Propulsion.add(engineScrollPane, "cell 0 3 1 29,growy,width 200::300,hmax 900");
 
-			//======== thrusterScrollPane ========
+			// ======== thrusterScrollPane ========
 			{
+				thrusterList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				thrusterList.setModel(modelTH);
 				thrusterScrollPane.setViewportView(thrusterList);
 			}
-			Propulsion.add(thrusterScrollPane, "cell 1 3 1 29,growy,wmax 250,hmax 900");
+			Propulsion.add(thrusterScrollPane, "cell 1 3 1 29,growy,width 200::300,hmax 900");
 
-			//======== engScrollPane ========
+			// ======== engScrollPane ========
 			{
 				engList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		    	engList.setModel(modelETS);
+				engList.setModel(modelETS);
 				engScrollPane.setViewportView(engList);
 			}
-			Propulsion.add(engScrollPane, "cell 2 3 2 29,growy,wmax 300,hmax 900");
+			Propulsion.add(engScrollPane, "cell 2 3 2 29,growy,width 200::300,hmax 900");
 
-			//======== tankScrollPane ========
+			// ======== tankScrollPane ========
 			{
 				tankList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		    	tankList.setModel(modelTS);
+				tankList.setModel(modelTS);
 				tankScrollPane.setViewportView(tankList);
 			}
-			Propulsion.add(tankScrollPane, "cell 4 3 1 29,growy,wmax 275,hmax 900");
+			Propulsion.add(tankScrollPane, "cell 4 3 1 29,growy,width 200::300,hmax 900");
 
-			//======== buttonPanel ========
+			// ======== buttonPanel ========
 			{
 				buttonPanel.setLayout(new MigLayout(
-					"fillx,hidemode 3",
-					// columns
-					"[fill]" +
-					"[fill]" +
-					"[fill]" +
-					"[fill]" +
-					"[fill]" +
-					"[fill]",
-					// rows
-					"[]" +
-					"[]"));
+						"fillx,hidemode 3",
+						// columns
+						"[fill]" +
+								"[fill]" +
+								"[fill]" +
+								"[fill]" +
+								"[fill]" +
+								"[fill]",
+						// rows
+						"[]" +
+								"[]"));
 
-				//---- newP ----
+				// ---- newP ----
 				newP.setText("New Pair");
 				newP.addActionListener(e -> addPair(e));
 				buttonPanel.add(newP, "cell 0 0");
 
-				//---- newT ----
+				// ---- newT ----
 				newT.setText("New Tank");
 				newT.addActionListener(e -> addTank(e));
 				buttonPanel.add(newT, "cell 1 0");
 
-				//---- deleteP ----
+				// ---- deleteP ----
 				deleteP.setText("Delete Pair");
 				buttonPanel.add(deleteP, "cell 2 0");
 
-				//---- deleteT ----
+				// ---- deleteT ----
 				deleteT.setText("Delete Tank");
 				deleteT.addActionListener(e -> deleteTank(e));
 				buttonPanel.add(deleteT, "cell 3 0");
 
-				//---- detailP ----
+				// ---- detailP ----
 				detailP.setText("Detail Pair");
 				buttonPanel.add(detailP, "cell 4 0");
 
-				//---- detailT ----
+				// ---- detailT ----
 				detailT.setText("Detail Tank");
 				buttonPanel.add(detailT, "cell 5 0");
 			}
@@ -387,7 +439,6 @@ public class Propulsion extends JPanel implements TabComponent {
 		add(Propulsion);
 	}
 
-	
 	private JPanel Propulsion;
 	private JLabel availableEngines;
 	private JLabel availableThrusters;
@@ -399,9 +450,9 @@ public class Propulsion extends JPanel implements TabComponent {
 	private JLabel th;
 	private JLabel tank;
 	private JScrollPane engineScrollPane;
-	private JList<String> engineList;
+	private JList<EngineList> engineList;
 	private JScrollPane thrusterScrollPane;
-	private JList<String> thrusterList;
+	private JList<ThrusterList> thrusterList;
 	private JScrollPane engScrollPane;
 	private JList<EngineThrusterSetup> engList;
 	private JScrollPane tankScrollPane;
@@ -413,11 +464,16 @@ public class Propulsion extends JPanel implements TabComponent {
 	private JButton deleteT;
 	private JButton detailP;
 	private JButton detailT;
-	
+
 	private DefaultListModel<EngineThrusterSetup> modelETS = new DefaultListModel<EngineThrusterSetup>();
-    private ArrayList<EngineThrusterSetup> listETS;
+	private ArrayList<EngineThrusterSetup> listETS;
 
 	private DefaultListModel<TankSetup> modelTS = new DefaultListModel<TankSetup>();
-    private ArrayList<TankSetup> listTS;
+	private ArrayList<TankSetup> listTS;
 
+	private DefaultListModel<EngineList> model = new DefaultListModel<EngineList>();
+	private ArrayList<EngineList> list;
+
+	private DefaultListModel<ThrusterList> modelTH = new DefaultListModel<ThrusterList>();
+	private ArrayList<ThrusterList> listTH;
 }
