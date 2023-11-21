@@ -104,7 +104,8 @@ public class MainWindow extends JFrame {
                         // load xml file
                         Optional<File> xml = LoadSave.openFile();
                         if(xml.isPresent()) {
-                            
+                            //send xml into PropertiesWin to make its own unmarshaller
+                            PropertiesWin.loadProperties(xml);
                             // unmarshall xml to jaxb object
                             JAXBContext jc = JAXBContext.newInstance("generated");
                             Unmarshaller um = jc.createUnmarshaller();
