@@ -2,6 +2,7 @@ package uta.cse.cse3310.JSBSimEdit;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.swing.DefaultListModel;
@@ -207,7 +208,34 @@ public class Propulsion extends JPanel implements TabComponent {
 
 	@Override
 	public Optional<FdmConfig> saveXMLfromUI(FdmConfig cfg) {
-		// TODO
+
+		cfg.getPropulsion().getEngineOrTank().clear();
+
+		for (TankSetup ts : listTS) {
+			generated.Tank tank = new generated.Tank();
+			generated.Location location = new generated.Location();
+			generated.Capacity capacity = new generated.Capacity();
+			generated.Contents contents = new generated.Contents();
+	
+			location.setUnit(ts.getLocUnitTS());
+			location.setX(ts.getXLocTS());
+			location.setY(ts.getYLocTS());
+			location.setZ(ts.getZLocTS());
+	
+			capacity.setUnit(ts.getCapacityUnitTS());
+			capacity.setValue(ts.getCapacityTS());
+	
+			contents.setUnit(ts.getContentsUnitTS());
+			contents.setValue(ts.getContentsTS());
+
+			tank.setLocation(location);
+			tank.setType(ts.getTypeTS());
+			tank.setCapacity(capacity);
+			tank.setContents(contents);
+	
+			cfg.getPropulsion().getEngineOrTank().add(tank);
+		}
+
 		return Optional.ofNullable(cfg);
 	}
 
