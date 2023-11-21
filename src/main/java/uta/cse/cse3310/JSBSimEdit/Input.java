@@ -43,9 +43,9 @@ JTextField portText;
         generated.Input in = cfg.getInput();
         //get the information from the textfield, and call in.
         if (in != null) {
-            BigInteger portValue = in.getPort();
-            if (portValue != null) {
-                portText.setText(portValue.toString());
+            String portValue = portText.getText();
+            if (!portValue.isEmpty()) {
+                in.setPort(new BigInteger(portValue));
             }
         }
         return Optional.ofNullable(cfg);

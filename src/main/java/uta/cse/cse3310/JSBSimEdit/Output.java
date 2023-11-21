@@ -64,8 +64,10 @@ public class Output extends JPanel implements TabComponent {
             op = opList.get(0);
         }
 
-        op.setName(nameText.getText());
-
+		if (nameText.getText() != null) {
+			op.setName(nameText.getText());
+		}
+        
         String portValue = portText.getText();
         if (!portValue.isEmpty()) {
             op.setPort(new BigInteger(portValue));
