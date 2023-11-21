@@ -28,37 +28,25 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 	}
 
 	public EngineThrusterSetup(String engineName, int engineFeed,
-			String thrusterName, String thrusterLocationUnit, String thrusterOrientUnit,
-			Double thrusterX, Double thrusterY, Double thrusterZ,
-			Double thrusterRoll, Double thrusterPitch, Double thrusterYaw) {
-		this.engName = engineName;
-		this.engineFeed = engineFeed;
+        String thrusterName, String thrusterLocationUnit, String thrusterOrientUnit,
+        Double thrusterX, Double thrusterY, Double thrusterZ,
+        Double thrusterRoll, Double thrusterPitch, Double thrusterYaw) {
+    this.engName = (engineName != null) ? engineName : "";
+    this.engineFeed = engineFeed;
 
-		this.thrusName = thrusterName;
-		this.thrusterLocUnit = thrusterLocationUnit;
-		this.thrusterOrientUnit = thrusterOrientUnit;
+    this.thrusName = (thrusterName != null) ? thrusterName : "";
+    this.thrusterLocUnit = (thrusterLocationUnit != null) ? thrusterLocationUnit : "";
+    this.thrusterOrientUnit = (thrusterOrientUnit != null) ? thrusterOrientUnit : "";
 
-		this.thrusterXLoc = thrusterX;
-		this.thrusterYLoc = thrusterY;
-		this.thrusterZLoc = thrusterZ;
+    this.thrusterXLoc = (thrusterX != null) ? thrusterX : 0.0;
+    this.thrusterYLoc = (thrusterY != null) ? thrusterY : 0.0;
+    this.thrusterZLoc = (thrusterZ != null) ? thrusterZ : 0.0;
 
-		this.thrusterRoll = thrusterRoll;
-		this.thrusterPitch = thrusterPitch;
-		this.thrusterYaw = thrusterYaw;
+    this.thrusterRoll = (thrusterRoll != null) ? thrusterRoll : 0.0;
+    this.thrusterPitch = (thrusterPitch != null) ? thrusterPitch : 0.0;
+    this.thrusterYaw = (thrusterYaw != null) ? thrusterYaw : 0.0;
+}
 
-		if (thrusterRoll != null)
-			this.thrusterRoll = (double) thrusterRoll;
-		else
-			this.thrusterRoll = 0.0;
-		if (thrusterPitch != null)
-			this.thrusterPitch = (double) thrusterPitch;
-		else
-			this.thrusterPitch = 0.0;
-		if (thrusterYaw != null)
-			this.thrusterYaw = (double) thrusterYaw;
-		else
-			this.thrusterYaw = 0.0;
-	}
 
 	private void cancelBPressed(ActionEvent e) { // just get rid of the object if the user cancels
 		this.dispose(); // the object's getters and values will just return null
@@ -85,6 +73,10 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 
 	public String getEngineNameETS() {
 		return engName;
+	}
+
+	public int getEngineFeedETS() {
+		return engineFeed;
 	}
 
 	public String getThrusterNameETS() {
@@ -164,6 +156,7 @@ public class EngineThrusterSetup extends JDialog { // should be jframe if its a 
 
 	private void setDetails(EngineThrusterSetup other) {
 		engineNameText.setText(other.getEngineNameETS());
+		feedText.setText(Integer.toString(other.getEngineFeedETS()));
 		thrusterNameText.setText(other.getThrusterNameETS());
 
 		eUnitComboBox.setSelectedItem(other.getEngineLocationUnitETS());

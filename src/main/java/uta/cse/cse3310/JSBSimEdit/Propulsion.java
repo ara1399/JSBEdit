@@ -211,15 +211,101 @@ public class Propulsion extends JPanel implements TabComponent {
 		return Optional.ofNullable(cfg);
 	}
 
+	private void openPropertiesDialog(EngineThrusterSetup engineThrusterSetup) {
+		// Create and show the properties dialog using the EngineThrusterSetup information
+		// You should implement this method based on how you display the properties dialog
+		// Example:
+		
+		JOptionPane.showMessageDialog(
+				this,
+				"Engine Name: " + engineThrusterSetup.getEngineNameETS() + 
+				"\nx: " + engineThrusterSetup.getEngineXLocETS() + 
+				" y: " + engineThrusterSetup.getEngineYLocETS() + 
+				" z: " + engineThrusterSetup.getEngineZLocETS() + 
+				engineThrusterSetup.getEngineLocationUnitETS() +
+				"\nRoll: " + engineThrusterSetup.getEngineRollETS() + 
+				" Pitch: " + engineThrusterSetup.getEnginePitchETS() + 
+				" Yaw: " + engineThrusterSetup.getEngineYawETS() + 
+				engineThrusterSetup.getEngineOrientUnitETS() +
+				"\nFeed: " + engineThrusterSetup.getEngineFeedETS() + 
+				"\nThruster Name: " + engineThrusterSetup.getThrusterNameETS() +
+				"\nx: " + engineThrusterSetup.getThrusterXLocETS() + 
+				" y: " + engineThrusterSetup.getThrusterYLocETS() + 
+				" z: " + engineThrusterSetup.getThrusterZLocETS() +
+				engineThrusterSetup.getThrusterLocationUnitETS() +
+				"\nRoll: " + engineThrusterSetup.getThrusterRollETS() + 
+				" Pitch: " + engineThrusterSetup.getThrusterPitchETS() + 
+				" Yaw: " + engineThrusterSetup.getThrusterYawETS() +
+				engineThrusterSetup.getThrusterOrientUnitETS(),
+				"Properties",
+				JOptionPane.INFORMATION_MESSAGE
+		);
+	}
+	
 	private void addPair(ActionEvent e) {
-		EngineThrusterSetup engThSetup = new EngineThrusterSetup();
+		// Show dialog to select an engine
+		EngineList selectedEngine = engineList.getSelectedValue();
+		if (selectedEngine == null) {
+			JOptionPane.showMessageDialog(this, "Please select an engine.", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+	
+		// Show dialog to select a thruster
+		ThrusterList selectedThruster = thrusterList.getSelectedValue();
+		if (selectedThruster == null) {
+			JOptionPane.showMessageDialog(this, "Please select a thruster.", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+	
+		// Now you have the selected engine and thruster, use them to create a new pair
+		EngineThrusterSetup engThSetup = new EngineThrusterSetup(
+				selectedEngine.getName(),
+				0, // Set the default feed value, you may need to adjust this based on your requirements
+				selectedThruster.getName(),
+				null, // You may need to set other properties based on your requirements
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null
+		);
 		if (engThSetup.getName() == null) {
 			return;
 		}
+	
+		// Open the properties dialog for the selected engine and thruster
+		openPropertiesDialog(engThSetup);
+	
 		listETS.add(engThSetup);
 		modelETS.clear();
 		modelETS.addAll(listETS);
 	}
+	
+
+	private void detailPair(ActionEvent e) {
+		// Check if an EngineThrusterSetup is selected
+		if (engList.getSelectedValue() != null) {
+			EngineThrusterSetup oldPair = engList.getSelectedValue();
+	
+			// Create a copy of the selected pair
+			EngineThrusterSetup newPair = new EngineThrusterSetup(oldPair);
+	
+			// Check if the user canceled (name is null in your case)
+			if (newPair.getName() == null) {
+				return;
+			} else {
+				// If the user pressed OK, remove the old pair and add the new pair
+				listETS.remove(oldPair);
+				listETS.add(newPair);
+				modelETS.clear(); // Refreshing the model to display on the engList
+				modelETS.addAll(listETS);
+			}
+		}
+	}
+	
+		
 
 	private void addTank(ActionEvent e) {
 		TankSetup tankSetup = new TankSetup();
@@ -230,6 +316,25 @@ public class Propulsion extends JPanel implements TabComponent {
 		modelTS.clear();
 		modelTS.addAll(listTS);
 	}
+
+	private void detailTank(ActionEvent e) {
+		// Check if a TankSetup is selected
+		if (tankList.getSelectedValue() != null) {
+			TankSetup oldTank = tankList.getSelectedValue();
+			TankSetup newTank = new TankSetup(oldTank);
+			
+			// If the user canceled, do nothing
+			if (newTank.getName() == null) {
+				return;
+			} else {
+				// If the user pressed OK, remove the old tank and add the new tank
+				listTS.remove(tankList.getSelectedValue());
+				listTS.add(newTank);
+				modelTS.clear(); // Refreshing the model to display on the tankList
+				modelTS.addAll(listTS);
+			}
+		}
+	}	
 
 	private void deleteTank(ActionEvent e) {// removing a GR/LGS from the displayed list
 		if (tankList.getSelectedValue() == null) {
@@ -428,10 +533,12 @@ public class Propulsion extends JPanel implements TabComponent {
 
 				// ---- detailP ----
 				detailP.setText("Detail Pair");
+				detailP.addActionListener(e -> detailPair(e));
 				buttonPanel.add(detailP, "cell 4 0");
 
 				// ---- detailT ----
 				detailT.setText("Detail Tank");
+				detailT.addActionListener(e -> detailTank(e));
 				buttonPanel.add(detailT, "cell 5 0");
 			}
 			Propulsion.add(buttonPanel, "cell 0 32 6 1");
