@@ -126,13 +126,32 @@ public class Output extends JPanel implements TabComponent {
 		return Optional.ofNullable(cfg);
 	}
 
+	private List<String> selectedPropertyValues = new ArrayList<>();
+
 	private void chooseButton(ActionEvent e) {
 		// Check if an EngineThrusterSetup is selected
 		Properties props = new Properties(SwingUtilities.getWindowAncestor(this));
+		props.setCallingClass(this, this::handleSelectedValue);
 		
 		props.setVisible(true);
 
 	}
+
+	private void handleSelectedValue(Object callingClass, String selectedValue) {
+        // Do something with the selected value, for example, display in the text area
+        selectedPropertyValues.add(selectedValue);
+    }
+
+	private void addButton(ActionEvent e) {
+		// Add the selected value to the propertiesTextArea
+		StringBuilder builder = new StringBuilder();
+        for (String value : selectedPropertyValues) {
+            builder.append(value).append("\n");
+        }
+        propertiesTextArea.setText(builder.toString());
+	}
+
+		
 
 	private void outComponents() {
 
@@ -320,6 +339,7 @@ public class Output extends JPanel implements TabComponent {
 
 				// ---- add ----
 				addButton.setText("Add");
+				addButton.addActionListener(e -> addButton(e));
 				buttonPanel.add(addButton, "cell 1 0");
 
 				// ---- delete ----

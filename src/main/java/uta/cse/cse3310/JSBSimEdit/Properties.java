@@ -12,6 +12,7 @@ import java.awt.Dimension;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.io.InputStream;
+import java.util.function.BiConsumer;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -28,6 +29,8 @@ public class Properties extends JDialog {
 	
 	private PropsType pt;
     private DefaultListModel<String> listModel;
+	private Object callingClass; // Updated to use Object
+    private BiConsumer<Object, String> onSelectCallback;
 	
 	public Properties(Window owner) {
 		super(owner);
@@ -35,6 +38,11 @@ public class Properties extends JDialog {
         loadProperties();
 		updateList();
 	}
+
+	public void setCallingClass(Object callingClass, BiConsumer<Object, String> onSelectCallback) {
+        this.callingClass = callingClass;
+        this.onSelectCallback = onSelectCallback;
+    }
 
 	private void loadProperties() {
         try {
@@ -56,13 +64,22 @@ public class Properties extends JDialog {
     }
 
 	private void okButton(ActionEvent e) {
-		list1.getSelectedValue();
+		String selectedValue = list1.getSelectedValue();
 		dispose();
+
+		returnSelectedValue(selectedValue);
 	}
 
 	private void cancelButton(ActionEvent e) {
 		dispose();
 	}
+
+	public void returnSelectedValue(String selectedValue) {
+        // Notify the calling class with the selected value
+        if (selectedValue != null && callingClass != null && onSelectCallback != null) {
+            onSelectCallback.accept(callingClass, selectedValue);
+        }
+    }
     
     private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
@@ -149,7 +166,7 @@ public class Properties extends JDialog {
 	private JPanel dialogPane;
 	private JPanel contentPanel;
 	private JScrollPane scrollPane1;
-	private JList list1;
+	private JList<String> list1;
 	private JPanel buttonBar;
 	private JButton okButton;
 	private JButton cancelButton;
