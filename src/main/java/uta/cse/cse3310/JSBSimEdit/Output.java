@@ -89,9 +89,7 @@ public class Output extends JPanel implements TabComponent {
 				if (jaxbElement.getDeclaredType().equals(generated.Output.Property.class)) {
 					generated.Output.Property property = (generated.Output.Property) jaxbElement.getValue();
 					propertiesListModel.addElement(property.getValue());
-				} else {
-					// Handle other types (simulation, atmosphere, etc.) if needed
-				}
+				} 
 			}
 		}
 
@@ -145,16 +143,25 @@ public class Output extends JPanel implements TabComponent {
 				}
 			}
 		}
-		/*op.getPropertyOrSimulationAndAtmosphere().clear();
 
-		// Add new properties from the propertiesListModel to the XML
-		for (Object value : propertiesListModel.toArray()) {
-			generated.Output.Property property = new generated.Output.Property();
-			property.setValue(value);
-			JAXBElement<generated.Output.Property> jaxbElement = new JAXBElement<>(new QName("property"),
-					generated.Output.Property.class, property);
-			op.getPropertyOrSimulationAndAtmosphere().add(jaxbElement);
-		}*/
+		propertiesListModel.clear();
+
+    // Iterate through the elements in propertyOrSimulationAndAtmosphereList
+    for (Object element : op.getPropertyOrSimulationAndAtmosphere()) {
+        if (element instanceof JAXBElement) {
+            JAXBElement<?> jaxbElement = (JAXBElement<?>) element;
+
+            // Check if the element is a property
+            if (jaxbElement.getDeclaredType().equals(generated.Output.Property.class)) {
+                generated.Output.Property property = (generated.Output.Property) jaxbElement.getValue();
+                propertiesListModel.addElement(property.getValue());
+            } 
+        }
+    }
+
+    // Update the JList
+    propertiesList.setModel(propertiesListModel);
+		
 		return Optional.ofNullable(cfg);
 	}
 
