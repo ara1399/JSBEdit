@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.xml.namespace.QName;
 
 import net.miginfocom.swing.*;
 
@@ -78,6 +79,25 @@ public class Output extends JPanel implements TabComponent {
 			}
 		}
 
+		propertiesListModel.clear();
+
+    for (var element : op.getPropertyOrSimulationAndAtmosphere()) {
+        if (element instanceof JAXBElement) {
+            JAXBElement<?> jaxbElement = (JAXBElement<?>) element;
+
+            // Check if the element is a property
+            if (jaxbElement.getDeclaredType().equals(generated.Output.Property.class)) {
+                generated.Output.Property property = (generated.Output.Property) jaxbElement.getValue();
+                propertiesListModel.addElement(property.getValue());
+            } else {
+                // Handle other types (simulation, atmosphere, etc.) if needed
+            }
+        }
+    }
+
+    // Update the JList
+    propertiesList.setModel(propertiesListModel);
+
 	}
 
 	@Override
@@ -125,6 +145,17 @@ public class Output extends JPanel implements TabComponent {
 				}
 			}
 		}
+		op.getPropertyOrSimulationAndAtmosphere().clear();
+
+    // Add new properties from the propertiesListModel to the XML
+    for (Object value : propertiesListModel.toArray()) {
+        generated.Output.Property property = new generated.Output.Property();
+        property.setValue((String)value);
+        JAXBElement<generated.Output.Property> jaxbElement = 
+		new JAXBElement<>(new QName("property"), generated.Output.Property.class, property);
+        op.getPropertyOrSimulationAndAtmosphere().add(jaxbElement);
+    }
+
 
 		return Optional.ofNullable(cfg);
 	}
