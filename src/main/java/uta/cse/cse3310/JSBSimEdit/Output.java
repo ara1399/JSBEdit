@@ -16,10 +16,12 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
@@ -30,8 +32,11 @@ import jakarta.xml.bind.JAXBElement;
 import uta.cse.cse3310.JSBSimEdit.interfaces.TabComponent;
 
 public class Output extends JPanel implements TabComponent {
+	private DefaultListModel<String> propertiesListModel = new DefaultListModel<>();
+
 	public Output() {
 		outComponents();
+		propertiesListModel = new DefaultListModel<>();
 	}
 
 	@Override
@@ -132,6 +137,8 @@ public class Output extends JPanel implements TabComponent {
 		// Check if an EngineThrusterSetup is selected
 		Properties props = new Properties(SwingUtilities.getWindowAncestor(this));
 		props.setCallingClass(this, this::handleSelectedValue);
+		//System.out.println("props Value: " + props);
+		//System.out.println("handle Value: " + props.setCallingClass(this, this::handleSelectedValue));
 		
 		props.setVisible(true);
 
@@ -140,16 +147,19 @@ public class Output extends JPanel implements TabComponent {
 	private void handleSelectedValue(Object callingClass, String selectedValue) {
         // Do something with the selected value, for example, display in the text area
         selectedPropertyValues.add(selectedValue);
+		System.out.println("handle Value: " + selectedValue);
     }
 
 	private void addButton(ActionEvent e) {
-		// Add the selected value to the propertiesTextArea
-		StringBuilder builder = new StringBuilder();
-        for (String value : selectedPropertyValues) {
-            builder.append(value).append("\n");
-        }
-        propertiesTextArea.setText(builder.toString());
+		// Add the selected value to the propertiesListModel
+		for (String value : selectedPropertyValues) {
+			propertiesListModel.addElement(value);
+		}
+	
+		// Update the JList
+		propertiesTextArea.setModel(propertiesListModel);
 	}
+	
 
 		
 
@@ -178,7 +188,7 @@ public class Output extends JPanel implements TabComponent {
 		groundReactions = new JCheckBox();
 		coefficients = new JCheckBox();
 		propertiesScrollPane = new JScrollPane();
-		propertiesTextArea = new JTextArea();
+		propertiesTextArea = new JList<>(propertiesListModel);
 		properties = new JLabel();
 		buttonPanel = new JPanel();
 		chooseButton = new JButton();
@@ -312,6 +322,8 @@ public class Output extends JPanel implements TabComponent {
 
 			// ======== propertiesScrollPane ========
 			{
+				propertiesTextArea.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				propertiesTextArea.setModel(propertiesListModel);
 				propertiesScrollPane.setViewportView(propertiesTextArea);
 			}
 			panelOutput.add(propertiesScrollPane, "cell 1 9 5 8,growy");
@@ -375,7 +387,7 @@ public class Output extends JPanel implements TabComponent {
 	private JCheckBox groundReactions;
 	private JCheckBox coefficients;
 	private JScrollPane propertiesScrollPane;
-	private JTextArea propertiesTextArea;
+	private JList propertiesTextArea;
 	private JLabel properties;
 	private JPanel buttonPanel;
 	private JButton chooseButton;
