@@ -17,6 +17,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -137,31 +138,48 @@ public class Output extends JPanel implements TabComponent {
 		// Check if an EngineThrusterSetup is selected
 		Properties props = new Properties(SwingUtilities.getWindowAncestor(this));
 		props.setCallingClass(this, this::handleSelectedValue);
-		//System.out.println("props Value: " + props);
-		//System.out.println("handle Value: " + props.setCallingClass(this, this::handleSelectedValue));
 		
 		props.setVisible(true);
 
 	}
 
 	private void handleSelectedValue(Object callingClass, String selectedValue) {
-        // Do something with the selected value, for example, display in the text area
         selectedPropertyValues.add(selectedValue);
-		System.out.println("handle Value: " + selectedValue);
     }
 
 	private void addButton(ActionEvent e) {
+		
 		// Add the selected value to the propertiesListModel
 		for (String value : selectedPropertyValues) {
 			propertiesListModel.addElement(value);
 		}
+		selectedPropertyValues.clear();
 	
 		// Update the JList
 		propertiesTextArea.setModel(propertiesListModel);
 	}
 	
+	private void deleteButton(ActionEvent e) {
+    // Get the index of the selected item
+    int selectedIndex = propertiesTextArea.getSelectedIndex();
 
-		
+    // Check if an item is selected
+    if (selectedIndex != -1) {
+        // Ask for confirmation
+        int result = JOptionPane.showConfirmDialog(this, "Do you really want to delete it?", "Confirm",
+                JOptionPane.YES_NO_OPTION);
+
+        if (result == JOptionPane.YES_OPTION) {
+            // Remove the selected item from the propertiesListModel
+            propertiesListModel.remove(selectedIndex);
+
+            // Update the JList
+            propertiesTextArea.setModel(propertiesListModel);
+        }
+    }
+}
+
+	
 
 	private void outComponents() {
 
@@ -356,6 +374,7 @@ public class Output extends JPanel implements TabComponent {
 
 				// ---- delete ----
 				deleteButton.setText("Delete");
+				deleteButton.addActionListener(e -> deleteButton(e));
 				buttonPanel.add(deleteButton, "cell 2 0");
 
 			}
