@@ -1,6 +1,7 @@
 package uta.cse.cse3310.JSBSimEdit;
 
 import java.awt.event.ActionEvent;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +34,54 @@ public class Propulsion extends JPanel implements TabComponent {
 
 	@Override
 	public void bindUIwithXML(FdmConfig cfg) {
+
+		ArrayList<generated.Engine> engineListFromXML = new ArrayList<>();
+
+		// Check if there is any engine or tank data in the XML
+		if (cfg.getPropulsion().getEngineOrTank() != null) {
+			for (Object o : cfg.getPropulsion().getEngineOrTank()) {
+				if (o instanceof generated.Engine) {
+					engineListFromXML.add((generated.Engine) o);
+				}
+			}
+		}
+
+		// Add engine-thruster pairs from XML to the engList
+		for (generated.Engine e : engineListFromXML) {
+			if (e.getThruster() != null) {
+				// Extract relevant data from XML
+				String engineName = e.getFile();
+				int feed = e.getFeed().get(0).intValue();
+				String thrusterName = e.getThruster().getFile();
+
+				String thrusterLocUnit = e.getThruster().getLocation().getUnit();
+				String thrusterOrientUnit = e.getThruster().getOrient().getUnit();
+
+				Double thrusterRoll = e.getThruster().getOrient().getRoll();
+				Double thrusterPitch = e.getThruster().getOrient().getPitch();
+				Double thrusterYaw = e.getThruster().getOrient().getYaw();
+
+				Double thrusterX = e.getThruster().getLocation().getX();
+				Double thrusterY = e.getThruster().getLocation().getY();
+				Double thrusterZ = e.getThruster().getLocation().getZ();
+
+				// Create an EngineThrusterSetup object and add it to the list
+				EngineThrusterSetup ets = new EngineThrusterSetup(
+						engineName,
+						feed,
+						thrusterName,
+						thrusterLocUnit,
+						thrusterOrientUnit,
+						// doubles
+						thrusterX,
+						thrusterY,
+						thrusterZ,
+						thrusterRoll,
+						thrusterPitch,
+						thrusterYaw);
+				listETS.add(ets);
+			}
+		}
 
 		ArrayList<generated.Engine> engine = new ArrayList<>();
 		if (cfg.getPropulsion().getEngineOrTank() != null) {
@@ -216,15 +265,15 @@ public class Propulsion extends JPanel implements TabComponent {
 			generated.Location location = new generated.Location();
 			generated.Capacity capacity = new generated.Capacity();
 			generated.Contents contents = new generated.Contents();
-	
+
 			location.setUnit(ts.getLocUnitTS());
 			location.setX(ts.getXLocTS());
 			location.setY(ts.getYLocTS());
 			location.setZ(ts.getZLocTS());
-	
+
 			capacity.setUnit(ts.getCapacityUnitTS());
 			capacity.setValue(ts.getCapacityTS());
-	
+
 			contents.setUnit(ts.getContentsUnitTS());
 			contents.setValue(ts.getContentsTS());
 
@@ -232,44 +281,72 @@ public class Propulsion extends JPanel implements TabComponent {
 			tank.setType(ts.getTypeTS());
 			tank.setCapacity(capacity);
 			tank.setContents(contents);
-	
+
 			cfg.getPropulsion().getEngineOrTank().add(tank);
+		}
+
+		for (EngineThrusterSetup ets : listETS) {
+			generated.Engine engine = new generated.Engine();
+			generated.Thruster thruster = new generated.Thruster();
+			generated.Location location = new generated.Location();
+			generated.Orient orient = new generated.Orient();
+	
+			location.setUnit(ets.getThrusterLocationUnitETS());
+			location.setX(ets.getThrusterXLocETS());
+			location.setY(ets.getThrusterYLocETS());
+			location.setZ(ets.getThrusterZLocETS());
+	
+			orient.setUnit(ets.getThrusterOrientUnitETS());
+			orient.setRoll(ets.getThrusterRollETS());
+			orient.setPitch(ets.getThrusterPitchETS());
+			orient.setYaw(ets.getThrusterYawETS());
+	
+			thruster.setFile(ets.getThrusterNameETS());
+			thruster.setLocation(location);
+			thruster.setOrient(orient);
+	
+			engine.setFile(ets.getEngineNameETS());
+			engine.getFeed().add(BigInteger.valueOf((long) ets.getEngineFeedETS()));
+			engine.setThruster(thruster);
+	
+			cfg.getPropulsion().getEngineOrTank().add(engine);
 		}
 
 		return Optional.ofNullable(cfg);
 	}
 
 	private void openPropertiesDialog(EngineThrusterSetup engineThrusterSetup) {
-		// Create and show the properties dialog using the EngineThrusterSetup information
-		// You should implement this method based on how you display the properties dialog
+		// Create and show the properties dialog using the EngineThrusterSetup
+		// information
+		// You should implement this method based on how you display the properties
+		// dialog
 		// Example:
-		
+
 		JOptionPane.showMessageDialog(
 				this,
-				"Engine Name: " + engineThrusterSetup.getEngineNameETS() + 
-				"\nx: " + engineThrusterSetup.getEngineXLocETS() + 
-				" y: " + engineThrusterSetup.getEngineYLocETS() + 
-				" z: " + engineThrusterSetup.getEngineZLocETS() + 
-				engineThrusterSetup.getEngineLocationUnitETS() +
-				"\nRoll: " + engineThrusterSetup.getEngineRollETS() + 
-				" Pitch: " + engineThrusterSetup.getEnginePitchETS() + 
-				" Yaw: " + engineThrusterSetup.getEngineYawETS() + 
-				engineThrusterSetup.getEngineOrientUnitETS() +
-				"\nFeed: " + engineThrusterSetup.getEngineFeedETS() + 
-				"\nThruster Name: " + engineThrusterSetup.getThrusterNameETS() +
-				"\nx: " + engineThrusterSetup.getThrusterXLocETS() + 
-				" y: " + engineThrusterSetup.getThrusterYLocETS() + 
-				" z: " + engineThrusterSetup.getThrusterZLocETS() +
-				engineThrusterSetup.getThrusterLocationUnitETS() +
-				"\nRoll: " + engineThrusterSetup.getThrusterRollETS() + 
-				" Pitch: " + engineThrusterSetup.getThrusterPitchETS() + 
-				" Yaw: " + engineThrusterSetup.getThrusterYawETS() +
-				engineThrusterSetup.getThrusterOrientUnitETS(),
+				"Engine Name: " + engineThrusterSetup.getEngineNameETS() +
+						"\nx: " + engineThrusterSetup.getEngineXLocETS() +
+						" y: " + engineThrusterSetup.getEngineYLocETS() +
+						" z: " + engineThrusterSetup.getEngineZLocETS() +
+						engineThrusterSetup.getEngineLocationUnitETS() +
+						"\nRoll: " + engineThrusterSetup.getEngineRollETS() +
+						" Pitch: " + engineThrusterSetup.getEnginePitchETS() +
+						" Yaw: " + engineThrusterSetup.getEngineYawETS() +
+						engineThrusterSetup.getEngineOrientUnitETS() +
+						"\nFeed: " + engineThrusterSetup.getEngineFeedETS() +
+						"\nThruster Name: " + engineThrusterSetup.getThrusterNameETS() +
+						"\nx: " + engineThrusterSetup.getThrusterXLocETS() +
+						" y: " + engineThrusterSetup.getThrusterYLocETS() +
+						" z: " + engineThrusterSetup.getThrusterZLocETS() +
+						engineThrusterSetup.getThrusterLocationUnitETS() +
+						"\nRoll: " + engineThrusterSetup.getThrusterRollETS() +
+						" Pitch: " + engineThrusterSetup.getThrusterPitchETS() +
+						" Yaw: " + engineThrusterSetup.getThrusterYawETS() +
+						engineThrusterSetup.getThrusterOrientUnitETS(),
 				"Properties",
-				JOptionPane.INFORMATION_MESSAGE
-		);
+				JOptionPane.INFORMATION_MESSAGE);
 	}
-	
+
 	private void addPair(ActionEvent e) {
 		// Show dialog to select an engine
 		EngineList selectedEngine = engineList.getSelectedValue();
@@ -277,18 +354,19 @@ public class Propulsion extends JPanel implements TabComponent {
 			JOptionPane.showMessageDialog(this, "Please select an engine.", "Error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-	
+
 		// Show dialog to select a thruster
 		ThrusterList selectedThruster = thrusterList.getSelectedValue();
 		if (selectedThruster == null) {
 			JOptionPane.showMessageDialog(this, "Please select a thruster.", "Error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-	
+
 		// Now you have the selected engine and thruster, use them to create a new pair
 		EngineThrusterSetup engThSetup = new EngineThrusterSetup(
 				selectedEngine.getName(),
-				0, // Set the default feed value, you may need to adjust this based on your requirements
+				0, // Set the default feed value, you may need to adjust this based on your
+					// requirements
 				selectedThruster.getName(),
 				null, // You may need to set other properties based on your requirements
 				null,
@@ -297,36 +375,34 @@ public class Propulsion extends JPanel implements TabComponent {
 				null,
 				null,
 				null,
-				null
-		);
+				null);
 		if (engThSetup.getName() == null) {
 			return;
 		}
-	
+
 		// Open the properties dialog for the selected engine and thruster
 		openPropertiesDialog(engThSetup);
-	
+
 		listETS.add(engThSetup);
 		modelETS.clear();
 		modelETS.addAll(listETS);
 	}
-	
 
 	private void detailPair(ActionEvent e) {
 		// Check if an EngineThrusterSetup is selected
 		if (engList.getSelectedValue() != null) {
 			EngineThrusterSetup oldPair = engList.getSelectedValue();
-	
+
 			// Create a copy of the selected pair
 			EngineThrusterSetup newPair = new EngineThrusterSetup(oldPair);
-	
+
 			// Check if the user canceled (name is null in your case)
 			if (newPair.getName() == null) {
 				return;
 			}
 		}
 	}
-	
+
 	private void deletePair(ActionEvent e) {// removing a GR/LGS from the displayed list
 		if (engList.getSelectedValue() == null) {
 			return;
@@ -355,7 +431,7 @@ public class Propulsion extends JPanel implements TabComponent {
 		if (tankList.getSelectedValue() != null) {
 			TankSetup oldTank = tankList.getSelectedValue();
 			TankSetup newTank = new TankSetup(oldTank);
-			
+
 			// If the user canceled, do nothing
 			if (newTank.getName() == null) {
 				return;
@@ -367,7 +443,7 @@ public class Propulsion extends JPanel implements TabComponent {
 				modelTS.addAll(listTS);
 			}
 		}
-	}	
+	}
 
 	private void deleteTank(ActionEvent e) {// removing a GR/LGS from the displayed list
 		if (tankList.getSelectedValue() == null) {
@@ -504,7 +580,7 @@ public class Propulsion extends JPanel implements TabComponent {
 				engineList.setModel(model);
 				engineScrollPane.setViewportView(engineList);
 			}
-			Propulsion.add(engineScrollPane, "cell 0 3 1 29,growy,width 200::300,hmax 900");
+			Propulsion.add(engineScrollPane, "cell 0 3 1 29,growy,width 300::300,hmax 900");
 
 			// ======== thrusterScrollPane ========
 			{
@@ -512,7 +588,7 @@ public class Propulsion extends JPanel implements TabComponent {
 				thrusterList.setModel(modelTH);
 				thrusterScrollPane.setViewportView(thrusterList);
 			}
-			Propulsion.add(thrusterScrollPane, "cell 1 3 1 29,growy,width 200::300,hmax 900");
+			Propulsion.add(thrusterScrollPane, "cell 1 3 1 29,growy,width 300::300,hmax 900");
 
 			// ======== engScrollPane ========
 			{
@@ -520,7 +596,7 @@ public class Propulsion extends JPanel implements TabComponent {
 				engList.setModel(modelETS);
 				engScrollPane.setViewportView(engList);
 			}
-			Propulsion.add(engScrollPane, "cell 2 3 2 29,growy,width 200::300,hmax 900");
+			Propulsion.add(engScrollPane, "cell 2 3 2 29,growy,width 300::300,hmax 900");
 
 			// ======== tankScrollPane ========
 			{
@@ -528,7 +604,7 @@ public class Propulsion extends JPanel implements TabComponent {
 				tankList.setModel(modelTS);
 				tankScrollPane.setViewportView(tankList);
 			}
-			Propulsion.add(tankScrollPane, "cell 4 3 1 29,growy,width 200::300,hmax 900");
+			Propulsion.add(tankScrollPane, "cell 4 3 1 29,growy,width 300::300,hmax 900");
 
 			// ======== buttonPanel ========
 			{
