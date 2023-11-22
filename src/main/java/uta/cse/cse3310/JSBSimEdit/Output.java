@@ -81,22 +81,22 @@ public class Output extends JPanel implements TabComponent {
 
 		propertiesListModel.clear();
 
-    for (var element : op.getPropertyOrSimulationAndAtmosphere()) {
-        if (element instanceof JAXBElement) {
-            JAXBElement<?> jaxbElement = (JAXBElement<?>) element;
+		for (var element : op.getPropertyOrSimulationAndAtmosphere()) {
+			if (element instanceof JAXBElement) {
+				JAXBElement<?> jaxbElement = (JAXBElement<?>) element;
 
-            // Check if the element is a property
-            if (jaxbElement.getDeclaredType().equals(generated.Output.Property.class)) {
-                generated.Output.Property property = (generated.Output.Property) jaxbElement.getValue();
-                propertiesListModel.addElement(property.getValue());
-            } else {
-                // Handle other types (simulation, atmosphere, etc.) if needed
-            }
-        }
-    }
+				// Check if the element is a property
+				if (jaxbElement.getDeclaredType().equals(generated.Output.Property.class)) {
+					generated.Output.Property property = (generated.Output.Property) jaxbElement.getValue();
+					propertiesListModel.addElement(property.getValue());
+				} else {
+					// Handle other types (simulation, atmosphere, etc.) if needed
+				}
+			}
+		}
 
-    // Update the JList
-    propertiesList.setModel(propertiesListModel);
+		// Update the JList
+		propertiesList.setModel(propertiesListModel);
 
 	}
 
@@ -145,18 +145,16 @@ public class Output extends JPanel implements TabComponent {
 				}
 			}
 		}
-		op.getPropertyOrSimulationAndAtmosphere().clear();
+		/*op.getPropertyOrSimulationAndAtmosphere().clear();
 
-    // Add new properties from the propertiesListModel to the XML
-    for (Object value : propertiesListModel.toArray()) {
-        generated.Output.Property property = new generated.Output.Property();
-        property.setValue((String)value);
-        JAXBElement<generated.Output.Property> jaxbElement = 
-		new JAXBElement<>(new QName("property"), generated.Output.Property.class, property);
-        op.getPropertyOrSimulationAndAtmosphere().add(jaxbElement);
-    }
-
-
+		// Add new properties from the propertiesListModel to the XML
+		for (Object value : propertiesListModel.toArray()) {
+			generated.Output.Property property = new generated.Output.Property();
+			property.setValue(value);
+			JAXBElement<generated.Output.Property> jaxbElement = new JAXBElement<>(new QName("property"),
+					generated.Output.Property.class, property);
+			op.getPropertyOrSimulationAndAtmosphere().add(jaxbElement);
+		}*/
 		return Optional.ofNullable(cfg);
 	}
 
@@ -166,48 +164,46 @@ public class Output extends JPanel implements TabComponent {
 		// Check if an EngineThrusterSetup is selected
 		Properties props = new Properties(SwingUtilities.getWindowAncestor(this));
 		props.setCallingClass(this, this::handleSelectedValue);
-		
+
 		props.setVisible(true);
 
 	}
 
 	private void handleSelectedValue(Object callingClass, String selectedValue) {
-        selectedPropertyValues.add(selectedValue);
-    }
+		selectedPropertyValues.add(selectedValue);
+	}
 
 	private void addButton(ActionEvent e) {
-		
+
 		// Add the selected value to the propertiesListModel
 		for (String value : selectedPropertyValues) {
 			propertiesListModel.addElement(value);
 		}
 		selectedPropertyValues.clear();
-	
+
 		// Update the JList
 		propertiesList.setModel(propertiesListModel);
 	}
-	
+
 	private void deleteButton(ActionEvent e) {
-    // Get the index of the selected item
-    int selectedIndex = propertiesList.getSelectedIndex();
+		// Get the index of the selected item
+		int selectedIndex = propertiesList.getSelectedIndex();
 
-    // Check if an item is selected
-    if (selectedIndex != -1) {
-        // Ask for confirmation
-        int result = JOptionPane.showConfirmDialog(this, "Do you really want to delete it?", "Confirm",
-                JOptionPane.YES_NO_OPTION);
+		// Check if an item is selected
+		if (selectedIndex != -1) {
+			// Ask for confirmation
+			int result = JOptionPane.showConfirmDialog(this, "Do you really want to delete it?", "Confirm",
+					JOptionPane.YES_NO_OPTION);
 
-        if (result == JOptionPane.YES_OPTION) {
-            // Remove the selected item from the propertiesListModel
-            propertiesListModel.remove(selectedIndex);
+			if (result == JOptionPane.YES_OPTION) {
+				// Remove the selected item from the propertiesListModel
+				propertiesListModel.remove(selectedIndex);
 
-            // Update the JList
-            propertiesList.setModel(propertiesListModel);
-        }
-    }
-}
-
-	
+				// Update the JList
+				propertiesList.setModel(propertiesListModel);
+			}
+		}
+	}
 
 	private void outComponents() {
 
