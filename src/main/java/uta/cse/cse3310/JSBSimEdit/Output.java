@@ -1,7 +1,6 @@
 package uta.cse.cse3310.JSBSimEdit;
 
 import java.awt.Dimension;
-import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -14,13 +13,11 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -156,12 +153,12 @@ public class Output extends JPanel implements TabComponent {
 		selectedPropertyValues.clear();
 	
 		// Update the JList
-		propertiesTextArea.setModel(propertiesListModel);
+		propertiesList.setModel(propertiesListModel);
 	}
 	
 	private void deleteButton(ActionEvent e) {
     // Get the index of the selected item
-    int selectedIndex = propertiesTextArea.getSelectedIndex();
+    int selectedIndex = propertiesList.getSelectedIndex();
 
     // Check if an item is selected
     if (selectedIndex != -1) {
@@ -174,7 +171,7 @@ public class Output extends JPanel implements TabComponent {
             propertiesListModel.remove(selectedIndex);
 
             // Update the JList
-            propertiesTextArea.setModel(propertiesListModel);
+            propertiesList.setModel(propertiesListModel);
         }
     }
 }
@@ -206,7 +203,7 @@ public class Output extends JPanel implements TabComponent {
 		groundReactions = new JCheckBox();
 		coefficients = new JCheckBox();
 		propertiesScrollPane = new JScrollPane();
-		propertiesTextArea = new JList<>(propertiesListModel);
+		propertiesList = new JList<>(propertiesListModel);
 		properties = new JLabel();
 		buttonPanel = new JPanel();
 		chooseButton = new JButton();
@@ -340,9 +337,9 @@ public class Output extends JPanel implements TabComponent {
 
 			// ======== propertiesScrollPane ========
 			{
-				propertiesTextArea.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-				propertiesTextArea.setModel(propertiesListModel);
-				propertiesScrollPane.setViewportView(propertiesTextArea);
+				propertiesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				propertiesList.setModel(propertiesListModel);
+				propertiesScrollPane.setViewportView(propertiesList);
 			}
 			panelOutput.add(propertiesScrollPane, "cell 1 9 5 8,growy");
 
@@ -406,13 +403,10 @@ public class Output extends JPanel implements TabComponent {
 	private JCheckBox groundReactions;
 	private JCheckBox coefficients;
 	private JScrollPane propertiesScrollPane;
-	private JList propertiesTextArea;
+	private JList<String> propertiesList;
 	private JLabel properties;
 	private JPanel buttonPanel;
 	private JButton chooseButton;
 	private JButton addButton;
 	private JButton deleteButton;
-
-	private ArrayList<Properties> propList;
-	private DefaultListModel<Properties> model = new DefaultListModel<Properties>();
 }
