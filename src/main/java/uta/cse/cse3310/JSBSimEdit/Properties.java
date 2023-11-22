@@ -8,9 +8,12 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Window;
+import java.awt.event.ActionEvent;
 import java.io.InputStream;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JList;
@@ -24,11 +27,13 @@ import uta.cse.cse3310.JSBSimEdit.utils.LoadSave;
 public class Properties extends JDialog {
 	
 	private PropsType pt;
+    private DefaultListModel<String> listModel;
 	
 	public Properties(Window owner) {
 		super(owner);
 		initComponents();
         loadProperties();
+		updateList();
 	}
 
 	private void loadProperties() {
@@ -42,13 +47,22 @@ public class Properties extends JDialog {
 			pt = ((JAXBElement<PropsType>) um.unmarshal(is)).getValue();
 			
 			for(var source : pt.getSource()) {
-				System.out.println(source.getName());
+				source.getName();
 			}
         } catch (JAXBException e) {
             System.out.println(Constants.ANSI_RED + "XML parsing Error." + Constants.ANSI_RESET);
             e.printStackTrace();
         }
     }
+
+	private void okButton(ActionEvent e) {
+		list1.getSelectedValue();
+		dispose();
+	}
+
+	private void cancelButton(ActionEvent e) {
+		dispose();
+	}
     
     private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
@@ -56,7 +70,7 @@ public class Properties extends JDialog {
 		dialogPane = new JPanel();
 		contentPanel = new JPanel();
 		scrollPane1 = new JScrollPane();
-		list1 = new JList();
+		list1 = new JList<String>();
 		buttonBar = new JPanel();
 		okButton = new JButton();
 		cancelButton = new JButton();
@@ -64,6 +78,11 @@ public class Properties extends JDialog {
 		//======== this ========
 		var contentPane = getContentPane();
 		contentPane.setLayout(new BorderLayout());
+
+		setTitle("Properties");
+        setPreferredSize(new Dimension(500, 500));
+		setMinimumSize(new Dimension(500, 500));
+        setLocationRelativeTo(null);
 
 		//======== dialogPane ========
 		{
@@ -80,6 +99,8 @@ public class Properties extends JDialog {
 
 				//======== scrollPane1 ========
 				{
+					listModel = new DefaultListModel<>();
+            		list1 = new JList<>(listModel);
 					scrollPane1.setViewportView(list1);
 				}
 				contentPanel.add(scrollPane1, "cell 0 0,grow");
@@ -98,10 +119,12 @@ public class Properties extends JDialog {
 
 				//---- okButton ----
 				okButton.setText("OK");
+				okButton.addActionListener(e -> okButton(e));
 				buttonBar.add(okButton, "cell 0 0");
 
 				//---- cancelButton ----
 				cancelButton.setText("Cancel");
+				cancelButton.addActionListener(e -> cancelButton(e));
 				buttonBar.add(cancelButton, "cell 1 0");
 			}
 			dialogPane.add(buttonBar, BorderLayout.SOUTH);
@@ -111,6 +134,15 @@ public class Properties extends JDialog {
 		setLocationRelativeTo(getOwner());
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
 	}
+	private void updateList() {
+        // Clear existing items
+        listModel.clear();
+
+        // Add items from the loaded XML data
+        for (var source : pt.getSource()) {
+            listModel.addElement(source.getName());
+        }
+    }
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
 	// Generated using JFormDesigner Educational license - James Hofer

@@ -1,15 +1,20 @@
 package uta.cse.cse3310.JSBSimEdit;
 
 import java.awt.Dimension;
+import java.awt.Dialog.ModalityType;
+import java.awt.event.ActionEvent;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -119,6 +124,14 @@ public class Output extends JPanel implements TabComponent {
 		}
 
 		return Optional.ofNullable(cfg);
+	}
+
+	private void chooseButton(ActionEvent e) {
+		// Check if an EngineThrusterSetup is selected
+		Properties props = new Properties(SwingUtilities.getWindowAncestor(this));
+		
+		props.setVisible(true);
+
 	}
 
 	private void outComponents() {
@@ -302,6 +315,7 @@ public class Output extends JPanel implements TabComponent {
 
 				// ---- choose ----
 				chooseButton.setText("Choose");
+				chooseButton.addActionListener(e -> chooseButton(e));
 				buttonPanel.add(chooseButton, "cell 0 0");
 
 				// ---- add ----
@@ -347,4 +361,7 @@ public class Output extends JPanel implements TabComponent {
 	private JButton chooseButton;
 	private JButton addButton;
 	private JButton deleteButton;
+
+	private ArrayList<Properties> propList;
+	private DefaultListModel<Properties> model = new DefaultListModel<Properties>();
 }
