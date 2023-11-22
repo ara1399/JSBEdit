@@ -170,6 +170,8 @@ public class Propulsion extends JPanel implements TabComponent {
 			model.addElement(new EngineList("J79-GE-11A", "turbine_engine", "NO INFO"));
 			model.addElement(new EngineList("J85-GE-5", "turbine_engine", "NO INFO"));
 			model.addElement(new EngineList("JT9D-3", "turbine_engine", "NO INFO"));
+			model.addElement(new EngineList("MerlinV1650", "piston_engine", "NO INFO"));
+			model.addElement(new EngineList("Olympus593Mrk610", "turbine_engine", "NO INFO"));
 			model.addElement(new EngineList("PT6A-27", "turbine_engine", "NO INFO"));
 			model.addElement(new EngineList("PT6A-68", "turbine_engine", "NO INFO"));
 			model.addElement(new EngineList("PW125B", "turbine_engine", "NO INFO"));
@@ -187,8 +189,6 @@ public class Propulsion extends JPanel implements TabComponent {
 			modelTH.addElement(new ThrusterList("HamiltonStd6243A-3", "propeller", "NO INFO"));
 			modelTH.addElement(new ThrusterList("LMdescent", "FG_ROCKET", "NO INFO"));
 			modelTH.addElement(new ThrusterList("LM_descent_nozzle", "FG_NOZZLE", "NO INFO"));
-			modelTH.addElement(new ThrusterList("MerlinV1650", "piston_engine", "NO INFO"));
-			modelTH.addElement(new ThrusterList("Olympus593Mrk610", "turbine_engine", "NO INFO"));
 			modelTH.addElement(new ThrusterList("P51prop", "propeller", "NO INFO"));
 			modelTH.addElement(new ThrusterList("prop30FP2B", "propeller", "NO INFO"));
 			modelTH.addElement(new ThrusterList("propC10v", "propeller", "NO INFO"));
