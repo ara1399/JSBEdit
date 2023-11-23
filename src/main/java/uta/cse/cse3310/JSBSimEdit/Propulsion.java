@@ -3,22 +3,12 @@ package uta.cse.cse3310.JSBSimEdit;
 import java.awt.event.ActionEvent;
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
-import generated.FdmConfig;
+import generated.*;
 import net.miginfocom.swing.MigLayout;
 import uta.cse.cse3310.JSBSimEdit.interfaces.TabComponent;
 
@@ -26,10 +16,10 @@ public class Propulsion extends JPanel implements TabComponent {
 
 	Propulsion() {
 		propComponents();
-		listETS = new ArrayList<EngineThrusterSetup>();
-		listTS = new ArrayList<TankSetup>();
-		list = new ArrayList<EngineList>();
-		listTH = new ArrayList<ThrusterList>();
+		listETS = new ArrayList<>();
+		listTS = new ArrayList<>();
+		new ArrayList<>();
+		new ArrayList<>();
 	}
 
 	@Override
@@ -37,7 +27,6 @@ public class Propulsion extends JPanel implements TabComponent {
 
 		ArrayList<generated.Engine> engineListFromXML = new ArrayList<>();
 
-		// Check if there is any engine or tank data in the XML
 		if (cfg.getPropulsion().getEngineOrTank() != null) {
 			for (Object o : cfg.getPropulsion().getEngineOrTank()) {
 				if (o instanceof generated.Engine) {
@@ -49,7 +38,6 @@ public class Propulsion extends JPanel implements TabComponent {
 		// Add engine-thruster pairs from XML to the engList
 		for (generated.Engine e : engineListFromXML) {
 			if (e.getThruster() != null) {
-				// Extract relevant data from XML
 				String engineName = e.getFile();
 				int feed = e.getFeed().get(0).intValue();
 				String thrusterName = e.getThruster().getFile();
@@ -100,7 +88,7 @@ public class Propulsion extends JPanel implements TabComponent {
 					int feed = 0;
 					String thrusName, thrusterLocUnit, thrusterOrientUnit;
 
-					if (e.getThruster() != null) { // springCo
+					if (e.getThruster() != null) { 
 						thrusName = e.getThruster().getFile();
 						thrusterLocUnit = e.getThruster().getLocation().getUnit();
 						thrusterOrientUnit = e.getThruster().getOrient().getUnit();
@@ -217,22 +205,19 @@ public class Propulsion extends JPanel implements TabComponent {
 			for (generated.Tank t : tank) {
 				if (t.getLocation() != null && t.getType() != null) {
 
-					String capUnit, contUnit;
 					Double contents, capacity;
 
-					if (t.getCapacity() != null) { // springCo
-						capUnit = t.getCapacity().getUnit().toString();
+					if (t.getCapacity() != null) { 
+						t.getCapacity().getUnit().toString();
 						capacity = t.getCapacity().getValue();
 					} else {
-						capUnit = null;
 						capacity = null;
 					}
 
-					if (t.getContents() != null) { // dampCo
-						contUnit = t.getContents().getUnit().toString();
+					if (t.getContents() != null) { 
+						t.getContents().getUnit().toString();
 						contents = t.getContents().getValue();
 					} else {
-						contUnit = null;
 						contents = null;
 					}
 
@@ -290,25 +275,25 @@ public class Propulsion extends JPanel implements TabComponent {
 			generated.Thruster thruster = new generated.Thruster();
 			generated.Location location = new generated.Location();
 			generated.Orient orient = new generated.Orient();
-	
+
 			location.setUnit(ets.getThrusterLocationUnitETS());
 			location.setX(ets.getThrusterXLocETS());
 			location.setY(ets.getThrusterYLocETS());
 			location.setZ(ets.getThrusterZLocETS());
-	
+
 			orient.setUnit(ets.getThrusterOrientUnitETS());
 			orient.setRoll(ets.getThrusterRollETS());
 			orient.setPitch(ets.getThrusterPitchETS());
 			orient.setYaw(ets.getThrusterYawETS());
-	
+
 			thruster.setFile(ets.getThrusterNameETS());
 			thruster.setLocation(location);
 			thruster.setOrient(orient);
-	
+
 			engine.setFile(ets.getEngineNameETS());
 			engine.getFeed().add(BigInteger.valueOf((long) ets.getEngineFeedETS()));
 			engine.setThruster(thruster);
-	
+
 			cfg.getPropulsion().getEngineOrTank().add(engine);
 		}
 
@@ -317,11 +302,6 @@ public class Propulsion extends JPanel implements TabComponent {
 
 	private void openPropertiesDialog(EngineThrusterSetup engineThrusterSetup) {
 		// Create and show the properties dialog using the EngineThrusterSetup
-		// information
-		// You should implement this method based on how you display the properties
-		// dialog
-		// Example:
-
 		JOptionPane.showMessageDialog(
 				this,
 				"Engine Name: " + engineThrusterSetup.getEngineNameETS() +
@@ -348,27 +328,23 @@ public class Propulsion extends JPanel implements TabComponent {
 	}
 
 	private void addPair(ActionEvent e) {
-		// Show dialog to select an engine
 		EngineList selectedEngine = engineList.getSelectedValue();
 		if (selectedEngine == null) {
 			JOptionPane.showMessageDialog(this, "Please select an engine.", "Error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 
-		// Show dialog to select a thruster
 		ThrusterList selectedThruster = thrusterList.getSelectedValue();
 		if (selectedThruster == null) {
 			JOptionPane.showMessageDialog(this, "Please select a thruster.", "Error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 
-		// Now you have the selected engine and thruster, use them to create a new pair
 		EngineThrusterSetup engThSetup = new EngineThrusterSetup(
 				selectedEngine.getName(),
-				0, // Set the default feed value, you may need to adjust this based on your
-					// requirements
+				0,
 				selectedThruster.getName(),
-				null, // You may need to set other properties based on your requirements
+				null, 
 				null,
 				null,
 				null,
@@ -379,8 +355,6 @@ public class Propulsion extends JPanel implements TabComponent {
 		if (engThSetup.getName() == null) {
 			return;
 		}
-
-		// Open the properties dialog for the selected engine and thruster
 		openPropertiesDialog(engThSetup);
 
 		listETS.add(engThSetup);
@@ -389,21 +363,17 @@ public class Propulsion extends JPanel implements TabComponent {
 	}
 
 	private void detailPair(ActionEvent e) {
-		// Check if an EngineThrusterSetup is selected
 		if (engList.getSelectedValue() != null) {
 			EngineThrusterSetup oldPair = engList.getSelectedValue();
-
-			// Create a copy of the selected pair
 			EngineThrusterSetup newPair = new EngineThrusterSetup(oldPair);
 
-			// Check if the user canceled (name is null in your case)
 			if (newPair.getName() == null) {
 				return;
 			}
 		}
 	}
 
-	private void deletePair(ActionEvent e) {// removing a GR/LGS from the displayed list
+	private void deletePair(ActionEvent e) {
 		if (engList.getSelectedValue() == null) {
 			return;
 		}
@@ -427,25 +397,22 @@ public class Propulsion extends JPanel implements TabComponent {
 	}
 
 	private void detailTank(ActionEvent e) {
-		// Check if a TankSetup is selected
 		if (tankList.getSelectedValue() != null) {
 			TankSetup oldTank = tankList.getSelectedValue();
 			TankSetup newTank = new TankSetup(oldTank);
 
-			// If the user canceled, do nothing
 			if (newTank.getName() == null) {
 				return;
 			} else {
-				// If the user pressed OK, remove the old tank and add the new tank
 				listTS.remove(tankList.getSelectedValue());
 				listTS.add(newTank);
-				modelTS.clear(); // Refreshing the model to display on the tankList
+				modelTS.clear(); 
 				modelTS.addAll(listTS);
 			}
 		}
 	}
 
-	private void deleteTank(ActionEvent e) {// removing a GR/LGS from the displayed list
+	private void deleteTank(ActionEvent e) {
 		if (tankList.getSelectedValue() == null) {
 			return;
 		}
@@ -682,15 +649,10 @@ public class Propulsion extends JPanel implements TabComponent {
 	private JButton detailP;
 	private JButton detailT;
 
-	private DefaultListModel<EngineThrusterSetup> modelETS = new DefaultListModel<EngineThrusterSetup>();
+	private DefaultListModel<EngineThrusterSetup> modelETS = new DefaultListModel<>();
 	private ArrayList<EngineThrusterSetup> listETS;
-
-	private DefaultListModel<TankSetup> modelTS = new DefaultListModel<TankSetup>();
+	private DefaultListModel<TankSetup> modelTS = new DefaultListModel<>();
 	private ArrayList<TankSetup> listTS;
-
-	private DefaultListModel<EngineList> model = new DefaultListModel<EngineList>();
-	private ArrayList<EngineList> list;
-
-	private DefaultListModel<ThrusterList> modelTH = new DefaultListModel<ThrusterList>();
-	private ArrayList<ThrusterList> listTH;
+	private DefaultListModel<EngineList> model = new DefaultListModel<>();
+	private DefaultListModel<ThrusterList> modelTH = new DefaultListModel<>();
 }

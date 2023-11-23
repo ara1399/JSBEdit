@@ -3,26 +3,8 @@ package uta.cse.cse3310.JSBSimEdit;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.xml.namespace.QName;
+import java.util.*;
+import javax.swing.*;
 
 import net.miginfocom.swing.*;
 
@@ -65,7 +47,7 @@ public class Output extends JPanel implements TabComponent {
 
 		for (JCheckBox checkBox : checkBoxes) {
 			String checkBoxName = checkBox.getText();
-			String checkBoxStatus = ""; // Initialize to empty string
+			String checkBoxStatus = ""; 
 			for (var element : op.getPropertyOrSimulationAndAtmosphere()) {
 				if (element.getName().getLocalPart().equals(checkBoxName.toLowerCase())) {
 					checkBoxStatus = element.getValue().toString();
@@ -102,7 +84,6 @@ public class Output extends JPanel implements TabComponent {
 	public Optional<FdmConfig> saveXMLfromUI(FdmConfig cfg) {
 		List<generated.Output> opList = cfg.getOutput();
 
-		// If there is no Output object in the list, create one
 		generated.Output op;
 		if (opList.isEmpty()) {
 			op = new generated.Output();
@@ -146,12 +127,10 @@ public class Output extends JPanel implements TabComponent {
 
 		propertiesListModel.clear();
 
-    // Iterate through the elements in propertyOrSimulationAndAtmosphereList
     for (Object element : op.getPropertyOrSimulationAndAtmosphere()) {
         if (element instanceof JAXBElement) {
             JAXBElement<?> jaxbElement = (JAXBElement<?>) element;
 
-            // Check if the element is a property
             if (jaxbElement.getDeclaredType().equals(generated.Output.Property.class)) {
                 generated.Output.Property property = (generated.Output.Property) jaxbElement.getValue();
                 propertiesListModel.addElement(property.getValue());
@@ -196,14 +175,12 @@ public class Output extends JPanel implements TabComponent {
 		// Get the index of the selected item
 		int selectedIndex = propertiesList.getSelectedIndex();
 
-		// Check if an item is selected
 		if (selectedIndex != -1) {
 			// Ask for confirmation
 			int result = JOptionPane.showConfirmDialog(this, "Do you really want to delete it?", "Confirm",
 					JOptionPane.YES_NO_OPTION);
 
 			if (result == JOptionPane.YES_OPTION) {
-				// Remove the selected item from the propertiesListModel
 				propertiesListModel.remove(selectedIndex);
 
 				// Update the JList
