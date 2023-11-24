@@ -63,17 +63,17 @@ public class FlightControl extends JPanel implements TabComponent {
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
 		// Generated using JFormDesigner Educational license - James Hofer
-		toolBar1 = new JToolBar();
-		button1 = new JButton();
-		button2 = new JButton();
-		button3 = new JButton();
-		button4 = new JButton();
-		button5 = new JButton();
-		button6 = new JButton();
-		button7 = new JButton();
-		button8 = new JButton();
-		button9 = new JButton();
-		button10 = new JButton();
+		typesToolBar = new JToolBar();
+		sourceB = new JButton();
+		destinationB = new JButton();
+		summerB = new JButton();
+		pid = new JButton();
+		gainB = new JButton();
+		filterB = new JButton();
+		deadBandB = new JButton();
+		switchB = new JButton();
+		kinematicsB = new JButton();
+		functionsB = new JButton();
 		panel3 = new JPanel();
 		panel5 = new JPanel();
 		label1 = new JLabel();
@@ -99,8 +99,8 @@ public class FlightControl extends JPanel implements TabComponent {
 		spinner2 = new JSpinner();
 		textField8 = new JTextField();
 		panel2 = new JPanel();
-		button11 = new JButton();
-		button12 = new JButton();
+		source1 = new JButton();
+		source2 = new JButton();
 		tabbedPane1 = new JTabbedPane();
 
 		//======== this ========
@@ -122,61 +122,61 @@ public class FlightControl extends JPanel implements TabComponent {
 			"[]" +
 			"[]"));
 
-		//======== toolBar1 ========
+		//======== typesToolBar ========
 		{
-			toolBar1.setBackground(new Color(0x333333));
+			typesToolBar.setBackground(new Color(0x333333));
 
-			//---- button1 ----
-			button1.setIcon(new ImageIcon(LoadSave.getContext().getResource(Constants.SOURCE_RES)));
-			button1.setToolTipText("Source");
-			toolBar1.add(button1);
+			//---- sourceB ----
+			sourceB.setIcon(new ImageIcon(LoadSave.getContext().getResource(Constants.SOURCE_RES)));
+			sourceB.setToolTipText("Source");
+			typesToolBar.add(sourceB);
 
-			//---- button2 ----
-			button2.setIcon(new ImageIcon(LoadSave.getContext().getResource(Constants.DESTINATION_RES)));
-			button2.setToolTipText("Destination");
-			toolBar1.add(button2);
+			//---- destinationB ----
+			destinationB.setIcon(new ImageIcon(LoadSave.getContext().getResource(Constants.DESTINATION_RES)));
+			destinationB.setToolTipText("Destination");
+			typesToolBar.add(destinationB);
 
-			//---- button3 ----
-			button3.setIcon(new ImageIcon(LoadSave.getContext().getResource(Constants.SUMMER_RES)));
-			button3.setToolTipText("Summer");
-			toolBar1.add(button3);
+			//---- summerB ----
+			summerB.setIcon(new ImageIcon(LoadSave.getContext().getResource(Constants.SUMMER_RES)));
+			summerB.setToolTipText("Summer");
+			typesToolBar.add(summerB);
 
-			//---- button4 ----
-			button4.setIcon(new ImageIcon(LoadSave.getContext().getResource(Constants.PID_RES)));
-			button4.setToolTipText("PID");
-			toolBar1.add(button4);
+			//---- pid ----
+			pid.setIcon(new ImageIcon(LoadSave.getContext().getResource(Constants.PID_RES)));
+			pid.setToolTipText("PID");
+			typesToolBar.add(pid);
 
-			//---- button5 ----
-			button5.setIcon(new ImageIcon(LoadSave.getContext().getResource(Constants.GAIN_RES)));
-			button5.setToolTipText("Gain");
-			toolBar1.add(button5);
+			//---- gainB ----
+			gainB.setIcon(new ImageIcon(LoadSave.getContext().getResource(Constants.GAIN_RES)));
+			gainB.setToolTipText("Gain");
+			typesToolBar.add(gainB);
 
-			//---- button6 ----
-			button6.setIcon(new ImageIcon(LoadSave.getContext().getResource(Constants.FILTER_RES)));
-			button6.setToolTipText("Filter");
-			toolBar1.add(button6);
+			//---- filterB ----
+			filterB.setIcon(new ImageIcon(LoadSave.getContext().getResource(Constants.FILTER_RES)));
+			filterB.setToolTipText("Filter");
+			typesToolBar.add(filterB);
 
-			//---- button7 ----
-			button7.setIcon(new ImageIcon(LoadSave.getContext().getResource(Constants.DEADBAND_RES)));
-			button7.setToolTipText("Deadband");
-			toolBar1.add(button7);
+			//---- deadBandB ----
+			deadBandB.setIcon(new ImageIcon(LoadSave.getContext().getResource(Constants.DEADBAND_RES)));
+			deadBandB.setToolTipText("Deadband");
+			typesToolBar.add(deadBandB);
 
-			//---- button8 ----
-			button8.setIcon(new ImageIcon(LoadSave.getContext().getResource(Constants.SWITCH_RES)));
-			button8.setToolTipText("Switch");
-			toolBar1.add(button8);
+			//---- switchB ----
+			switchB.setIcon(new ImageIcon(LoadSave.getContext().getResource(Constants.SWITCH_RES)));
+			switchB.setToolTipText("Switch");
+			typesToolBar.add(switchB);
 
-			//---- button9 ----
-			button9.setIcon(new ImageIcon(LoadSave.getContext().getResource(Constants.KINEMAT_RES)));
-			button9.setToolTipText("Kinematics");
-			toolBar1.add(button9);
+			//---- kinematicsB ----
+			kinematicsB.setIcon(new ImageIcon(LoadSave.getContext().getResource(Constants.KINEMAT_RES)));
+			kinematicsB.setToolTipText("Kinematics");
+			typesToolBar.add(kinematicsB);
 
-			//---- button10 ----
-			button10.setIcon(new ImageIcon(LoadSave.getContext().getResource(Constants.FUNC_RES)));
-			button10.setToolTipText("Functions");
-			toolBar1.add(button10);
+			//---- functionsB ----
+			functionsB.setIcon(new ImageIcon(LoadSave.getContext().getResource(Constants.FUNC_RES)));
+			functionsB.setToolTipText("Functions");
+			typesToolBar.add(functionsB);
 		}
-		add(toolBar1, "north");
+		add(typesToolBar, "north");
 
 		//======== panel3 ========
 		{
@@ -349,19 +349,19 @@ public class FlightControl extends JPanel implements TabComponent {
 					// rows
 					"[]"));
 
-				//---- button11 ----
-				button11.setText("Add");
-				button11.addActionListener(e -> {
+				//---- source1 ----
+				source1.setText("Add");
+				source1.addActionListener(e -> {
 					Properties props = new Properties(SwingUtilities.getWindowAncestor(this));
 					props.setModalityType(ModalityType.APPLICATION_MODAL);
 					props.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					props.setVisible(true);
 				});
-				panel2.add(button11, "cell 0 0");
+				panel2.add(source1, "cell 0 0");
 
-				//---- button12 ----
-				button12.setText("Remove");
-				panel2.add(button12, "cell 1 0");
+				//---- source2 ----
+				source2.setText("Remove");
+				panel2.add(source2, "cell 1 0");
 			}
 			panel3.add(panel2, "cell 0 3");
 		}
@@ -377,17 +377,17 @@ public class FlightControl extends JPanel implements TabComponent {
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
 	// Generated using JFormDesigner Educational license - James Hofer
-	private JToolBar toolBar1;
-	private JButton button1;
-	private JButton button2;
-	private JButton button3;
-	private JButton button4;
-	private JButton button5;
-	private JButton button6;
-	private JButton button7;
-	private JButton button8;
-	private JButton button9;
-	private JButton button10;
+	private JToolBar typesToolBar;
+	private JButton sourceB;
+	private JButton destinationB;
+	private JButton summerB;
+	private JButton pid;
+	private JButton gainB;
+	private JButton filterB;
+	private JButton deadBandB;
+	private JButton switchB;
+	private JButton kinematicsB;
+	private JButton functionsB;
 	private JPanel panel3;
 	private JPanel panel5;
 	private JLabel label1;
@@ -413,8 +413,8 @@ public class FlightControl extends JPanel implements TabComponent {
 	private JSpinner spinner2;
 	private JTextField textField8;
 	private JPanel panel2;
-	private JButton button11;
-	private JButton button12;
+	private JButton source1;
+	private JButton source2;
 	private JTabbedPane tabbedPane1;
 	// JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

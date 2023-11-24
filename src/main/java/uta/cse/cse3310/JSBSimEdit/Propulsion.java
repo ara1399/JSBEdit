@@ -547,7 +547,7 @@ public class Propulsion extends JPanel implements TabComponent {
 				engineList.setModel(model);
 				engineScrollPane.setViewportView(engineList);
 			}
-			Propulsion.add(engineScrollPane, "cell 0 3 1 29,growy,width 300::300,hmax 900");
+			Propulsion.add(engineScrollPane, "cell 0 3 1 29,growy,width 275::275,hmax 900");
 
 			// ======== thrusterScrollPane ========
 			{
@@ -555,7 +555,7 @@ public class Propulsion extends JPanel implements TabComponent {
 				thrusterList.setModel(modelTH);
 				thrusterScrollPane.setViewportView(thrusterList);
 			}
-			Propulsion.add(thrusterScrollPane, "cell 1 3 1 29,growy,width 300::300,hmax 900");
+			Propulsion.add(thrusterScrollPane, "cell 1 3 1 29,growy,width 275::275,hmax 900");
 
 			// ======== engScrollPane ========
 			{
@@ -563,7 +563,7 @@ public class Propulsion extends JPanel implements TabComponent {
 				engList.setModel(modelETS);
 				engScrollPane.setViewportView(engList);
 			}
-			Propulsion.add(engScrollPane, "cell 2 3 2 29,growy,width 300::300,hmax 900");
+			Propulsion.add(engScrollPane, "cell 2 3 2 29,growy,width 275::275,hmax 900");
 
 			// ======== tankScrollPane ========
 			{
@@ -571,7 +571,7 @@ public class Propulsion extends JPanel implements TabComponent {
 				tankList.setModel(modelTS);
 				tankScrollPane.setViewportView(tankList);
 			}
-			Propulsion.add(tankScrollPane, "cell 4 3 1 29,growy,width 300::300,hmax 900");
+			Propulsion.add(tankScrollPane, "cell 4 3 1 29,growy,width 275::275,hmax 900");
 
 			// ======== buttonPanel ========
 			{
