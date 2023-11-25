@@ -17,52 +17,55 @@ import uta.cse.cse3310.JSBSimEdit.utils.LoadSave;
 public class AutoPilot extends JPanel implements TabComponent {
 
 	private Map<String, java.util.List<JButton>> channelButtonsMap = new HashMap<>();
-    private String currentChannel; // Store the current channel
-    
-    AutoPilot() {
-        initComponents();
-    }
+	private String currentChannel; // Store the current channel
 
-    @Override
-    public void bindUIwithXML(FdmConfig cfg) {
-        generated.Autopilot ap = cfg.getAutopilot();
-		ap.getChannel().forEach(channel -> {
-			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setBorder(null);
-			tabbedPane1.addTab(channel.getName(), scrollPane);
-			JPanel panel = new JPanel();
-			scrollPane.setViewportView(panel);
-			panel.setLayout(new MigLayout(
-				"align center center,gap 10 30", 
-				"[fill][fill][fill][fill][fill]",
-				"[][][][][]"));
-		});
-    }
+	AutoPilot() {
+		initComponents();
+	}
 
-    @Override
-    public Optional<FdmConfig> saveXMLfromUI(FdmConfig cfg) {
-        // TODO
-        return Optional.ofNullable(cfg);
-    }
+	@Override
+	public void bindUIwithXML(FdmConfig cfg) {
+		generated.Autopilot ap = cfg.getAutopilot();
+		if (ap != null) {
+			ap.getChannel().forEach(channel -> {
+				JScrollPane scrollPane = new JScrollPane();
+				scrollPane.setBorder(null);
+				tabbedPane1.addTab(channel.getName(), scrollPane);
+				JPanel panel = new JPanel();
+				scrollPane.setViewportView(panel);
+				panel.setLayout(new MigLayout(
+						"align center center,gap 10 30",
+						"[fill][fill][fill][fill][fill]",
+						"[][][][][]"));
+			});
+		}
+	}
+
+	@Override
+	public Optional<FdmConfig> saveXMLfromUI(FdmConfig cfg) {
+		// TODO
+		return Optional.ofNullable(cfg);
+	}
 
 	private void addButtonClickListener(JButton button, String channel) {
-        button.addActionListener(e -> {
-            // Store the clicked button in the map with the current channel
-            channelButtonsMap.computeIfAbsent(currentChannel, k -> new ArrayList<>()).add(button);
-        });
-    }
+		button.addActionListener(e -> {
+			// Store the clicked button in the map with the current channel
+			channelButtonsMap.computeIfAbsent(currentChannel, k -> new ArrayList<>()).add(button);
+		});
+	}
 
-    // Add this method to create a copy of the selected button for the current channel
-    private void copyButtonToChannel(JButton button, int x, int y) {
-        JButton newButton = new JButton(button.getIcon());
-        newButton.setToolTipText(button.getToolTipText());
-        // Add any other properties or listeners you need for the new button
+	// Add this method to create a copy of the selected button for the current
+	// channel
+	private void copyButtonToChannel(JButton button, int x, int y) {
+		JButton newButton = new JButton(button.getIcon());
+		newButton.setToolTipText(button.getToolTipText());
+		// Add any other properties or listeners you need for the new button
 
-        // Add the new button to the main panel at the specified location
-        add(newButton, "cell " + x + " " + y);
-        revalidate();
-        repaint();
-    }
+		// Add the new button to the main panel at the specified location
+		add(newButton, "cell " + x + " " + y);
+		revalidate();
+		repaint();
+	}
 
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off

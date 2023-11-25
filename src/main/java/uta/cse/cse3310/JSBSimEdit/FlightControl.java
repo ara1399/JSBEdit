@@ -33,32 +33,35 @@ import uta.cse.cse3310.JSBSimEdit.utils.Constants;
 import uta.cse.cse3310.JSBSimEdit.utils.LoadSave;
 
 public class FlightControl extends JPanel implements TabComponent {
-    
-    FlightControl() {
-        initComponents();
-    }
 
-    @Override
-    public void bindUIwithXML(FdmConfig cfg) {
-        generated.FlightControl fc = cfg.getFlightControl();
-		fc.getChannel().forEach(channel -> {
-			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setBorder(null);
-			tabbedPane1.addTab(channel.getName(), scrollPane);
-			JPanel panel = new JPanel();
-			scrollPane.setViewportView(panel);
-			panel.setLayout(new MigLayout(
-				"align center center,gap 10 30", 
-				"[fill][fill][fill][fill][fill]",
-				"[][][][][]"));
-		});
-    }
+	FlightControl() {
+		initComponents();
+	}
 
-    @Override
-    public Optional<FdmConfig> saveXMLfromUI(FdmConfig cfg) {
-        // TODO
-        return Optional.ofNullable(cfg);
-    }
+	@Override
+	public void bindUIwithXML(FdmConfig cfg) {
+		generated.FlightControl fc = cfg.getFlightControl();
+		if (fc != null) {
+			fc.getChannel().forEach(channel -> {
+				JScrollPane scrollPane = new JScrollPane();
+				scrollPane.setBorder(null);
+				tabbedPane1.addTab(channel.getName(), scrollPane);
+				JPanel panel = new JPanel();
+				scrollPane.setViewportView(panel);
+				panel.setLayout(new MigLayout(
+						"align center center,gap 10 30",
+						"[fill][fill][fill][fill][fill]",
+						"[][][][][]"));
+			});
+		}
+
+	}
+
+	@Override
+	public Optional<FdmConfig> saveXMLfromUI(FdmConfig cfg) {
+		// TODO
+		return Optional.ofNullable(cfg);
+	}
 
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
