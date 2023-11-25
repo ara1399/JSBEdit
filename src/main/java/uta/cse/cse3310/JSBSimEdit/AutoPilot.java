@@ -1,12 +1,13 @@
 package uta.cse.cse3310.JSBSimEdit;
 
-import java.awt.Dialog.ModalityType;
-import java.awt.*;
-import java.awt.Dialog.ModalityType;
-import java.awt.event.*;
-import java.util.*;
 import javax.swing.*;
 import javax.swing.border.*;
+
+import java.awt.*;
+import java.awt.Dialog.ModalityType;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.*;
 
 import generated.FdmConfig;
 import net.miginfocom.swing.MigLayout;
@@ -15,9 +16,6 @@ import uta.cse.cse3310.JSBSimEdit.utils.Constants;
 import uta.cse.cse3310.JSBSimEdit.utils.LoadSave;
 
 public class AutoPilot extends JPanel implements TabComponent {
-
-	private Map<String, java.util.List<JButton>> channelButtonsMap = new HashMap<>();
-	private String currentChannel; // Store the current channel
 
 	AutoPilot() {
 		initComponents();
@@ -47,26 +45,18 @@ public class AutoPilot extends JPanel implements TabComponent {
 		return Optional.ofNullable(cfg);
 	}
 
-	private void addButtonClickListener(JButton button, String channel) {
-		button.addActionListener(e -> {
-			// Store the clicked button in the map with the current channel
-			channelButtonsMap.computeIfAbsent(currentChannel, k -> new ArrayList<>()).add(button);
-		});
-	}
+	private void addButtonToPanel(JButton button, int x, int y) {
+        JButton newButton = new JButton(button.getIcon());
+        newButton.setToolTipText(button.getToolTipText());
 
-	// Add this method to create a copy of the selected button for the current
-	// channel
-	private void copyButtonToChannel(JButton button, int x, int y) {
-		JButton newButton = new JButton(button.getIcon());
-		newButton.setToolTipText(button.getToolTipText());
-		// Add any other properties or listeners you need for the new button
+        // Set the preferred size to the original button size
+        newButton.setPreferredSize(button.getPreferredSize());
 
-		// Add the new button to the main panel at the specified location
-		add(newButton, "cell " + x + " " + y);
-		revalidate();
-		repaint();
-	}
-
+        // Add the new button to the main panel at the specified location
+        add(newButton, "cell " + x + " " + y);
+        revalidate();
+        repaint();
+    }
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
 		// Generated using JFormDesigner Educational license - James Hofer
@@ -187,9 +177,27 @@ public class AutoPilot extends JPanel implements TabComponent {
 		for (Component component : typesToolBar.getComponents()) {
             if (component instanceof JButton) {
                 JButton button = (JButton) component;
-                addButtonClickListener(button, currentChannel);
-            }
+
+                button.setTransferHandler(new TransferHandler("icon"));
+
+                button.addMouseListener(new MouseAdapter() {
+                    public void mousePressed(MouseEvent evt) {
+                        JButton newButton = new JButton(button.getIcon());
+                        newButton.setToolTipText(button.getToolTipText());
+
+                        TransferHandler th = button.getTransferHandler();
+                        th.exportAsDrag(button, evt, TransferHandler.COPY);
+
+                        Point location = evt.getPoint();
+                        int x = (int) (location.getX() / getWidth() * 6);
+                        int y = (int) (location.getY() / getHeight() * 6);
+
+                        addButtonToPanel(newButton, x, y);
+                    }
+                });
         }
+	}
+
 
 		add(typesToolBar, "north");
 
@@ -387,25 +395,7 @@ public class AutoPilot extends JPanel implements TabComponent {
 			tabbedPane1.setBorder(new MatteBorder(1, 0, 0, 0, UIManager.getColor("Button.borderColor")));
 		}
 		add(tabbedPane1, "cell 0 0 6 6,aligny top,growy 0");
-		addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // Get the mouse click location
-                Point point = e.getPoint();
-                if (point != null) {
-                    // Convert the mouse coordinates to cell coordinates in MigLayout
-                    int x = (int) (point.getX() / getWidth() * 6); // Assuming 6 columns
-                    int y = (int) (point.getY() / getHeight() * 6); // Assuming 6 rows
-
-                    // Check if the current channel has any selected buttons
-                    if (channelButtonsMap.containsKey(currentChannel)) {
-                        // Copy the last selected button to the current channel
-                        JButton lastSelectedButton = channelButtonsMap.get(currentChannel).get(channelButtonsMap.get(currentChannel).size() - 1);
-                        copyButtonToChannel(lastSelectedButton, x, y);
-                    }
-                }
-            }
-        });
+		
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
 	}
 
