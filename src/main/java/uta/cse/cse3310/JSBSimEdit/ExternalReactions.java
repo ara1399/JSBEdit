@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.TitledBorder;
 
 import generated.FdmConfig;
 import net.miginfocom.swing.MigLayout;
@@ -24,7 +25,16 @@ public class ExternalReactions extends JPanel implements TabComponent {
 
     @Override
     public void bindUIwithXML(FdmConfig cfg) {
-        // TODO
+		//Force implmentation
+		modelForce.clear();
+		if(arrayForce != null){arrayForce.clear();}
+		ArrayList<generated.Force> forces = new ArrayList<>();
+		if(cfg.getExternalReactions().getForce() != null){
+			for(Object o : cfg.getExternalReactions().getForce()){
+				generated.Force f = (generated.Force) o;
+				forces.add(f);
+			}
+		}
     }
 
     @Override
@@ -34,170 +44,156 @@ public class ExternalReactions extends JPanel implements TabComponent {
     }
 
     
-    private void addExternalReaction(ActionEvent e) {
-        ExternalForce currentForce = new ExternalForce();
+    private void addForce(ActionEvent e) {
+        Force currentForce = new Force();
 		if (currentForce.getName() == null) return;
 		arrayForce.add(currentForce);
 		modelForce.clear();
 		modelForce.addAll(arrayForce);
     }
     
-    private void deleteExternalReaction(ActionEvent e) {
-        if (listER.getSelectedValue() == null) return;
+    private void deleteForce(ActionEvent e) {
+        if  (listForce.getSelectedValue() == null) return;
 		int userAnswer = JOptionPane.showConfirmDialog(this,"Are you sure you want to delete this?"
 		,"Confirm",JOptionPane.OK_CANCEL_OPTION);
 		if(userAnswer == JOptionPane.OK_OPTION){
-			ExternalForce currentForce = listER.getSelectedValue();
+			Force currentForce = listForce.getSelectedValue();
 			modelForce.removeElement(currentForce);
-			listER.remove(currentForce);
+		 listForce.remove(currentForce);
 		}
     }
     
-    private void detailExternalReaction(ActionEvent e) {
-        // TODO add your code here
+    private void detailForce(ActionEvent e) {
+        if  (listForce.getSelectedValue() != null){
+			Force oldForce = listForce.getSelectedValue();
+			Force newForce = new Force(oldForce);
+			if(newForce.getName() == null) return;
+			else if(newForce.getName() ==null) return;
+			else{
+				arrayForce.remove(listForce.getSelectedValue());
+				arrayForce.add(newForce);
+				modelForce.clear();
+				modelForce.addAll(arrayForce);
+			}
+		}
     }
 
-    private void initComponents() {
-	// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-	// Generated using JFormDesigner Educational license - Sean McElroy (Patrick McElroy)
-	scrollER = new JScrollPane();
-	listER = new JList<>();
-	buttonPanel = new JPanel();
-	addER = new JButton();
-	deleteER = new JButton();
-	detailER = new JButton();
+	private void addProp(ActionEvent e) {
+		// TODO add your code here
+	}
 
-	//======== this ========
-	setLayout(new MigLayout(
-		"fill,hidemode 3",
-		// columns
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]" +
-		"[fill]",
-		// rows
-		"[]" +
-		"[]" +
-		"[]" +
-		"[]" +
-		"[]" +
-		"[]" +
-		"[]" +
-		"[]" +
-		"[]" +
-		"[]" +
-		"[]" +
-		"[]" +
-		"[]" +
-		"[]" +
-		"[]" +
-		"[]" +
-		"[]" +
-		"[]" +
-		"[]" +
-		"[]" +
-		"[]" +
-		"[]" +
-		"[]"));
+	private void deleteProp(ActionEvent e) {
+		// TODO add your code here
+	}
 
-        //======== scrollER ========
+	private void detailProp(ActionEvent e) {
+		// TODO add your code here
+	}
+
+	private void initComponents() {
+		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
+		// Generated using JFormDesigner Educational license - Sean McElroy (Patrick McElroy)
+		scrollForce = new JScrollPane();
+		listForce = new JList<Force>();
+		scrollProp = new JScrollPane();
+		listProp = new JList();
+		addForce = new JButton();
+		deleteForce = new JButton();
+		detailForce = new JButton();
+		addProp = new JButton();
+		deleteProp = new JButton();
+		detailProp = new JButton();
+
+		//======== this ========
+		setLayout(new MigLayout(
+			"fill,hidemode 3",
+			// columns
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]",
+			// rows
+			"[]" +
+			"[]" +
+			"[]" +
+			"[]" +
+			"[]" +
+			"[]" +
+			"[]" +
+			"[]" +
+			"[]" +
+			"[]"));
+
+		//======== scrollForce ========
 		{
-			//Allows the list to be see and only allows a single selection
-			listER.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-			listER.setModel(modelForce);
-			scrollER.setViewportView(listER);
+			scrollForce.setViewportBorder(new TitledBorder(null, "Forces", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
+			scrollForce.setToolTipText("List of forces");
+			scrollForce.setViewportView(listForce);
 		}
-		add(scrollER, "cell 0 0 49 22,grow");
+		add(scrollForce, "cell 0 0 6 9,growy");
 
-		//======== buttonPanel ========
+		//======== scrollProp ========
 		{
-			buttonPanel.setLayout(new MigLayout(
-				"fill,hidemode 3",
-				// columns
-				"[fill]" +
-				"[fill]" +
-				"[fill]",
-				// rows
-				"[]"));
-
-			//---- addER ----
-			addER.setText("Add");
-    		addER.addActionListener(e -> addExternalReaction(e));
-			buttonPanel.add(addER, "cell 0 0");
-
-			//---- deleteER ----
-			deleteER.setText("Delete");
-           	addER.addActionListener(e -> deleteExternalReaction(e));
-			buttonPanel.add(deleteER, "cell 1 0");
-
-			//---- detailER ----
-			detailER.setText("Detail");
-            //addER.addActionListener(e -> detailExternalReaction(e));
-			buttonPanel.add(detailER, "cell 2 0");
+			scrollProp.setToolTipText("List of Properties");
+			scrollProp.setViewportBorder(new TitledBorder(null, "Properties", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
+			scrollProp.setViewportView(listProp);
 		}
-		add(buttonPanel, "cell 0 22 49 1");
+		add(scrollProp, "cell 6 0 6 9,growy");
+
+		//---- addForce ----
+		addForce.setText("Add Force");
+		addForce.addActionListener(e -> addForce(e));
+		add(addForce, "cell 0 9 2 1");
+
+		//---- deleteForce ----
+		deleteForce.setText("Delete Force");
+		deleteForce.addActionListener(e -> deleteForce(e));
+		add(deleteForce, "cell 2 9 2 1");
+
+		//---- detailForce ----
+		detailForce.setText("Detail Force");
+		detailForce.addActionListener(e -> detailForce(e));
+		add(detailForce, "cell 4 9 2 1");
+
+		//---- addProp ----
+		addProp.setText("Add Property");
+		addProp.addActionListener(e -> addProp(e));
+		add(addProp, "cell 6 9 2 1");
+
+		//---- deleteProp ----
+		deleteProp.setText("Delete Property");
+		deleteProp.addActionListener(e -> deleteProp(e));
+		add(deleteProp, "cell 8 9 2 1");
+
+		//---- detailProp ----
+		detailProp.setText("Detail Property");
+		detailProp.addActionListener(e -> detailProp(e));
+		add(detailProp, "cell 10 9 2 1");
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
 	}
 
-
-
-
-
-    // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
+	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
 	// Generated using JFormDesigner Educational license - Sean McElroy (Patrick McElroy)
-	private JScrollPane scrollER;
-	private JList<ExternalForce> listER;
-	private JPanel buttonPanel;
-	private JButton addER;
-	private JButton deleteER;
-	private JButton detailER;
+	private JScrollPane scrollForce;
+	private JList<Force> listForce;
+	private JScrollPane scrollProp;
+	private JList<String> listProp;
+	private JButton addForce;
+	private JButton deleteForce;
+	private JButton detailForce;
+	private JButton addProp;
+	private JButton deleteProp;
+	private JButton detailProp;
 	// JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 
-    private ArrayList<ExternalForce> arrayForce;
-	private DefaultListModel<ExternalForce> modelForce = new DefaultListModel<ExternalForce>();
+    private ArrayList<Force> arrayForce;
+	private DefaultListModel<Force> modelForce = new DefaultListModel<Force>();
 }
