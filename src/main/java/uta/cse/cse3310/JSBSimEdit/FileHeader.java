@@ -224,7 +224,7 @@ public class FileHeader extends JPanel implements TabComponent {
 		for(int i = 0; i < referencesTable.getRowCount(); i++) {
 			Reference ref = new Reference();
 			// required Schema element
-			if(!(referencesTable.getValueAt(i, 1).toString().length() > 0)) {
+			if (referencesTable.getValueAt(i, 1) == null || referencesTable.getValueAt(i, 1).toString().isEmpty()) {
 				System.out.println("Schema Mismatch: FileHeader: References Title is required");
 			}
 			else {
