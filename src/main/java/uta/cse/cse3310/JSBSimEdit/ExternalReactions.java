@@ -20,6 +20,7 @@ public class ExternalReactions extends JPanel implements TabComponent {
     
     ExternalReactions() {
         initComponents();
+        arrayForce = new ArrayList<>();
     }
 
     @Override
@@ -36,25 +37,33 @@ public class ExternalReactions extends JPanel implements TabComponent {
     
     private void addExternalReaction(ActionEvent e) {
         ExternalForce currentForce = new ExternalForce();
-		if (currentForce.getName() == null) return;
-		arrayForce.add(currentForce);
-		modelForce.clear();
-		modelForce.addAll(arrayForce);
+        if (currentForce.getName() == null) return;
+	arrayForce.add(currentForce);
+	modelForce.clear();
+	modelForce.addAll(arrayForce);
     }
     
     private void deleteExternalReaction(ActionEvent e) {
         if (listER.getSelectedValue() == null) return;
-		int userAnswer = JOptionPane.showConfirmDialog(this,"Are you sure you want to delete this?"
-		,"Confirm",JOptionPane.OK_CANCEL_OPTION);
-		if(userAnswer == JOptionPane.OK_OPTION){
-			ExternalForce currentForce = listER.getSelectedValue();
-			modelForce.removeElement(currentForce);
-			listER.remove(currentForce);
-		}
+	int userAnswer = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this?", "Confirm", JOptionPane.OK_CANCEL_OPTION);
+	if(userAnswer == JOptionPane.OK_OPTION){
+		ExternalForce currentForce = listER.getSelectedValue();
+		modelForce.removeElement(currentForce);
+		arrayForce.remove(currentForce);
+	}
     }
     
     private void detailExternalReaction(ActionEvent e) {
-        // TODO add your code here
+        if (listER.getSelectedValue() == null) return;
+        
+        ExternalForce newER = new ExternalForce(listER.getSelectedValue());
+        if(newER.getName() == null) return; //user cancelled
+        else{
+            arrayForce.remove(listER.getSelectedValue());
+            arrayForce.add(newER);
+            modelForce.clear();
+            modelForce.addAll(arrayForce);
+        }
     }
 
     private void initComponents() {
@@ -167,17 +176,17 @@ public class ExternalReactions extends JPanel implements TabComponent {
 
 			//---- addER ----
 			addER.setText("Add");
-    		addER.addActionListener(e -> addExternalReaction(e));
+                        addER.addActionListener(e -> addExternalReaction(e));
 			buttonPanel.add(addER, "cell 0 0");
 
 			//---- deleteER ----
 			deleteER.setText("Delete");
-           	addER.addActionListener(e -> deleteExternalReaction(e));
+                        deleteER.addActionListener(e -> deleteExternalReaction(e));
 			buttonPanel.add(deleteER, "cell 1 0");
 
 			//---- detailER ----
 			detailER.setText("Detail");
-            //addER.addActionListener(e -> detailExternalReaction(e));
+                        detailER.addActionListener(e -> detailExternalReaction(e));
 			buttonPanel.add(detailER, "cell 2 0");
 		}
 		add(buttonPanel, "cell 0 22 49 1");
