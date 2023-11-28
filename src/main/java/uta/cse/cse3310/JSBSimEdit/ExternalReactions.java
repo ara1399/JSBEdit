@@ -38,25 +38,26 @@ public class ExternalReactions extends JPanel implements TabComponent {
 			generated.Function function;
 
 			for(generated.Force f : forces){
-				if(f.getFunction() != null) function = f.getFunction();
-				else function = null;
+				if(f.getFunction() != null){
+					if(f.getFunction() != null) function = f.getFunction();
+					else function = null;
                 
-                if(f.getName() != null) name = f.getName(); //name
-                else name = null;
+                	if(f.getName() != null) name = f.getName(); //name
+                	else name = null;
                 
-                if(f.getFrame() != null) frame = f.getFrame(); //frame
-                else frame = null;
+                	if(f.getFrame() != null) frame = f.getFrame(); //frame
+                	else frame = null;
                 
 					if(f.getLocation() != null){//location
-                    xL = f.getLocation().getX();
+                    	xL = f.getLocation().getX();
 						yL = f.getLocation().getY();
-                    zL = f.getLocation().getZ();
+                    	zL = f.getLocation().getZ();
 						locU = f.getLocation().getUnit().toString();
 					}
 					else{
 						xL = null;
 						yL = null;
-                    zL = null;
+                    	zL = null;
 						locU = null;
 					}
 
@@ -75,9 +76,10 @@ public class ExternalReactions extends JPanel implements TabComponent {
 						//                    dirN = null;
 					}
 					
-                Force ef = new Force(name, frame, locU, dirU, 
+                	Force ef = new Force(name, frame, locU, dirU, 
                                     xL, yL, zL, xD, yD, zD,function);
-                arrayForce.add(ef);
+                	arrayForce.add(ef);
+				}
 			}
 			modelForce.addAll(arrayForce);
 		}
