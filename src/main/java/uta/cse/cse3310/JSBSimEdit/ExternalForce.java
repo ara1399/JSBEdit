@@ -379,7 +379,8 @@ public class ExternalForce extends JDialog {
         public String toString(){
             StringBuilder sb = new StringBuilder();
             sb.append(name + " at point [" + xLoc + ", " + yLoc + ", " + zLoc + "] in "
-                  + locUnit + " in direction [" + xDir + ", " + yDir + ", " + zDir + "] in " + dirUnit);
+                  + locUnit + " in direction [" + xDir + ", " + yDir + ", " + zDir + "] in " + dirUnit +
+                    " with frame " + frame);
             return sb.toString();
         }
 

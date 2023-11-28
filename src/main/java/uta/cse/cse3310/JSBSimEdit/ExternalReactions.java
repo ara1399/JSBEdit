@@ -25,7 +25,57 @@ public class ExternalReactions extends JPanel implements TabComponent {
 
     @Override
     public void bindUIwithXML(FdmConfig cfg) {
-        // TODO
+        modelForce.clear();
+        ArrayList<generated.Force> forces = new ArrayList<>();
+        if(cfg.getExternalReactions().getForce() != null){
+            forces.addAll(cfg.getExternalReactions().getForce());
+            
+            Double xL, yL, zL, xD, yD, zD;
+            String name, frame, dirN, locU, dirU;
+            
+            for(generated.Force f : forces){
+                //getFunction()
+                
+                if(f.getName() != null) name = f.getName(); //name
+                else name = null;
+                
+                if(f.getFrame() != null) frame = f.getFrame(); //frame
+                else frame = null;
+                
+                if(f.getLocation() != null){//location
+                    xL = f.getLocation().getX(); 
+                    yL = f.getLocation().getY();
+                    zL = f.getLocation().getZ();
+                    locU = f.getLocation().getUnit().toString();
+                }
+                else{
+                    xL = null;
+                    yL = null;
+                    zL = null;
+                    locU = null;
+                }
+                
+                if(f.getDirection() != null){//direction
+                    xD = f.getDirection().getX(); 
+                    yD = f.getDirection().getY();
+                    zD = f.getDirection().getZ();
+                    dirU = f.getDirection().getUnit().toString();
+                    dirN = f.getDirection().getName();
+                }
+                else{
+                    xD = null;
+                    yD = null;
+                    zD = null;
+                    dirU = null;
+                    dirN = null;
+                }
+                
+                ExternalForce ef = new ExternalForce(name, frame, dirN, locU, dirU, 
+                                                 xL, yL, zL, xD, yD, zD);
+                arrayForce.add(ef);
+            }
+            modelForce.addAll(arrayForce);
+        }
     }
 
     @Override
