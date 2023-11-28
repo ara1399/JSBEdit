@@ -21,25 +21,93 @@ public class ExternalReactions extends JPanel implements TabComponent {
     
     ExternalReactions() {
         initComponents();
+        arrayForce = new ArrayList<>();
     }
 
     @Override
     public void bindUIwithXML(FdmConfig cfg) {
 		//Force implmentation
-		modelForce.clear();
-		if(arrayForce != null){arrayForce.clear();}
-		ArrayList<generated.Force> forces = new ArrayList<>();
-		if(cfg.getExternalReactions().getForce() != null){
-			for(Object o : cfg.getExternalReactions().getForce()){
-				generated.Force f = (generated.Force) o;
-				forces.add(f);
-			}
-		}
+        modelForce.clear();
+        arrayForce.clear();
+        ArrayList<generated.Force> forces = new ArrayList<>();
+        if(cfg.getExternalReactions().getForce() != null){
+            forces.addAll(cfg.getExternalReactions().getForce());
+            
+            Double xL, yL, zL, xD, yD, zD;
+            String name, frame, /*dirN,*/ locU, dirU;
+            
+            for(generated.Force f : forces){
+                //getFunction()
+                
+                if(f.getName() != null) name = f.getName(); //name
+                else name = null;
+                
+                if(f.getFrame() != null) frame = f.getFrame(); //frame
+                else frame = null;
+                
+                if(f.getLocation() != null){//location
+                    xL = f.getLocation().getX(); 
+                    yL = f.getLocation().getY();
+                    zL = f.getLocation().getZ();
+                    locU = f.getLocation().getUnit().toString();
+                }
+                else{
+                    xL = null;
+                    yL = null;
+                    zL = null;
+                    locU = null;
+                }
+                
+                if(f.getDirection() != null){//direction
+                    xD = f.getDirection().getX(); 
+                    yD = f.getDirection().getY();
+                    zD = f.getDirection().getZ();
+                    dirU = f.getDirection().getUnit().toString();
+//                    dirN = f.getDirection().getName();
+                }
+                else{
+                    xD = null;
+                    yD = null;
+                    zD = null;
+                    dirU = null;
+//                    dirN = null;
+                }
+                
+                ExternalForce ef = new ExternalForce(name, frame, /*dirN,*/ locU, dirU, 
+                                                 xL, yL, zL, xD, yD, zD);
+                arrayForce.add(ef);
+            }
+            modelForce.addAll(arrayForce);
+        }
     }
 
     @Override
     public Optional<FdmConfig> saveXMLfromUI(FdmConfig cfg) {
-        // TODO=
+        
+        cfg.getExternalReactions().getForce().clear();
+        
+        for(ExternalForce ef : arrayForce){
+            generated.Force f = new generated.Force();
+            
+            generated.Location l = new generated.Location(); //location
+            l.setX(ef.getXLoc());
+            l.setY(ef.getYLoc());
+            l.setZ(ef.getZLoc());
+            l.setUnit(ef.getLocU());
+            f.setLocation(l);
+            
+            generated.Direction d = new generated.Direction(); //Direction
+            d.setX(ef.getXDir());
+            d.setY(ef.getYDir());
+            d.setZ(ef.getZDir());
+            d.setUnit(ef.getDirU());
+            f.setDirection(d);
+            
+            f.setName(ef.getName()); //name
+            f.setFrame(ef.getFrame()); //frame
+            
+            cfg.getExternalReactions().getForce().add(f);
+        }
         return Optional.ofNullable(cfg);
     }
 
@@ -145,6 +213,29 @@ public class ExternalReactions extends JPanel implements TabComponent {
 			scrollProp.setToolTipText("List of Properties");
 			scrollProp.setViewportBorder(new TitledBorder(null, "Properties", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
 			scrollProp.setViewportView(listProp);
+			buttonPanel.setLayout(new MigLayout(
+				"fill,hidemode 3",
+				// columns
+				"[fill]" +
+				"[fill]" +
+				"[fill]",
+				// rows
+				"[]"));
+
+			//---- addER ----
+			addER.setText("Add");
+                        addER.addActionListener(e -> addExternalReaction(e));
+			buttonPanel.add(addER, "cell 0 0");
+
+			//---- deleteER ----
+			deleteER.setText("Delete");
+                        deleteER.addActionListener(e -> deleteExternalReaction(e));
+			buttonPanel.add(deleteER, "cell 1 0");
+
+			//---- detailER ----
+			detailER.setText("Detail");
+                        detailER.addActionListener(e -> detailExternalReaction(e));
+			buttonPanel.add(detailER, "cell 2 0");
 		}
 		add(scrollProp, "cell 6 0 6 9,growy");
 

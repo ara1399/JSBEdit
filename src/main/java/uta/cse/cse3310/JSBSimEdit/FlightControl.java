@@ -1,30 +1,13 @@
 package uta.cse.cse3310.JSBSimEdit;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Dialog.ModalityType;
-import java.util.Optional;
+import javax.swing.*;
+import javax.swing.border.*;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
-import javax.swing.JSpinner;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
-import javax.swing.JToolBar;
-import javax.swing.SpinnerListModel;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.border.MatteBorder;
-import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.awt.Dialog.ModalityType;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.*;
 
 import generated.FdmConfig;
 import net.miginfocom.swing.MigLayout;
@@ -54,7 +37,6 @@ public class FlightControl extends JPanel implements TabComponent {
 						"[][][][][]"));
 			});
 		}
-
 	}
 
 	@Override
@@ -63,6 +45,18 @@ public class FlightControl extends JPanel implements TabComponent {
 		return Optional.ofNullable(cfg);
 	}
 
+	private void addButtonToPanel(JButton button, int x, int y) {
+        JButton newButton = new JButton(button.getIcon());
+        newButton.setToolTipText(button.getToolTipText());
+
+        // Set the preferred size to the original button size
+        newButton.setPreferredSize(button.getPreferredSize());
+
+        // Add the new button to the main panel at the specified location
+        add(newButton, "cell " + x + " " + y);
+        revalidate();
+        repaint();
+    }
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
 		// Generated using JFormDesigner Educational license - James Hofer
@@ -179,6 +173,32 @@ public class FlightControl extends JPanel implements TabComponent {
 			functionsB.setToolTipText("Functions");
 			typesToolBar.add(functionsB);
 		}
+
+		for (Component component : typesToolBar.getComponents()) {
+            if (component instanceof JButton) {
+                JButton button = (JButton) component;
+
+                button.setTransferHandler(new TransferHandler("icon"));
+
+                button.addMouseListener(new MouseAdapter() {
+                    public void mousePressed(MouseEvent evt) {
+                        JButton newButton = new JButton(button.getIcon());
+                        newButton.setToolTipText(button.getToolTipText());
+
+                        TransferHandler th = button.getTransferHandler();
+                        th.exportAsDrag(button, evt, TransferHandler.COPY);
+
+                        Point location = evt.getPoint();
+                        int x = (int) (location.getX() / getWidth() * 6);
+                        int y = (int) (location.getY() / getHeight() * 6);
+
+                        addButtonToPanel(newButton, x, y);
+                    }
+                });
+        }
+	}
+
+
 		add(typesToolBar, "north");
 
 		//======== panel3 ========
@@ -375,6 +395,7 @@ public class FlightControl extends JPanel implements TabComponent {
 			tabbedPane1.setBorder(new MatteBorder(1, 0, 0, 0, UIManager.getColor("Button.borderColor")));
 		}
 		add(tabbedPane1, "cell 0 0 6 6,aligny top,growy 0");
+		
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
 	}
 
