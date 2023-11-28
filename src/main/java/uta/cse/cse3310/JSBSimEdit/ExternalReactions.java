@@ -31,7 +31,7 @@ public class ExternalReactions extends JPanel implements TabComponent {
             forces.addAll(cfg.getExternalReactions().getForce());
             
             Double xL, yL, zL, xD, yD, zD;
-            String name, frame, dirN, locU, dirU;
+            String name, frame, /*dirN,*/ locU, dirU;
             
             for(generated.Force f : forces){
                 //getFunction()
@@ -60,17 +60,17 @@ public class ExternalReactions extends JPanel implements TabComponent {
                     yD = f.getDirection().getY();
                     zD = f.getDirection().getZ();
                     dirU = f.getDirection().getUnit().toString();
-                    dirN = f.getDirection().getName();
+//                    dirN = f.getDirection().getName();
                 }
                 else{
                     xD = null;
                     yD = null;
                     zD = null;
                     dirU = null;
-                    dirN = null;
+//                    dirN = null;
                 }
                 
-                ExternalForce ef = new ExternalForce(name, frame, dirN, locU, dirU, 
+                ExternalForce ef = new ExternalForce(name, frame, /*dirN,*/ locU, dirU, 
                                                  xL, yL, zL, xD, yD, zD);
                 arrayForce.add(ef);
             }
@@ -80,7 +80,31 @@ public class ExternalReactions extends JPanel implements TabComponent {
 
     @Override
     public Optional<FdmConfig> saveXMLfromUI(FdmConfig cfg) {
-        // TODO=
+        
+        cfg.getExternalReactions().getForce().clear();
+        
+        for(ExternalForce ef : arrayForce){
+            generated.Force f = new generated.Force();
+            
+            generated.Location l = new generated.Location(); //location
+            l.setX(ef.getXLoc());
+            l.setY(ef.getYLoc());
+            l.setZ(ef.getZLoc());
+            l.setUnit(ef.getLocU());
+            f.setLocation(l);
+            
+            generated.Direction d = new generated.Direction(); //Direction
+            d.setX(ef.getXDir());
+            d.setY(ef.getYDir());
+            d.setZ(ef.getZDir());
+            d.setUnit(ef.getDirU());
+            f.setDirection(d);
+            
+            f.setName(ef.getName()); //name
+            f.setFrame(ef.getFrame()); //frame
+            
+            cfg.getExternalReactions().getForce().add(f);
+        }
         return Optional.ofNullable(cfg);
     }
 

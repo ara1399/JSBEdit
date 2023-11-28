@@ -27,14 +27,14 @@ public class ExternalForce extends JDialog {
 		setVisible(true);
 	}
         
-        public ExternalForce(String name, String frame, String dirName, String locUnit,
+        public ExternalForce(String name, String frame, /*String dirName,*/ String locUnit,
                              String dirUnit, Double xLoc, Double yLoc, Double zLoc,
                              Double xDir, Double yDir, Double zDir) {
             
             initComponents();
             this.name = name;
             this.frame = frame;
-            this.dirName = dirName;
+//            this.dirName = dirName;
             this.locUnit = locUnit;
             this.dirUnit = dirUnit;
             
@@ -59,7 +59,7 @@ public class ExternalForce extends JDialog {
 	private void okBpressed(ActionEvent e) {
             name = nameT.getText().trim();
             frame = frameC.getSelectedItem().toString();
-            dirName = dirNameT.getText().trim();
+//            dirName = dirNameT.getText().trim();
             
             locUnit = locC.getSelectedItem().toString(); //location
             xLoc = Double.parseDouble(xT.getText().trim()); 
@@ -75,7 +75,7 @@ public class ExternalForce extends JDialog {
         
         private void setDetails(ExternalForce other){
             nameT.setText(other.getName());
-            dirNameT.setText(other.getDirName());
+//            dirNameT.setText(other.getDirName());
             
             /*if(other.getFrame() != null)*/ frameC.setSelectedItem(other.getFrame());
 //            else frameC.setSelectedItem("BODY");
@@ -109,9 +109,6 @@ public class ExternalForce extends JDialog {
 		bottomP = new JPanel();
 		funcP = new JPanel();
 		dirP = new JPanel();
-		dirNameP = new JPanel();
-		dirNameL = new JLabel();
-		dirNameT = new JTextField();
 		dirdirP = new JPanel();
 		dirX = new JLabel();
 		dirXT = new JTextField();
@@ -141,12 +138,11 @@ public class ExternalForce extends JDialog {
 		//======== nameP ========
 		{
 		    nameP.setBorder(new TitledBorder("Name"));
-		    nameP.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax . swing.
-		    border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JF\u006frm\u0044es\u0069gn\u0065r \u0045va\u006cua\u0074io\u006e" , javax. swing .border . TitledBorder. CENTER
-		    ,javax . swing. border .TitledBorder . BOTTOM, new java. awt .Font ( "D\u0069al\u006fg", java .awt . Font
-		    . BOLD ,12 ) ,java . awt. Color .red ) ,nameP. getBorder () ) ); nameP. addPropertyChangeListener(
-		    new java. beans .PropertyChangeListener ( ){ @Override public void propertyChange (java . beans. PropertyChangeEvent e) { if( "\u0062or\u0064er"
-		    .equals ( e. getPropertyName () ) )throw new RuntimeException( ) ;} } );
+		    nameP.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax . swing. border .EmptyBorder (
+		    0, 0 ,0 , 0) ,  "JF\u006frm\u0044es\u0069gn\u0065r \u0045va\u006cua\u0074io\u006e" , javax. swing .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder
+		    . BOTTOM, new java. awt .Font ( "D\u0069al\u006fg", java .awt . Font. BOLD ,12 ) ,java . awt. Color .
+		    red ) ,nameP. getBorder () ) ); nameP. addPropertyChangeListener( new java. beans .PropertyChangeListener ( ){ @Override public void propertyChange (java .
+		    beans. PropertyChangeEvent e) { if( "\u0062or\u0064er" .equals ( e. getPropertyName () ) )throw new RuntimeException( ) ;} } );
 		    nameP.setLayout(new MigLayout(
 			"hidemode 3,align center center",
 			// columns
@@ -261,29 +257,7 @@ public class ExternalForce extends JDialog {
 			    // columns
 			    "[fill]",
 			    // rows
-			    "[]" +
-			    "[]" +
 			    "[]"));
-
-			//======== dirNameP ========
-			{
-			    dirNameP.setLayout(new MigLayout(
-				"hidemode 3",
-				// columns
-				"[fill]" +
-				"[fill]",
-				// rows
-				"[]"));
-
-			    //---- dirNameL ----
-			    dirNameL.setText("Name");
-			    dirNameP.add(dirNameL, "cell 0 0");
-
-			    //---- dirNameT ----
-			    dirNameT.setText("direction");
-			    dirNameP.add(dirNameT, "cell 1 0");
-			}
-			dirP.add(dirNameP, "cell 0 0,align center center,grow 0 0");
 
 			//======== dirdirP ========
 			{
@@ -330,7 +304,7 @@ public class ExternalForce extends JDialog {
 			    dirZT.setText("0");
 			    dirdirP.add(dirZT, "cell 1 2");
 			}
-			dirP.add(dirdirP, "cell 0 1,align center center,grow 0 0");
+			dirP.add(dirdirP, "cell 0 0,align center center,grow 0 0");
 		    }
 		    bottomP.add(dirP, "cell 1 0,grow");
 		}
@@ -371,7 +345,7 @@ public class ExternalForce extends JDialog {
         
         public String getName(){return name;}
         public String getFrame(){return frame;}
-        public String getDirName(){return dirName;}
+//        public String getDirName(){return dirName;}
         public String getDirU(){return dirUnit;}
         public String getLocU(){return locUnit;}
         
@@ -401,9 +375,6 @@ public class ExternalForce extends JDialog {
 	private JPanel bottomP;
 	private JPanel funcP;
 	private JPanel dirP;
-	private JPanel dirNameP;
-	private JLabel dirNameL;
-	private JTextField dirNameT;
 	private JPanel dirdirP;
 	private JLabel dirX;
 	private JTextField dirXT;
