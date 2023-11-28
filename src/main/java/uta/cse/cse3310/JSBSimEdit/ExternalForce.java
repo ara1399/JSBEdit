@@ -106,8 +106,6 @@ public class ExternalForce extends JDialog {
 		locC = new JComboBox<>();
 		frameP = new JPanel();
 		frameC = new JComboBox<>();
-		bottomP = new JPanel();
-		funcP = new JPanel();
 		dirP = new JPanel();
 		dirdirP = new JPanel();
 		dirX = new JLabel();
@@ -123,6 +121,7 @@ public class ExternalForce extends JDialog {
 
 		//======== this ========
 		setModal(true);
+		setTitle("Force");
 		var contentPane = getContentPane();
 		contentPane.setLayout(new MigLayout(
 		    "hidemode 3,align center center",
@@ -138,11 +137,6 @@ public class ExternalForce extends JDialog {
 		//======== nameP ========
 		{
 		    nameP.setBorder(new TitledBorder("Name"));
-		    nameP.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax . swing. border .EmptyBorder (
-		    0, 0 ,0 , 0) ,  "JF\u006frm\u0044es\u0069gn\u0065r \u0045va\u006cua\u0074io\u006e" , javax. swing .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder
-		    . BOTTOM, new java. awt .Font ( "D\u0069al\u006fg", java .awt . Font. BOLD ,12 ) ,java . awt. Color .
-		    red ) ,nameP. getBorder () ) ); nameP. addPropertyChangeListener( new java. beans .PropertyChangeListener ( ){ @Override public void propertyChange (java .
-		    beans. PropertyChangeEvent e) { if( "\u0062or\u0064er" .equals ( e. getPropertyName () ) )throw new RuntimeException( ) ;} } );
 		    nameP.setLayout(new MigLayout(
 			"hidemode 3,align center center",
 			// columns
@@ -227,88 +221,64 @@ public class ExternalForce extends JDialog {
 		}
 		contentPane.add(frameP, "cell 0 2,grow");
 
-		//======== bottomP ========
+		//======== dirP ========
 		{
-		    bottomP.setLayout(new MigLayout(
-			"hidemode 3,align center center",
+		    dirP.setBorder(new TitledBorder("Direction"));
+		    dirP.setLayout(new MigLayout(
+			"fill,hidemode 3",
 			// columns
-			"[fill]" +
 			"[fill]",
 			// rows
 			"[]"));
 
-		    //======== funcP ========
+		    //======== dirdirP ========
 		    {
-			funcP.setBorder(new TitledBorder("Function(s)"));
-			funcP.setLayout(new MigLayout(
-			    "fill,hidemode 3",
+			dirdirP.setLayout(new MigLayout(
+			    "hidemode 3",
 			    // columns
+			    "[fill]" +
+			    "[fill]" +
 			    "[fill]",
 			    // rows
-			    "[]"));
-		    }
-		    bottomP.add(funcP, "cell 0 0,grow");
-
-		    //======== dirP ========
-		    {
-			dirP.setBorder(new TitledBorder("Direction"));
-			dirP.setLayout(new MigLayout(
-			    "fill,hidemode 3",
-			    // columns
-			    "[fill]",
-			    // rows
+			    "[]" +
+			    "[]" +
 			    "[]"));
 
-			//======== dirdirP ========
-			{
-			    dirdirP.setLayout(new MigLayout(
-				"hidemode 3",
-				// columns
-				"[fill]" +
-				"[fill]" +
-				"[fill]",
-				// rows
-				"[]" +
-				"[]" +
-				"[]"));
+			//---- dirX ----
+			dirX.setText("x =");
+			dirdirP.add(dirX, "cell 0 0");
 
-			    //---- dirX ----
-			    dirX.setText("x =");
-			    dirdirP.add(dirX, "cell 0 0");
+			//---- dirXT ----
+			dirXT.setText("0");
+			dirdirP.add(dirXT, "cell 1 0");
 
-			    //---- dirXT ----
-			    dirXT.setText("0");
-			    dirdirP.add(dirXT, "cell 1 0");
+			//---- dirY ----
+			dirY.setText("y =");
+			dirdirP.add(dirY, "cell 0 1");
 
-			    //---- dirY ----
-			    dirY.setText("y =");
-			    dirdirP.add(dirY, "cell 0 1");
+			//---- dirYT ----
+			dirYT.setText("0");
+			dirdirP.add(dirYT, "cell 1 1");
 
-			    //---- dirYT ----
-			    dirYT.setText("0");
-			    dirdirP.add(dirYT, "cell 1 1");
+			//---- dirC ----
+			dirC.setModel(new DefaultComboBoxModel<>(new String[] {
+			    "M",
+			    "FT",
+			    "IN"
+			}));
+			dirdirP.add(dirC, "cell 2 1");
 
-			    //---- dirC ----
-			    dirC.setModel(new DefaultComboBoxModel<>(new String[] {
-				"M",
-				"FT",
-				"IN"
-			    }));
-			    dirdirP.add(dirC, "cell 2 1");
+			//---- dirZ ----
+			dirZ.setText("z =");
+			dirdirP.add(dirZ, "cell 0 2");
 
-			    //---- dirZ ----
-			    dirZ.setText("z =");
-			    dirdirP.add(dirZ, "cell 0 2");
-
-			    //---- dirZT ----
-			    dirZT.setText("0");
-			    dirdirP.add(dirZT, "cell 1 2");
-			}
-			dirP.add(dirdirP, "cell 0 0,align center center,grow 0 0");
+			//---- dirZT ----
+			dirZT.setText("0");
+			dirdirP.add(dirZT, "cell 1 2");
 		    }
-		    bottomP.add(dirP, "cell 1 0,grow");
+		    dirP.add(dirdirP, "cell 0 0,align center center,grow 0 0");
 		}
-		contentPane.add(bottomP, "cell 0 3,grow");
+		contentPane.add(dirP, "cell 0 3,grow");
 
 		//======== buttonsP ========
 		{
@@ -372,8 +342,6 @@ public class ExternalForce extends JDialog {
 	private JComboBox<String> locC;
 	private JPanel frameP;
 	private JComboBox<String> frameC;
-	private JPanel bottomP;
-	private JPanel funcP;
 	private JPanel dirP;
 	private JPanel dirdirP;
 	private JLabel dirX;

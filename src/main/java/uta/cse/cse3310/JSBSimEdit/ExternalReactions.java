@@ -26,6 +26,7 @@ public class ExternalReactions extends JPanel implements TabComponent {
     @Override
     public void bindUIwithXML(FdmConfig cfg) {
         modelForce.clear();
+        arrayForce.clear();
         ArrayList<generated.Force> forces = new ArrayList<>();
         if(cfg.getExternalReactions().getForce() != null){
             forces.addAll(cfg.getExternalReactions().getForce());
