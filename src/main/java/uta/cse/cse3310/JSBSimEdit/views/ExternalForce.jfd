@@ -10,6 +10,7 @@ new FormModel {
 		} ) {
 			name: "this"
 			"modal": true
+			"title": "Force"
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "hidemode 3,align center center"
 				"$columnConstraints": "[fill]"
@@ -105,86 +106,67 @@ new FormModel {
 				"value": "cell 0 2,grow"
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
-				"$layoutConstraints": "hidemode 3,align center center"
-				"$columnConstraints": "[fill][fill]"
+				"$layoutConstraints": "fill,hidemode 3"
+				"$columnConstraints": "[fill]"
 				"$rowConstraints": "[]"
 			} ) {
-				name: "bottomP"
+				name: "dirP"
+				"border": new javax.swing.border.TitledBorder( "Direction" )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
-					"$layoutConstraints": "fill,hidemode 3"
-					"$columnConstraints": "[fill]"
-					"$rowConstraints": "[]"
+					"$layoutConstraints": "hidemode 3"
+					"$columnConstraints": "[fill][fill][fill]"
+					"$rowConstraints": "[][][]"
 				} ) {
-					name: "funcP"
-					"border": new javax.swing.border.TitledBorder( "Function(s)" )
-				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 0 0,grow"
-				} )
-				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
-					"$layoutConstraints": "fill,hidemode 3"
-					"$columnConstraints": "[fill]"
-					"$rowConstraints": "[]"
-				} ) {
-					name: "dirP"
-					"border": new javax.swing.border.TitledBorder( "Direction" )
-					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
-						"$layoutConstraints": "hidemode 3"
-						"$columnConstraints": "[fill][fill][fill]"
-						"$rowConstraints": "[][][]"
-					} ) {
-						name: "dirdirP"
-						add( new FormComponent( "javax.swing.JLabel" ) {
-							name: "dirX"
-							"text": "x ="
-						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-							"value": "cell 0 0"
-						} )
-						add( new FormComponent( "javax.swing.JTextField" ) {
-							name: "dirXT"
-							"text": "0"
-						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-							"value": "cell 1 0"
-						} )
-						add( new FormComponent( "javax.swing.JLabel" ) {
-							name: "dirY"
-							"text": "y ="
-						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-							"value": "cell 0 1"
-						} )
-						add( new FormComponent( "javax.swing.JTextField" ) {
-							name: "dirYT"
-							"text": "0"
-						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-							"value": "cell 1 1"
-						} )
-						add( new FormComponent( "javax.swing.JComboBox" ) {
-							name: "dirC"
-							"model": new javax.swing.DefaultComboBoxModel {
-								selectedItem: "M"
-								addElement( "M" )
-								addElement( "FT" )
-								addElement( "IN" )
-							}
-						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-							"value": "cell 2 1"
-						} )
-						add( new FormComponent( "javax.swing.JLabel" ) {
-							name: "dirZ"
-							"text": "z ="
-						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-							"value": "cell 0 2"
-						} )
-						add( new FormComponent( "javax.swing.JTextField" ) {
-							name: "dirZT"
-							"text": "0"
-						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-							"value": "cell 1 2"
-						} )
+					name: "dirdirP"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "dirX"
+						"text": "x ="
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-						"value": "cell 0 0,align center center,grow 0 0"
+						"value": "cell 0 0"
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "dirXT"
+						"text": "0"
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 1 0"
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "dirY"
+						"text": "y ="
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 0 1"
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "dirYT"
+						"text": "0"
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 1 1"
+					} )
+					add( new FormComponent( "javax.swing.JComboBox" ) {
+						name: "dirC"
+						"model": new javax.swing.DefaultComboBoxModel {
+							selectedItem: "M"
+							addElement( "M" )
+							addElement( "FT" )
+							addElement( "IN" )
+						}
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 2 1"
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "dirZ"
+						"text": "z ="
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 0 2"
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "dirZT"
+						"text": "0"
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 1 2"
 					} )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 1 0,grow"
+					"value": "cell 0 0,align center center,grow 0 0"
 				} )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 0 3,grow"
