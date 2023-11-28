@@ -241,10 +241,6 @@ public class Aerodynamics extends JPanel implements TabComponent {
                         setIcon(aeroIcon);
                         break;
                     case FUNCTION:
-                        setIcon(funcIcon);
-                        break;
-                    case AXIS:
-                        setIcon(axisIcon);
                         break;
                     case PRODUCT:
                         setIcon(productIcon);

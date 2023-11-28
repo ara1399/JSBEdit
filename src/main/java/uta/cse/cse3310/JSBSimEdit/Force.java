@@ -3,12 +3,19 @@ package uta.cse.cse3310.JSBSimEdit;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.TreePath;
 
+import generated.IndependentVar;
+import generated.Table;
+import jakarta.xml.bind.JAXBElement;
 import net.miginfocom.swing.*;
 /*
  * Created by JFormDesigner on Wed Nov 22 14:13:41 CST 2023
@@ -34,7 +41,7 @@ public class Force extends JDialog {
         setDetails(oldForce);
     }
 
-    public Force(Double locXFromXML, Double locYFromXML, Double locZFromXML,
+    public Force(String name,String frame, String locUnit, String dirUnit, Double locXFromXML, Double locYFromXML, Double locZFromXML,
                  Double dirXFromXML,Double dirYFromXML, Double dirZFromXML,generated.Function function){
 
         initComponents();
@@ -67,24 +74,131 @@ public class Force extends JDialog {
 
 
         CustomTreeNodeForce root = new CustomTreeNodeForce(function.getName() + "("+ function.getDescription() + ")",NodeTypeForce.FUNCTION);
-		
+		CustomTreeNodeForce productNode = new CustomTreeNodeForce("Product", NodeTypeForce.PRODUCT);
+
+		generated.Table table = function.getTable();
+		if(table != null){
+			List<generated.IndependentVar> independentVar = table.getIndependentVar();
+			StringBuilder tableNameBuilder = new StringBuilder("");
+
+			for(IndependentVar IV : independentVar){
+				String varName = IV.getContent();
+				varName = varName.substring(varName.lastIndexOf('/') +1);
+				tableNameBuilder.append(varName).append('.');
+			}
+			tableNameBuilder.deleteCharAt(tableNameBuilder.length() - 1);
+
+			String finalTableName = tableNameBuilder.toString();
+			if(table.getName() != null){
+				finalTableName = table.getName() + "(" + finalTableName + ")";
+			}
+			else{
+				finalTableName = "T(" +  finalTableName + ")";
+			}
+			CustomTreeNodeForce tableNode = new CustomTreeNodeForce(finalTableName, nodeTypeForce.TABLE);
+			productNode.add(tableNode);
+		}
+
+		root.add(productNode);
+
+		generated.Product product = function.getProduct();
+		if(product != null){
+			List<Object> productList = product.getTableOrProductOrDifference();
+			for(Object o : productList){
+				if(o instanceof Table){
+					Table productTable =  (Table)o;
+					if(productTable != null){
+						List<generated.IndependentVar> independentVar = productTable.getIndependentVar();
+						StringBuilder tableNameBuilder = new StringBuilder("");
+
+						for(IndependentVar IV : independentVar){
+							String varName = IV.getContent();
+							varName = varName.substring(varName.lastIndexOf('/') +1);
+							tableNameBuilder.append(varName).append('.');
+						}
+						tableNameBuilder.deleteCharAt(tableNameBuilder.length() - 1);
+
+						String finalTableName = tableNameBuilder.toString();
+						if(table.getName() != null){
+						finalTableName = table.getName() + "(" + finalTableName + ")";
+						}
+						else{
+							finalTableName = "T(" +  finalTableName + ")";
+						}
+						CustomTreeNodeForce tableNode = new CustomTreeNodeForce(finalTableName, nodeTypeForce.TABLE);
+						productNode.add(tableNode);
+					}
+				}
+				else if(o instanceof JAXBElement){
+					JAXBElement<?> element = (JAXBElement<?>) o;
+					Object value = element.getValue();
+					if(value instanceof String){
+						String propertyOrValue = (String) value;
+						if(element.getName().getLocalPart().equals("property")){
+							CustomTreeNodeForce propertyNode = new CustomTreeNodeForce(propertyOrValue, nodeTypeForce.PROPERTY);
+							productNode.add(propertyNode);
+						}
+					}
+					else{
+						CustomTreeNodeForce valueNode = new CustomTreeNodeForce(value, nodeTypeForce.VALUE);
+						productNode.add(valueNode);
+					}
+				}
+			}
+			root.add(productNode);
+		}  
+
+		forceTree = new JTree();
+		forceTree.setToggleClickCount(0);
+		forceTree.setCellRenderer(new CustomTreeCellRenderer());
+		forceTree.setShowsRootHandles(true);
+
+		forceTree.addTreeSelectionListener(new TreeSelectionListener() {
+			  @Override
+			  public void valueChanged(TreeSelectionEvent e){
+
+			  }
+		});
+		forceTree.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e){
+				if(SwingUtilities.isLeftMouseButton(e)&& e.getClickCount() == 2){
+					TreePath path = forceTree.getPathForLocation(e.getX(), e.getY());
+					if (path != null){
+						DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) path.getLastPathComponent();
+						if(selectedNode.toString().equals("Force")){
+							
+						}
+						else{
+							showPopup(selectedNode);
+						}
+					} 
+				}
+			}
+		});
     }
 
-		private class CustomTreeNodeForce extends DefaultMutableTreeNode {
-			private NodeTypeForce nodeTypeForce;
-			private String treeNodeName;
-			private CustomTreeNodeForce(Object userObject, NodeTypeForce nodeType) {
-				super(userObject);
-				this.nodeTypeForce = nodeType;
-			}
-			private CustomTreeNodeForce(String treeNodeName, NodeTypeForce nodeTypeForce) {
-				this.treeNodeName = treeNodeName;
-				this.nodeTypeForce = nodeTypeForce;
-			}
-			private NodeTypeForce getNodeType() {
-				return nodeTypeForce;
-			}
+	private void showPopup(DefaultMutableTreeNode node){
+		String nodeName = node.toString();
+		if(nodeName.equals("Force")){
+
 		}
+	}
+
+	private class CustomTreeNodeForce extends DefaultMutableTreeNode {
+		private NodeTypeForce nodeTypeForce;
+		private String treeNodeName;
+		private CustomTreeNodeForce(Object userObject, NodeTypeForce nodeType) {
+			super(userObject);
+			this.nodeTypeForce = nodeType;
+		}
+		private CustomTreeNodeForce(String treeNodeName, NodeTypeForce nodeTypeForce) {
+			this.treeNodeName = treeNodeName;
+			this.nodeTypeForce = nodeTypeForce;
+		}
+		private NodeTypeForce getNodeType() {
+			return nodeTypeForce;
+		}
+	}
          //set custom nodes to represent node type
 
     //class to give correct icons to each node
@@ -132,15 +246,32 @@ public class Force extends JDialog {
 	private void setDetails(Force oldForce){
 		nameF.setText(oldForce.getNameForce());
 		locXF.setText(oldForce.getLocationXForce());
-		frameF.setText(oldForce.getFrameForce());
+		frameBox.setSelectedItem(oldForce.getFrameForce());
+	}
+
+	private class ForcePropertiesPopup extends JDialog{
+		
 	}
 
 	private void okButton(ActionEvent e) {
-		// TODO add your code here
+		name = nameL.getText().trim();
+		frame = frameBox.getSelectedItem().toString();
+//            dirName = dirNameT.getText().trim();
+		
+		locUnit = locUnitBox.getSelectedItem().toString(); //location
+		locXFromXML = Double.parseDouble(locXF.getText().trim()); 
+		locYFromXML = Double.parseDouble(locYF.getText().trim());
+		locZFromXML = Double.parseDouble(locZF.getText().trim());
+		
+		dirXFromXML = Double.parseDouble(dirXF.getText().trim()); //direction
+		dirYFromXML = Double.parseDouble(dirYF.getText().trim());
+		dirZFromXML = Double.parseDouble(dirZF.getText().trim());
+		dirUnit = dirUntiBox.getSelectedItem().toString();
+		this.dispose();
 	}
 
 	private void cancelButton(ActionEvent e) {
-		// TODO add your code here
+		this.dispose();
 	}
 
 	private void initComponents() {
@@ -152,7 +283,7 @@ public class Force extends JDialog {
 		nameL = new JLabel();
 		nameF = new JTextField();
 		frameL = new JLabel();
-		frameF = new JTextField();
+		frameBox = new JComboBox();
 		funL = new JLabel();
 		funTree = new JTree();
 		locationPanel = new JPanel();
@@ -219,7 +350,7 @@ public class Force extends JDialog {
 					//---- frameL ----
 					frameL.setText("Frame");
 					nameFunPanel.add(frameL, "cell 1 1,alignx right,growx 0");
-					nameFunPanel.add(frameF, "cell 2 1");
+					nameFunPanel.add(frameBox, "cell 2 1");
 
 					//---- funL ----
 					funL.setText("Function");
@@ -339,7 +470,21 @@ public class Force extends JDialog {
         TABLE,
         VALUE
     }
+	public Double getXLoc(){return locXFromXML;}
+	public Double getYLoc() {return locYFromXML;}
+	public Double getZLoc(){return locZFromXML;}
+	public Double getXDir(){return dirXFromXML;}
+	public Double getYDir(){return dirYFromXML;}
+	public Double getZDir(){return dirZFromXML;}
+	
+	public String getName(){return name;}
+	public String getFrame(){return frame;}
+//        public String getDirName(){return dirName;}
+	public String getDirU(){return dirUnit;}
+	public String getLocU(){return locUnit;}
 
+	private ForcePropertiesPopup ForcePropertiesPopup;
+	private JTree forceTree;
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
 	// Generated using JFormDesigner Educational license - Sean McElroy (Patrick McElroy)
 	private JPanel dialogPane;
@@ -348,7 +493,7 @@ public class Force extends JDialog {
 	private JLabel nameL;
 	private JTextField nameF;
 	private JLabel frameL;
-	private JTextField frameF;
+	private JComboBox frameBox;
 	private JLabel funL;
 	private JTree funTree;
 	private JPanel locationPanel;
@@ -371,7 +516,7 @@ public class Force extends JDialog {
 	private JButton okButton;
 	private JButton cancelButton;
 	// JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
-	private String name, location, frame, treeNodeName;
+	private String name, location, frame, treeNodeName,dirUnit,locUnit;
     private Double locXFromXML,locYFromXML,locZFromXML,
                    dirXFromXML,dirYFromXML,dirZFromXML;
 	private NodeTypeForce nodeTypeForce;

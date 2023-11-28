@@ -21,23 +21,25 @@ public class ExternalReactions extends JPanel implements TabComponent {
     
     ExternalReactions() {
         initComponents();
-        arrayForce = new ArrayList<>();
+	arrayForce = new ArrayList<>();
     }
 
     @Override
     public void bindUIwithXML(FdmConfig cfg) {
 		//Force implmentation
-        modelForce.clear();
-        arrayForce.clear();
-        ArrayList<generated.Force> forces = new ArrayList<>();
-        if(cfg.getExternalReactions().getForce() != null){
-            forces.addAll(cfg.getExternalReactions().getForce());
+		modelForce.clear();
+		arrayForce.clear();
+		ArrayList<generated.Force> forces = new ArrayList<>();
+		if(cfg.getExternalReactions().getForce() != null){
+		forces.addAll(cfg.getExternalReactions().getForce());
             
             Double xL, yL, zL, xD, yD, zD;
             String name, frame, /*dirN,*/ locU, dirU;
-            
-            for(generated.Force f : forces){
-                //getFunction()
+			generated.Function function;
+
+			for(generated.Force f : forces){
+				if(f.getFunction() != null) function = f.getFunction();
+				else function = null;
                 
                 if(f.getName() != null) name = f.getName(); //name
                 else name = null;
@@ -45,40 +47,40 @@ public class ExternalReactions extends JPanel implements TabComponent {
                 if(f.getFrame() != null) frame = f.getFrame(); //frame
                 else frame = null;
                 
-                if(f.getLocation() != null){//location
-                    xL = f.getLocation().getX(); 
-                    yL = f.getLocation().getY();
+					if(f.getLocation() != null){//location
+                    xL = f.getLocation().getX();
+						yL = f.getLocation().getY();
                     zL = f.getLocation().getZ();
-                    locU = f.getLocation().getUnit().toString();
-                }
-                else{
-                    xL = null;
-                    yL = null;
+						locU = f.getLocation().getUnit().toString();
+					}
+					else{
+						xL = null;
+						yL = null;
                     zL = null;
-                    locU = null;
-                }
-                
-                if(f.getDirection() != null){//direction
-                    xD = f.getDirection().getX(); 
-                    yD = f.getDirection().getY();
-                    zD = f.getDirection().getZ();
-                    dirU = f.getDirection().getUnit().toString();
+						locU = null;
+					}
+
+					if(f.getDirection() != null){//direction
+                    xD = f.getDirection().getX();
+						yD = f.getDirection().getY();
+						zD = f.getDirection().getZ();
+					dirU = f.getDirection().getUnit().toString();
 //                    dirN = f.getDirection().getName();
-                }
-                else{
-                    xD = null;
+					}
+					else{
+						xD = null;
                     yD = null;
                     zD = null;
-                    dirU = null;
-//                    dirN = null;
-                }
-                
-                ExternalForce ef = new ExternalForce(name, frame, /*dirN,*/ locU, dirU, 
-                                                 xL, yL, zL, xD, yD, zD);
+						dirU = null;
+						//                    dirN = null;
+					}
+					
+                Force ef = new Force(name, frame, locU, dirU, 
+                                    xL, yL, zL, xD, yD, zD,function);
                 arrayForce.add(ef);
-            }
-            modelForce.addAll(arrayForce);
-        }
+			}
+			modelForce.addAll(arrayForce);
+		}
     }
 
     @Override
@@ -86,7 +88,7 @@ public class ExternalReactions extends JPanel implements TabComponent {
         
         cfg.getExternalReactions().getForce().clear();
         
-        for(ExternalForce ef : arrayForce){
+        for(Force ef : arrayForce){
             generated.Force f = new generated.Force();
             
             generated.Location l = new generated.Location(); //location
@@ -209,34 +211,7 @@ public class ExternalReactions extends JPanel implements TabComponent {
 		add(scrollForce, "cell 0 0 6 9,growy");
 
 		//======== scrollProp ========
-		{
-			scrollProp.setToolTipText("List of Properties");
-			scrollProp.setViewportBorder(new TitledBorder(null, "Properties", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
-			scrollProp.setViewportView(listProp);
-			buttonPanel.setLayout(new MigLayout(
-				"fill,hidemode 3",
-				// columns
-				"[fill]" +
-				"[fill]" +
-				"[fill]",
-				// rows
-				"[]"));
 
-			//---- addER ----
-			addER.setText("Add");
-                        addER.addActionListener(e -> addExternalReaction(e));
-			buttonPanel.add(addER, "cell 0 0");
-
-			//---- deleteER ----
-			deleteER.setText("Delete");
-                        deleteER.addActionListener(e -> deleteExternalReaction(e));
-			buttonPanel.add(deleteER, "cell 1 0");
-
-			//---- detailER ----
-			detailER.setText("Detail");
-                        detailER.addActionListener(e -> detailExternalReaction(e));
-			buttonPanel.add(detailER, "cell 2 0");
-		}
 		add(scrollProp, "cell 6 0 6 9,growy");
 
 		//---- addForce ----

@@ -74,12 +74,13 @@ public class ExternalForce extends JDialog {
 	}
         
         private void setDetails(ExternalForce other){
-            nameT.setText(other.getName());
+            nameT.setText(other.getName());}
 //            dirNameT.setText(other.getDirName());
             
-            /*if(other.getFrame() != null)*/ frameC.setSelectedItem(other.getFrame());
+            /*if(other.getFrame() != null)*/ 
+			/*frameC.setSelectedItem(other.getFrame());
 //            else frameC.setSelectedItem("BODY");
-            
+         
             locC.setSelectedItem(other.getLocU());
             xT.setText(Double.toString(other.getXLoc()));
             yT.setText(Double.toString(other.getYLoc()));
@@ -90,7 +91,7 @@ public class ExternalForce extends JDialog {
             dirZT.setText(Double.toString(other.getZLoc()));
             dirC.setSelectedItem(other.getDirU());
         }
-
+		*/
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
 		// Generated using JFormDesigner Evaluation license - Connor Baldwin
@@ -306,7 +307,7 @@ public class ExternalForce extends JDialog {
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
 	}
         
-        public Double getXLoc(){return xLoc;}
+        /*public Double getXLoc(){return xLoc;}
         public Double getYLoc() {return yLoc;}
         public Double getZLoc(){return zLoc;}
         public Double getXDir(){return xDir;}
@@ -326,7 +327,7 @@ public class ExternalForce extends JDialog {
                   + locUnit + " in direction [" + xDir + ", " + yDir + ", " + zDir + "] in " + dirUnit +
                     " with frame " + frame);
             return sb.toString();
-        }
+        }*/
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
 	// Generated using JFormDesigner Evaluation license - Connor Baldwin
