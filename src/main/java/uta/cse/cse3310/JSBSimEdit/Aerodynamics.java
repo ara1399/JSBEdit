@@ -8,7 +8,10 @@ import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 
+//import java.util.ArrayList;
+//import java.util.HashMap;
 import java.util.List;
+//import java.util.Map;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
@@ -20,7 +23,7 @@ import generated.IndependentVar;
 import generated.Axis;
 import generated.Product;
 import generated.Table;
-
+//import generated.TableData;
 import jakarta.xml.bind.JAXBElement;
 
 import uta.cse.cse3310.JSBSimEdit.interfaces.TabComponent;
@@ -31,12 +34,18 @@ public class Aerodynamics extends JPanel implements TabComponent {
     
     private AerodynamicsPropertiesPopup apropertiesPopup;
     private FunctionOrProductPopUp ForPPopUp;
+    private ValuePopUp valuepopup;
+    private AxisPopUp axispopup;
+    //private TablePopUp tablepopup;
 
 
     public Aerodynamics(){
         initComponents();
         apropertiesPopup = new AerodynamicsPropertiesPopup((Frame) SwingUtilities.getWindowAncestor(this));
         ForPPopUp = new FunctionOrProductPopUp((Frame) SwingUtilities.getWindowAncestor(this));
+        valuepopup = new ValuePopUp((Frame) SwingUtilities.getWindowAncestor(this));
+        axispopup = new AxisPopUp((Frame) SwingUtilities.getWindowAncestor(this));
+        //tablepopup = new TablePopUp((Frame) SwingUtilities.getWindowAncestor(this), tableName, tableData);
         SwingUtilities.invokeLater(()->{
             new CustomTreeCellRenderer().setVisible(true);
         });
@@ -141,6 +150,10 @@ public class Aerodynamics extends JPanel implements TabComponent {
                                 CustomTreeNode Tnode = new CustomTreeNode(Tname,NodeType.TABLE);
                                 Productnode.add(Tnode);
                                 //System.out.println("\t\t\t\t"+Tnode);
+
+                                //link table data using hashmap
+                                //List<TableData> tableData = T.getTableData();
+                                //tableDataMap.put(Tname,tableData);
                             }
                         }else if (o instanceof JAXBElement){
                             JAXBElement<?> element = (JAXBElement<?>) o;
@@ -240,7 +253,11 @@ public class Aerodynamics extends JPanel implements TabComponent {
                     case AERODYNAMICS:
                         setIcon(aeroIcon);
                         break;
+                    case AXIS:
+                        setIcon(axisIcon);
+                        break; 
                     case FUNCTION:
+                        setIcon(funcIcon);
                         break;
                     case PRODUCT:
                         setIcon(productIcon);
@@ -254,13 +271,11 @@ public class Aerodynamics extends JPanel implements TabComponent {
                     case VALUE:
                         setIcon(valueIcon);
                         break;
-                    // Add more cases as needed
                 }
             }
             return this;
         }
     }
-
 
     private void showAerodynamicsPropertiesPopup() {
         // Create and show the Aerodynamics Properties Popup
@@ -353,15 +368,18 @@ public class Aerodynamics extends JPanel implements TabComponent {
     private void showFunctionorProductPopUp(String nodeName) {
         if(!nodeName.equals("Product")){
             String[] parts = nodeName.split("\\(");
-            funtionText.setText(parts[0].trim());
-            System.out.println(parts[0]);
+            functionText.setText(parts[0].trim());
+            //System.out.println(parts[0]);
             functiondescText.setText(parts[1].replace("\\)", "").trim());
-            System.out.println(parts[1]);
+            //System.out.println(parts[1]);
             functionoroperatortype.setText("function");
+
         } else {
-            funtionText.setText("");
+            functionText.setText("");
             functiondescText.setText("");
-            functionoroperatortype.setText("Product");
+            functionoroperatortype.setText("product");
+            functionText.setEnabled(false);
+            functiondescText.setEnabled(false);
         }
         FunctionOrProductPopUp fPopup = new FunctionOrProductPopUp(null);
         fPopup.setVisible(true);
@@ -372,7 +390,6 @@ public class Aerodynamics extends JPanel implements TabComponent {
         private JButton cancelButton;
 
         public FunctionOrProductPopUp(Frame parent){
-            //super((Frame)SwingUtilities.getWindowAncestor(null),"Function or Operator", true);
             super(parent, "Fuction or Operator", true);
             initializeComponents();
         }
@@ -385,12 +402,26 @@ public class Aerodynamics extends JPanel implements TabComponent {
             cancelButton = new JButton("Cancel");
             // Add action listener to OK button
             
-            add(new JLabel("Type"));add(functionoroperatortype);
-            add(new JLabel("Name"));add(funtionText);
+            add(new JLabel("Type"));//add(functionoroperatortype);
+      
+			//---- releaseLevelCombo ----
+		    operatorBox = new JComboBox<>();
+            operatorBox.setMaximumRowCount(25);
+		    operatorBox.setModel(new DefaultComboBoxModel<>(new String[] {
+                "function","product","difference","sum","quotient","pow","abs",
+                "sin","cos","tan","asin","acos","atan","derivative","integral",
+                "it","le","ge","gt","eq","ne","and","or","not","ifthen"
+		    }));
+
+            operatorBox.setSelectedItem(functionoroperatortype.getText());
+            add(operatorBox);
+           
+            add(new JLabel("Name"));add(functionText);
             add(new JLabel("Description"));add(functiondescText);
 
             add(okButton);
             add(cancelButton);
+
 
             okButton.addActionListener(new ActionListener() {
                 @Override
@@ -412,6 +443,199 @@ public class Aerodynamics extends JPanel implements TabComponent {
         }
     }
 
+    private void showValuePopUp(String nodeName){
+        //System.out.println(nodeName);
+        //Get value from xml
+        ValueFloat.setText(nodeName);
+        
+        ValuePopUp popup = new ValuePopUp(null);
+        popup.setVisible(true);
+    }
+    
+    private class ValuePopUp extends JDialog {
+        private JButton okButton;
+        private JButton cancelButton;
+
+        public ValuePopUp(Frame parent) {
+            super(parent, "Input Value", true);
+            initializeComponents();
+        }
+
+        private void initializeComponents() {
+             // Set layout
+            setLayout(new GridBagLayout());
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(5, 5, 5, 5);
+
+            // Value label
+            gbc.gridx = 0;
+            gbc.gridy = 0;
+            add(new JLabel("Value:"), gbc);
+
+            // Value text field
+            gbc.gridx = 1;
+            gbc.gridy = 0;
+            add(ValueFloat, gbc);
+
+            // OK button
+            gbc.gridx = 0;
+            gbc.gridy = 1;
+            gbc.gridwidth = 2;
+            okButton = new JButton("OK");
+            add(okButton, gbc);
+
+            // Cancel button
+            gbc.gridy = 2;
+            cancelButton = new JButton("Cancel");
+            add(cancelButton, gbc);
+
+            okButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Handle OK button click (save values, close the window, etc.)
+                    dispose(); // Close the popup
+                }
+            });
+
+            // Add action listener to Cancel button
+            cancelButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Handle Cancel button click (close the window without saving)
+                    dispose(); // Close the popup
+                }
+            });
+
+            setSize(300,200);
+            setLocationRelativeTo(getParent());
+        }
+    }
+    
+/*     private void showTablePopUp(String nodeName){
+        List<TableData> tableData = tableDataMap.get(nodeName);
+        TablePopUp popup = new TablePopUp((Frame) SwingUtilities.getWindowAncestor(this), nodeName, tableData);
+        popup.setVisible(true);
+    }
+
+    private class TablePopUp extends JDialog{
+        private JTable table;
+        private JButton okButton;
+        private JButton cancelButton;
+
+        public TablePopUp(Frame parent, String tableName, List<TableData> tableData) {
+            super(parent, "Table Properties", true);
+            initializeComponents(tableData);
+        }
+
+        private void initializeComponents(List<TableData> tableData){
+            setLayout(new BorderLayout());
+            okButton = new JButton("Ok");
+            cancelButton = new JButton("Cancel");
+            // Create a JTable to display the table data
+            String[] columnNames = {"Column 1", "Column 2"}; // Change these names based on your data
+            Object[][] rowData = new Object[tableData.size()][columnNames.length];
+
+            for (int i = 0; i < tableData.size(); i++) {
+                String[] values = tableData.get(i).getValue().split("\\s+");
+                rowData[i] = values;
+            }
+
+            table = new JTable(rowData, columnNames);
+            JScrollPane scrollPane = new JScrollPane(table);
+            add(scrollPane, BorderLayout.CENTER);
+            
+            okButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Handle OK button click (save values, close the window, etc.)
+                    dispose(); // Close the popup
+                }
+            });
+
+            // Add action listener to Cancel button
+            cancelButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Handle Cancel button click (close the window without saving)
+                    dispose(); // Close the popup
+                }
+            });
+            
+            
+            JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+            buttonPanel.add(okButton);
+            buttonPanel.add(cancelButton);
+            add(buttonPanel, BorderLayout.SOUTH);
+
+            setSize(400,300);
+            setLocationRelativeTo(getParent());
+        }
+    }*/
+    
+    private void showAxisPopUp(String nodeName){
+        //System.out.println(nodeName);
+        AxisName.setText(nodeName);
+        AxisPopUp popup = new AxisPopUp(null);
+        popup.setVisible(true);
+    }
+    
+    private class AxisPopUp extends JDialog {
+        private JButton okButton;
+        private JButton cancelButton;
+
+        public AxisPopUp(Frame parent) {
+            super(parent, "Axis Properties", true);
+            initializeComponents();
+        }
+
+        private void initializeComponents() {
+             // Set layout
+            setLayout(new GridLayout(0,2,5,5));
+            operatorBox = new JComboBox<>();
+            operatorBox.setMaximumRowCount(10);
+		    operatorBox.setModel(new DefaultComboBoxModel<>(new String[] {
+                "Undef","DRAG","SIDE","LIFT","ROLL","PITCH","YAW","FORWARD","RIGHT","DOWN"
+		    }));
+            if(AxisName != null){
+                //System.out.println(AxisName);
+                operatorBox.setSelectedItem(AxisName.getText());
+            }else{
+                operatorBox.setSelectedItem("Undef");
+            }
+            // Value label
+            add(new JLabel("Name:"));
+            add(operatorBox);
+
+            // OK button
+            okButton = new JButton("OK");
+            add(okButton);
+
+            // Cancel button
+            cancelButton = new JButton("Cancel");
+            add(cancelButton);
+
+            okButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Handle OK button click (save values, close the window, etc.)
+                    dispose(); // Close the popup
+                }
+            });
+
+            // Add action listener to Cancel button
+            cancelButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Handle Cancel button click (close the window without saving)
+                    dispose(); // Close the popup
+                }
+            });
+
+            setSize(300,200);
+            setLocationRelativeTo(getParent());
+        }
+    }
+    
     private void showPopup(DefaultMutableTreeNode node){
         String nodeName = node.toString();
         if (nodeName.equals("Aerodynamics")) {
@@ -425,6 +649,15 @@ public class Aerodynamics extends JPanel implements TabComponent {
                 case FUNCTION:
                     showFunctionorProductPopUp(nodeName);
                     break;
+                case VALUE:
+                    showValuePopUp(nodeName);
+                    break;
+                case AXIS:
+                    showAxisPopUp(nodeName);
+                    break;
+                //case TABLE:
+                   // showTablePopUp(nodeName);
+                   // break;
             }
         }
     }
@@ -435,6 +668,14 @@ public class Aerodynamics extends JPanel implements TabComponent {
         return Optional.ofNullable(cfg);
     }
 
+ /*    public List<TableData> getTableData(String Tname){
+        List<TableData> tableDataList = new ArrayList<>();
+
+        
+
+        return tableDataList;
+    }*/
+
     private void initComponents(){
         alphalimitsMinText = new JTextField();
         alphalimitsMaxText = new JTextField();
@@ -444,9 +685,11 @@ public class Aerodynamics extends JPanel implements TabComponent {
         hysteresisLimitsMaxText = new JTextField();
         hysteresisLimitsUnitText = new JTextField();
 
-        funtionText = new JTextField();
+        functionText = new JTextField();
         functiondescText = new JTextField();
         functionoroperatortype = new JLabel();
+        ValueFloat = new JTextField();
+        AxisName = new JTextField();
     }
 
     public enum NodeType {
@@ -473,9 +716,12 @@ public class Aerodynamics extends JPanel implements TabComponent {
     private JTextField hysteresisLimitsMinText;
     private JTextField hysteresisLimitsMaxText;
     private JTextField hysteresisLimitsUnitText;
-    private JTextField funtionText;
+    private JTextField functionText;
     private JTextField functiondescText;
     private JLabel functionoroperatortype;
-    //private JFormattedTextField axisnameText;
+    private JTextField AxisName;
+    private JTextField ValueFloat;
+    private JComboBox<String> operatorBox;
+    //private Map<String,List<TableData>> tableDataMap = new HashMap<>();
 }
 
