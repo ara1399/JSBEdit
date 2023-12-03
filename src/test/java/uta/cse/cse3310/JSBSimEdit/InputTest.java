@@ -16,12 +16,7 @@ public class InputTest {
     private FdmConfig cfg = new FdmConfig();
     private generated.Input in;
     List<BigInteger> validBigIntegers = Arrays.asList(
-        BigInteger.ONE, BigInteger.valueOf(9999), new BigInteger("999999999")
-    );
-
-    List<BigInteger> invalidBigIntegers = Arrays.asList(
-        BigInteger.valueOf(-1), BigInteger.valueOf(0), new BigInteger("1000000000")
-    );
+        BigInteger.ONE, BigInteger.valueOf(999), BigInteger.valueOf(999999999));
 
     @Test
     public void validatePortText() {
@@ -35,15 +30,9 @@ public class InputTest {
             assertTrue(input.portText.getText().equals(value.toString()));
         }
 
-        /*for(BigInteger value : invalidBigIntegers) {
-            in.setPort(value);
-            input.bindUIwithXML(cfg);
-            assertTrue(input.portText.getText().equals(""));
-        }*/
-
         input.portText.setText("12345");
         input.saveXMLfromUI(cfg);
-        assertTrue(in.getPort().equals(new java.math.BigInteger("12345")));
+        assertTrue(in.getPort().equals(new BigInteger("12345")));
     }
     
 }
