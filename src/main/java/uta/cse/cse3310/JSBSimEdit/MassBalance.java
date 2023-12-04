@@ -256,6 +256,11 @@ public class MassBalance extends JPanel implements TabComponent {
             }          
         }
     }
+    public JTextField getEw(){return emptyWeightT;} //getters for testing
+    public JTextField getXLoc(){return xLocT;}
+    public JTextField getYLoc(){return yLocT;}
+    public JTextField getZLoc(){return zLocT;}
+    public ArrayList<PointMass> getPmList() {return pointMassList;}
 
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off

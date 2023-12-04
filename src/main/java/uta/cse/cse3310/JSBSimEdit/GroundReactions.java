@@ -44,7 +44,7 @@ public class GroundReactions extends JPanel implements TabComponent {
         
         
             for(generated.Contact c : contacts){ //conversion of generated.Contact to LandingGearSetup
-                if(c.getLocation() != null && c.getName() != null && c.getType() != null){
+                if(c.getLocation() != null && c.getName() != null || c.getLocation() != null && c.getType() != null){
                     
                     //check the getters that have getters inside them
                     //and put them into variables
@@ -156,24 +156,32 @@ public class GroundReactions extends JPanel implements TabComponent {
                     
                     listLGS.add(lgs);
                 }
+                else System.out.println("ERROR while loading list in GroundReactions");
             }
             model.addAll(listLGS);
         }
+        else System.out.println("ERROR: cfg.getGroundReactions().getContent() is null");
             
     }
 
     @Override
     public Optional<FdmConfig> saveXMLfromUI(FdmConfig cfg) {
+        
+        generated.GroundReactions gr = cfg.getGroundReactions();
         //clear old list and readd everything so it will include deletions and additions
         
         // clear old list
         
-        cfg.getGroundReactions().getContent().clear();
+        gr.getContent().clear();
         
         //update old list with the edited list
         
         for(LandingGearSetup lgs : listLGS){ //must convert all lgs to generated.Contact and add them to cfg.getGroundReactions().getContent()
             generated.Contact c = new generated.Contact();
+            
+            c.setName(lgs.getName());//name
+            
+            c.setType(lgs.getTypeLGS());//type
             
             generated.Location l = new generated.Location(); //location
             l.setX(lgs.getXLoc());
@@ -234,7 +242,7 @@ public class GroundReactions extends JPanel implements TabComponent {
             c.setWheelSlipFilter(lgs.getWheel().floatValue());//wheel slip filter
             
             //add new Contact into the list
-            cfg.getGroundReactions().getContent().add(c);
+            gr.getContent().add(c);
         }                                      
            
         return Optional.ofNullable(cfg);
@@ -275,6 +283,8 @@ public class GroundReactions extends JPanel implements TabComponent {
             
         }
     }
+    
+    public ArrayList<LandingGearSetup> getListLGS() {return listLGS;}
 
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off

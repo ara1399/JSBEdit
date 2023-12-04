@@ -23,7 +23,8 @@ public class PointMass extends JDialog {
     
     PointMass(String name, Double weight, String weightUnit, Double x, Double y, Double z, String locUnit){ //adding a completed point mass
         this.name = name;
-        this.weight = weight;
+        if(weight != null) this.weight = weight;
+        else this.weight = 0.0;
         this.weightUnit = weightUnit;
         this.x = x;
         this.y = y;
@@ -59,7 +60,10 @@ public class PointMass extends JDialog {
     }
     
     public String getName() {return this.name;}
-    public Double getWeight() {return this.weight;}
+    public Double getWeight() {
+        if(this.weight !=  null) return this.weight;
+        else return 0.0;
+    }
     public Double getXLoc() {return this.x;}
     public Double getYLoc() {return this.y;}
     public Double getZLoc() {return this.z;}
