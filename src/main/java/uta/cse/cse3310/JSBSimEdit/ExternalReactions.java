@@ -141,6 +141,8 @@ public class ExternalReactions extends JPanel implements TabComponent {
         }
     }
 
+	public ArrayList<ExternalForce> getArrayForce() {return arrayForce;}
+
     private void initComponents() {
 	// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
 	// Generated using JFormDesigner Educational license - Sean McElroy (Patrick McElroy)
