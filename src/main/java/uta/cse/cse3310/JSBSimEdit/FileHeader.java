@@ -77,6 +77,8 @@ public class FileHeader extends JPanel implements TabComponent {
         }
 
         List<Object> nlr = fh.getNoteOrLimitationOrReference();
+		DefaultTableModel model = (DefaultTableModel) referencesTable.getModel();
+		model.setRowCount(0);
         for (var element : nlr) {
             if (element instanceof JAXBElement<?>) {
                 JAXBElement<String> el = (JAXBElement<String>) element;
@@ -92,8 +94,6 @@ public class FileHeader extends JPanel implements TabComponent {
             }
             else if (element instanceof Reference) {
                 Reference ref = (Reference) element;
-				DefaultTableModel model = (DefaultTableModel) referencesTable.getModel();
-				model.setRowCount(0);
 				model.addRow(new Object[]{
 					ref.getRefID(), ref.getTitle(), ref.getAuthor(), ref.getDate(), ref.getURL()
 				});

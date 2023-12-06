@@ -29,27 +29,23 @@
    warranties, including, but not limitted to the implied warranties of
    merchantability and fitness for a particular purpose are disclaimed.
   </note>
-    <reference refID="ISBN 0-7232-3458-2" author="William Green"
-      title="General Dynamics F-16 Dash-1" date="1987" />
+    <reference refID="ISBN 0-7232-3458-2" author="William Green" title="General Dynamics F-16 Dash-1" date="1987" />
     <reference refID="NASA TP-1538" author="" title="wind tunnel data" date="12/1979" />
-    <reference refID="None" author="Richard Murray"
-      URL="http://www.cds.caltech.edu/~murray/projects/afosr95-vehicles/models/f16/" date="n/a" />
-    <reference refID="H-1999" author="NASA"
-      title="Dynamic ground effects flight test of an F-15 aircraft" date="n/a" />
-    <reference refID="H-2177" author="NASA"
-      title="Dynamic ground effect for a Cranked Arrow Wing Airplane" date="n/a" />
-    <reference refID="None" author="n/a"
-      URL="http://www.codeonemagazine.com/archives/1991/articles/jul_91/july2a_91.html" date="n/a" />
+    <reference refID="None" author="Richard Murray" title="test" URL="http://www.cds.caltech.edu/~murray/projects/afosr95-vehicles/models/f16/" date="n/a" />
+    <reference refID="H-1999" author="NASA" title="Dynamic ground effects flight test of an F-15 aircraft" date="n/a" />
+    <reference refID="H-2177" author="NASA" title="Dynamic ground effect for a Cranked Arrow Wing Airplane" date="n/a" />
+    <reference refID="None" author="n/a" title="test" URL="http://www.codeonemagazine.com/archives/1991/articles/jul_91/july2a_91.html" date="n/a" />
   </fileheader>
 
   <metrics>
     <wingarea unit="FT2"> 300 </wingarea>
     <wingspan unit="FT"> 30 </wingspan>
+    <wing_incidence unit="DEG">10.0</wing_incidence>
     <chord unit="FT"> 11.32 </chord>
     <htailarea unit="FT2"> 63.7 </htailarea>
     <htailarm unit="FT"> 16.46 </htailarm>
     <vtailarea unit="FT2"> 54.75 </vtailarea>
-    <vtailarm unit="FT"> 0 </vtailarm>
+    <vtailarm unit="FT">77.0</vtailarm>
     <location name="AERORP" unit="IN">
       <x> -189.5 </x>
       <y> 0 </y>
@@ -57,7 +53,7 @@
     </location>
     <location name="EYEPOINT" unit="IN">
       <x> -336.2 </x>
-      <y> 0 </y>
+      <y>90.0</y>
       <z> 29.5 </z>
     </location>
     <location name="VRP" unit="IN">
